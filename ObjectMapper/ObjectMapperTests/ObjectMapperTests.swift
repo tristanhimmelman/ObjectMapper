@@ -35,57 +35,41 @@ class ObjectMapperTests: XCTestCase {
     }
     
     func testBasicParsing() {
-        let testUsername = "John Doe"
-        let testIdentifier = "user8723"
-        let testPhoto = 13
-        let testAge = 1227
-        let testWeight = 123.23
-        let testDrinker = true
-        let testSmoker = false
-        let testArray = [ "bla", true, 42 ]
-        let testDirectory = [
+        let username = "John Doe"
+        let identifier = "user8723"
+        let photoCount = 13
+        let age = 1227
+        let weight = 123.23
+        let float: Float = 123.231
+        let drinker = true
+        let smoker = false
+        let arr = [ "bla", true, 42 ]
+        let birthday = NSDate(timeIntervalSince1970: 1398956159)
+        let directory = [
             "key1" : "value1",
             "key2" : false,
             "key3" : 142
         ]
         
-        var subUserJSONString = "{\"username\":\"\(testUsername)\",\"identifier\":\"\(testIdentifier)\",\"photoCount\":\(testPhoto),\"age\":\(testAge),\"drinker\":\(testDrinker),\"smoker\":\(testSmoker), \"arr\":[ \"bla\", true, 42 ]}"
-        
-        var friendsString = ",\"friend\" : \(subUserJSONString), \"friends\" : [\(subUserJSONString)]"
-        
-        let userJSONString = "{\"username\":\"\(testUsername)\",\"identifier\":\"\(testIdentifier)\",\"photoCount\":\(testPhoto),\"age\":\(testAge),\"drinker\":\(testDrinker),\"smoker\":\(testSmoker), \"arr\":[ \"bla\", true, 42 ], \"dict\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"arrOpt\":[ \"bla\", true, 42 ], \"dictOpt\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"birthday\": 1398956159, \"birthdayOpt\": 1398956160, \"weight\": \(testWeight)}"
+        let userJSONString = "{\"username\":\"\(username)\",\"identifier\":\"\(identifier)\",\"photoCount\":\(photoCount),\"age\":\(age),\"drinker\":\(drinker),\"smoker\":\(smoker), \"arr\":[ \"bla\", true, 42 ], \"dict\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"arrOpt\":[ \"bla\", true, 42 ], \"dictOpt\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"birthday\": 1398956159, \"birthdayOpt\": 1398956159, \"weight\": \(weight), \"float\": \(float)}"
         
         let mapper = Mapper()
-        let parsedUser = mapper.map(userJSONString, to: User.self)
+        let user = mapper.map(userJSONString, to: User.self)
         
-        println(parsedUser.description)
+//        println(user.description)
         
+        XCTAssertEqual(username, user.username, "Username should be the same")
+        XCTAssertEqual(identifier, user.identifier!, "Identifier should be the same")
+        XCTAssertEqual(photoCount, user.photoCount, "PhotoCount should be the same")
+        XCTAssertEqual(age, user.age!, "Age should be the same")
+        XCTAssertEqual(weight, user.weight!, "Weight should be the same")
+        XCTAssertEqual(float, user.float!, "float should be the same")
+        XCTAssertEqual(drinker, user.drinker, "Drinker should be the same")
+        XCTAssertEqual(smoker, user.smoker!, "Smoker should be the same")
+//        XCTAssertEqual(birthday.timeIntervalSinceNow, user.birthday.timeIntervalSinceNow, "Birthday should be the same")
+//        XCTAssertEqual(birthday.timeIntervalSinceNow, user.birthdayOpt.timeIntervalSinceNow, "Birthday should be the same")
         
-        let dict = mapper.toJSON(parsedUser)
-        var err: NSError?
-        if NSJSONSerialization.isValidJSONObject(dict) {
-            var jsonData: NSData? = NSJSONSerialization.dataWithJSONObject(dict, options: NSJSONWritingOptions.PrettyPrinted, error: &err)
-            if let error = err {
-                println(error)
-            }
-            if let json = jsonData {
-                var string = NSString(data: json, encoding: NSUTF8StringEncoding)
-                println(string)
-            }
-        }
-        
-        //        println("\n\nJSON Dict:\n\(dict)")
-        XCTAssert(testUsername == parsedUser.username, "Username should be the same")
-        //        XCTAssertEqualObjects(testUsername, parsedUser.username, "Username should be the same")
-        //        XCTAssertEqualObjects(testIdentifier, parsedUser.identifier, "Identifier should be the same")
-        //        XCTAssertEqualObjects(testPhoto, parsedUser.photoCount, "photo count should be the same")
-        //        XCTAssertEqualObjects(testAge, parsedUser.age, "Age should be the same")
-        //        XCTAssertEqualObjects(testDrinker, parsedUser.drinker, "Should be drinking")
-        //        XCTAssertEqualObjects(testSmoker, parsedUser.smoker, "Should be smoking")
-        //        XCTAssertEqualObjects(testArray, parsedUser.arr, "Array should be the same")
-        //        XCTAssertEqualObjects(testDirectory, parsedUser.dict, "Dictionary should be the same")
-        //        XCTAssertEqualObjects(testArray, parsedUser.arrOptional, "Array should be the same")
-        //        XCTAssertEqualObjects(testDirectory, parsedUser.dictOptional, "Dictionary should be the same")
+        let dict = mapper.toJSONString(user)
     }
 }
 
@@ -102,6 +86,7 @@ class User: MapperProtocol {
     var photoCount: Int = 0
     var age: Int?
     var weight: Double?
+    var float: Float?
     var drinker: Bool = false
     var smoker: Bool?
     var arr: [AnyObject] = []
@@ -111,7 +96,6 @@ class User: MapperProtocol {
     var friend: User?
     var friends: [User]? = []
     var gender: Gender?
-    var birthdayInt: Int?
     var birthday: NSDate = NSDate()
     var birthdayOpt: NSDate = NSDate()
     
@@ -126,6 +110,7 @@ class User: MapperProtocol {
         object.photoCount   <= mapper["photoCount"]
         object.age          <= mapper["age"]
         object.weight       <= mapper["weight"]
+        object.float        <= mapper["float"]
         object.drinker      <= mapper["drinker"]
         object.smoker       <= mapper["smoker"]
         object.arr          <= mapper["arr"]

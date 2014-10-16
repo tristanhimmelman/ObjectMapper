@@ -45,18 +45,27 @@ public class Mapper {
     }
     
     // map a JSON string to an object that conforms to MapperProtocol
-    public func map<N: MapperProtocol>(JSON: String, to type: N.Type) -> N {
-        return map(Parser.stringToDictionary(JSON), to: type)
+    public func map<N: MapperProtocol>(JSON: String, to type: N.Type) -> N! {
+        
+        var data = JSON.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
+        if let data = data {
+            var error: NSError?
+            var dict: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &error)
+            if let d: AnyObject = dict {
+                var json = d as [String : AnyObject]
+                return map(json, to: type)
+            }
+        }
+        return nil
     }
     
     // maps a JSON dictionary to an object that conforms to MapperProtocol
-    public func map<N: MapperProtocol>(JSON: [String : AnyObject], to type: N.Type) -> N {
+    public func map<N: MapperProtocol>(JSON: [String : AnyObject], to type: N.Type) -> N! {
         mappingType = .fromJSON
 
         self.JSON = JSON
         
         var object = N()
-
         N.map(self, object: object)
         
         return object
@@ -67,7 +76,6 @@ public class Mapper {
         mappingType = .fromJSON
 
         self.JSON = Parser.stringToDictionary(JSON)
-        
         N.map(self, object: object)
         
         return object

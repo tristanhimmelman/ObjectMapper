@@ -13,16 +13,16 @@ class FromJSON<CollectionType> {
     func baseType<FieldType>(inout field: FieldType, object: AnyObject?) {
         if let value: AnyObject = object {
             switch FieldType.self {
-            case is Bool.Type:
-                field = value as FieldType
-            case is Int.Type:
-                field = value as FieldType
             case is String.Type:
-                field = value as FieldType
+                field = (value as String) as FieldType
+            case is Bool.Type:
+                field = (value as Bool) as FieldType
+            case is Int.Type:
+                field = (value as Int) as FieldType
             case is Double.Type:
-                field = value as FieldType
+                field = (value as Double) as FieldType
             case is Float.Type:
-                field = value as FieldType
+                field = (value as Float) as FieldType
             case is Array<CollectionType>.Type:
                 field = value as FieldType
             case is Dictionary<String, CollectionType>.Type:
