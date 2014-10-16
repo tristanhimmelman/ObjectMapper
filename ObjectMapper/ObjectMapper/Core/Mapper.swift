@@ -82,4 +82,21 @@ public class Mapper {
         
         return self.JSON
     }
+    
+    public func toJSONString<N: MapperProtocol>(object: N) -> String? {
+        let JSONDict = toJSON(object)
+        
+        var err: NSError?
+        if NSJSONSerialization.isValidJSONObject(JSONDict) {
+            var jsonData: NSData? = NSJSONSerialization.dataWithJSONObject(JSONDict, options: NSJSONWritingOptions.PrettyPrinted, error: &err)
+            if let error = err {
+                println(error)
+            }
+            
+            if let json = jsonData {
+                return NSString(data: json, encoding: NSUTF8StringEncoding)
+            }
+        }
+        return nil
+    }
 }
