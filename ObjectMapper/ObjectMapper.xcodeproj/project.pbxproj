@@ -19,6 +19,16 @@
 		6AAC8FD419F048FE00E7A677 /* MapperTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FCC19F048FE00E7A677 /* MapperTransform.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		6AAC8FD519F04A5600E7A677 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6AAC8F6D19F03C2900E7A677 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6AAC8F7519F03C2900E7A677;
+			remoteInfo = ObjectMapper;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		6AAC8F7619F03C2900E7A677 /* ObjectMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ObjectMapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AAC8F7A19F03C2900E7A677 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -181,6 +191,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				6AAC8FD619F04A5600E7A677 /* PBXTargetDependency */,
 			);
 			name = ObjectMapperTests;
 			productName = ObjectMapperTests;
@@ -264,6 +275,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6AAC8FD619F04A5600E7A677 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6AAC8F7519F03C2900E7A677 /* ObjectMapper */;
+			targetProxy = 6AAC8FD519F04A5600E7A677 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		6AAC8F8719F03C2900E7A677 /* Debug */ = {

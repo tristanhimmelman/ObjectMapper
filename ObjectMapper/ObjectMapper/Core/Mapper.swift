@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol MapperProtocol {
+public protocol MapperProtocol {
     class func map(mapper: Mapper, object: Self)
     init()
 }
@@ -18,19 +18,18 @@ enum MappingType {
     case toJSON
 }
 
-class Mapper {
-    
+public class Mapper {
     var JSON: [String : AnyObject] = [:]
     var currentValue: AnyObject?
     var currentKey: String?
     var mappingType: MappingType = .fromJSON
     
-    init(){
+    public init(){
         
     }
     
     // Sets the current mapper value and key 
-    subscript(key: String) -> Mapper {
+    public subscript(key: String) -> Mapper {
         get {
             currentKey = key
             currentValue = valueFor(key)
@@ -46,12 +45,12 @@ class Mapper {
     }
     
     // map a JSON string to an object that conforms to MapperProtocol
-    func map<N: MapperProtocol>(JSON: String, to type: N.Type) -> N {
+    public func map<N: MapperProtocol>(JSON: String, to type: N.Type) -> N {
         return map(Parser.stringToDictionary(JSON), to: type)
     }
     
     // maps a JSON dictionary to an object that conforms to MapperProtocol
-    func map<N: MapperProtocol>(JSON: [String : AnyObject], to type: N.Type) -> N {
+    public func map<N: MapperProtocol>(JSON: [String : AnyObject], to type: N.Type) -> N {
         mappingType = .fromJSON
 
         self.JSON = JSON
@@ -64,7 +63,7 @@ class Mapper {
     }
     
     // maps a JSON dictonary to a passed object that conforms to MapperProtocol
-    func map<N: MapperProtocol>(JSON: String, to object: N) -> N {
+    public func map<N: MapperProtocol>(JSON: String, to object: N) -> N {
         mappingType = .fromJSON
 
         self.JSON = Parser.stringToDictionary(JSON)
@@ -75,7 +74,7 @@ class Mapper {
     }
     
     // maps an Object to a JSON dictionary <String : AnyObject>
-    func toJSON<N: MapperProtocol>(object: N) -> [String : AnyObject] {
+    public func toJSON<N: MapperProtocol>(object: N) -> [String : AnyObject] {
         mappingType = .toJSON
         
         self.JSON = [String : AnyObject]()

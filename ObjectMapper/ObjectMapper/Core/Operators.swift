@@ -8,10 +8,10 @@
 
 import Foundation
 
-infix operator <= {}
+//infix operator <= {}
 
 //MARK: basic type
-func <=<T>(inout left: T, right: Mapper) {
+public func <=<T>(inout left: T, right: Mapper) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<T>().baseType(&left, object: right.currentValue)
     } else {
@@ -20,7 +20,7 @@ func <=<T>(inout left: T, right: Mapper) {
 }
 
 // Optional basic type
-func <=<T>(inout left: T?, right: Mapper) {
+public func <=<T>(inout left: T?, right: Mapper) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<T>().optionalBaseType(&left, object: right.currentValue)
     } else {
@@ -29,7 +29,7 @@ func <=<T>(inout left: T?, right: Mapper) {
 }
 
 // Basic type with Transform
-func <=<T, N>(inout left: T, right: (Mapper, MapperTransform<T, N>)) {
+public func <=<T, N>(inout left: T, right: (Mapper, MapperTransform<T, N>)) {
     if right.0.mappingType == MappingType.fromJSON {
         var value: T? = right.1.transformFromJSON(right.0.currentValue)
         //println("FromJSON \(value)");
@@ -42,7 +42,7 @@ func <=<T, N>(inout left: T, right: (Mapper, MapperTransform<T, N>)) {
 }
 
 // Optional basic type with Transform
-func <=<T, N>(inout left: T?, right: (Mapper, MapperTransform<T, N>)) {
+public func <=<T, N>(inout left: T?, right: (Mapper, MapperTransform<T, N>)) {
     if right.0.mappingType == MappingType.fromJSON {
         var value: T? = right.1.transformFromJSON(right.0.currentValue)
         //println("FromJSON \(value)");
@@ -55,7 +55,7 @@ func <=<T, N>(inout left: T?, right: (Mapper, MapperTransform<T, N>)) {
 }
 
 //MARK:- T: MapperProtocol
-func <=<T: MapperProtocol>(inout left: T, right: Mapper) {
+public func <=<T: MapperProtocol>(inout left: T, right: Mapper) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<T>().object(&left, object: right.currentValue)
     } else {
@@ -64,7 +64,7 @@ func <=<T: MapperProtocol>(inout left: T, right: Mapper) {
 }
 
 // Optional object conforming to MapperProtocol
-func <=<T: MapperProtocol>(inout left: T?, right: Mapper) {
+public func <=<T: MapperProtocol>(inout left: T?, right: Mapper) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<T>().object(&left, object: right.currentValue)
     } else {
@@ -73,7 +73,7 @@ func <=<T: MapperProtocol>(inout left: T?, right: Mapper) {
 }
 
 //MARK:- Dictionary <String, T: MapperProtocol>
-func <=<T: MapperProtocol>(inout left: Dictionary<String, T>, right: Mapper) {
+public func <=<T: MapperProtocol>(inout left: Dictionary<String, T>, right: Mapper) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<T>().baseType(&left, object: right.currentValue)
     } else {
@@ -82,7 +82,7 @@ func <=<T: MapperProtocol>(inout left: Dictionary<String, T>, right: Mapper) {
 }
 
 // Optional Dictionary <String, T: MapperProtocol>
-func <=<T: MapperProtocol>(inout left: Dictionary<String, T>?, right: Mapper) {
+public func <=<T: MapperProtocol>(inout left: Dictionary<String, T>?, right: Mapper) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<T>().optionalBaseType(&left, object: right.currentValue)
     } else {
@@ -91,7 +91,7 @@ func <=<T: MapperProtocol>(inout left: Dictionary<String, T>?, right: Mapper) {
 }
 
 //MARK: Dictionary <String, AnyObject>
-func <=(inout left: Dictionary<String, AnyObject>, right: Mapper) {
+public func <=(inout left: Dictionary<String, AnyObject>, right: Mapper) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<AnyObject>().baseType(&left, object: right.currentValue)
     } else {
@@ -100,7 +100,7 @@ func <=(inout left: Dictionary<String, AnyObject>, right: Mapper) {
 }
 
 // Optional dictionary <String, AnyObject>
-func <=(inout left: Dictionary<String, AnyObject>?, right: Mapper) {
+public func <=(inout left: Dictionary<String, AnyObject>?, right: Mapper) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<AnyObject>().optionalBaseType(&left, object: right.currentValue)
     } else {
@@ -109,7 +109,7 @@ func <=(inout left: Dictionary<String, AnyObject>?, right: Mapper) {
 }
 
 //MARK:- Array<T: MapperProtocol>
-func <=<T: MapperProtocol>(inout left: Array<T>, right: Mapper) {
+public func <=<T: MapperProtocol>(inout left: Array<T>, right: Mapper) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<T>().objectArray(&left, object: right.currentValue)
     } else {
@@ -117,7 +117,7 @@ func <=<T: MapperProtocol>(inout left: Array<T>, right: Mapper) {
     }
 }
 // Optional array of objects conforming to MapperProtocol
-func <=<T: MapperProtocol>(inout left: Array<T>?, right: Mapper) {
+public func <=<T: MapperProtocol>(inout left: Array<T>?, right: Mapper) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<T>().optionalObjectArray(&left, object: right.currentValue)
     } else {
@@ -126,7 +126,7 @@ func <=<T: MapperProtocol>(inout left: Array<T>?, right: Mapper) {
 }
 
 //MARK: Array<AnyObject>
-func <=(inout left: Array<AnyObject>, right: Mapper) {
+public func <=(inout left: Array<AnyObject>, right: Mapper) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<AnyObject>().baseType(&left, object: right.currentValue)
     } else {
@@ -134,7 +134,7 @@ func <=(inout left: Array<AnyObject>, right: Mapper) {
     }
 }
 // Optional array of String type
-func <=(inout left: Array<AnyObject>?, right: Mapper) {
+public func <=(inout left: Array<AnyObject>?, right: Mapper) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<AnyObject>().optionalBaseType(&left, object: right.currentValue)
     } else {

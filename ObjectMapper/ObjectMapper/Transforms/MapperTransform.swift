@@ -8,7 +8,11 @@
 
 import Foundation
 
-class MapperTransform<ObjectType, JSONType> {
+public class MapperTransform<ObjectType, JSONType> {
+    
+    init(){
+    
+    }
     
     func transformFromJSON(value: AnyObject?) -> ObjectType? {
         return nil

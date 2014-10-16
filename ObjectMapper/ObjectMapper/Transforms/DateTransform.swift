@@ -8,7 +8,11 @@
 
 import UIKit
 
-class DateTransform<ObjectType, JSONType>: MapperTransform<ObjectType, JSONType> {
+public class DateTransform<ObjectType, JSONType>: MapperTransform<ObjectType, JSONType> {
+    
+    public override init(){
+        
+    }
     
     override func transformFromJSON(value: AnyObject?) -> ObjectType? {
         if let timeInt = value as? Int {
