@@ -46,7 +46,6 @@ public class Mapper {
     
     // map a JSON string to an object that conforms to MapperProtocol
     public func map<N: MapperProtocol>(JSON: String, to type: N.Type) -> N! {
-        
         var data = JSON.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
         if let data = data {
             var error: NSError?
@@ -71,16 +70,6 @@ public class Mapper {
         return object
     }
     
-    // maps a JSON dictonary to a passed object that conforms to MapperProtocol
-    public func map<N: MapperProtocol>(JSON: String, to object: N) -> N {
-        mappingType = .fromJSON
-
-        self.JSON = Parser.stringToDictionary(JSON)
-        N.map(self, object: object)
-        
-        return object
-    }
-    
     // maps an Object to a JSON dictionary <String : AnyObject>
     public func toJSON<N: MapperProtocol>(object: N) -> [String : AnyObject] {
         mappingType = .toJSON
@@ -91,7 +80,7 @@ public class Mapper {
         return self.JSON
     }
     
-    public func toJSONString<N: MapperProtocol>(object: N) -> String? {
+    public func toJSONString<N: MapperProtocol>(object: N) -> String! {
         let JSONDict = toJSON(object)
         
         var err: NSError?

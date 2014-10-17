@@ -22,17 +22,17 @@ class ObjectMapperTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock() {
-            // Put the code you want to measure the time of here.
-        }
-    }
+//    func testExample() {
+//        // This is an example of a functional test case.
+//        XCTAssert(true, "Pass")
+//    }
+//    
+//    func testPerformanceExample() {
+//        // This is an example of a performance test case.
+//        self.measureBlock() {
+//            // Put the code you want to measure the time of here.
+//        }
+//    }
     
     func testBasicParsing() {
         let username = "John Doe"
@@ -56,8 +56,6 @@ class ObjectMapperTests: XCTestCase {
         let mapper = Mapper()
         let user = mapper.map(userJSONString, to: User.self)
         
-//        println(user.description)
-        
         XCTAssertEqual(username, user.username, "Username should be the same")
         XCTAssertEqual(identifier, user.identifier!, "Identifier should be the same")
         XCTAssertEqual(photoCount, user.photoCount, "PhotoCount should be the same")
@@ -66,8 +64,8 @@ class ObjectMapperTests: XCTestCase {
         XCTAssertEqual(float, user.float!, "float should be the same")
         XCTAssertEqual(drinker, user.drinker, "Drinker should be the same")
         XCTAssertEqual(smoker, user.smoker!, "Smoker should be the same")
-//        XCTAssertEqual(birthday.timeIntervalSinceNow, user.birthday.timeIntervalSinceNow, "Birthday should be the same")
-//        XCTAssertEqual(birthday.timeIntervalSinceNow, user.birthdayOpt.timeIntervalSinceNow, "Birthday should be the same")
+        XCTAssertEqual(birthday, user.birthday, "Birthday should be the same")
+        XCTAssertEqual(birthday, user.birthdayOpt!, "Birthday should be the same")
         
         let dict = mapper.toJSONString(user)
     }
@@ -97,7 +95,7 @@ class User: MapperProtocol {
     var friends: [User]? = []
     var gender: Gender?
     var birthday: NSDate = NSDate()
-    var birthdayOpt: NSDate = NSDate()
+    var birthdayOpt: NSDate?
     
     required init() {
         gender = .Male

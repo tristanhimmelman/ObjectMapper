@@ -13,7 +13,6 @@
 		6AAC8FCE19F048FE00E7A677 /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC419F048FE00E7A677 /* Mapper.swift */; };
 		6AAC8FCF19F048FE00E7A677 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC519F048FE00E7A677 /* Operators.swift */; };
 		6AAC8FD119F048FE00E7A677 /* ToJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC719F048FE00E7A677 /* ToJSON.swift */; };
-		6AAC8FD219F048FE00E7A677 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC919F048FE00E7A677 /* User.swift */; };
 		6AAC8FD319F048FE00E7A677 /* DateTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FCB19F048FE00E7A677 /* DateTransform.swift */; };
 		6AAC8FD419F048FE00E7A677 /* MapperTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FCC19F048FE00E7A677 /* MapperTransform.swift */; };
 /* End PBXBuildFile section */
@@ -39,7 +38,6 @@
 		6AAC8FC419F048FE00E7A677 /* Mapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
 		6AAC8FC519F048FE00E7A677 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		6AAC8FC719F048FE00E7A677 /* ToJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToJSON.swift; sourceTree = "<group>"; };
-		6AAC8FC919F048FE00E7A677 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		6AAC8FCB19F048FE00E7A677 /* DateTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTransform.swift; sourceTree = "<group>"; };
 		6AAC8FCC19F048FE00E7A677 /* MapperTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapperTransform.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -85,7 +83,6 @@
 			children = (
 				6AAC8F7B19F03C2900E7A677 /* ObjectMapper.h */,
 				6AAC8FC219F048FE00E7A677 /* Core */,
-				6AAC8FC819F048FE00E7A677 /* Test */,
 				6AAC8FCA19F048FE00E7A677 /* Transforms */,
 				6AAC8F7919F03C2900E7A677 /* Supporting Files */,
 			);
@@ -126,14 +123,6 @@
 				6AAC8FC719F048FE00E7A677 /* ToJSON.swift */,
 			);
 			path = Core;
-			sourceTree = "<group>";
-		};
-		6AAC8FC819F048FE00E7A677 /* Test */ = {
-			isa = PBXGroup;
-			children = (
-				6AAC8FC919F048FE00E7A677 /* User.swift */,
-			);
-			path = Test;
 			sourceTree = "<group>";
 		};
 		6AAC8FCA19F048FE00E7A677 /* Transforms */ = {
@@ -255,7 +244,6 @@
 				6AAC8FD319F048FE00E7A677 /* DateTransform.swift in Sources */,
 				6AAC8FD419F048FE00E7A677 /* MapperTransform.swift in Sources */,
 				6AAC8FCE19F048FE00E7A677 /* Mapper.swift in Sources */,
-				6AAC8FD219F048FE00E7A677 /* User.swift in Sources */,
 				6AAC8FCD19F048FE00E7A677 /* FromJSON.swift in Sources */,
 				6AAC8FD119F048FE00E7A677 /* ToJSON.swift in Sources */,
 				6AAC8FCF19F048FE00E7A677 /* Operators.swift in Sources */,
