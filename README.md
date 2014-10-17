@@ -54,12 +54,12 @@ Object mapper can handle classes composed of the following types:
 - Double
 - Float
 - String
-- Array <AnyObject>
-- Dictinary <String, AnyObject>
+- Array\<AnyObject\>
+- Dictionary\<String, AnyObject\>
 - Optionals of all the abovee
-- Object<T: MapperProtocol>
-- Array<T: MapperProtocol>
-- Dictionary<String, T: MapperProtocol>
+- Object\<T: MapperProtocol\>
+- Array\<T: MapperProtocol\>
+- Dictionary\<String, T: MapperProtocol\>
 
 ObjectMapper also supports Transforms that convert values during the mapping process. To use a transform, simply create a tuple with the mapper["field_name"] and the transform of choice on the right side of the '<=' operator:
 ```swift
