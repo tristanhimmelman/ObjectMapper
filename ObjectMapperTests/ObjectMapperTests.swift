@@ -68,6 +68,7 @@ class ObjectMapperTests: XCTestCase {
         XCTAssertEqual(birthday, user.birthdayOpt!, "Birthday should be the same")
         
         let dict = mapper.toJSONString(user)
+        
     }
 }
 
