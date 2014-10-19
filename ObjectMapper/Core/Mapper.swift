@@ -19,10 +19,12 @@ enum MappingType {
 }
 
 public class Mapper {
-    var JSON: [String : AnyObject] = [:]
+    var JSONDictionary: [String : AnyObject] = [:]
     var currentValue: AnyObject?
     var currentKey: String?
     var mappingType: MappingType = .fromJSON
+    
+    // MARK: Public methods
     
     public init(){
         
@@ -31,6 +33,7 @@ public class Mapper {
     // Sets the current mapper value and key 
     public subscript(key: String) -> Mapper {
         get {
+            // save key and value associated to it
             currentKey = key
             currentValue = valueFor(key)
             
@@ -39,23 +42,6 @@ public class Mapper {
         set {}
     }
     
-    // fetch value from JSON dictionary
-    func valueFor<N>(key: String) -> N? {
-        return (JSON[key] as? N)
-    }
-    
-    func parseJSONString(JSON: String) -> [String : AnyObject]! {
-        var data = JSON.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
-        if let data = data {
-            var error: NSError?
-            var dict: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &error)
-            if let d: AnyObject = dict {
-                return d as [String : AnyObject]
-            }
-        }
-        return nil
-    }
-
     // map a JSON string onto an existing object
     public func map<N: MapperProtocol>(JSON: String, to object: N) -> N! {
         var json = parseJSONString(JSON)
@@ -82,7 +68,7 @@ public class Mapper {
     public func map<N: MapperProtocol>(JSON: [String : AnyObject], to type: N.Type) -> N! {
         mappingType = .fromJSON
 
-        self.JSON = JSON
+        self.JSONDictionary = JSON
         
         var object = N()
         N.map(self, object: object)
@@ -94,10 +80,10 @@ public class Mapper {
     public func toJSON<N: MapperProtocol>(object: N) -> [String : AnyObject] {
         mappingType = .toJSON
         
-        self.JSON = [String : AnyObject]()
+        self.JSONDictionary = [String : AnyObject]()
         N.map(self, object: object)
         
-        return self.JSON
+        return self.JSONDictionary
     }
     
     // maps an Object to a JSON string
@@ -114,6 +100,26 @@ public class Mapper {
             
             if let json = jsonData {
                 return NSString(data: json, encoding: NSUTF8StringEncoding)
+            }
+        }
+        return nil
+    }
+    
+    // MARK: Private methods
+    
+    // fetch value from JSON dictionary
+    private func valueFor<N>(key: String) -> N? {
+        return (JSONDictionary[key] as? N)
+    }
+    
+    // convert a JSON String into a Dictionary<String, AnyObject> using NSJSONSerialization
+    private func parseJSONString(JSON: String) -> [String : AnyObject]! {
+        var data = JSON.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
+        if let data = data {
+            var error: NSError?
+            var dict: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &error)
+            if let d: AnyObject = dict {
+                return d as [String : AnyObject]
             }
         }
         return nil

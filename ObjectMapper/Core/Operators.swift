@@ -17,7 +17,7 @@ public func <=<T>(inout left: T, right: Mapper) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<T>().baseType(&left, object: right.currentValue)
     } else {
-        ToJSON().baseType(left, key: right.currentKey!, dictionary: &right.JSON);
+        ToJSON().baseType(left, key: right.currentKey!, dictionary: &right.JSONDictionary);
     }
 }
 
@@ -26,7 +26,7 @@ public func <=<T>(inout left: T?, right: Mapper) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<T>().optionalBaseType(&left, object: right.currentValue)
     } else {
-        ToJSON().optionalBaseType(left, key: right.currentKey!, dictionary: &right.JSON)
+        ToJSON().optionalBaseType(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
     }
 }
 
@@ -39,7 +39,7 @@ public func <=<T, N>(inout left: T, right: (Mapper, MapperTransform<T, N>)) {
     } else {
         var value: N? = right.1.transformToJSON(left)
         //println("\(left) toJSON \(value)")
-        ToJSON().optionalBaseType(value, key: right.0.currentKey!, dictionary: &right.0.JSON)
+        ToJSON().optionalBaseType(value, key: right.0.currentKey!, dictionary: &right.0.JSONDictionary)
     }
 }
 
@@ -52,7 +52,7 @@ public func <=<T, N>(inout left: T?, right: (Mapper, MapperTransform<T, N>)) {
     } else {
         var value: N? = right.1.transformToJSON(left)
         //println("\(left) toJSON \(value)")
-        ToJSON().optionalBaseType(value, key: right.0.currentKey!, dictionary: &right.0.JSON)
+        ToJSON().optionalBaseType(value, key: right.0.currentKey!, dictionary: &right.0.JSONDictionary)
     }
 }
 
@@ -61,7 +61,7 @@ public func <=<T: MapperProtocol>(inout left: T, right: Mapper) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<T>().object(&left, object: right.currentValue)
     } else {
-        ToJSON().object(left, key: right.currentKey!, dictionary: &right.JSON)
+        ToJSON().object(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
     }
 }
 
@@ -70,7 +70,7 @@ public func <=<T: MapperProtocol>(inout left: T?, right: Mapper) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<T>().object(&left, object: right.currentValue)
     } else {
-        ToJSON().optionalObject(left, key: right.currentKey!, dictionary: &right.JSON)
+        ToJSON().optionalObject(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
     }
 }
 
@@ -79,7 +79,7 @@ public func <=<T: MapperProtocol>(inout left: Dictionary<String, T>, right: Mapp
     if right.mappingType == MappingType.fromJSON {
         FromJSON<T>().objectDictionary(&left, object: right.currentValue)
     } else {
-        ToJSON().objectDictionary(left, key: right.currentKey!, dictionary: &right.JSON)
+        ToJSON().objectDictionary(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
     }
 }
 
@@ -88,7 +88,7 @@ public func <=<T: MapperProtocol>(inout left: Dictionary<String, T>?, right: Map
     if right.mappingType == MappingType.fromJSON {
         FromJSON<T>().optionalObjectDictionary(&left, object: right.currentValue)
     } else {
-        ToJSON().optionalObjectDictionary(left, key: right.currentKey!, dictionary: &right.JSON)
+        ToJSON().optionalObjectDictionary(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
     }
 }
 
@@ -97,7 +97,7 @@ public func <=(inout left: Dictionary<String, AnyObject>, right: Mapper) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<AnyObject>().baseType(&left, object: right.currentValue)
     } else {
-        ToJSON().baseDictionary(left, key: right.currentKey!, dictionary: &right.JSON)
+        ToJSON().baseDictionary(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
     }
 }
 
@@ -106,7 +106,7 @@ public func <=(inout left: Dictionary<String, AnyObject>?, right: Mapper) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<AnyObject>().optionalBaseType(&left, object: right.currentValue)
     } else {
-        ToJSON().optionalBaseDictionary(left, key: right.currentKey!, dictionary: &right.JSON)
+        ToJSON().optionalBaseDictionary(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
     }
 }
 
@@ -115,7 +115,7 @@ public func <=<T: MapperProtocol>(inout left: Array<T>, right: Mapper) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<T>().objectArray(&left, object: right.currentValue)
     } else {
-        ToJSON().objectArray(left, key: right.currentKey!, dictionary: &right.JSON)
+        ToJSON().objectArray(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
     }
 }
 
@@ -124,7 +124,7 @@ public func <=<T: MapperProtocol>(inout left: Array<T>?, right: Mapper) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<T>().optionalObjectArray(&left, object: right.currentValue)
     } else {
-        ToJSON().optionalObjectArray(left, key: right.currentKey!, dictionary: &right.JSON)
+        ToJSON().optionalObjectArray(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
     }
 }
 
@@ -133,7 +133,7 @@ public func <=(inout left: Array<AnyObject>, right: Mapper) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<AnyObject>().baseType(&left, object: right.currentValue)
     } else {
-        ToJSON().baseArray(left, key: right.currentKey!, dictionary: &right.JSON)
+        ToJSON().baseArray(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
     }
 }
 
@@ -142,6 +142,6 @@ public func <=(inout left: Array<AnyObject>?, right: Mapper) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<AnyObject>().optionalBaseType(&left, object: right.currentValue)
     } else {
-        ToJSON().optionalBaseArray(left, key: right.currentKey!, dictionary: &right.JSON)
+        ToJSON().optionalBaseArray(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
     }
 }
