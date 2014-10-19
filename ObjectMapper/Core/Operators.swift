@@ -8,9 +8,11 @@
 
 import Foundation
 
+// The operator definition is commented out because it was causing "ambiguous operator" errors when linking to the framework
+// This seems like a bug in xcode will likely be fixed
 //infix operator <= {}
 
-//MARK: basic type
+// MARK: basic type
 public func <=<T>(inout left: T, right: Mapper) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<T>().baseType(&left, object: right.currentValue)
@@ -54,7 +56,7 @@ public func <=<T, N>(inout left: T?, right: (Mapper, MapperTransform<T, N>)) {
     }
 }
 
-//MARK:- T: MapperProtocol
+// MARK:- T: MapperProtocol
 public func <=<T: MapperProtocol>(inout left: T, right: Mapper) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<T>().object(&left, object: right.currentValue)
@@ -72,7 +74,7 @@ public func <=<T: MapperProtocol>(inout left: T?, right: Mapper) {
     }
 }
 
-//MARK:- Dictionary <String, T: MapperProtocol>
+// MARK:- Dictionary <String, T: MapperProtocol>
 public func <=<T: MapperProtocol>(inout left: Dictionary<String, T>, right: Mapper) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<T>().baseType(&left, object: right.currentValue)
@@ -90,7 +92,7 @@ public func <=<T: MapperProtocol>(inout left: Dictionary<String, T>?, right: Map
     }
 }
 
-//MARK: Dictionary <String, AnyObject>
+// MARK: Dictionary <String, AnyObject>
 public func <=(inout left: Dictionary<String, AnyObject>, right: Mapper) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<AnyObject>().baseType(&left, object: right.currentValue)
@@ -108,7 +110,7 @@ public func <=(inout left: Dictionary<String, AnyObject>?, right: Mapper) {
     }
 }
 
-//MARK:- Array<T: MapperProtocol>
+// MARK:- Array<T: MapperProtocol>
 public func <=<T: MapperProtocol>(inout left: Array<T>, right: Mapper) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<T>().objectArray(&left, object: right.currentValue)
@@ -116,6 +118,7 @@ public func <=<T: MapperProtocol>(inout left: Array<T>, right: Mapper) {
         ToJSON().objectArray(left, key: right.currentKey!, dictionary: &right.JSON)
     }
 }
+
 // Optional array of objects conforming to MapperProtocol
 public func <=<T: MapperProtocol>(inout left: Array<T>?, right: Mapper) {
     if right.mappingType == MappingType.fromJSON {
@@ -125,7 +128,7 @@ public func <=<T: MapperProtocol>(inout left: Array<T>?, right: Mapper) {
     }
 }
 
-//MARK: Array<AnyObject>
+// MARK: Array<AnyObject>
 public func <=(inout left: Array<AnyObject>, right: Mapper) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<AnyObject>().baseType(&left, object: right.currentValue)
@@ -133,6 +136,7 @@ public func <=(inout left: Array<AnyObject>, right: Mapper) {
         ToJSON().baseArray(left, key: right.currentKey!, dictionary: &right.JSON)
     }
 }
+
 // Optional array of String type
 public func <=(inout left: Array<AnyObject>?, right: Mapper) {
     if right.mappingType == MappingType.fromJSON {
