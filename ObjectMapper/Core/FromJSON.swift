@@ -118,6 +118,7 @@ class FromJSON<CollectionType> {
         return parsedObjects
     }
     
+    // parse a dictionary containing Mapable objects
     func objectDictionary<N: MapperProtocol>(inout field: Dictionary<String, N>, object: AnyObject?) {
         var parsedObjects: Dictionary<String, N> = parseObjectDictionary(object)
         
@@ -125,7 +126,8 @@ class FromJSON<CollectionType> {
             field = parsedObjects
         }
     }
-    
+
+    // parse a dictionary containing Mapable objects to optional field
     func optionalObjectDictionary<N: MapperProtocol>(inout field: Dictionary<String, N>?, object: AnyObject?) {
         var parsedObjects: Dictionary<String, N> = parseObjectDictionary(object)
         
@@ -136,7 +138,7 @@ class FromJSON<CollectionType> {
         }
     }
     
-    // parses a JSON array into an array of objects of type <N: MapperProtocol>
+    // parses a JSON Dictionary into an Dictionay of objects of type <N: MapperProtocol>
     private func parseObjectDictionary<N: MapperProtocol>(object: AnyObject?) -> Dictionary<String, N>{
         let mapper = Mapper()
         
