@@ -77,7 +77,7 @@ public func <=<T: MapperProtocol>(inout left: T?, right: Mapper) {
 // MARK:- Dictionary <String, T: MapperProtocol>
 public func <=<T: MapperProtocol>(inout left: Dictionary<String, T>, right: Mapper) {
     if right.mappingType == MappingType.fromJSON {
-        FromJSON<T>().baseType(&left, object: right.currentValue)
+        FromJSON<T>().objectDictionary(&left, object: right.currentValue)
     } else {
         ToJSON().objectDictionary(left, key: right.currentKey!, dictionary: &right.JSON)
     }
@@ -86,7 +86,7 @@ public func <=<T: MapperProtocol>(inout left: Dictionary<String, T>, right: Mapp
 // Optional Dictionary <String, T: MapperProtocol>
 public func <=<T: MapperProtocol>(inout left: Dictionary<String, T>?, right: Mapper) {
     if right.mappingType == MappingType.fromJSON {
-        FromJSON<T>().optionalBaseType(&left, object: right.currentValue)
+        FromJSON<T>().optionalObjectDictionary(&left, object: right.currentValue)
     } else {
         ToJSON().optionalObjectDictionary(left, key: right.currentKey!, dictionary: &right.JSON)
     }

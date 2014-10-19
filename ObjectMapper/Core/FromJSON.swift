@@ -117,4 +117,39 @@ class FromJSON<CollectionType> {
         
         return parsedObjects
     }
+    
+    func objectDictionary<N: MapperProtocol>(inout field: Dictionary<String, N>, object: AnyObject?) {
+        var parsedObjects: Dictionary<String, N> = parseObjectDictionary(object)
+        
+        if parsedObjects.count > 0 {
+            field = parsedObjects
+        }
+    }
+    
+    func optionalObjectDictionary<N: MapperProtocol>(inout field: Dictionary<String, N>?, object: AnyObject?) {
+        var parsedObjects: Dictionary<String, N> = parseObjectDictionary(object)
+        
+        if parsedObjects.count > 0 {
+            field = parsedObjects
+        } else {
+            field = nil
+        }
+    }
+    
+    // parses a JSON array into an array of objects of type <N: MapperProtocol>
+    private func parseObjectDictionary<N: MapperProtocol>(object: AnyObject?) -> Dictionary<String, N>{
+        let mapper = Mapper()
+        
+        var parsedObjectsDictionary = Dictionary<String, N>()
+        
+        if let dictionary = object as Dictionary<String, AnyObject>? {
+            for (key, object) in dictionary {
+                let objectJSON = object as [String : AnyObject]
+                var parsedObj = mapper.map(objectJSON, to: N.self)
+                parsedObjectsDictionary[key] = parsedObj
+            }
+        }
+        
+        return parsedObjectsDictionary
+    }
 }

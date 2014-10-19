@@ -51,7 +51,10 @@ class ObjectMapperTests: XCTestCase {
             "key3" : 142
         ]
         
-        let userJSONString = "{\"username\":\"\(username)\",\"identifier\":\"\(identifier)\",\"photoCount\":\(photoCount),\"age\":\(age),\"drinker\":\(drinker),\"smoker\":\(smoker), \"arr\":[ \"bla\", true, 42 ], \"dict\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"arrOpt\":[ \"bla\", true, 42 ], \"dictOpt\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"birthday\": 1398956159, \"birthdayOpt\": 1398956159, \"weight\": \(weight), \"float\": \(float)}"
+        
+        let subUserJSON = "{\"identifier\" : \"user8723\", \"drinker\" : true, \"age\": 17,\"birthdayOpt\" : 1398956159, \"username\" : \"sub user\" }"
+        
+        let userJSONString = "{\"username\":\"\(username)\",\"identifier\":\"\(identifier)\",\"photoCount\":\(photoCount),\"age\":\(age),\"drinker\":\(drinker),\"smoker\":\(smoker), \"arr\":[ \"bla\", true, 42 ], \"dict\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"arrOpt\":[ \"bla\", true, 42 ], \"dictOpt\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"birthday\": 1398956159, \"birthdayOpt\": 1398956159, \"weight\": \(weight), \"float\": \(float), \"friend\": \(subUserJSON), \"friendDictionary\":{ \"bestFriend\": \(subUserJSON)}}"
         
         let mapper = Mapper()
         let user = mapper.map(userJSONString, to: User.self)
@@ -67,8 +70,7 @@ class ObjectMapperTests: XCTestCase {
         XCTAssertEqual(birthday, user.birthday, "Birthday should be the same")
         XCTAssertEqual(birthday, user.birthdayOpt!, "Birthday should be the same")
         
-        let dict = mapper.toJSONString(user)
-        
+        println(mapper.toJSONString(user, prettyPrint: true))
     }
 }
 
@@ -92,6 +94,7 @@ class User: MapperProtocol {
     var arrOptional: [AnyObject]?
     var dict: [String : AnyObject] = [:]
     var dictOptional: [String : AnyObject]?
+    var friendDictionary: [String : User]?
     var friend: User?
     var friends: [User]? = []
     var gender: Gender?
@@ -104,22 +107,23 @@ class User: MapperProtocol {
     }
     
     class func map(mapper: Mapper, object: User) {
-        object.username     <= mapper["username"]
-        object.identifier   <= mapper["identifier"]
-        object.photoCount   <= mapper["photoCount"]
-        object.age          <= mapper["age"]
-        object.weight       <= mapper["weight"]
-        object.float        <= mapper["float"]
-        object.drinker      <= mapper["drinker"]
-        object.smoker       <= mapper["smoker"]
-        object.arr          <= mapper["arr"]
-        object.arrOptional  <= mapper["arrOpt"]
-        object.dict         <= mapper["dict"]
-        object.dictOptional <= mapper["dictOpt"]
-        object.friend       <= mapper["friend"]
-        object.friends      <= mapper["friends"]
-        object.birthday     <= (mapper["birthday"], DateTransform<NSDate, Int>())
-        object.birthdayOpt  <= (mapper["birthdayOpt"], DateTransform<NSDate, Int>())
+        object.username         <= mapper["username"]
+        object.identifier       <= mapper["identifier"]
+        object.photoCount       <= mapper["photoCount"]
+        object.age              <= mapper["age"]
+        object.weight           <= mapper["weight"]
+        object.float            <= mapper["float"]
+        object.drinker          <= mapper["drinker"]
+        object.smoker           <= mapper["smoker"]
+        object.arr              <= mapper["arr"]
+        object.arrOptional      <= mapper["arrOpt"]
+        object.dict             <= mapper["dict"]
+        object.dictOptional     <= mapper["dictOpt"]
+        object.friend           <= mapper["friend"]
+        object.friends          <= mapper["friends"]
+        object.friendDictionary <= mapper["friendDictionary"]
+        object.birthday         <= (mapper["birthday"], DateTransform<NSDate, Int>())
+        object.birthdayOpt      <= (mapper["birthdayOpt"], DateTransform<NSDate, Int>())
     }
     
     var description : String {

@@ -101,12 +101,13 @@ public class Mapper {
     }
     
     // maps an Object to a JSON string
-    public func toJSONString<N: MapperProtocol>(object: N) -> String! {
+    public func toJSONString<N: MapperProtocol>(object: N, prettyPrint: Bool) -> String! {
         let JSONDict = toJSON(object)
         
         var err: NSError?
         if NSJSONSerialization.isValidJSONObject(JSONDict) {
-            var jsonData: NSData? = NSJSONSerialization.dataWithJSONObject(JSONDict, options: NSJSONWritingOptions.PrettyPrinted, error: &err)
+            var options = prettyPrint ? NSJSONWritingOptions.PrettyPrinted : NSJSONWritingOptions.allZeros
+            var jsonData: NSData? = NSJSONSerialization.dataWithJSONObject(JSONDict, options: options, error: &err)
             if let error = err {
                 println(error)
             }
