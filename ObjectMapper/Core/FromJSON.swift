@@ -72,33 +72,19 @@ class FromJSON<CollectionType> {
     }
     
     func object<N: MapperProtocol>(inout field: N, object: AnyObject?) {
-        let mapper = Mapper()
-
         if let value = object as? [String : AnyObject] {
-            field = mapper.map(value, to: N.self)
+            field = Mapper().map(value, to: N.self)
         }
     }
     
     func object<N: MapperProtocol>(inout field: N?, object: AnyObject?) {
-        let mapper = Mapper()
-        
         if let value = object as? [String : AnyObject] {
-            field = mapper.map(value, to: N.self)
+            field = Mapper().map(value, to: N.self)
         }
     }
     
     func objectArray<N: MapperProtocol>(inout field: Array<N>, object: AnyObject?) {
-        let mapper = Mapper()
-        
-        var parsedObjects = Array<N>()
-        
-        if let array = object as [AnyObject]? {
-            for object in array {
-                let objectJSON = object as [String : AnyObject]
-                var parsedObj = mapper.map(objectJSON, to: N.self)
-                parsedObjects.append(parsedObj)
-            }
-        }
+        var parsedObjects: Array<N> = parseObjectArray(object)
         
         if parsedObjects.count > 0 {
             field = parsedObjects
@@ -106,6 +92,17 @@ class FromJSON<CollectionType> {
     }
     
     func optionalObjectArray<N: MapperProtocol>(inout field: Array<N>?, object: AnyObject?) {
+        var parsedObjects: Array<N> = parseObjectArray(object)
+
+        if parsedObjects.count > 0 {
+            field = parsedObjects
+        } else {
+            field = nil
+        }
+    }
+    
+    // parses a JSON array into an array of objects of type <N: MapperProtocol>
+    private func parseObjectArray<N: MapperProtocol>(object: AnyObject?) -> Array<N>{
         let mapper = Mapper()
         
         var parsedObjects = Array<N>()
@@ -117,11 +114,7 @@ class FromJSON<CollectionType> {
                 parsedObjects.append(parsedObj)
             }
         }
-
-        if parsedObjects.count > 0 {
-            field = parsedObjects
-        } else {
-            field = nil
-        }
+        
+        return parsedObjects
     }
 }

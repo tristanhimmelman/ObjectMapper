@@ -44,7 +44,6 @@ public class Mapper {
         return (JSON[key] as? N)
     }
     
-    
     func parseJSONString(JSON: String) -> [String : AnyObject]! {
         var data = JSON.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
         if let data = data {
@@ -101,6 +100,7 @@ public class Mapper {
         return self.JSON
     }
     
+    // maps an Object to a JSON string
     public func toJSONString<N: MapperProtocol>(object: N) -> String! {
         let JSONDict = toJSON(object)
         

@@ -120,9 +120,9 @@
 		6AAC8FC219F048FE00E7A677 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				6AAC8FC319F048FE00E7A677 /* FromJSON.swift */,
 				6AAC8FC419F048FE00E7A677 /* Mapper.swift */,
 				6AAC8FC519F048FE00E7A677 /* Operators.swift */,
+				6AAC8FC319F048FE00E7A677 /* FromJSON.swift */,
 				6AAC8FC719F048FE00E7A677 /* ToJSON.swift */,
 			);
 			path = Core;
