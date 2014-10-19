@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="ObjectMapper : JSON Object mapping written in Swift">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>ObjectMapper</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/Hearst-DD/ObjectMapper">View on GitHub</a>
+
+          <h1 id="project_title">ObjectMapper</h1>
+          <h2 id="project_tagline">JSON Object mapping written in Swift</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/Hearst-DD/ObjectMapper/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/Hearst-DD/ObjectMapper/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <p>ObjectMapper is a framework written in Swift that makes it easy for you to convert your Model objects to and from JSON. </p>
+
+<p>Features:</p>
+
+<ul>
+<li>Mapping JSON to objects</li>
+<li>Mapping objects to JSON</li>
+<li>Nested Objects (stand alone, in Arrays or in Dictionaries)</li>
+<li>Custom transformations during mapping</li>
+</ul>
+
+<p>To support mapping, a class just needs to implement the MapperProtocol. ObjectMapper uses the "&lt;=" operator to define how each member variable maps to and from JSON.</p>
+
+<div class="highlight highlight-swift"><pre><span class="k">class</span> <span class="nl">User</span><span class="p">:</span> <span class="n">MapperProtocol</span> <span class="p">{</span>
+
+    <span class="k">var</span> <span class="nl">username</span><span class="p">:</span> <span class="n">String</span><span class="o">?</span>
+    <span class="k">var</span> <span class="nl">age</span><span class="p">:</span> <span class="n">Int</span><span class="o">?</span>
+    <span class="k">var</span> <span class="nl">weight</span><span class="p">:</span> <span class="n">Double</span><span class="o">?</span>
+    <span class="k">var</span> <span class="nl">arr</span><span class="p">:</span> <span class="p">[</span><span class="n">AnyObject</span><span class="p">]</span><span class="o">?</span>
+    <span class="k">var</span> <span class="nl">dict</span><span class="p">:</span> <span class="p">[</span><span class="nl">String</span> <span class="p">:</span> <span class="n">AnyObject</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">:</span><span class="p">]</span>
+    <span class="k">var</span> <span class="nl">friend</span><span class="p">:</span> <span class="n">User</span><span class="o">?</span>
+    <span class="k">var</span> <span class="nl">birthday</span><span class="p">:</span> <span class="bp">NSDate</span><span class="o">?</span>
+
+    <span class="c1">// MapperProtocol    </span>
+    <span class="k">class</span> <span class="k">func</span> <span class="n">map</span><span class="p">(</span><span class="nl">mapper</span><span class="p">:</span> <span class="n">Mapper</span><span class="p">,</span> <span class="nl">object</span><span class="p">:</span> <span class="n">User</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">object</span><span class="p">.</span><span class="n">username</span> <span class="o">&lt;=</span> <span class="n">mapper</span><span class="p">[</span><span class="s">"username"</span><span class="p">]</span>
+        <span class="n">object</span><span class="p">.</span><span class="n">age</span> <span class="o">&lt;=</span> <span class="n">mapper</span><span class="p">[</span><span class="s">"age"</span><span class="p">]</span>
+        <span class="n">object</span><span class="p">.</span><span class="n">weight</span> <span class="o">&lt;=</span> <span class="n">mapper</span><span class="p">[</span><span class="s">"weight"</span><span class="p">]</span>
+        <span class="n">object</span><span class="p">.</span><span class="n">arr</span> <span class="o">&lt;=</span> <span class="n">mapper</span><span class="p">[</span><span class="s">"arr"</span><span class="p">]</span>
+        <span class="n">object</span><span class="p">.</span><span class="n">dict</span> <span class="o">&lt;=</span> <span class="n">mapper</span><span class="p">[</span><span class="s">"dict"</span><span class="p">]</span>
+        <span class="n">object</span><span class="p">.</span><span class="n">friend</span> <span class="o">&lt;=</span> <span class="n">mapper</span><span class="p">[</span><span class="s">"friend"</span><span class="p">]</span>
+        <span class="n">object</span><span class="p">.</span><span class="n">birthday</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="n">mapper</span><span class="p">[</span><span class="s">"birthday"</span><span class="p">],</span> <span class="n">DateTransform</span><span class="o">&lt;</span><span class="bp">NSDate</span><span class="p">,</span> <span class="n">Int</span><span class="o">&gt;</span><span class="p">())</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Once your class implements MapperProtocol, the Mapper class handles everything else for you:</p>
+
+<p>Convert a JSON string to a model object:</p>
+
+<div class="highlight highlight-swift"><pre><span class="k">let</span> <span class="n">user</span> <span class="o">=</span> <span class="n">Mapper</span><span class="p">().</span><span class="n">map</span><span class="p">(</span><span class="n">JSONString</span><span class="p">,</span> <span class="nl">to</span><span class="p">:</span> <span class="n">User</span><span class="p">.</span><span class="nb">self</span><span class="p">)</span>
+</pre></div>
+
+<p>Convert a model object to a JSON string:</p>
+
+<div class="highlight highlight-swift"><pre>
+<span class="k">let</span> <span class="n">JSONString</span> <span class="o">=</span> <span class="n">Mapper</span><span class="p">().</span><span class="n">toJSONString</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+</pre></div>
+
+<p>Object mapper can handle classes composed of the following types:</p>
+
+<ul>
+<li>Int</li>
+<li>Bool</li>
+<li>Double</li>
+<li>Float</li>
+<li>String</li>
+<li>Array&lt;AnyObject&gt;</li>
+<li>Dictionary&lt;String, AnyObject&gt;</li>
+<li>Optionals of all the abovee</li>
+<li>Object&lt;T: MapperProtocol&gt;</li>
+<li>Array&lt;T: MapperProtocol&gt;</li>
+<li>Dictionary&lt;String, T: MapperProtocol&gt;</li>
+</ul>
+
+<p>ObjectMapper also supports Transforms that convert values during the mapping process. To use a transform, simply create a tuple with the mapper["field_name"] and the transform of choice on the right side of the '&lt;=' operator:</p>
+
+<div class="highlight highlight-swift"><pre><span class="n">object</span><span class="p">.</span><span class="n">birthday</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="n">mapper</span><span class="p">[</span><span class="s">"birthday"</span><span class="p">],</span> <span class="n">DateTransform</span><span class="o">&lt;</span><span class="bp">NSDate</span><span class="p">,</span> <span class="n">Int</span><span class="o">&gt;</span><span class="p">())</span>
+</pre></div>
+
+<p>The above transform will convert the JSON Int value to an NSDate when reading JSON and will convert the NSDate to an Int when converting objects to JSON.</p>
+
+<p>You can easily create your own custom transforms by subclassing and overriding the methods in the MapperTransform class:</p>
+
+<div class="highlight highlight-swift"><pre><span class="n">public</span> <span class="k">class</span> <span class="n">MapperTransform</span><span class="o">&lt;</span><span class="n">ObjectType</span><span class="p">,</span> <span class="n">JSONType</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">init</span><span class="p">(){</span>
+
+    <span class="p">}</span>
+
+    <span class="k">func</span> <span class="n">transformFromJSON</span><span class="p">(</span><span class="nl">value</span><span class="p">:</span> <span class="n">AnyObject</span><span class="o">?</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ObjectType</span><span class="o">?</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">nil</span>
+    <span class="p">}</span>
+
+    <span class="k">func</span> <span class="n">transformToJSON</span><span class="p">(</span><span class="nl">value</span><span class="p">:</span> <span class="n">ObjectType</span><span class="o">?</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">JSONType</span><span class="o">?</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">nil</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">ObjectMapper maintained by <a href="https://github.com/Hearst-DD">Hearst-DD</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
