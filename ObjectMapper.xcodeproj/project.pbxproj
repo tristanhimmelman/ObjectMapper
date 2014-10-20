@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6A66224619F155AE00E26F90 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 6A66224519F155AE00E26F90 /* README.md */; };
 		6AAC8F7C19F03C2900E7A677 /* ObjectMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AAC8F7B19F03C2900E7A677 /* ObjectMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6AAC8F8619F03C2900E7A677 /* ObjectMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8F8519F03C2900E7A677 /* ObjectMapperTests.swift */; };
 		6AAC8FCD19F048FE00E7A677 /* FromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC319F048FE00E7A677 /* FromJSON.swift */; };
@@ -29,7 +28,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		6A66224519F155AE00E26F90 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		6AAC8F7619F03C2900E7A677 /* ObjectMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ObjectMapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AAC8F7A19F03C2900E7A677 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6AAC8F7B19F03C2900E7A677 /* ObjectMapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjectMapper.h; sourceTree = "<group>"; };
@@ -68,7 +66,6 @@
 				6AAC8F7819F03C2900E7A677 /* ObjectMapper */,
 				6AAC8F8219F03C2900E7A677 /* ObjectMapperTests */,
 				6AAC8F7719F03C2900E7A677 /* Products */,
-				6A66224519F155AE00E26F90 /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -247,7 +244,6 @@
 				6AAC8FD319F048FE00E7A677 /* DateTransform.swift in Sources */,
 				6AAC8FD419F048FE00E7A677 /* MapperTransform.swift in Sources */,
 				6AAC8FCE19F048FE00E7A677 /* Mapper.swift in Sources */,
-				6A66224619F155AE00E26F90 /* README.md in Sources */,
 				6AAC8FCD19F048FE00E7A677 /* FromJSON.swift in Sources */,
 				6AAC8FD119F048FE00E7A677 /* ToJSON.swift in Sources */,
 				6AAC8FCF19F048FE00E7A677 /* Operators.swift in Sources */,
