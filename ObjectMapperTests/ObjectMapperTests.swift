@@ -72,15 +72,36 @@ class ObjectMapperTests: XCTestCase {
         
         println(mapper.toJSONString(user, prettyPrint: true))
     }
+    
+    func testToJSONAndBack(){
+        var user = User()
+        user.username = "tristan_him"
+        user.identifier = "tristan_him_identifier"
+        user.photoCount = 0
+        user.age = 28
+        user.weight = 150
+        user.drinker = true
+        user.smoker = false
+        user.arr = ["cheese", 11234]
+        user.birthday = NSDate()
+        
+        let json = Mapper().toJSONString(user, prettyPrint: true)
+        println(json)
+        var parsedUser = Mapper().map(json, to: User.self)
+        
+        XCTAssertEqual(user.username, parsedUser.username, "Username should be the same")
+        XCTAssertEqual(user.identifier!, parsedUser.identifier!, "Identifier should be the same")
+        XCTAssertEqual(user.photoCount, parsedUser.photoCount, "PhotoCount should be the same")
+        XCTAssertEqual(user.age!, parsedUser.age!, "Age should be the same")
+        XCTAssertEqual(user.weight!, parsedUser.weight!, "Weight should be the same")
+        XCTAssertEqual(user.drinker, parsedUser.drinker, "Drinker should be the same")
+        XCTAssertEqual(user.smoker!, parsedUser.smoker!, "Smoker should be the same")
+//        XCTAssert(user.birthday.compare(parsedUser.birthday) == .OrderedSame, "Birthday should be the same")
+        
+    }
 }
 
 class User: MapperProtocol {
-    
-    enum Gender: Int {
-        case Male
-        case Female
-        case Other
-    }
     
     var username: String = ""
     var identifier: String?
@@ -97,12 +118,10 @@ class User: MapperProtocol {
     var friendDictionary: [String : User]?
     var friend: User?
     var friends: [User]? = []
-    var gender: Gender?
     var birthday: NSDate = NSDate()
     var birthdayOpt: NSDate?
     
     required init() {
-        gender = .Male
         friends = []
     }
     
@@ -122,11 +141,11 @@ class User: MapperProtocol {
         object.friend           <= mapper["friend"]
         object.friends          <= mapper["friends"]
         object.friendDictionary <= mapper["friendDictionary"]
-        object.birthday         <= (mapper["birthday"], DateTransform<NSDate, Int>())
-        object.birthdayOpt      <= (mapper["birthdayOpt"], DateTransform<NSDate, Int>())
+        object.birthday         <= (mapper["birthday"], DateTransform<NSDate, Double>())
+        object.birthdayOpt      <= (mapper["birthdayOpt"], DateTransform<NSDate, Double>())
     }
     
     var description : String {
-        return "username: \(username) \nid:\(identifier) \nage: \(age) \nphotoCount: \(photoCount) \ndrinker: \(drinker) \nsmoker: \(smoker) \narr: \(arr) \narrOptional: \(arrOptional) \ndict: \(dict) \ndictOptional: \(dictOptional) \nfriend: \(friend)\nfriends: \(friends)\nbirthday: \(birthday)\nbirthdayOpt: \(birthdayOpt)\nfemale: \(gender)\nweight: \(weight)"
+        return "username: \(username) \nid:\(identifier) \nage: \(age) \nphotoCount: \(photoCount) \ndrinker: \(drinker) \nsmoker: \(smoker) \narr: \(arr) \narrOptional: \(arrOptional) \ndict: \(dict) \ndictOptional: \(dictOptional) \nfriend: \(friend)\nfriends: \(friends)\nbirthday: \(birthday)\nbirthdayOpt: \(birthdayOpt)\nweight: \(weight)"
     }
 }

@@ -15,7 +15,7 @@ public class DateTransform<ObjectType, JSONType>: MapperTransform<ObjectType, JS
     }
     
     override func transformFromJSON(value: AnyObject?) -> ObjectType? {
-        if let timeInt = value as? Int {
+        if let timeInt = value as? Double {
             return (NSDate(timeIntervalSince1970: NSTimeInterval(timeInt)) as ObjectType)
         }
         return nil
@@ -23,7 +23,7 @@ public class DateTransform<ObjectType, JSONType>: MapperTransform<ObjectType, JS
     
     override func transformToJSON(value: ObjectType?) -> JSONType? {
         if let date = value as? NSDate {
-            return (Int(date.timeIntervalSince1970) as JSONType)
+            return (Double(date.timeIntervalSince1970) as JSONType)
         }
         return nil
     }
