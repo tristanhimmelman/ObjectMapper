@@ -10,15 +10,15 @@ import Foundation
 
 public class MapperTransform<ObjectType, JSONType> {
     
-    init(){
+    public init(){
     
     }
     
-    func transformFromJSON(value: AnyObject?) -> ObjectType? {
+    public func transformFromJSON(value: AnyObject?) -> ObjectType? {
         return nil
     }
     
-    func transformToJSON(value: ObjectType?) -> JSONType? {
+    public func transformToJSON(value: ObjectType?) -> JSONType? {
         return nil
     }
 }
