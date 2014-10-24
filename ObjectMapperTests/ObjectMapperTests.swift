@@ -10,6 +10,7 @@ import UIKit
 import XCTest
 import ObjectMapper
 
+
 class ObjectMapperTests: XCTestCase {
     
     override func setUp() {
@@ -50,11 +51,11 @@ class ObjectMapperTests: XCTestCase {
             "key2" : false,
             "key3" : 142
         ]
-        
+        let link = NSURL(string: "http://www.example.com/")!
         
         let subUserJSON = "{\"identifier\" : \"user8723\", \"drinker\" : true, \"age\": 17,\"birthdayOpt\" : 1398956159, \"username\" : \"sub user\" }"
         
-        let userJSONString = "{\"username\":\"\(username)\",\"identifier\":\"\(identifier)\",\"photoCount\":\(photoCount),\"age\":\(age),\"drinker\":\(drinker),\"smoker\":\(smoker), \"arr\":[ \"bla\", true, 42 ], \"dict\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"arrOpt\":[ \"bla\", true, 42 ], \"dictOpt\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"birthday\": 1398956159, \"birthdayOpt\": 1398956159, \"weight\": \(weight), \"float\": \(float), \"friend\": \(subUserJSON), \"friendDictionary\":{ \"bestFriend\": \(subUserJSON)}}"
+        let userJSONString = "{\"username\":\"\(username)\",\"identifier\":\"\(identifier)\",\"photoCount\":\(photoCount),\"age\":\(age),\"drinker\":\(drinker),\"smoker\":\(smoker), \"arr\":[ \"bla\", true, 42 ], \"dict\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"arrOpt\":[ \"bla\", true, 42 ], \"dictOpt\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"birthday\": 1398956159, \"birthdayOpt\": 1398956159, \"link\": \"http://www.example.com/\", \"weight\": \(weight), \"float\": \(float), \"friend\": \(subUserJSON), \"friendDictionary\":{ \"bestFriend\": \(subUserJSON)}}"
         
         let mapper = Mapper()
         let user = mapper.map(userJSONString, to: User.self)
@@ -69,6 +70,7 @@ class ObjectMapperTests: XCTestCase {
         XCTAssertEqual(smoker, user.smoker!, "Smoker should be the same")
         XCTAssertEqual(birthday, user.birthday, "Birthday should be the same")
         XCTAssertEqual(birthday, user.birthdayOpt!, "Birthday should be the same")
+        XCTAssertEqual(link, user.link!, "link should be the same")
         
         println(mapper.toJSONString(user, prettyPrint: true))
     }
@@ -120,6 +122,7 @@ class User: MapperProtocol {
     var friends: [User]? = []
     var birthday: NSDate = NSDate()
     var birthdayOpt: NSDate?
+    var link: NSURL?
     
     required init() {
         friends = []
@@ -143,9 +146,27 @@ class User: MapperProtocol {
         object.friendDictionary <= mapper["friendDictionary"]
         object.birthday         <= (mapper["birthday"], DateTransform<NSDate, Double>())
         object.birthdayOpt      <= (mapper["birthdayOpt"], DateTransform<NSDate, Double>())
+        object.link             <= (mapper["link"], URLTransform<NSURL, String>())
     }
     
     var description : String {
-        return "username: \(username) \nid:\(identifier) \nage: \(age) \nphotoCount: \(photoCount) \ndrinker: \(drinker) \nsmoker: \(smoker) \narr: \(arr) \narrOptional: \(arrOptional) \ndict: \(dict) \ndictOptional: \(dictOptional) \nfriend: \(friend)\nfriends: \(friends)\nbirthday: \(birthday)\nbirthdayOpt: \(birthdayOpt)\nweight: \(weight)"
+        return "username: \(username) \nid:\(identifier) \nage: \(age) \nphotoCount: \(photoCount) \ndrinker: \(drinker) \nsmoker: \(smoker) \narr: \(arr) \narrOptional: \(arrOptional) \ndict: \(dict) \ndictOptional: \(dictOptional) \nfriend: \(friend)\nfriends: \(friends)\nbirthday: \(birthday)\nbirthdayOpt: \(birthdayOpt)\nlink: \(link)\nweight: \(weight)"
+    }
+}
+
+class URLTransform<ObjectType, JSONType>: MapperTransform<ObjectType, JSONType> {
+    
+    override func transformFromJSON(value: AnyObject?) -> ObjectType? {
+        if let str = value as? String {
+            return (NSURL(string: str) as ObjectType)
+        }
+        return nil
+    }
+    
+    override func transformToJSON(value: ObjectType?) -> JSONType? {
+        if let url = value as? NSURL {
+            return (url.absoluteString as JSONType)
+        }
+        return nil
     }
 }
