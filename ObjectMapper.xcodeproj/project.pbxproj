@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6A6C54D019FE8DB600239454 /* URLTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6C54CF19FE8DB600239454 /* URLTransform.swift */; };
 		6AAC8F7C19F03C2900E7A677 /* ObjectMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AAC8F7B19F03C2900E7A677 /* ObjectMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6AAC8F8619F03C2900E7A677 /* ObjectMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8F8519F03C2900E7A677 /* ObjectMapperTests.swift */; };
 		6AAC8FCD19F048FE00E7A677 /* FromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC319F048FE00E7A677 /* FromJSON.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6A6C54CF19FE8DB600239454 /* URLTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLTransform.swift; sourceTree = "<group>"; };
 		6AAC8F7619F03C2900E7A677 /* ObjectMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ObjectMapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AAC8F7A19F03C2900E7A677 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6AAC8F7B19F03C2900E7A677 /* ObjectMapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjectMapper.h; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				6AAC8FCB19F048FE00E7A677 /* DateTransform.swift */,
+				6A6C54CF19FE8DB600239454 /* URLTransform.swift */,
 				6AAC8FCC19F048FE00E7A677 /* MapperTransform.swift */,
 			);
 			path = Transforms;
@@ -243,6 +246,7 @@
 			files = (
 				6AAC8FD319F048FE00E7A677 /* DateTransform.swift in Sources */,
 				6AAC8FD419F048FE00E7A677 /* MapperTransform.swift in Sources */,
+				6A6C54D019FE8DB600239454 /* URLTransform.swift in Sources */,
 				6AAC8FCE19F048FE00E7A677 /* Mapper.swift in Sources */,
 				6AAC8FCD19F048FE00E7A677 /* FromJSON.swift in Sources */,
 				6AAC8FD119F048FE00E7A677 /* ToJSON.swift in Sources */,

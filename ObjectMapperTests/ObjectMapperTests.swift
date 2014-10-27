@@ -84,6 +84,7 @@ class ObjectMapperTests: XCTestCase {
         user.smoker = false
         user.arr = ["cheese", 11234]
         user.birthday = NSDate()
+        user.imageURL = NSURL(string: "http://google.com/image/1234")
         
         let json = Mapper().toJSONString(user, prettyPrint: true)
         println(json)
@@ -96,6 +97,7 @@ class ObjectMapperTests: XCTestCase {
         XCTAssertEqual(user.weight!, parsedUser.weight!, "Weight should be the same")
         XCTAssertEqual(user.drinker, parsedUser.drinker, "Drinker should be the same")
         XCTAssertEqual(user.smoker!, parsedUser.smoker!, "Smoker should be the same")
+        XCTAssertEqual(user.imageURL!, parsedUser.imageURL!, "Image URL should be the same")
 //        XCTAssert(user.birthday.compare(parsedUser.birthday) == .OrderedSame, "Birthday should be the same")
         
     }
@@ -120,6 +122,7 @@ class User: MapperProtocol {
     var friends: [User]? = []
     var birthday: NSDate = NSDate()
     var birthdayOpt: NSDate?
+    var imageURL: NSURL?
     
     required init() {
         friends = []
@@ -143,6 +146,7 @@ class User: MapperProtocol {
         object.friendDictionary <= mapper["friendDictionary"]
         object.birthday         <= (mapper["birthday"], DateTransform<NSDate, Double>())
         object.birthdayOpt      <= (mapper["birthdayOpt"], DateTransform<NSDate, Double>())
+        object.imageURL         <= (mapper["imageURL"], URLTransform<NSURL, String>())
     }
     
     var description : String {
