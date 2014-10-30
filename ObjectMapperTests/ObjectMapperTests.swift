@@ -101,6 +101,21 @@ class ObjectMapperTests: XCTestCase {
 //        XCTAssert(user.birthday.compare(parsedUser.birthday) == .OrderedSame, "Birthday should be the same")
         
     }
+    
+    func testUnknownPropertiesIgnored() {
+        let userJSONString = "{\"username\":\"bob\",\"identifier\":\"bob1987\", \"foo\" : \"bar\", \"fooArr\" : [ 1, 2, 3], \"fooObj\" : { \"baz\" : \"qux\" } }"
+        let user = Mapper().map(userJSONString, to: User.self)
+        
+        XCTAssert(user != nil, "User should not be nil")
+    }
+    
+    func testInvalidJsonResultsInNilObject() {
+        let userJSONString = "{\"username\":\"bob\",\"identifier\":\"bob1987\"" // missing ending brace
+
+        let user = Mapper().map(userJSONString, to: User.self)
+        
+        XCTAssert(user == nil, "User should be nil due to invalid JSON")
+    }
 }
 
 class User: MapperProtocol {
