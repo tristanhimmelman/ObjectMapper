@@ -21,6 +21,10 @@ class User: MapperProtocol {
     var friend: User?
     var birthday: NSDate?
 
+    required init(){
+        
+    }
+
     // MapperProtocol    
     class func map(mapper: Mapper, object: User) {
         object.username <= mapper["username"]
