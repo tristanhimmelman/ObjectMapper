@@ -10,7 +10,7 @@ import Foundation
 
 public class MapperTransform<ObjectType, JSONType> {
     
-    init(){
+    public init(){
     
     }
     
