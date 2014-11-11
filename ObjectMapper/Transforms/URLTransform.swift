@@ -14,14 +14,14 @@ public class URLTransform<ObjectType, JSONType>: MapperTransform<ObjectType, JSO
         
     }
     
-    override func transformFromJSON(value: AnyObject?) -> ObjectType? {
+    override public func transformFromJSON(value: AnyObject?) -> ObjectType? {
         if let URLString = value as? String {
             return (NSURL(string: URLString) as ObjectType)
         }
         return nil
     }
     
-    override func transformToJSON(value: ObjectType?) -> JSONType? {
+    override public func transformToJSON(value: ObjectType?) -> JSONType? {
         if let URL = value as? NSURL {
             return (URL.absoluteString as JSONType)
         }
