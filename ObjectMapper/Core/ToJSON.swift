@@ -9,19 +9,40 @@
 import UIKit
 
 class ToJSON {
-    
+	
+	func addObject(object: AnyObject, inout toDictionary dictionary: [String : AnyObject]){
+		
+	}
+	
     func baseType<N>(field: N, key: String, inout dictionary: [String : AnyObject]) {
+		
+//		let components = key.componentsSeparatedByString(".")
+//		var index = 0
+		var temp = dictionary
+		var currentKey = key
+//		while index < components.count {
+//			let tempKey = components[index]
+//			if index == components.count - 1 {
+//				currentKey = tempKey
+//				break
+//			} else {
+//				temp[tempKey] = Dictionary<String, AnyObject>()
+//				temp = temp[tempKey] as Dictionary<String, AnyObject>
+//				index++
+//			}
+//		}
+		
         switch N.self {
         case is Bool.Type:
-            dictionary[key] = field as Bool
+            dictionary[currentKey] = field as Bool
         case is Int.Type:
-            dictionary[key] = field as Int
+            dictionary[currentKey] = field as Int
         case is Double.Type:
-            dictionary[key] = field as Double
+            dictionary[currentKey] = field as Double
         case is Float.Type:
-            dictionary[key] = field as Float
+            dictionary[currentKey] = field as Float
         case is String.Type:
-            dictionary[key] = field as String
+            dictionary[currentKey] = field as String
         default:
             //println("Default")
             return

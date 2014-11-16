@@ -109,6 +109,24 @@ public class Mapper {
     
     // fetch value from JSON dictionary
     private func valueFor<N>(key: String) -> N? {
+		let components = key.componentsSeparatedByString(".")
+		var index = 0
+		var temp = JSONDictionary
+		while index < components.count {
+			let currentKey = components[index]
+			if index == components.count - 1 {
+				return temp[currentKey] as? N
+			} else {
+				var subDict = temp[currentKey] as [String : AnyObject]?
+				if let dict = subDict {
+					temp = dict
+					index++
+				} else {
+					return nil
+				}
+			}
+		}
+		
         return (JSONDictionary[key] as? N)
     }
     

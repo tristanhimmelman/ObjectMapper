@@ -43,6 +43,7 @@ class ObjectMapperTests: XCTestCase {
         let float: Float = 123.231
         let drinker = true
         let smoker = false
+		let distance = 124
         let arr = [ "bla", true, 42 ]
         let birthday = NSDate(timeIntervalSince1970: 1398956159)
         let directory = [
@@ -54,7 +55,7 @@ class ObjectMapperTests: XCTestCase {
         
         let subUserJSON = "{\"identifier\" : \"user8723\", \"drinker\" : true, \"age\": 17,\"birthdayOpt\" : 1398956159, \"username\" : \"sub user\" }"
         
-        let userJSONString = "{\"username\":\"\(username)\",\"identifier\":\"\(identifier)\",\"photoCount\":\(photoCount),\"age\":\(age),\"drinker\":\(drinker),\"smoker\":\(smoker), \"arr\":[ \"bla\", true, 42 ], \"dict\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"arrOpt\":[ \"bla\", true, 42 ], \"dictOpt\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"birthday\": 1398956159, \"birthdayOpt\": 1398956159, \"weight\": \(weight), \"float\": \(float), \"friend\": \(subUserJSON), \"friendDictionary\":{ \"bestFriend\": \(subUserJSON)}}"
+        let userJSONString = "{\"username\":\"\(username)\",\"identifier\":\"\(identifier)\",\"photoCount\":\(photoCount),\"age\":\(age),\"drinker\":\(drinker),\"smoker\":\(smoker), \"distance\": { \"text\":\"124ft\", \"value\": \(distance) }, \"arr\":[ \"bla\", true, 42 ], \"dict\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"arrOpt\":[ \"bla\", true, 42 ], \"dictOpt\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"birthday\": 1398956159, \"birthdayOpt\": 1398956159, \"weight\": \(weight), \"float\": \(float), \"friend\": \(subUserJSON), \"friendDictionary\":{ \"bestFriend\": \(subUserJSON)}}"
         
         let mapper = Mapper()
         let user = mapper.map(userJSONString, to: User.self)
@@ -63,6 +64,7 @@ class ObjectMapperTests: XCTestCase {
         XCTAssertEqual(identifier, user.identifier!, "Identifier should be the same")
         XCTAssertEqual(photoCount, user.photoCount, "PhotoCount should be the same")
         XCTAssertEqual(age, user.age!, "Age should be the same")
+        XCTAssertEqual(distance, user.distance!, "Distance should be the same")
         XCTAssertEqual(weight, user.weight!, "Weight should be the same")
         XCTAssertEqual(float, user.float!, "float should be the same")
         XCTAssertEqual(drinker, user.drinker, "Drinker should be the same")
@@ -83,6 +85,7 @@ class ObjectMapperTests: XCTestCase {
         user.drinker = true
         user.smoker = false
         user.arr = ["cheese", 11234]
+		user.distance = 111
         user.birthday = NSDate()
         user.imageURL = NSURL(string: "http://google.com/image/1234")
         
@@ -138,6 +141,7 @@ class User: MapperProtocol {
     var birthday: NSDate = NSDate()
     var birthdayOpt: NSDate?
     var imageURL: NSURL?
+	var distance: Int?
     
     required init() {
         friends = []
@@ -159,6 +163,7 @@ class User: MapperProtocol {
         object.friend           <= mapper["friend"]
         object.friends          <= mapper["friends"]
         object.friendDictionary <= mapper["friendDictionary"]
+		object.distance			<= mapper["distance.value"]
         object.birthday         <= (mapper["birthday"], DateTransform<NSDate, Double>())
         object.birthdayOpt      <= (mapper["birthdayOpt"], DateTransform<NSDate, Double>())
         object.imageURL         <= (mapper["imageURL"], URLTransform<NSURL, String>())
