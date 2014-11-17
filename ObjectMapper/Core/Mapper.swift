@@ -9,7 +9,7 @@
 import Foundation
 
 public protocol MapperProtocol {
-    class func map(mapper: Mapper, object: Self)
+    func map(mapper: Mapper)
     init()
 }
 
@@ -48,7 +48,7 @@ public class Mapper {
         if let json = json {
 
             mappingType = .fromJSON
-            N.map(self, object: object)
+            N().map(self)
             
             return object
         }
@@ -71,7 +71,7 @@ public class Mapper {
         self.JSONDictionary = JSON
         
         var object = N()
-        N.map(self, object: object)
+        object.map(self)
         
         return object
     }
@@ -81,7 +81,7 @@ public class Mapper {
         mappingType = .toJSON
         
         self.JSONDictionary = [String : AnyObject]()
-        N.map(self, object: object)
+        object.map(self)
         
         return self.JSONDictionary
     }

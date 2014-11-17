@@ -26,14 +26,14 @@ class User: MapperProtocol {
     }
 
     // MapperProtocol    
-    class func map(mapper: Mapper, object: User) {
-        object.username <= mapper["username"]
-        object.age <= mapper["age"]
-        object.weight <= mapper["weight"]
-        object.arr <= mapper["arr"]
-        object.dict <= mapper["dict"]
-        object.friend <= mapper["friend"]
-        object.birthday <= (mapper["birthday"], DateTransform<NSDate, Int>())
+    func map(mapper: Mapper) {
+        username <= mapper["username"]
+        age <= mapper["age"]
+        weight <= mapper["weight"]
+        arr <= mapper["arr"]
+        dict <= mapper["dict"]
+        friend <= mapper["friend"]
+        birthday <= (mapper["birthday"], DateTransform<NSDate, Int>())
     }
 }
 ```

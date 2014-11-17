@@ -55,9 +55,8 @@ class ObjectMapperTests: XCTestCase {
         let subUserJSON = "{\"identifier\" : \"user8723\", \"drinker\" : true, \"age\": 17,\"birthdayOpt\" : 1398956159, \"username\" : \"sub user\" }"
         
         let userJSONString = "{\"username\":\"\(username)\",\"identifier\":\"\(identifier)\",\"photoCount\":\(photoCount),\"age\":\(age),\"drinker\":\(drinker),\"smoker\":\(smoker), \"arr\":[ \"bla\", true, 42 ], \"dict\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"arrOpt\":[ \"bla\", true, 42 ], \"dictOpt\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"birthday\": 1398956159, \"birthdayOpt\": 1398956159, \"weight\": \(weight), \"float\": \(float), \"friend\": \(subUserJSON), \"friendDictionary\":{ \"bestFriend\": \(subUserJSON)}}"
-        
-        let mapper = Mapper()
-        let user = mapper.map(userJSONString, to: User.self)
+		
+        let user = Mapper().map(userJSONString, to: User.self)
         
         XCTAssertEqual(username, user.username, "Username should be the same")
         XCTAssertEqual(identifier, user.identifier!, "Identifier should be the same")
@@ -70,7 +69,7 @@ class ObjectMapperTests: XCTestCase {
         XCTAssertEqual(birthday, user.birthday, "Birthday should be the same")
         XCTAssertEqual(birthday, user.birthdayOpt!, "Birthday should be the same")
         
-        println(mapper.toJSONString(user, prettyPrint: true))
+        println(Mapper().toJSONString(user, prettyPrint: true))
     }
     
     func testToJSONAndBack(){
@@ -140,30 +139,30 @@ class User: MapperProtocol {
     var imageURL: NSURL?
     
     required init() {
-        friends = []
+		
     }
-    
-    class func map(mapper: Mapper, object: User) {
-        object.username         <= mapper["username"]
-        object.identifier       <= mapper["identifier"]
-        object.photoCount       <= mapper["photoCount"]
-        object.age              <= mapper["age"]
-        object.weight           <= mapper["weight"]
-        object.float            <= mapper["float"]
-        object.drinker          <= mapper["drinker"]
-        object.smoker           <= mapper["smoker"]
-        object.arr              <= mapper["arr"]
-        object.arrOptional      <= mapper["arrOpt"]
-        object.dict             <= mapper["dict"]
-        object.dictOptional     <= mapper["dictOpt"]
-        object.friend           <= mapper["friend"]
-        object.friends          <= mapper["friends"]
-        object.friendDictionary <= mapper["friendDictionary"]
-        object.birthday         <= (mapper["birthday"], DateTransform<NSDate, Double>())
-        object.birthdayOpt      <= (mapper["birthdayOpt"], DateTransform<NSDate, Double>())
-        object.imageURL         <= (mapper["imageURL"], URLTransform<NSURL, String>())
-    }
-    
+	
+	func map(mapper: Mapper) {
+		username         <= mapper["username"]
+		identifier       <= mapper["identifier"]
+		photoCount       <= mapper["photoCount"]
+		age              <= mapper["age"]
+		weight           <= mapper["weight"]
+		float            <= mapper["float"]
+		drinker          <= mapper["drinker"]
+		smoker           <= mapper["smoker"]
+		arr              <= mapper["arr"]
+		arrOptional      <= mapper["arrOpt"]
+		dict             <= mapper["dict"]
+		dictOptional     <= mapper["dictOpt"]
+		friend           <= mapper["friend"]
+		friends          <= mapper["friends"]
+		friendDictionary <= mapper["friendDictionary"]
+		birthday         <= (mapper["birthday"], DateTransform<NSDate, Double>())
+		birthdayOpt      <= (mapper["birthdayOpt"], DateTransform<NSDate, Double>())
+		imageURL         <= (mapper["imageURL"], URLTransform<NSURL, String>())
+	}
+	
     var description : String {
         return "username: \(username) \nid:\(identifier) \nage: \(age) \nphotoCount: \(photoCount) \ndrinker: \(drinker) \nsmoker: \(smoker) \narr: \(arr) \narrOptional: \(arrOptional) \ndict: \(dict) \ndictOptional: \(dictOptional) \nfriend: \(friend)\nfriends: \(friends)\nbirthday: \(birthday)\nbirthdayOpt: \(birthdayOpt)\nweight: \(weight)"
     }
