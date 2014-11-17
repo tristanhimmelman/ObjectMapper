@@ -48,7 +48,7 @@ public class Mapper {
         if let json = json {
 
             mappingType = .fromJSON
-            N().map(self)
+            object.map(self)
             
             return object
         }
