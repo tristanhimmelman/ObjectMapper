@@ -2,12 +2,13 @@ ObjectMapper
 ============
 
 ObjectMapper is a framework written in Swift that makes it easy for you to convert your Model objects to and from JSON. 
-###Features:
+##Features:
 - Mapping JSON to objects
 - Mapping objects to JSON
 - Nested Objects (stand alone, in Arrays or in Dictionaries)
 - Custom transformations during mapping
 
+##The Basics
 To support mapping, a class just needs to implement the MapperProtocol. ObjectMapper uses the "<=" operator to define how each member variable maps to and from JSON.
 
 ```swift
@@ -18,12 +19,10 @@ class User: MapperProtocol {
     var weight: Double?
     var arr: [AnyObject]?
     var dict: [String : AnyObject] = [:]
-    var friend: User?
+    var friend: User?                       // Nested User object
     var birthday: NSDate?
 
-    required init(){
-        
-    }
+    required init(){}
 
     // MapperProtocol    
     func map(mapper: Mapper) {
@@ -42,16 +41,15 @@ Once your class implements MapperProtocol, the Mapper class handles everything e
 
 Convert a JSON string to a model object:
 ```swift
-let user = Mapper().map(JSONString, to: User.self)
+let user = Mapper().map(string: JSONString, toType: User.self)
 ```
 
 Convert a model object to a JSON string:
 ```swift
-
 let JSONString = Mapper().toJSONString(user)
 ```
 
-Object mapper can handle classes composed of the following types:
+Object mapper can map classes composed of the following types:
 - Int
 - Bool
 - Double
@@ -64,7 +62,8 @@ Object mapper can handle classes composed of the following types:
 - Array\<T: MapperProtocol\>
 - Dictionary\<String, T: MapperProtocol\>
 
-ObjectMapper also supports Transforms that convert values during the mapping process. To use a transform, simply create a tuple with the mapper["field_name"] and the transform of choice on the right side of the '<=' operator:
+##Custom Transfoms
+ObjectMapper also supports custom Transforms that convert values during the mapping process. To use a transform, simply create a tuple with the mapper["field_name"] and the transform of choice on the right side of the '<=' operator:
 ```swift
 birthday <= (mapper["birthday"], DateTransform<NSDate, Int>())
 ```
@@ -73,22 +72,33 @@ The above transform will convert the JSON Int value to an NSDate when reading JS
 You can easily create your own custom transforms by subclassing and overriding the methods in the MapperTransform class:
 ```swift
 public class MapperTransform<ObjectType, JSONType> {
-    init(){
-
-    }
-
+    init(){}
+    
     func transformFromJSON(value: AnyObject?) -> ObjectType? {
         return nil
     }
-
+    
     func transformToJSON(value: ObjectType?) -> JSONType? {
         return nil
     }
 }
 ```
+##Easy Mapping of Nested Objects 
+ObjectMapper supports dot notation within keys for easy mapping of nested objects. Given the following JSON String: 
+```
+"distance" : {
+     "text" : "102 ft",
+     "value" : 31
+}
+```
+You can access the nested objects as follows:
+```
+func map(mapper: Mapper){
+    distance <= mapper["distance.value"]
+}
+```
 
-###Installation
-
+##Installation
 _Due to the current lack of [proper infrastructure](http://cocoapods.org) for Swift dependency management, using ObjectMapper in your project requires the following steps:_
 
 1. Add ObjectMapper as a [submodule](http://git-scm.com/docs/git-submodule) by opening the Terminal, `cd`-ing into your top-level project directory, and entering the command `git submodule add https://github.com/Hearst-DD/ObjectMapper.git`
