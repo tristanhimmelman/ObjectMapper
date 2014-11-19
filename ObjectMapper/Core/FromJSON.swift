@@ -74,13 +74,13 @@ class FromJSON<CollectionType> {
     
     func object<N: MapperProtocol>(inout field: N, object: AnyObject?) {
         if let value = object as? [String : AnyObject] {
-            field = Mapper().map(value, to: N.self)
+            field = Mapper().map(value, toType: N.self)
         }
     }
     
     func object<N: MapperProtocol>(inout field: N?, object: AnyObject?) {
         if let value = object as? [String : AnyObject] {
-            field = Mapper().map(value, to: N.self)
+            field = Mapper().map(value, toType: N.self)
         }
     }
     
@@ -111,7 +111,7 @@ class FromJSON<CollectionType> {
         if let array = object as [AnyObject]? {
             for object in array {
                 let objectJSON = object as [String : AnyObject]
-                var parsedObj = mapper.map(objectJSON, to: N.self)
+                var parsedObj = mapper.map(objectJSON, toType: N.self)
                 parsedObjects.append(parsedObj)
             }
         }
@@ -148,7 +148,7 @@ class FromJSON<CollectionType> {
         if let dictionary = object as Dictionary<String, AnyObject>? {
             for (key, object) in dictionary {
                 let objectJSON = object as [String : AnyObject]
-                var parsedObj = mapper.map(objectJSON, to: N.self)
+                var parsedObj = mapper.map(objectJSON, toType: N.self)
                 parsedObjectsDictionary[key] = parsedObj
             }
         }

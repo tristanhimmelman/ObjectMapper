@@ -59,13 +59,13 @@ public class Mapper {
     public func map<N: MapperProtocol>(string JSONString: String, toType type: N.Type) -> N! {
         var json = parseJSONDictionary(JSONString)
         if let json = json {
-            return map(json, to: type)
+            return map(json, toType: type)
         }
         return nil
     }
     
     // maps a JSON dictionary to an object that conforms to MapperProtocol
-    public func map<N: MapperProtocol>(JSON: [String : AnyObject], to type: N.Type) -> N! {
+    public func map<N: MapperProtocol>(JSON: [String : AnyObject], toType type: N.Type) -> N! {
         mappingType = .fromJSON
 
         self.JSONDictionary = JSON
