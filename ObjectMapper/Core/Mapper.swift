@@ -76,7 +76,7 @@ public class Mapper {
         return object
     }
 
-	// maps a JSON dictionary to an object that conforms to MapperProtocol
+	// maps a JSON array to an object that conforms to MapperProtocol
 	public func mapArray<N: MapperProtocol>(string JSONString: String, toType type: N.Type) -> [N]! {
 		var json = parseJSONArray(JSONString)
 		if let jsonArray = json {
