@@ -22,18 +22,6 @@ class ObjectMapperTests: XCTestCase {
         super.tearDown()
     }
     
-//    func testExample() {
-//        // This is an example of a functional test case.
-//        XCTAssert(true, "Pass")
-//    }
-//    
-//    func testPerformanceExample() {
-//        // This is an example of a performance test case.
-//        self.measureBlock() {
-//            // Put the code you want to measure the time of here.
-//        }
-//    }
-    
     func testBasicParsing() {
         let username = "John Doe"
         let identifier = "user8723"
@@ -43,7 +31,6 @@ class ObjectMapperTests: XCTestCase {
         let float: Float = 123.231
         let drinker = true
         let smoker = false
-		let distance = 124
         let arr = [ "bla", true, 42 ]
         let birthday = NSDate(timeIntervalSince1970: 1398956159)
         let directory = [
@@ -52,19 +39,16 @@ class ObjectMapperTests: XCTestCase {
             "key3" : 142
         ]
         
-        
         let subUserJSON = "{\"identifier\" : \"user8723\", \"drinker\" : true, \"age\": 17,\"birthdayOpt\" : 1398956159, \"username\" : \"sub user\" }"
         
-        let userJSONString = "{\"username\":\"\(username)\",\"identifier\":\"\(identifier)\",\"photoCount\":\(photoCount),\"age\":\(age),\"drinker\":\(drinker),\"smoker\":\(smoker), \"distance\": { \"text\":\"124ft\", \"value\": \(distance) }, \"arr\":[ \"bla\", true, 42 ], \"dict\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"arrOpt\":[ \"bla\", true, 42 ], \"dictOpt\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"birthday\": 1398956159, \"birthdayOpt\": 1398956159, \"weight\": \(weight), \"float\": \(float), \"friend\": \(subUserJSON), \"friendDictionary\":{ \"bestFriend\": \(subUserJSON)}}"
-        
-        let mapper = Mapper()
-        let user = mapper.map(userJSONString, to: User.self)
+        let userJSONString = "{\"username\":\"\(username)\",\"identifier\":\"\(identifier)\",\"photoCount\":\(photoCount),\"age\":\(age),\"drinker\":\(drinker),\"smoker\":\(smoker), \"arr\":[ \"bla\", true, 42 ], \"dict\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"arrOpt\":[ \"bla\", true, 42 ], \"dictOpt\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"birthday\": 1398956159, \"birthdayOpt\": 1398956159, \"weight\": \(weight), \"float\": \(float), \"friend\": \(subUserJSON), \"friendDictionary\":{ \"bestFriend\": \(subUserJSON)}}"
+		
+		let user = Mapper().map(string: userJSONString, toType: User.self)
         
         XCTAssertEqual(username, user.username, "Username should be the same")
         XCTAssertEqual(identifier, user.identifier!, "Identifier should be the same")
         XCTAssertEqual(photoCount, user.photoCount, "PhotoCount should be the same")
         XCTAssertEqual(age, user.age!, "Age should be the same")
-        XCTAssertEqual(distance, user.distance!, "Distance should be the same")
         XCTAssertEqual(weight, user.weight!, "Weight should be the same")
         XCTAssertEqual(float, user.float!, "float should be the same")
         XCTAssertEqual(drinker, user.drinker, "Drinker should be the same")
@@ -72,9 +56,19 @@ class ObjectMapperTests: XCTestCase {
         XCTAssertEqual(birthday, user.birthday, "Birthday should be the same")
         XCTAssertEqual(birthday, user.birthdayOpt!, "Birthday should be the same")
         
-        println(mapper.toJSONString(user, prettyPrint: true))
+        println(Mapper().toJSONString(user, prettyPrint: true))
     }
-    
+	
+	func testNestedKeys(){
+		let heightInCM = 180.0
+		
+		let userJSONString = "{\"username\":\"bob\", \"height\": {\"value\": \(heightInCM), \"text\": \"6 feet tall\"} }"
+		
+		let user = Mapper().map(string: userJSONString, toType: User.self)
+
+		XCTAssertEqual(user.heightInCM!, heightInCM, "Username should be the same")
+	}
+	
     func testToJSONAndBack(){
         var user = User()
         user.username = "tristan_him"
@@ -85,13 +79,12 @@ class ObjectMapperTests: XCTestCase {
         user.drinker = true
         user.smoker = false
         user.arr = ["cheese", 11234]
-		user.distance = 111
         user.birthday = NSDate()
         user.imageURL = NSURL(string: "http://google.com/image/1234")
         
-        let json = Mapper().toJSONString(user, prettyPrint: true)
-        println(json)
-        var parsedUser = Mapper().map(json, to: User.self)
+        let jsonString = Mapper().toJSONString(user, prettyPrint: true)
+        println(jsonString)
+		var parsedUser = Mapper().map(string: jsonString, toType: User.self)
         
         XCTAssertEqual(user.username, parsedUser.username, "Username should be the same")
         XCTAssertEqual(user.identifier!, parsedUser.identifier!, "Identifier should be the same")
@@ -107,7 +100,7 @@ class ObjectMapperTests: XCTestCase {
     
     func testUnknownPropertiesIgnored() {
         let userJSONString = "{\"username\":\"bob\",\"identifier\":\"bob1987\", \"foo\" : \"bar\", \"fooArr\" : [ 1, 2, 3], \"fooObj\" : { \"baz\" : \"qux\" } }"
-        let user = Mapper().map(userJSONString, to: User.self)
+        let user = Mapper().map(string: userJSONString, toType: User.self)
         
         XCTAssert(user != nil, "User should not be nil")
     }
@@ -115,10 +108,45 @@ class ObjectMapperTests: XCTestCase {
     func testInvalidJsonResultsInNilObject() {
         let userJSONString = "{\"username\":\"bob\",\"identifier\":\"bob1987\"" // missing ending brace
 
-        let user = Mapper().map(userJSONString, to: User.self)
-        
+        let user = Mapper().map(string: userJSONString, toType: User.self)
+		
         XCTAssert(user == nil, "User should be nil due to invalid JSON")
     }
+	
+	func testArrayJSON(){
+		let name1 = "Bob"
+		let name2 = "Jane"
+		
+		let arrayJSONString = "[{\"name\": \"\(name1)\", \"UUID\": \"3C074D4B-FC8C-4CA2-82A9-6E9367BBC875\", \"major\": 541, \"minor\": 123},{ \"name\": \"\(name2)\", \"UUID\": \"3C074D4B-FC8C-4CA2-82A9-6E9367BBC876\", \"major\": 54321,\"minor\": 13 }]"
+	
+		let studentArray = Mapper().mapArray(string: arrayJSONString, toType: Student.self)
+		
+		if let students = studentArray {
+			XCTAssert(students.count == 2, "There should be 2 students in array")
+			XCTAssert(students[0].name == name1, "First student's does not match")
+			XCTAssert(students[1].name == name2, "Second student's does not match")
+		} else {
+			XCTAssert(false, "Student Array should not be empty")
+		}
+	}
+}
+
+class Student: MapperProtocol {
+	var name: String?
+	var UUID: String?
+	var major: Int?
+	var minor: Int?
+	
+	required init(){
+		
+	}
+	
+	func map(mapper: Mapper) {
+		name <= mapper["name"]
+		UUID <= mapper["UUID"]
+		major <= mapper["major"]
+		minor <= mapper["minor"]
+	}
 }
 
 class User: MapperProtocol {
@@ -141,34 +169,34 @@ class User: MapperProtocol {
     var birthday: NSDate = NSDate()
     var birthdayOpt: NSDate?
     var imageURL: NSURL?
-	var distance: Int?
-    
+	var heightInCM: Double?
+	
     required init() {
-        friends = []
+		
     }
-    
-    class func map(mapper: Mapper, object: User) {
-        object.username         <= mapper["username"]
-        object.identifier       <= mapper["identifier"]
-        object.photoCount       <= mapper["photoCount"]
-        object.age              <= mapper["age"]
-        object.weight           <= mapper["weight"]
-        object.float            <= mapper["float"]
-        object.drinker          <= mapper["drinker"]
-        object.smoker           <= mapper["smoker"]
-        object.arr              <= mapper["arr"]
-        object.arrOptional      <= mapper["arrOpt"]
-        object.dict             <= mapper["dict"]
-        object.dictOptional     <= mapper["dictOpt"]
-        object.friend           <= mapper["friend"]
-        object.friends          <= mapper["friends"]
-        object.friendDictionary <= mapper["friendDictionary"]
-		object.distance			<= mapper["distance.value"]
-        object.birthday         <= (mapper["birthday"], DateTransform<NSDate, Double>())
-        object.birthdayOpt      <= (mapper["birthdayOpt"], DateTransform<NSDate, Double>())
-        object.imageURL         <= (mapper["imageURL"], URLTransform<NSURL, String>())
-    }
-    
+	
+	func map(mapper: Mapper) {
+		username         <= mapper["username"]
+		identifier       <= mapper["identifier"]
+		photoCount       <= mapper["photoCount"]
+		age              <= mapper["age"]
+		weight           <= mapper["weight"]
+		float            <= mapper["float"]
+		drinker          <= mapper["drinker"]
+		smoker           <= mapper["smoker"]
+		arr              <= mapper["arr"]
+		arrOptional      <= mapper["arrOpt"]
+		dict             <= mapper["dict"]
+		dictOptional     <= mapper["dictOpt"]
+		friend           <= mapper["friend"]
+		friends          <= mapper["friends"]
+		friendDictionary <= mapper["friendDictionary"]
+		birthday         <= (mapper["birthday"], DateTransform<NSDate, Double>())
+		birthdayOpt      <= (mapper["birthdayOpt"], DateTransform<NSDate, Double>())
+		imageURL         <= (mapper["imageURL"], URLTransform<NSURL, String>())
+		heightInCM		 <= mapper["height.value"]
+	}
+	
     var description : String {
         return "username: \(username) \nid:\(identifier) \nage: \(age) \nphotoCount: \(photoCount) \ndrinker: \(drinker) \nsmoker: \(smoker) \narr: \(arr) \narrOptional: \(arrOptional) \ndict: \(dict) \ndictOptional: \(dictOptional) \nfriend: \(friend)\nfriends: \(friends)\nbirthday: \(birthday)\nbirthdayOpt: \(birthdayOpt)\nweight: \(weight)"
     }

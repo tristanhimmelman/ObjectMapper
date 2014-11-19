@@ -28,6 +28,7 @@ class FromJSON<CollectionType> {
             case is Dictionary<String, CollectionType>.Type:
                 field = value as FieldType
             default:
+				field = value as FieldType
                 return
             }
         }
@@ -59,7 +60,7 @@ class FromJSON<CollectionType> {
             case is NSDate.Type:
                 field = value as? FieldType
             default:
-                field = nil
+				field = value as? FieldType
                 return
             }
         }

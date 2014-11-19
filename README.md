@@ -26,14 +26,14 @@ class User: MapperProtocol {
     }
 
     // MapperProtocol    
-    class func map(mapper: Mapper, object: User) {
-        object.username <= mapper["username"]
-        object.age <= mapper["age"]
-        object.weight <= mapper["weight"]
-        object.arr <= mapper["arr"]
-        object.dict <= mapper["dict"]
-        object.friend <= mapper["friend"]
-        object.birthday <= (mapper["birthday"], DateTransform<NSDate, Int>())
+    func map(mapper: Mapper) {
+        username <= mapper["username"]
+        age <= mapper["age"]
+        weight <= mapper["weight"]
+        arr <= mapper["arr"]
+        dict <= mapper["dict"]
+        friend <= mapper["friend"]
+        birthday <= (mapper["birthday"], DateTransform<NSDate, Int>())
     }
 }
 ```
@@ -66,7 +66,7 @@ Object mapper can handle classes composed of the following types:
 
 ObjectMapper also supports Transforms that convert values during the mapping process. To use a transform, simply create a tuple with the mapper["field_name"] and the transform of choice on the right side of the '<=' operator:
 ```swift
-object.birthday <= (mapper["birthday"], DateTransform<NSDate, Int>())
+birthday <= (mapper["birthday"], DateTransform<NSDate, Int>())
 ```
 The above transform will convert the JSON Int value to an NSDate when reading JSON and will convert the NSDate to an Int when converting objects to JSON.
 
