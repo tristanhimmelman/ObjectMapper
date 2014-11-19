@@ -43,8 +43,8 @@ public class Mapper {
     }
     
     // map a JSON string onto an existing object
-    public func map<N: MapperProtocol>(JSON: String, to object: N) -> N! {
-        var json = parseJSONString(JSON)
+    public func map<N: MapperProtocol>(string JSON: String, toObject object: N) -> N! {
+        var json = parseJSONDictionary(JSON)
         if let json = json {
 
             mappingType = .fromJSON
@@ -56,8 +56,8 @@ public class Mapper {
     }
     
     // map a JSON string to an object Type that conforms to MapperProtocol
-    public func map<N: MapperProtocol>(JSON: String, to type: N.Type) -> N! {
-        var json = parseJSONString(JSON)
+    public func map<N: MapperProtocol>(string JSONString: String, toType type: N.Type) -> N! {
+        var json = parseJSONDictionary(JSONString)
         if let json = json {
             return map(json, to: type)
         }
@@ -75,7 +75,33 @@ public class Mapper {
         
         return object
     }
-    
+
+	// maps a JSON dictionary to an object that conforms to MapperProtocol
+	public func mapArray<N: MapperProtocol>(string JSONString: String, toType type: N.Type) -> [N]! {
+		var json = parseJSONArray(JSONString)
+		if let jsonArray = json {
+			return mapArray(jsonArray, toType: type)
+		}
+		return nil
+	}
+	
+	// maps a JSON dictionary to an object that conforms to MapperProtocol
+	public func mapArray<N: MapperProtocol>(JSON: [[String : AnyObject]], toType type: N.Type) -> [N] {
+		mappingType = .fromJSON
+		
+		var objects: Array<N> = []
+		
+		for innerJSON in JSON {
+			self.JSONDictionary = innerJSON
+			
+			var object = N()
+			object.map(self)
+			objects.append(object)
+		}
+		
+		return objects
+	}
+	
     // maps an Object to a JSON dictionary <String : AnyObject>
     public func toJSON<N: MapperProtocol>(object: N) -> [String : AnyObject] {
         mappingType = .toJSON
@@ -113,15 +139,32 @@ public class Mapper {
     }
     
     // convert a JSON String into a Dictionary<String, AnyObject> using NSJSONSerialization
-    private func parseJSONString(JSON: String) -> [String : AnyObject]! {
-        var data = JSON.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
-        if let data = data {
-            var error: NSError?
-            var dict: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &error)
-            if let d: AnyObject = dict {
-                return d as [String : AnyObject]
-            }
-        }
+    private func parseJSONDictionary(JSON: String) -> [String : AnyObject]! {
+		var parsedJSON: AnyObject? = parseJSONString(JSON)
+		if let d: AnyObject = parsedJSON {
+			return d as [String : AnyObject]
+		}
         return nil
     }
+	
+	// convert a JSON String into a Array<String, AnyObject> using NSJSONSerialization
+	private func parseJSONArray(JSON: String) -> [[String : AnyObject]]! {
+		var parsedJSON: AnyObject? = parseJSONString(JSON)
+		if let d: AnyObject = parsedJSON {
+			return d as [[String : AnyObject]]
+		}
+		return nil
+	}
+	
+	// convert a JSON String into an Object using NSJSONSerialization
+	private func parseJSONString(JSON: String) -> AnyObject! {
+		var data = JSON.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
+		if let data = data {
+			var error: NSError?
+			var parsedJSON: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &error)
+			return parsedJSON
+		}
+		return nil
+	}
+
 }
