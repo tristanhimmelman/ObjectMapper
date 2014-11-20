@@ -78,9 +78,16 @@ public class Mapper {
 
 	// maps a JSON array to an object that conforms to MapperProtocol
 	public func mapArray<N: MapperProtocol>(string JSONString: String, toType type: N.Type) -> [N]! {
-		var json = parseJSONArray(JSONString)
-		if let jsonArray = json {
+		var jsonArray = parseJSONArray(JSONString)
+		if let jsonArray = jsonArray {
 			return mapArray(jsonArray, toType: type)
+		} else {
+			// failed to parse JSON into array form
+			// try to parse it into a dictionary and then wrap it in an array
+			var jsonDict = parseJSONDictionary(JSONString)
+			if let jsonDict = jsonDict {
+				return mapArray([jsonDict], toType: type)
+			}
 		}
 		return nil
 	}
@@ -171,9 +178,10 @@ public class Mapper {
 	// convert a JSON String into a Array<String, AnyObject> using NSJSONSerialization
 	private func parseJSONArray(JSON: String) -> [[String : AnyObject]]! {
 		var parsedJSON: AnyObject? = parseJSONString(JSON)
-		if let d: AnyObject = parsedJSON {
-			return d as [[String : AnyObject]]
+		if let jsonArray = parsedJSON as? [[String : AnyObject]] {
+			return jsonArray
 		}
+		
 		return nil
 	}
 	

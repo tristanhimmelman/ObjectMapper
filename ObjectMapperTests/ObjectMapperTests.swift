@@ -113,7 +113,7 @@ class ObjectMapperTests: XCTestCase {
         XCTAssert(user == nil, "User should be nil due to invalid JSON")
     }
 	
-	func testArrayJSON(){
+	func testMapArrayJSON(){
 		let name1 = "Bob"
 		let name2 = "Jane"
 		
@@ -125,6 +125,23 @@ class ObjectMapperTests: XCTestCase {
 			XCTAssert(students.count == 2, "There should be 2 students in array")
 			XCTAssert(students[0].name == name1, "First student's does not match")
 			XCTAssert(students[1].name == name2, "Second student's does not match")
+		} else {
+			XCTAssert(false, "Student Array should not be empty")
+		}
+	}
+	
+	// test mapArray() with JSON string that is not an array form
+	// should return a collection with one item
+	func testMapArrayJSONWithNoArray(){
+		let name1 = "Bob"
+		
+		let arrayJSONString = "{\"name\": \"\(name1)\", \"UUID\": \"3C074D4B-FC8C-4CA2-82A9-6E9367BBC875\", \"major\": 541, \"minor\": 123}"
+		
+		let studentArray = Mapper().mapArray(string: arrayJSONString, toType: Student.self)
+		
+		if let students = studentArray {
+			XCTAssert(students.count == 1, "There should be 2 students in array")
+			XCTAssert(students[0].name == name1, "First student's does not match")
 		} else {
 			XCTAssert(false, "Student Array should not be empty")
 		}
