@@ -83,6 +83,11 @@ public class MapperTransform<ObjectType, JSONType> {
     }
 }
 ```
+
+Currently ObjectMapper includes the following transforms (feel free to contribute more!):
+- DateTransform
+- URLTransform
+
 ##Easy Mapping of Nested Objects 
 ObjectMapper supports dot notation within keys for easy mapping of nested objects. Given the following JSON String: 
 ```
@@ -96,6 +101,29 @@ You can access the nested objects as follows:
 func map(mapper: Mapper){
     distance <= mapper["distance.value"]
 }
+```
+
+##Mapping Collections
+If the top level of your JSON is in the form of a collection, ObjectMapper can handle this as well. Given the following JSON string:
+```
+[
+    {
+        "name": "My pretty beacon NO#1",
+        "UUID": "3C074D4B-FC8C-4CA2-82A9-6E9367BBC875",
+        "major": 541,
+        "minor": 123
+    },
+    {
+        "name": "My pretty beacon NO#2",
+        "UUID": "3C074D4B-FC8C-4CA2-82A9-6E9367BBC876",
+        "major": 54321,
+        "minor": 13
+    }
+]
+```
+You can easily map it with the following line of code:
+```
+let studentArray = Mapper().mapArray(string: arrayJSONString, toType: Student.self)
 ```
 
 ##Installation
