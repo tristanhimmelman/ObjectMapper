@@ -86,7 +86,7 @@ class ObjectMapperTests: XCTestCase {
         println(jsonString)
 		var parsedUser = Mapper().map(string: jsonString, toType: User.self)
         
-        XCTAssertEqual(user.username, parsedUser.username, "Username should be the same")
+		
         XCTAssertEqual(user.identifier!, parsedUser.identifier!, "Identifier should be the same")
         XCTAssertEqual(user.photoCount, parsedUser.photoCount, "PhotoCount should be the same")
         XCTAssertEqual(user.age!, parsedUser.age!, "Age should be the same")
@@ -145,6 +145,52 @@ class ObjectMapperTests: XCTestCase {
 		} else {
 			XCTAssert(false, "Student Array should not be empty")
 		}
+	}
+	
+	func testDoubleParsing(){
+		
+		let percentage1: Double = 0.1
+		let percentage2: Double = 1792.41
+		
+		let JSON = "{ \"tasks\": [{\"taskId\":103,\"percentage\":\(percentage1)},{\"taskId\":108,\"percentage\":\(percentage2)}] }"
+		
+		let plan = Mapper().map(string: JSON, toType: Plan.self)
+		
+		if let tasks = plan.tasks {
+			let task1 = tasks[0]
+			XCTAssertEqual(task1.percentage!, percentage1, "Percentage 1 should be the same")
+			
+			let task2 = tasks[1]
+			XCTAssertEqual(task2.percentage!, percentage2, "Percentage 2 should be the same")
+		} else {
+			XCTAssert(false, "Tasks not mapped")
+		}
+	}
+}
+
+class Plan: MapperProtocol {
+	var tasks: [Task]?
+	
+	required init(){
+		
+	}
+	
+	func map(mapper: Mapper) {
+		tasks <= mapper["tasks"]
+	}
+}
+
+class Task: MapperProtocol {
+	var taskId: Int?
+	var percentage: Double?
+	
+	required init(){
+		
+	}
+	
+	func map(mapper: Mapper) {
+		taskId <= mapper["taskId"]
+		percentage <= mapper["percentage"]
 	}
 }
 
