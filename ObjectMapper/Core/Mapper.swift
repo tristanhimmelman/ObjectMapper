@@ -46,8 +46,8 @@ public class Mapper {
     public func map<N: MapperProtocol>(string JSON: String, toObject object: N) -> N! {
         var json = parseJSONDictionary(JSON)
         if let json = json {
-
             mappingType = .fromJSON
+            self.JSONDictionary = json
             object.map(self)
             
             return object
