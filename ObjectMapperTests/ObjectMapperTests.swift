@@ -59,6 +59,43 @@ class ObjectMapperTests: XCTestCase {
         println(Mapper().toJSONString(user, prettyPrint: true))
     }
 	
+    func testInstanceParsing() {
+        let username = "John Doe"
+        let identifier = "user8723"
+        let photoCount = 13
+        let age = 1227
+        let weight = 123.23
+        let float: Float = 123.231
+        let drinker = true
+        let smoker = false
+        let arr = [ "bla", true, 42 ]
+        let birthday = NSDate(timeIntervalSince1970: 1398956159)
+        let directory = [
+            "key1" : "value1",
+            "key2" : false,
+            "key3" : 142
+        ]
+        
+        let subUserJSON = "{\"identifier\" : \"user8723\", \"drinker\" : true, \"age\": 17,\"birthdayOpt\" : 1398956159, \"username\" : \"sub user\" }"
+        
+        let userJSONString = "{\"username\":\"\(username)\",\"identifier\":\"\(identifier)\",\"photoCount\":\(photoCount),\"age\":\(age),\"drinker\":\(drinker),\"smoker\":\(smoker), \"arr\":[ \"bla\", true, 42 ], \"dict\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"arrOpt\":[ \"bla\", true, 42 ], \"dictOpt\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"birthday\": 1398956159, \"birthdayOpt\": 1398956159, \"weight\": \(weight), \"float\": \(float), \"friend\": \(subUserJSON), \"friendDictionary\":{ \"bestFriend\": \(subUserJSON)}}"
+        
+        let user = Mapper().map(string: userJSONString, toObject: User())
+        
+        XCTAssertEqual(username, user.username, "Username should be the same")
+        XCTAssertEqual(identifier, user.identifier!, "Identifier should be the same")
+        XCTAssertEqual(photoCount, user.photoCount, "PhotoCount should be the same")
+        XCTAssertEqual(age, user.age!, "Age should be the same")
+        XCTAssertEqual(weight, user.weight!, "Weight should be the same")
+        XCTAssertEqual(float, user.float!, "float should be the same")
+        XCTAssertEqual(drinker, user.drinker, "Drinker should be the same")
+        XCTAssertEqual(smoker, user.smoker!, "Smoker should be the same")
+        XCTAssertEqual(birthday, user.birthday, "Birthday should be the same")
+        XCTAssertEqual(birthday, user.birthdayOpt!, "Birthday should be the same")
+        
+        println(Mapper().toJSONString(user, prettyPrint: true))
+    }
+    
 	func testNestedKeys(){
 		let heightInCM = 180.0
 		
