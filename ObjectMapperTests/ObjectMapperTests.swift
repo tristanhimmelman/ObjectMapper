@@ -203,6 +203,42 @@ class ObjectMapperTests: XCTestCase {
 			XCTAssert(false, "Tasks not mapped")
 		}
 	}
+	
+	func testMappingAGenericObject(){
+		let code: Int = 22
+		let JSON = "{\"result\":{\"code\":\(code)}}"
+		
+		let response = Mapper().map(string: JSON, toType: Response<Status>.self)
+		
+		if let status = response.result?.status {
+			XCTAssertEqual(status, code, "Code was not mapped correctly")
+		} else {
+			XCTAssert(false, "Generic object FAILED to map")
+		}
+
+	}
+}
+
+class Response<T:MapperProtocol>: MapperProtocol {
+	var result: T?
+	
+	required init() {
+	}
+	
+	func map(mapper: Mapper) {
+		result <= mapper["result"]
+	}
+}
+
+class Status: MapperProtocol {
+	var status: Int?
+	
+	required init() {
+	}
+	
+	func map(mapper: Mapper) {
+		status <= mapper["code"]
+	}
 }
 
 class Plan: MapperProtocol {
