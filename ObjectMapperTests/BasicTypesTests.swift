@@ -22,7 +22,100 @@ class BasicTypesTests: XCTestCase {
         super.tearDown()
     }
 
-	// MARK: Test mapping of arrays with basic types in them (Bool, Int, Double, Float, String)
+	
+	// MARK: Test mapping to JSON and back (basic types: Bool, Int, Double, Float, String)
+	
+	func testMappingBoolToJSON(){
+		var value: Bool = true
+		var object = BasicTypes()
+		object.bool = value
+		object.boolOptional = value
+		
+		let JSON = Mapper().toJSONString(object, prettyPrint: true)
+		var mappedObject = Mapper().map(string: JSON, toType: BasicTypes.self)
+		
+		if let mappedObject = mappedObject {
+
+			XCTAssertEqual(mappedObject.bool, value, "Bool failed")
+			if let val = mappedObject.boolOptional {
+				XCTAssertEqual(val, value, "Optional Bool failed")
+			}
+		}
+	}
+	
+	func testMappingIntToJSON(){
+		var value: Int = 11
+		var object = BasicTypes()
+		object.int = value
+		object.intOptional = value
+		
+		let JSON = Mapper().toJSONString(object, prettyPrint: true)
+		var mappedObject = Mapper().map(string: JSON, toType: BasicTypes.self)
+		
+		if let mappedObject = mappedObject {
+			
+			XCTAssertEqual(mappedObject.int, value, "Int failed")
+			if let val = mappedObject.intOptional {
+				XCTAssertEqual(val, value, "Optional Int failed")
+			}
+		}
+	}
+
+	func testMappingDoubleToJSON(){
+		var value: Double = 11
+		var object = BasicTypes()
+		object.double = value
+		object.doubleOptional = value
+		
+		let JSON = Mapper().toJSONString(object, prettyPrint: true)
+		var mappedObject = Mapper().map(string: JSON, toType: BasicTypes.self)
+		
+		if let mappedObject = mappedObject {
+			
+			XCTAssertEqual(mappedObject.double, value, "Double failed")
+			if let val = mappedObject.doubleOptional {
+				XCTAssertEqual(val, value, "Optional Double failed")
+			}
+		}
+	}
+
+	func testMappingFloatToJSON(){
+		var value: Float = 11
+		var object = BasicTypes()
+		object.float = value
+		object.floatOptional = value
+		
+		let JSON = Mapper().toJSONString(object, prettyPrint: true)
+		var mappedObject = Mapper().map(string: JSON, toType: BasicTypes.self)
+		
+		if let mappedObject = mappedObject {
+			
+			XCTAssertEqual(mappedObject.float, value, "Float failed")
+			if let val = mappedObject.floatOptional {
+				XCTAssertEqual(val, value, "Optional Float failed")
+			}
+		}
+	}
+	
+	func testMappingStringToJSON(){
+		var value: String = "STRINGNGNGG"
+		var object = BasicTypes()
+		object.string = value
+		object.stringOptional = value
+		
+		let JSON = Mapper().toJSONString(object, prettyPrint: true)
+		var mappedObject = Mapper().map(string: JSON, toType: BasicTypes.self)
+		
+		if let mappedObject = mappedObject {
+			
+			XCTAssertEqual(mappedObject.string, value, "String failed")
+			if let val = mappedObject.stringOptional {
+				XCTAssertEqual(val, value, "Optional String failed")
+			}
+		}
+	}
+	
+	// MARK: Test mapping Arrays to JSON and back (with basic types in them Bool, Int, Double, Float, String)
 	
 	func testMappingBoolArrayToJSON(){
 		var value: Bool = true
