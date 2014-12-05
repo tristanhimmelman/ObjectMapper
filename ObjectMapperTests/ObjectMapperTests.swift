@@ -215,8 +215,8 @@ class ObjectMapperTests: XCTestCase {
 		} else {
 			XCTAssert(false, "Generic object FAILED to map")
 		}
-
 	}
+
 }
 
 class Response<T:MapperProtocol>: MapperProtocol {
@@ -299,6 +299,7 @@ class User: MapperProtocol {
     var arrOptional: [AnyObject]?
     var dict: [String : AnyObject] = [:]
     var dictOptional: [String : AnyObject]?
+	var dictString: [String : String]?
     var friendDictionary: [String : User]?
     var friend: User?
     var friends: [User]? = []
@@ -327,6 +328,7 @@ class User: MapperProtocol {
 		friend           <= mapper["friend"]
 		friends          <= mapper["friends"]
 		friendDictionary <= mapper["friendDictionary"]
+		dictString		 <= mapper["dictString"]
 		birthday         <= (mapper["birthday"], DateTransform<NSDate, Double>())
 		birthdayOpt      <= (mapper["birthdayOpt"], DateTransform<NSDate, Double>())
 		imageURL         <= (mapper["imageURL"], URLTransform<NSURL, String>())

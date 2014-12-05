@@ -16,23 +16,11 @@ class ToJSON {
 	
     func baseType<N>(field: N, key: String, inout dictionary: [String : AnyObject]) {
 		
-//		let components = key.componentsSeparatedByString(".")
-//		var index = 0
 		var temp = dictionary
 		var currentKey = key
-//		while index < components.count {
-//			let tempKey = components[index]
-//			if index == components.count - 1 {
-//				currentKey = tempKey
-//				break
-//			} else {
-//				temp[tempKey] = Dictionary<String, AnyObject>()
-//				temp = temp[tempKey] as Dictionary<String, AnyObject>
-//				index++
-//			}
-//		}
-		
+
         switch N.self {
+		// basic Types
         case is Bool.Type:
             dictionary[currentKey] = field as Bool
         case is Int.Type:
@@ -43,6 +31,30 @@ class ToJSON {
             dictionary[currentKey] = field as Float
         case is String.Type:
             dictionary[currentKey] = field as String
+
+		// Arrays with basic types
+		case is Array<Bool>.Type:
+			dictionary[currentKey] = field as Array<Bool>
+		case is Array<Int>.Type:
+			dictionary[currentKey] = field as Array<Int>
+		case is Array<Double>.Type:
+			dictionary[currentKey] = field as Array<Double>
+		case is Array<Float>.Type:
+			dictionary[currentKey] = field as Array<Float>
+		case is Array<String>.Type:
+			dictionary[currentKey] = field as Array<String>
+			
+		// Dictionaries with basic types
+		case is Dictionary<String, Bool>.Type:
+			dictionary[currentKey] = field as Dictionary<String,Bool>
+		case is Dictionary<String, Bool>.Type:
+			dictionary[currentKey] = field as Dictionary<String,Int>
+		case is Dictionary<String, Bool>.Type:
+			dictionary[currentKey] = field as Dictionary<String,Double>
+		case is Dictionary<String, Bool>.Type:
+			dictionary[currentKey] = field as Dictionary<String,Float>
+		case is Dictionary<String, String>.Type:
+			dictionary[currentKey] = field as Dictionary<String,String>
         default:
             //println("Default")
             return
