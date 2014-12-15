@@ -98,6 +98,10 @@ func map(mapper: Mapper){
 }
 ```
 
+##To Do
+- Support for implicitly unwrapped optionals (ex. var user: User!)
+- Add support for custom Transforms that are defined outside the ObjectMapper project. Currently, if an operator is defined outside the project, there is an error on the custom operator (ex error: "Cannot invoke '<=' with an argument list of type '(@lvalue NSDate?, (@lvalue Mapper, DateTransform))’")
+
 ##Installation
 _Due to the current lack of [proper infrastructure](http://cocoapods.org) for Swift dependency management, using ObjectMapper in your project requires the following steps:_
 
