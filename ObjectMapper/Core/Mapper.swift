@@ -153,8 +153,10 @@ public class Mapper {
 			if index == components.count - 1 {
 				return temp[currentKey] as? N
 			} else {
-				var subDict = temp[currentKey] as [String : AnyObject]?
-				if let dict = subDict {
+				if temp[currentKey] is NSNull {
+					return nil
+				}
+				if let dict = temp[currentKey] as [String : AnyObject]? {
 					temp = dict
 					index++
 				} else {

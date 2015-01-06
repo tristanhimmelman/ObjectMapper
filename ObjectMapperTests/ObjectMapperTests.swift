@@ -106,6 +106,14 @@ class ObjectMapperTests: XCTestCase {
 		XCTAssertEqual(user.heightInCM!, heightInCM, "Username should be the same")
 	}
 	
+	func testNullObject() {
+		let userJSONString = "{\"username\":\"bob\"}"
+		
+		let user = Mapper().map(string: userJSONString, toType: User.self)
+		
+		XCTAssert(user.heightInCM == nil, "Username should be the same")
+	}
+	
     func testToJSONAndBack(){
         var user = User()
         user.username = "tristan_him"
@@ -133,13 +141,6 @@ class ObjectMapperTests: XCTestCase {
         XCTAssertEqual(user.imageURL!, parsedUser.imageURL!, "Image URL should be the same")
 //        XCTAssert(user.birthday.compare(parsedUser.birthday) == .OrderedSame, "Birthday should be the same")
         
-    }
-    
-    func testUnknownPropertiesIgnored() {
-        let userJSONString = "{\"username\":\"bob\",\"identifier\":\"bob1987\", \"foo\" : \"bar\", \"fooArr\" : [ 1, 2, 3], \"fooObj\" : { \"baz\" : \"qux\" } }"
-        let user = Mapper().map(string: userJSONString, toType: User.self)
-        
-        XCTAssert(user != nil, "User should not be nil")
     }
     
     func testInvalidJsonResultsInNilObject() {
