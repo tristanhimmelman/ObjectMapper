@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 hearst. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 class ToJSON {
 	
