@@ -16,7 +16,10 @@ public class URLTransform<ObjectType, JSONType>: MapperTransform<ObjectType, JSO
     
     override public func transformFromJSON(value: AnyObject?) -> ObjectType? {
         if let URLString = value as? String {
-            return (NSURL(string: URLString) as ObjectType)
+            let url = NSURL(string: URLString)
+            if let unwrappedUrl = url {
+                return (url as ObjectType)
+            }
         }
         return nil
     }
