@@ -232,6 +232,40 @@ class ObjectMapperTests: XCTestCase {
 		}
 	}
 
+	func testToJSONArray(){
+		var task1 = Task()
+		task1.taskId = 1
+		task1.percentage = 11.1
+		var task2 = Task()
+		task2.taskId = 2
+		task2.percentage = 22.2
+		var task3 = Task()
+		task3.taskId = 3
+		task3.percentage = 33.3
+		
+		var taskArray = [task1, task2, task3]
+		
+		let JSONArray = Mapper().toJSONArray(taskArray)
+		println(JSONArray)
+		
+		let taskId1 = JSONArray[0]["taskId"] as Int
+		let percentage1 = JSONArray[0]["percentage"] as Double
+		
+		XCTAssertEqual(taskId1, task1.taskId!, "TaskId1 was not mapped correctly")
+		XCTAssertEqual(percentage1, task1.percentage!, "percentage1 was not mapped correctly")
+
+		let taskId2 = JSONArray[1]["taskId"] as Int
+		let percentage2 = JSONArray[1]["percentage"] as Double
+		
+		XCTAssertEqual(taskId2, task2.taskId!, "TaskId2 was not mapped correctly")
+		XCTAssertEqual(percentage2, task2.percentage!, "percentage2 was not mapped correctly")
+		
+		let taskId3 = JSONArray[2]["taskId"] as Int
+		let percentage3 = JSONArray[2]["percentage"] as Double
+		
+		XCTAssertEqual(taskId3, task3.taskId!, "TaskId3 was not mapped correctly")
+		XCTAssertEqual(percentage3, task3.percentage!, "percentage3 was not mapped correctly")
+	}
 }
 
 class Response<T:MapperProtocol>: MapperProtocol {

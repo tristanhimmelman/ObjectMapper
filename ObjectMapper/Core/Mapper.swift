@@ -118,7 +118,22 @@ public class Mapper {
         
         return self.JSONDictionary
     }
-    
+	
+	// maps an array of Objects to an array of JSON dictionaries [[String : AnyObject]]
+	public func toJSONArray<N: MapperProtocol>(array: [N]) -> [[String : AnyObject]] {
+		mappingType = .toJSON
+		
+		var JSONArray = [[String : AnyObject]]()
+		
+		for object in array {
+			self.JSONDictionary = [String : AnyObject]()
+			object.map(self)
+			JSONArray.append(self.JSONDictionary)
+		}
+		
+		return JSONArray
+	}
+	
     // maps an Object to a JSON string
     public func toJSONString<N: MapperProtocol>(object: N, prettyPrint: Bool) -> String! {
         let JSONDict = toJSON(object)
