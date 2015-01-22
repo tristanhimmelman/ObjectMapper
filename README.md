@@ -121,7 +121,7 @@ ObjectMapper can be added to your project using [Cocoapods 0.36 (beta)](http://b
 pod 'ObjectMapper', '~> 0.2'
 ```
 
-If your using [Carthage (https://github.com/Carthage/Carthage)] you can add a dependency on ObjectMapper by adding it to your Cartfile:
+If your using [Carthage](https://github.com/Carthage/Carthage) you can add a dependency on ObjectMapper by adding it to your Cartfile:
 ```
 github "Hearst-DD/ObjectMapper" ~> 0.2
 ```
