@@ -9,7 +9,7 @@
 import Foundation
 
 public protocol MapperProtocol {
-    func map(mapper: Mapper)
+    mutating func map(mapper: Mapper)
     init()
 }
 
@@ -43,7 +43,7 @@ public class Mapper {
     }
     
     // map a JSON string onto an existing object
-    public func map<N: MapperProtocol>(string JSON: String, toObject object: N) -> N! {
+    public func map<N: MapperProtocol>(string JSON: String, var toObject object: N) -> N! {
         var json = parseJSONDictionary(JSON)
         if let json = json {
             mappingType = .fromJSON
@@ -110,7 +110,7 @@ public class Mapper {
 	}
 	
     // maps an Object to a JSON dictionary <String : AnyObject>
-    public func toJSON<N: MapperProtocol>(object: N) -> [String : AnyObject] {
+    public func toJSON<N: MapperProtocol>(var object: N) -> [String : AnyObject] {
         mappingType = .toJSON
         
         self.JSONDictionary = [String : AnyObject]()
@@ -125,7 +125,7 @@ public class Mapper {
 		
 		var JSONArray = [[String : AnyObject]]()
 		
-		for object in array {
+		for (var object) in array {
 			self.JSONDictionary = [String : AnyObject]()
 			object.map(self)
 			JSONArray.append(self.JSONDictionary)

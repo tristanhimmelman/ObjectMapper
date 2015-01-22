@@ -316,17 +316,18 @@ class Task: MapperProtocol {
 	}
 }
 
-class Student: MapperProtocol {
+// Confirm that struct can conform to `MapperProtocol`
+struct Student: MapperProtocol {
 	var name: String?
 	var UUID: String?
 	var major: Int?
 	var minor: Int?
 	
-	required init(){
+	init(){
 		
 	}
 	
-	func map(mapper: Mapper) {
+	mutating func map(mapper: Mapper) {
 		name <= mapper["name"]
 		UUID <= mapper["UUID"]
 		major <= mapper["major"]
