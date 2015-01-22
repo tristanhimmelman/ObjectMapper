@@ -1,15 +1,16 @@
 ObjectMapper
 ============
 
-ObjectMapper is a framework written in Swift that makes it easy for you to convert your Model objects to and from JSON. 
+ObjectMapper is a framework written in Swift that makes it easy for you to convert your Model objects (Classes and Structs) to and from JSON. 
 ##Features:
 - Mapping JSON to objects
 - Mapping objects to JSON
 - Nested Objects (stand alone, in Arrays or in Dictionaries)
 - Custom transformations during mapping
+- Struct support
 
 ##The Basics
-To support mapping, a class just needs to implement the MapperProtocol. ObjectMapper uses the "<=" operator to define how each member variable maps to and from JSON.
+To support mapping, a Class or Struct just needs to implement the MapperProtocol. ObjectMapper uses the "<=" operator to define how each member variable maps to and from JSON.
 
 ```swift
 class User: MapperProtocol {
@@ -34,6 +35,18 @@ class User: MapperProtocol {
         friend <= mapper["friend"]
         birthday <= (mapper["birthday"], DateTransform<NSDate, Int>())
     }
+}
+
+struct Temperature: MapperProtocol {
+    var celcius: Double?
+    var fahrenheit: Double?
+    
+    init(){}
+	
+	mutating func map(mapper: Mapper) {
+		celcius <= mapper["celcius"]
+		fahrenheit <= mapper["fahrenheit"]
+	}
 }
 ```
 
@@ -100,10 +113,14 @@ func map(mapper: Mapper){
 
 ##To Do
 - Support for implicitly unwrapped optionals (ex. var user: User!)
-- Add support for custom Transforms that are defined outside the ObjectMapper project. Currently, if an operator is defined outside the project, there is an error on the custom operator (ex error: "Cannot invoke '<=' with an argument list of type '(@lvalue NSDate?, (@lvalue Mapper, DateTransform))’")
+
 
 ##Installation
-_Due to the current lack of [proper infrastructure](http://cocoapods.org) for Swift dependency management, using ObjectMapper in your project requires the following steps:_
+ObjectMapper can be added to your project using [Cocoapods 0.36 (beta)](http://blog.cocoapods.org/Pod-Authors-Guide-to-CocoaPods-Frameworks/) by adding the following line to your Podfile:
+```
+pod 'ObjectMapper', '~> 0.1'
+```
+Otherwise, ObjectMapper can be added as a submodule:
 
 1. Add ObjectMapper as a [submodule](http://git-scm.com/docs/git-submodule) by opening the Terminal, `cd`-ing into your top-level project directory, and entering the command `git submodule add https://github.com/Hearst-DD/ObjectMapper.git`
 2. Open the `ObjectMapper` folder, and drag `ObjectMapper.xcodeproj` into the file navigator of your app project.
