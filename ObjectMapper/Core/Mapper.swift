@@ -66,13 +66,16 @@ public class Mapper {
     
     // maps a JSON dictionary to an object that conforms to MapperProtocol
     public func map<N: MapperProtocol>(JSON: [String : AnyObject], toType type: N.Type) -> N! {
-        mappingType = .fromJSON
-
-        self.JSONDictionary = JSON
-        
         var object = N()
+        return map(JSON, toObject: object)
+    }
+    
+    // maps a JSON dictionary to an existing object that conforms to MapperProtocol.
+    // Usefull for those pesky objects that have crappy designated initializers like NSManagedObject
+    public func map<N: MapperProtocol>(JSON: [String : AnyObject], var toObject object: N) -> N! {
+        mappingType = .fromJSON
+        self.JSONDictionary = JSON
         object.map(self)
-        
         return object
     }
 
