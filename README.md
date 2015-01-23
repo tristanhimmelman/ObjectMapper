@@ -25,7 +25,7 @@ class User: Mappable {
 
     required init(){}
 
-    // MapperProtocol    
+    // Mappable    
     func map(mapper: Mapper) {
         username <= mapper["username"]
         age <= mapper["age"]
@@ -37,7 +37,7 @@ class User: Mappable {
     }
 }
 
-struct Temperature: MapperProtocol {
+struct Temperature: Mappable {
     var celcius: Double?
     var fahrenheit: Double?
     
@@ -50,7 +50,7 @@ struct Temperature: MapperProtocol {
 }
 ```
 
-Once your class implements MapperProtocol, the Mapper class handles everything else for you:
+Once your class implements Mappable, the Mapper class handles everything else for you:
 
 Convert a JSON string to a model object:
 ```swift
@@ -71,9 +71,9 @@ Object mapper can map classes composed of the following types:
 - Array\<AnyObject\>
 - Dictionary\<String, AnyObject\>
 - Optionals of all the abovee
-- Object\<T: MapperProtocol\>
-- Array\<T: MapperProtocol\>
-- Dictionary\<String, T: MapperProtocol\>
+- Object\<T: Mappable\>
+- Array\<T: Mappable\>
+- Dictionary\<String, T: Mappable\>
 
 ##Custom Transfoms
 ObjectMapper also supports custom Transforms that convert values during the mapping process. To use a transform, simply create a tuple with the mapper["field_name"] and the transform of choice on the right side of the '<=' operator:
