@@ -164,6 +164,7 @@ class ObjectMapperTests: XCTestCase {
         user.birthday = NSDate()
         user.y2k = NSDate(timeIntervalSince1970: 946684800)
         user.imageURL = NSURL(string: "http://google.com/image/1234")
+        user.intWithString = 12345
         
         let jsonString = Mapper().toJSONString(user, prettyPrint: true)
         println(jsonString)
@@ -177,6 +178,7 @@ class ObjectMapperTests: XCTestCase {
         XCTAssertEqual(user.drinker, parsedUser.drinker, "Drinker should be the same")
         XCTAssertEqual(user.smoker!, parsedUser.smoker!, "Smoker should be the same")
         XCTAssertEqual(user.imageURL!, parsedUser.imageURL!, "Image URL should be the same")
+        XCTAssertEqual(user.intWithString, parsedUser.intWithString, "Int value from/to String should be the same")
 //        XCTAssert(user.birthday.compare(parsedUser.birthday) == .OrderedSame, "Birthday should be the same")
         XCTAssert(user.y2k.compare(parsedUser.y2k) == .OrderedSame, "Y2k should be the same")
     }
@@ -389,6 +391,7 @@ class User: MapperProtocol {
     var y2k: NSDate = NSDate()
     var y2kOpt: NSDate?
     var imageURL: NSURL?
+    var intWithString: Int = 0
 	var heightInCM: Double?
 	
     required init() {
@@ -417,6 +420,7 @@ class User: MapperProtocol {
         y2k              <= (mapper["y2k"], ISO8601DateTransform<NSDate, String>())
         y2kOpt           <= (mapper["y2kOpt"], ISO8601DateTransform<NSDate, String>())
 		imageURL         <= (mapper["imageURL"], URLTransform<NSURL, String>())
+        intWithString    <= (mapper["intWithString"], TransformOf<Int, String>(fromJSON: { $0?.toInt() }, toJSON: { $0.map { String($0) } }))
 		heightInCM		 <= mapper["height.value"]
 	}
 	
