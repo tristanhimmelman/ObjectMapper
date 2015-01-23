@@ -102,6 +102,37 @@ class ObjectMapperTests: XCTestCase {
         println(Mapper().toJSONString(user, prettyPrint: true))
     }
     
+    func testDictionaryParsing() {
+        var name: String = "Genghis khan"
+        var UUID: String = "12345"
+        var major: Int = 99
+        var minor: Int = 1
+        let json: [String: AnyObject] = ["name": name, "UUID": UUID, "major": major]
+        
+        //test that the sematics of value types works as expected.  the resulting maped student
+        //should have the correct minor property set even thoug it's not mapped
+        var s = Student()
+        s.minor = minor
+        let student = Mapper().map(json, toObject: s)
+        
+        XCTAssertEqual(student.name!, name, "Names should be the same")
+        XCTAssertEqual(student.UUID!, UUID, "UUID should be the same")
+        XCTAssertEqual(student.major!, major, "major should be the same")
+        XCTAssertEqual(student.minor!, minor, "minor should be the same")
+        
+        //Test that mapping a reference type works as expected while not relying on the return value
+        var username: String = "Barack Obama"
+        var identifier: String = "Political"
+        var photoCount: Int = 1000000000
+        
+        let json2: [String: AnyObject] = ["username": username, "identifier": identifier, "photoCount": photoCount]
+        let user = User()
+        Mapper().map(json2, toObject: user)
+        XCTAssertEqual(user.username, username, "Usernames should be the same")
+        XCTAssertEqual(user.identifier!, identifier, "identifiers should be the same")
+        XCTAssertEqual(user.photoCount, photoCount, "photo count should be the same")
+    }
+    
 	func testNestedKeys(){
 		let heightInCM = 180.0
 		
