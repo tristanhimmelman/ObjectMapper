@@ -21,7 +21,7 @@ public class ISO8601DateTransform<ObjectType, JSONType>: MapperTransform<ObjectT
 
     override public func transformFromJSON(value: AnyObject?) -> ObjectType? {
         if let dateString = value as? String {
-            return (dateFormatter().dateFromString(dateString) as ObjectType)
+            return (dateFormatter().dateFromString(dateString) as ObjectType?)
         }
         return nil
     }

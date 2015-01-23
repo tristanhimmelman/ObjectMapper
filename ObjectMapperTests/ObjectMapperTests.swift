@@ -299,6 +299,22 @@ class ObjectMapperTests: XCTestCase {
 		XCTAssertEqual(taskId3, task3.taskId!, "TaskId3 was not mapped correctly")
 		XCTAssertEqual(percentage3, task3.percentage!, "percentage3 was not mapped correctly")
 	}
+
+    func testISO8601DateTransformWithInvalidInput() {
+        let mapper = Mapper()
+
+        var JSON: [String: AnyObject] = ["y2kOpt": ""]
+        let user1 = mapper.map(JSON, toType: User.self)
+
+        XCTAssert(user1 != nil, "ISO8601DateTransform must not crash for empty string")
+        XCTAssert(user1.y2kOpt == nil, "ISO8601DateTransform should return nil for empty string")
+
+        JSON["y2kOpt"] = "incorrect format"
+        let user2 = mapper.map(JSON, toType: User.self)
+
+        XCTAssert(user2 != nil, "ISO8601DateTransform must not crash for incorrect format")
+        XCTAssert(user2.y2kOpt == nil, "ISO8601DateTransform should return nil for incorrect format")
+    }
 }
 
 class Response<T:Mappable>: Mappable {
