@@ -10,10 +10,10 @@ ObjectMapper is a framework written in Swift that makes it easy for you to conve
 - Struct support
 
 ##The Basics
-To support mapping, a Class or Struct just needs to implement the MapperProtocol. ObjectMapper uses the "<=" operator to define how each member variable maps to and from JSON.
+To support mapping, a Class or Struct just needs to implement the ```Mappable```. ObjectMapper uses the ```<=``` operator to define how each member variable maps to and from JSON.
 
 ```swift
-class User: MapperProtocol {
+class User: Mappable {
 
     var username: String?
     var age: Int?
