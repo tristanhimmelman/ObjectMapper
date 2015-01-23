@@ -310,7 +310,7 @@ class BasicTypesTests: XCTestCase {
 	}
 }
 
-class BasicTypes: MapperProtocol {
+class BasicTypes: Mappable {
 	var bool: Bool = true
 	var boolOptional: Bool?
 	var int: Int = 0

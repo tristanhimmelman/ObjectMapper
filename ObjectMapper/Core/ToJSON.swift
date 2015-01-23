@@ -87,19 +87,19 @@ class ToJSON {
         }
     }
     
-    func object<N: MapperProtocol>(field: N, key: String, inout dictionary: [String : AnyObject]) {
+    func object<N: Mappable>(field: N, key: String, inout dictionary: [String : AnyObject]) {
         let mapper = Mapper()
         
         dictionary[key] = NSDictionary(dictionary: mapper.toJSON(field))
     }
     
-    func optionalObject<N: MapperProtocol>(field: N?, key: String, inout dictionary: [String : AnyObject]) {
+    func optionalObject<N: Mappable>(field: N?, key: String, inout dictionary: [String : AnyObject]) {
         if let field = field {
             object(field, key: key, dictionary: &dictionary)
         }
     }
     
-    func objectArray<N: MapperProtocol>(field: Array<N>, key: String, inout dictionary: [String : AnyObject]) {
+    func objectArray<N: Mappable>(field: Array<N>, key: String, inout dictionary: [String : AnyObject]) {
         var JSONObjects = NSMutableArray()
         
         for object in field {
@@ -112,13 +112,13 @@ class ToJSON {
         }
     }
     
-    func optionalObjectArray<N: MapperProtocol>(field: Array<N>?, key: String, inout dictionary: [String : AnyObject]) {
+    func optionalObjectArray<N: Mappable>(field: Array<N>?, key: String, inout dictionary: [String : AnyObject]) {
         if let field = field {
             objectArray(field, key: key, dictionary: &dictionary)
         }
     }
     
-    func objectDictionary<N: MapperProtocol>(field: Dictionary<String, N>, key: String, inout dictionary: [String : AnyObject]) {
+    func objectDictionary<N: Mappable>(field: Dictionary<String, N>, key: String, inout dictionary: [String : AnyObject]) {
         var JSONObjects = NSMutableDictionary()
         
         for (k, object) in field {
@@ -132,7 +132,7 @@ class ToJSON {
         }
     }
     
-    func optionalObjectDictionary<N: MapperProtocol>(field: Dictionary<String, N>?, key: String, inout dictionary: [String : AnyObject]) {
+    func optionalObjectDictionary<N: Mappable>(field: Dictionary<String, N>?, key: String, inout dictionary: [String : AnyObject]) {
         if let field = field {
             objectDictionary(field, key: key, dictionary: &dictionary)
         }

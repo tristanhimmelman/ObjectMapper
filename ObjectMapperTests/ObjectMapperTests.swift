@@ -301,7 +301,7 @@ class ObjectMapperTests: XCTestCase {
 	}
 }
 
-class Response<T:MapperProtocol>: MapperProtocol {
+class Response<T:Mappable>: Mappable {
 	var result: T?
 	
 	required init() {
@@ -312,7 +312,7 @@ class Response<T:MapperProtocol>: MapperProtocol {
 	}
 }
 
-class Status: MapperProtocol {
+class Status: Mappable {
 	var status: Int?
 	
 	required init() {
@@ -323,7 +323,7 @@ class Status: MapperProtocol {
 	}
 }
 
-class Plan: MapperProtocol {
+class Plan: Mappable {
 	var tasks: [Task]?
 	
 	required init(){
@@ -335,7 +335,7 @@ class Plan: MapperProtocol {
 	}
 }
 
-class Task: MapperProtocol {
+class Task: Mappable {
 	var taskId: Int?
 	var percentage: Double?
 	
@@ -349,8 +349,8 @@ class Task: MapperProtocol {
 	}
 }
 
-// Confirm that struct can conform to `MapperProtocol`
-struct Student: MapperProtocol {
+// Confirm that struct can conform to `Mappable`
+struct Student: Mappable {
 	var name: String?
 	var UUID: String?
 	var major: Int?
@@ -368,7 +368,7 @@ struct Student: MapperProtocol {
 	}
 }
 
-class User: MapperProtocol {
+class User: Mappable {
     
     var username: String = ""
     var identifier: String?
