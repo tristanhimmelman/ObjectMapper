@@ -9,7 +9,7 @@
 import Foundation
 
 public protocol Mappable {
-    mutating func map(mapper: Mapper)
+    mutating func map<N>(mapper: Mapper<N>)
     init()
 }
 
@@ -18,7 +18,7 @@ enum MappingType {
     case toJSON
 }
 
-public class Mapper {
+public class Mapper<N: Mappable> {
     var JSONDictionary: [String : AnyObject] = [:]
     var currentValue: AnyObject?
     var currentKey: String?
@@ -43,7 +43,7 @@ public class Mapper {
     }
     
     // map a JSON string onto an existing object
-    public func map<N: Mappable>(string JSON: String, var toObject object: N) -> N! {
+    public func map(string JSON: String, var toObject object: N) -> N! {
         var json = parseJSONDictionary(JSON)
         if let json = json {
             mappingType = .fromJSON
@@ -56,23 +56,23 @@ public class Mapper {
     }
     
     // map a JSON string to an object Type that conforms to Mappable
-    public func map<N: Mappable>(string JSONString: String, toType type: N.Type) -> N! {
+    public func map(string JSONString: String) -> N! {
         var json = parseJSONDictionary(JSONString)
         if let json = json {
-            return map(json, toType: type)
+            return map(json)
         }
         return nil
     }
     
     // maps a JSON dictionary to an object that conforms to Mappable
-    public func map<N: Mappable>(JSON: [String : AnyObject], toType type: N.Type) -> N! {
+    public func map(JSON: [String : AnyObject]) -> N! {
         var object = N()
         return map(JSON, toObject: object)
     }
     
     // maps a JSON dictionary to an existing object that conforms to Mappable.
     // Usefull for those pesky objects that have crappy designated initializers like NSManagedObject
-    public func map<N: Mappable>(JSON: [String : AnyObject], var toObject object: N) -> N! {
+    public func map(JSON: [String : AnyObject], var toObject object: N) -> N! {
         mappingType = .fromJSON
         self.JSONDictionary = JSON
         object.map(self)
@@ -80,23 +80,23 @@ public class Mapper {
     }
 
 	// maps a JSON array to an object that conforms to Mappable
-	public func mapArray<N: Mappable>(string JSONString: String, toType type: N.Type) -> [N]! {
+	public func mapArray(string JSONString: String) -> [N]! {
 		var jsonArray = parseJSONArray(JSONString)
 		if let jsonArray = jsonArray {
-			return mapArray(jsonArray, toType: type)
+			return mapArray(jsonArray)
 		} else {
 			// failed to parse JSON into array form
 			// try to parse it into a dictionary and then wrap it in an array
 			var jsonDict = parseJSONDictionary(JSONString)
 			if let jsonDict = jsonDict {
-				return mapArray([jsonDict], toType: type)
+				return mapArray([jsonDict])
 			}
 		}
 		return nil
 	}
 	
 	// maps a JSON dictionary to an object that conforms to Mappable
-	public func mapArray<N: Mappable>(JSON: [[String : AnyObject]], toType type: N.Type) -> [N] {
+	public func mapArray(JSON: [[String : AnyObject]]) -> [N] {
 		mappingType = .fromJSON
 		
 		var objects: Array<N> = []
@@ -113,7 +113,7 @@ public class Mapper {
 	}
 	
     // maps an Object to a JSON dictionary <String : AnyObject>
-    public func toJSON<N: Mappable>(var object: N) -> [String : AnyObject] {
+    public func toJSON(var object: N) -> [String : AnyObject] {
         mappingType = .toJSON
         
         self.JSONDictionary = [String : AnyObject]()
@@ -123,7 +123,7 @@ public class Mapper {
     }
 	
 	// maps an array of Objects to an array of JSON dictionaries [[String : AnyObject]]
-	public func toJSONArray<N: Mappable>(array: [N]) -> [[String : AnyObject]] {
+	public func toJSONArray(array: [N]) -> [[String : AnyObject]] {
 		mappingType = .toJSON
 		
 		var JSONArray = [[String : AnyObject]]()
@@ -138,7 +138,7 @@ public class Mapper {
 	}
 	
     // maps an Object to a JSON string
-    public func toJSONString<N: Mappable>(object: N, prettyPrint: Bool) -> String! {
+    public func toJSONString(object: N, prettyPrint: Bool) -> String! {
         let JSONDict = toJSON(object)
         
         var err: NSError?

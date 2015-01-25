@@ -32,7 +32,7 @@ class BasicTypesTests: XCTestCase {
 		object.boolOptional = value
 		
 		let JSON = Mapper().toJSONString(object, prettyPrint: true)
-		var mappedObject = Mapper().map(string: JSON, toType: BasicTypes.self)
+		var mappedObject = Mapper<BasicTypes>().map(string: JSON)
 		
 		if let mappedObject = mappedObject {
 
@@ -50,7 +50,7 @@ class BasicTypesTests: XCTestCase {
 		object.intOptional = value
 		
 		let JSON = Mapper().toJSONString(object, prettyPrint: true)
-		var mappedObject = Mapper().map(string: JSON, toType: BasicTypes.self)
+		var mappedObject = Mapper<BasicTypes>().map(string: JSON)
 		
 		if let mappedObject = mappedObject {
 			
@@ -68,7 +68,7 @@ class BasicTypesTests: XCTestCase {
 		object.doubleOptional = value
 		
 		let JSON = Mapper().toJSONString(object, prettyPrint: true)
-		var mappedObject = Mapper().map(string: JSON, toType: BasicTypes.self)
+		var mappedObject = Mapper<BasicTypes>().map(string: JSON)
 		
 		if let mappedObject = mappedObject {
 			
@@ -86,7 +86,7 @@ class BasicTypesTests: XCTestCase {
 		object.floatOptional = value
 		
 		let JSON = Mapper().toJSONString(object, prettyPrint: true)
-		var mappedObject = Mapper().map(string: JSON, toType: BasicTypes.self)
+		var mappedObject = Mapper<BasicTypes>().map(string: JSON)
 		
 		if let mappedObject = mappedObject {
 			
@@ -104,7 +104,7 @@ class BasicTypesTests: XCTestCase {
 		object.stringOptional = value
 		
 		let JSON = Mapper().toJSONString(object, prettyPrint: true)
-		var mappedObject = Mapper().map(string: JSON, toType: BasicTypes.self)
+		var mappedObject = Mapper<BasicTypes>().map(string: JSON)
 		
 		if let mappedObject = mappedObject {
 			
@@ -124,7 +124,7 @@ class BasicTypesTests: XCTestCase {
 		object.arrayBoolOptional = [value]
 		
 		let JSON = Mapper().toJSONString(object, prettyPrint: true)
-		var mappedObject = Mapper().map(string: JSON, toType: BasicTypes.self)
+		var mappedObject = Mapper<BasicTypes>().map(string: JSON)
 		
 		if let mappedObject = mappedObject {
 			var firstObject = mappedObject.arrayBool[0]
@@ -142,7 +142,7 @@ class BasicTypesTests: XCTestCase {
 		object.arrayIntOptional = [value]
 		
 		let JSON = Mapper().toJSONString(object, prettyPrint: true)
-		var mappedObject = Mapper().map(string: JSON, toType: BasicTypes.self)
+		var mappedObject = Mapper<BasicTypes>().map(string: JSON)
 		
 		if let mappedObject = mappedObject {
 			var firstObject = mappedObject.arrayInt[0]
@@ -160,7 +160,7 @@ class BasicTypesTests: XCTestCase {
 		object.arrayDoubleOptional = [value]
 		
 		let JSON = Mapper().toJSONString(object, prettyPrint: true)
-		var mappedObject = Mapper().map(string: JSON, toType: BasicTypes.self)
+		var mappedObject = Mapper<BasicTypes>().map(string: JSON)
 		
 		if let mappedObject = mappedObject {
 			var firstObject = mappedObject.arrayDouble[0]
@@ -178,7 +178,7 @@ class BasicTypesTests: XCTestCase {
 		object.arrayFloatOptional = [value]
 		
 		let JSON = Mapper().toJSONString(object, prettyPrint: true)
-		var mappedObject = Mapper().map(string: JSON, toType: BasicTypes.self)
+		var mappedObject = Mapper<BasicTypes>().map(string: JSON)
 		
 		if let mappedObject = mappedObject {
 			var firstObject = mappedObject.arrayFloat[0]
@@ -196,7 +196,7 @@ class BasicTypesTests: XCTestCase {
 		object.arrayStringOptional = [value]
 		
 		let JSON = Mapper().toJSONString(object, prettyPrint: true)
-		var mappedObject = Mapper().map(string: JSON, toType: BasicTypes.self)
+		var mappedObject = Mapper<BasicTypes>().map(string: JSON)
 		
 		if let mappedObject = mappedObject {
 			var firstObject = mappedObject.arrayString[0]
@@ -217,7 +217,7 @@ class BasicTypesTests: XCTestCase {
 		object.dictBoolOptional = [key:value]
 		
 		let JSON = Mapper().toJSONString(object, prettyPrint: true)
-		var mappedObject = Mapper().map(string: JSON, toType: BasicTypes.self)
+		var mappedObject = Mapper<BasicTypes>().map(string: JSON)
 		
 		if let mappedObject = mappedObject {
 			if let val = mappedObject.dictBoolOptional?[key] {
@@ -237,7 +237,7 @@ class BasicTypesTests: XCTestCase {
 		object.dictIntOptional = [key:value]
 		
 		let JSON = Mapper().toJSONString(object, prettyPrint: true)
-		var mappedObject = Mapper().map(string: JSON, toType: BasicTypes.self)
+		var mappedObject = Mapper<BasicTypes>().map(string: JSON)
 		
 		if let mappedObject = mappedObject {
 			if let val = mappedObject.dictIntOptional?[key] {
@@ -257,7 +257,7 @@ class BasicTypesTests: XCTestCase {
 		object.dictDoubleOptional = [key:value]
 		
 		let JSON = Mapper().toJSONString(object, prettyPrint: true)
-		var mappedObject = Mapper().map(string: JSON, toType: BasicTypes.self)
+		var mappedObject = Mapper<BasicTypes>().map(string: JSON)
 		
 		if let mappedObject = mappedObject {
 			if let val = mappedObject.dictDoubleOptional?[key] {
@@ -277,7 +277,7 @@ class BasicTypesTests: XCTestCase {
 		object.dictFloatOptional = [key:value]
 		
 		let JSON = Mapper().toJSONString(object, prettyPrint: true)
-		var mappedObject = Mapper().map(string: JSON, toType: BasicTypes.self)
+		var mappedObject = Mapper<BasicTypes>().map(string: JSON)
 		
 		if let mappedObject = mappedObject {
 			if let val = mappedObject.dictFloatOptional?[key] {
@@ -297,7 +297,7 @@ class BasicTypesTests: XCTestCase {
 		object.dictStringOptional = [key:value]
 		
 		let JSON = Mapper().toJSONString(object, prettyPrint: true)
-		var mappedObject = Mapper().map(string: JSON, toType: BasicTypes.self)
+		var mappedObject = Mapper<BasicTypes>().map(string: JSON)
 		
 		if let mappedObject = mappedObject {
 			if let val = mappedObject.dictStringOptional?[key] {
@@ -347,7 +347,7 @@ class BasicTypes: Mappable {
 	required init() {
 	}
 	
-	func map(mapper: Mapper) {
+	func map<N>(mapper: Mapper<N>) {
 		bool			<= mapper["bool"]
 		boolOptional	<= mapper["boolOpt"]
 		int				<= mapper["int"]
