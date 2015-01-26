@@ -74,13 +74,13 @@ class FromJSON<CollectionType> {
     
     func object<N: Mappable>(inout field: N, object: AnyObject?) {
         if let value = object as? [String : AnyObject] {
-            field = Mapper().map(value, toType: N.self)
+            field = Mapper().map(value)
         }
     }
     
     func object<N: Mappable>(inout field: N?, object: AnyObject?) {
         if let value = object as? [String : AnyObject] {
-            field = Mapper().map(value, toType: N.self)
+            field = Mapper().map(value)
         }
     }
     
@@ -104,14 +104,14 @@ class FromJSON<CollectionType> {
     
     // parses a JSON array into an array of objects of type <N: Mappable>
     private func parseObjectArray<N: Mappable>(object: AnyObject?) -> Array<N>{
-        let mapper = Mapper()
+        let mapper = Mapper<N>()
         
         var parsedObjects = Array<N>()
         
         if let array = object as [AnyObject]? {
             for object in array {
                 let objectJSON = object as [String : AnyObject]
-                var parsedObj = mapper.map(objectJSON, toType: N.self)
+                var parsedObj = mapper.map(objectJSON)
                 parsedObjects.append(parsedObj)
             }
         }
@@ -141,14 +141,14 @@ class FromJSON<CollectionType> {
     
     // parses a JSON Dictionary into an Dictionay of objects of type <N: Mappable>
     private func parseObjectDictionary<N: Mappable>(object: AnyObject?) -> Dictionary<String, N>{
-        let mapper = Mapper()
+        let mapper = Mapper<N>()
         
         var parsedObjectsDictionary = Dictionary<String, N>()
         
         if let dictionary = object as Dictionary<String, AnyObject>? {
             for (key, object) in dictionary {
                 let objectJSON = object as [String : AnyObject]
-                var parsedObj = mapper.map(objectJSON, toType: N.self)
+                var parsedObj = mapper.map(objectJSON)
                 parsedObjectsDictionary[key] = parsedObj
             }
         }

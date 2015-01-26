@@ -26,7 +26,7 @@ class User: Mappable {
     required init(){}
 
     // Mappable    
-    func map(mapper: Mapper) {
+    func map<N>(mapper: Mapper<N>) {
         username <= mapper["username"]
         age <= mapper["age"]
         weight <= mapper["weight"]
@@ -43,7 +43,7 @@ struct Temperature: Mappable {
     
     init(){}
 	
-	mutating func map(mapper: Mapper) {
+	mutating func map<N>(mapper: Mapper<N>) {
 		celcius <= mapper["celcius"]
 		fahrenheit <= mapper["fahrenheit"]
 	}
@@ -54,7 +54,7 @@ Once your class implements Mappable, the Mapper class handles everything else fo
 
 Convert a JSON string to a model object:
 ```swift
-let user = Mapper().map(string: JSONString, toType: User.self)
+let user = Mapper<User>().map(string: JSONString)
 ```
 
 Convert a model object to a JSON string:
@@ -106,7 +106,7 @@ ObjectMapper supports dot notation within keys for easy mapping of nested object
 ```
 You can access the nested objects as follows:
 ```
-func map(mapper: Mapper){
+func map<N>(mapper: Mapper<N>){
     distance <= mapper["distance.value"]
 }
 ```
