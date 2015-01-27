@@ -315,6 +315,40 @@ class ObjectMapperTests: XCTestCase {
         XCTAssert(user2 != nil, "ISO8601DateTransform must not crash for incorrect format")
         XCTAssert(user2.y2kOpt == nil, "ISO8601DateTransform should return nil for incorrect format")
     }
+    
+    func testJsonToObjectModelOptionalDictionnaryOfPrimitives() {
+        var json = ["dictStringString":["string": "string"], "dictStringBool":["string": false], "dictStringInt":["string": 1], "dictStringDouble":["string": 1.1], "dictStringFloat":["string": 1.2]]
+        
+        let mapper = Mapper<TestCollectionOfPrimitives>()
+        let testSet = mapper.map(json)
+        
+        XCTAssertTrue(testSet.dictStringString.count == 1)
+        XCTAssertTrue(testSet.dictStringInt.count == 1)
+        XCTAssertTrue(testSet.dictStringBool.count == 1)
+        XCTAssertTrue(testSet.dictStringDouble.count == 1)
+        XCTAssertTrue(testSet.dictStringFloat.count == 1)
+    }
+    
+    func testObjectToModelDictionnaryOfPrimitives() {
+        var object = TestCollectionOfPrimitives()
+        object.dictStringString = ["string": "string"]
+        object.dictStringBool = ["string": false]
+        object.dictStringInt = ["string": 1]
+        object.dictStringDouble = ["string": 1.2]
+        object.dictStringFloat = ["string": 1.3]
+        
+        let json = Mapper<TestCollectionOfPrimitives>().toJSON(object)
+        
+        XCTAssertTrue((json["dictStringString"] as [String:String]).count == 1)
+        XCTAssertTrue((json["dictStringBool"] as [String:Bool]).count == 1)
+        XCTAssertTrue((json["dictStringInt"] as [String:Int]).count == 1)
+        XCTAssertTrue((json["dictStringDouble"] as [String:Double]).count == 1)
+        XCTAssertTrue((json["dictStringFloat"] as [String:Float]).count == 1)
+        let dict:[String: String] = json["dictStringString"] as [String:String]
+        let value = dict["string"]! as String
+        XCTAssertTrue(value == "string")
+    }
+
 }
 
 class Response<T:Mappable>: Mappable {
@@ -442,5 +476,33 @@ class User: Mappable {
 	
     var description : String {
         return "username: \(username) \nid:\(identifier) \nage: \(age) \nphotoCount: \(photoCount) \ndrinker: \(drinker) \nsmoker: \(smoker) \narr: \(arr) \narrOptional: \(arrOptional) \ndict: \(dict) \ndictOptional: \(dictOptional) \nfriend: \(friend)\nfriends: \(friends) \nbirthday: \(birthday)\nbirthdayOpt: \(birthdayOpt) \ny2k: \(y2k) \ny2kOpt: \(y2k) \nweight: \(weight)"
+    }
+}
+
+class TestCollectionOfPrimitives : Mappable {
+    var dictStringString: [String: String] = [:]
+    var dictStringInt: [String: Int] = [:]
+    var dictStringBool: [String: Bool] = [:]
+    var dictStringDouble: [String: Double] = [:]
+    var dictStringFloat: [String: Float] = [:]
+    var arrayString: [String] = []
+    var arrayInt: [Int] = []
+    var arrayBool: [Bool] = []
+    var arrayDouble: [Double] = []
+    var arrayFloat: [Float] = []
+    
+    required init() {}
+    
+    func map<N>(mapper: Mapper<N>) {
+        dictStringString    <= mapper["dictStringString"]
+        dictStringBool      <= mapper["dictStringBool"]
+        dictStringInt       <= mapper["dictStringInt"]
+        dictStringDouble    <= mapper["dictStringDouble"]
+        dictStringFloat     <= mapper["dictStringFloat"]
+        arrayString         <= mapper["arrayString"]
+        arrayInt            <= mapper["arrayInt"]
+        arrayBool           <= mapper["arrayBool"]
+        arrayDouble         <= mapper["arrayDouble"]
+        arrayFloat          <= mapper["arrayFloat"]
     }
 }
