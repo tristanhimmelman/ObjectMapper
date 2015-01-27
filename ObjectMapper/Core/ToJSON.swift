@@ -46,15 +46,15 @@ class ToJSON {
 			
 		// Dictionaries with basic types
 		case is Dictionary<String, Bool>.Type:
-			dictionary[currentKey] = field as Dictionary<String,Bool>
-		case is Dictionary<String, Bool>.Type:
-			dictionary[currentKey] = field as Dictionary<String,Int>
-		case is Dictionary<String, Bool>.Type:
-			dictionary[currentKey] = field as Dictionary<String,Double>
-		case is Dictionary<String, Bool>.Type:
-			dictionary[currentKey] = field as Dictionary<String,Float>
+			dictionary[currentKey] = field as Dictionary<String, Bool>
+		case is Dictionary<String, Int>.Type:
+			dictionary[currentKey] = field as Dictionary<String, Int>
+		case is Dictionary<String, Double>.Type:
+			dictionary[currentKey] = field as Dictionary<String, Double>
+		case is Dictionary<String, Float>.Type:
+			dictionary[currentKey] = field as Dictionary<String, Float>
 		case is Dictionary<String, String>.Type:
-			dictionary[currentKey] = field as Dictionary<String,String>
+			dictionary[currentKey] = field as Dictionary<String, String>
         default:
             //println("Default")
             return
