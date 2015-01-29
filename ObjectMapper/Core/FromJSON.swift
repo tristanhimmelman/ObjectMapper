@@ -10,23 +10,23 @@ import Foundation
 
 class FromJSON<CollectionType> {
     
-    func baseType<FieldType>(inout field: FieldType, object: AnyObject?) {
-        baseType(&field, object: object as? FieldType)
+    func basicType<FieldType>(inout field: FieldType, object: AnyObject?) {
+        basicType(&field, object: object as? FieldType)
     }
     
-    func baseType<FieldType>(inout field: FieldType, object: FieldType?) {
+    func basicType<FieldType>(inout field: FieldType, object: FieldType?) {
         if let value = object {
             field = value
         }
     }
     
-    func optionalBaseType<FieldType>(inout field: FieldType?, object: AnyObject?) {
+    func optionalBasicType<FieldType>(inout field: FieldType?, object: AnyObject?) {
         if let value: AnyObject = object {
             field = value as? FieldType
         }
     }
     
-    func optionalBaseType<FieldType>(inout field: FieldType?, object: FieldType?) {
+    func optionalBasicType<FieldType>(inout field: FieldType?, object: FieldType?) {
         if let value: FieldType = object {
             field = value
         }

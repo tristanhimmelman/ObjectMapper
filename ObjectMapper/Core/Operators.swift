@@ -15,18 +15,18 @@ import Foundation
 // MARK: basic type
 public func <=<T, U>(inout left: T, right: Mapper<U>) {
     if right.mappingType == MappingType.fromJSON {
-        FromJSON<T>().baseType(&left, object: right.currentValue)
+        FromJSON<T>().basicType(&left, object: right.currentValue)
     } else {
-        ToJSON().baseType(left, key: right.currentKey!, dictionary: &right.JSONDictionary);
+        ToJSON().basicType(left, key: right.currentKey!, dictionary: &right.JSONDictionary);
     }
 }
 
 // Optional basic type
 public func <=<T, U>(inout left: T?, right: Mapper<U>) {
     if right.mappingType == MappingType.fromJSON {
-        FromJSON<T>().optionalBaseType(&left, object: right.currentValue)
+        FromJSON<T>().optionalBasicType(&left, object: right.currentValue)
     } else {
-        ToJSON().optionalBaseType(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
+        ToJSON().optionalBasicType(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
     }
 }
 
@@ -35,11 +35,11 @@ public func <=<T, U, N>(inout left: T, right: (Mapper<U>, MapperTransform<T, N>)
     if right.0.mappingType == MappingType.fromJSON {
         var value: T? = right.1.transformFromJSON(right.0.currentValue)
         //println("FromJSON \(value)");
-        FromJSON<T>().baseType(&left, object: value)
+        FromJSON<T>().basicType(&left, object: value)
     } else {
         var value: N? = right.1.transformToJSON(left)
         //println("\(left) toJSON \(value)")
-        ToJSON().optionalBaseType(value, key: right.0.currentKey!, dictionary: &right.0.JSONDictionary)
+        ToJSON().optionalBasicType(value, key: right.0.currentKey!, dictionary: &right.0.JSONDictionary)
     }
 }
 
@@ -48,11 +48,11 @@ public func <=<T, U, N>(inout left: T?, right: (Mapper<U>, MapperTransform<T, N>
     if right.0.mappingType == MappingType.fromJSON {
         var value: T? = right.1.transformFromJSON(right.0.currentValue)
         //println("FromJSON \(value)");
-        FromJSON<T>().optionalBaseType(&left, object: value)
+        FromJSON<T>().optionalBasicType(&left, object: value)
     } else {
         var value: N? = right.1.transformToJSON(left)
         //println("\(left) toJSON \(value)")
-        ToJSON().optionalBaseType(value, key: right.0.currentKey!, dictionary: &right.0.JSONDictionary)
+        ToJSON().optionalBasicType(value, key: right.0.currentKey!, dictionary: &right.0.JSONDictionary)
     }
 }
 
@@ -95,18 +95,18 @@ public func <=<T: Mappable, U>(inout left: Dictionary<String, T>?, right: Mapper
 // MARK: Dictionary <String, AnyObject>
 public func <=<U>(inout left: Dictionary<String, AnyObject>, right: Mapper<U>) {
     if right.mappingType == MappingType.fromJSON {
-        FromJSON<AnyObject>().baseType(&left, object: right.currentValue)
+        FromJSON<AnyObject>().basicType(&left, object: right.currentValue)
     } else {
-        ToJSON().baseDictionary(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
+        ToJSON().basicDictionary(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
     }
 }
 
 // Optional dictionary <String, AnyObject>
 public func <=<U>(inout left: Dictionary<String, AnyObject>?, right: Mapper<U>) {
     if right.mappingType == MappingType.fromJSON {
-        FromJSON<AnyObject>().optionalBaseType(&left, object: right.currentValue)
+        FromJSON<AnyObject>().optionalBasicType(&left, object: right.currentValue)
     } else {
-        ToJSON().optionalBaseDictionary(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
+        ToJSON().optionalBasicDictionary(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
     }
 }
 
@@ -131,17 +131,17 @@ public func <=<T: Mappable, U>(inout left: Array<T>?, right: Mapper<U>) {
 // MARK: Array<AnyObject>
 public func <=<U>(inout left: Array<AnyObject>, right: Mapper<U>) {
     if right.mappingType == MappingType.fromJSON {
-        FromJSON<AnyObject>().baseType(&left, object: right.currentValue)
+        FromJSON<AnyObject>().basicType(&left, object: right.currentValue)
     } else {
-        ToJSON().baseArray(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
+        ToJSON().basicArray(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
     }
 }
 
 // Optional array of String type
 public func <=<U>(inout left: Array<AnyObject>?, right: Mapper<U>) {
     if right.mappingType == MappingType.fromJSON {
-        FromJSON<AnyObject>().optionalBaseType(&left, object: right.currentValue)
+        FromJSON<AnyObject>().optionalBasicType(&left, object: right.currentValue)
     } else {
-        ToJSON().optionalBaseArray(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
+        ToJSON().optionalBasicArray(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
     }
 }

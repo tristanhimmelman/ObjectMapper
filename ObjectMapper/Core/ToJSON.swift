@@ -10,7 +10,7 @@ import Foundation
 
 class ToJSON {
 	
-    func baseType<N>(field: N, key: String, inout dictionary: [String : AnyObject]) {
+    func basicType<N>(field: N, key: String, inout dictionary: [String : AnyObject]) {
 		
 		var temp = dictionary
 		var currentKey = key
@@ -57,29 +57,29 @@ class ToJSON {
         }
     }
     
-    func optionalBaseType<N>(field: N?, key: String, inout dictionary: [String : AnyObject]) {
+    func optionalBasicType<N>(field: N?, key: String, inout dictionary: [String : AnyObject]) {
         if let field = field {
-            baseType(field, key: key, dictionary: &dictionary)
+            basicType(field, key: key, dictionary: &dictionary)
         }
     }
     
-    func baseArray(field: Array<AnyObject>, key: String, inout dictionary: [String : AnyObject]){
+    func basicArray(field: Array<AnyObject>, key: String, inout dictionary: [String : AnyObject]){
         dictionary[key] = NSArray(array: field)
     }
     
-    func optionalBaseArray(field: Array<AnyObject>?, key: String, inout dictionary: [String : AnyObject]){
+    func optionalBasicArray(field: Array<AnyObject>?, key: String, inout dictionary: [String : AnyObject]){
         if let value = field {
-            baseArray(value, key: key, dictionary: &dictionary)
+            basicArray(value, key: key, dictionary: &dictionary)
         }
     }
     
-    func baseDictionary(field: Dictionary<String, AnyObject>, key: String, inout dictionary: [String : AnyObject]){
+    func basicDictionary(field: Dictionary<String, AnyObject>, key: String, inout dictionary: [String : AnyObject]){
         dictionary[key] = NSDictionary(dictionary: field)
     }
     
-    func optionalBaseDictionary(field: Dictionary<String, AnyObject>?, key: String, inout dictionary: [String : AnyObject]){
+    func optionalBasicDictionary(field: Dictionary<String, AnyObject>?, key: String, inout dictionary: [String : AnyObject]){
         if let value = field {
-            baseDictionary(value, key: key, dictionary: &dictionary)
+            basicDictionary(value, key: key, dictionary: &dictionary)
         }
     }
     

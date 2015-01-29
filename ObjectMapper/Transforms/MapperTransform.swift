@@ -1,6 +1,6 @@
 //
 //  MapperTransform.swift
-//  BaseClient
+//	ObjectMapper
 //
 //  Created by Tristan Himmelman on 2014-10-07.
 //  Copyright (c) 2014 hearst. All rights reserved.
