@@ -32,16 +32,13 @@ public class Mapper<N: Mappable> {
     
     // Sets the current mapper value and key 
     public subscript(key: String) -> Mapper {
-        get {
-            // save key and value associated to it
-            currentKey = key
-            currentValue = valueFor(key)
-            
-            return self
-        }
-        set {}
+        // save key and value associated to it
+        currentKey = key
+        currentValue = valueFor(key)
+
+        return self
     }
-    
+
     // map a JSON string onto an existing object
     public func map(string JSONString: String, var toObject object: N) -> N! {
         let JSON = parseJSONDictionary(JSONString)
