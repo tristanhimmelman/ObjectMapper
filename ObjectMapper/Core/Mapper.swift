@@ -67,20 +67,18 @@ public class Mapper<N: Mappable> {
     }
 
 	// maps a JSON array to an object that conforms to Mappable
-	public func mapArray(string JSONString: String) -> [N]! {
-		let JSONArray = parseJSONArray(JSONString)
-		if let JSONArray = JSONArray {
+	public func mapArray(string JSONString: String) -> [N] {
+		if let JSONArray = parseJSONArray(JSONString) {
 			return mapArray(JSONArray)
-		} else {
-			// failed to parse JSON into array form
-			// try to parse it into a dictionary and then wrap it in an array
-			let JSONDict = parseJSONDictionary(JSONString)
-			if let JSONDict = JSONDict {
-				return mapArray([JSONDict])
-			}
 		}
 
-		return nil
+        // failed to parse JSON into array form
+        // try to parse it into a dictionary and then wrap it in an array
+        if let JSONDict = parseJSONDictionary(JSONString) {
+            return mapArray([JSONDict])
+        }
+
+		return []
 	}
 	
 	// maps a JSON dictionary to an object that conforms to Mappable

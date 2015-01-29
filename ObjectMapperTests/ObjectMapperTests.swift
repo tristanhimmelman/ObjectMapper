@@ -206,15 +206,12 @@ class ObjectMapperTests: XCTestCase {
 		
 		let arrayJSONString = "[{\"name\": \"\(name1)\", \"UUID\": \"3C074D4B-FC8C-4CA2-82A9-6E9367BBC875\", \"major\": 541, \"minor\": 123},{ \"name\": \"\(name2)\", \"UUID\": \"3C074D4B-FC8C-4CA2-82A9-6E9367BBC876\", \"major\": 54321,\"minor\": 13 }]"
 	
-		let studentArray = Mapper<Student>().mapArray(string: arrayJSONString)
+		let students = Mapper<Student>().mapArray(string: arrayJSONString)
 		
-		if let students = studentArray {
-			XCTAssert(students.count == 2, "There should be 2 students in array")
-			XCTAssert(students[0].name == name1, "First student's does not match")
-			XCTAssert(students[1].name == name2, "Second student's does not match")
-		} else {
-			XCTAssert(false, "Student Array should not be empty")
-		}
+        XCTAssert(!students.isEmpty, "Student Array should not be empty")
+        XCTAssert(students.count == 2, "There should be 2 students in array")
+        XCTAssert(students[0].name == name1, "First student's does not match")
+        XCTAssert(students[1].name == name2, "Second student's does not match")
 	}
 	
 	// test mapArray() with JSON string that is not an array form
@@ -224,14 +221,11 @@ class ObjectMapperTests: XCTestCase {
 		
 		let arrayJSONString = "{\"name\": \"\(name1)\", \"UUID\": \"3C074D4B-FC8C-4CA2-82A9-6E9367BBC875\", \"major\": 541, \"minor\": 123}"
 		
-		let studentArray = Mapper<Student>().mapArray(string: arrayJSONString)
+		let students = Mapper<Student>().mapArray(string: arrayJSONString)
 		
-		if let students = studentArray {
-			XCTAssert(students.count == 1, "There should be 2 students in array")
-			XCTAssert(students[0].name == name1, "First student's does not match")
-		} else {
-			XCTAssert(false, "Student Array should not be empty")
-		}
+        XCTAssert(!students.isEmpty, "Student Array should not be empty")
+        XCTAssert(students.count == 1, "There should be 1 student in array")
+        XCTAssert(students[0].name == name1, "First student's does not match")
 	}
 	
 	func testDoubleParsing(){
