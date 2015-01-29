@@ -76,6 +76,7 @@
 				6AAC8F7719F03C2900E7A677 /* Products */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 1;
 		};
 		6AAC8F7719F03C2900E7A677 /* Products */ = {
 			isa = PBXGroup;
