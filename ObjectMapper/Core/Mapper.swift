@@ -41,14 +41,18 @@ public class Mapper<N: Mappable> {
 
     // map a JSON string onto an existing object
     public func map(string JSONString: String, var toObject object: N) -> N! {
-        let JSON = parseJSONDictionary(JSONString)
-        return JSON.map { self.map($0, toObject: object) }
+        if let JSON = parseJSONDictionary(JSONString) {
+            return map(JSON, toObject: object)
+        }
+        return nil
     }
     
     // map a JSON string to an object Type that conforms to Mappable
     public func map(string JSONString: String) -> N! {
-        let JSON = parseJSONDictionary(JSONString)
-        return JSON.map { self.map($0) }
+        if let JSON = parseJSONDictionary(JSONString) {
+            return map(JSON)
+        }
+        return nil
     }
     
     // maps a JSON dictionary to an object that conforms to Mappable
