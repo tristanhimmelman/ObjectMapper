@@ -10,10 +10,6 @@ import Foundation
 
 class ToJSON {
 	
-	func addObject(object: AnyObject, inout toDictionary dictionary: [String : AnyObject]){
-		
-	}
-	
     func baseType<N>(field: N, key: String, inout dictionary: [String : AnyObject]) {
 		
 		var temp = dictionary

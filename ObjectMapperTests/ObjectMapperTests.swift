@@ -342,7 +342,6 @@ class ObjectMapperTests: XCTestCase {
         let value = dict["string"]! as String
         XCTAssertTrue(value == "string")
     }
-
 }
 
 class Response<T:Mappable>: Mappable {
