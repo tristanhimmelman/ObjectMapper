@@ -11,58 +11,18 @@ import Foundation
 class FromJSON<CollectionType> {
     
     func baseType<FieldType>(inout field: FieldType, object: AnyObject?) {
-        if let value: AnyObject = object {
-            switch FieldType.self {
-            case is String.Type:
-                field = (value as String) as FieldType
-            case is Bool.Type:
-                field = (value as Bool) as FieldType
-            case is Int.Type:
-                field = (value as Int) as FieldType
-            case is Double.Type:
-                field = (value as Double) as FieldType
-            case is Float.Type:
-                field = (value as Float) as FieldType
-            case is Array<CollectionType>.Type:
-                field = value as FieldType
-            case is Dictionary<String, CollectionType>.Type:
-                field = value as FieldType
-            default:
-				field = value as FieldType
-                return
-            }
-        }
+        baseType(&field, object: object as? FieldType)
     }
     
     func baseType<FieldType>(inout field: FieldType, object: FieldType?) {
-        if let value: FieldType = object {
+        if let value = object {
             field = value
         }
     }
     
     func optionalBaseType<FieldType>(inout field: FieldType?, object: AnyObject?) {
         if let value: AnyObject = object {
-            switch FieldType.self {
-            case is String.Type:
-                field = value as? FieldType
-            case is Bool.Type:
-                field = value as? FieldType
-            case is Int.Type:
-                field = value as? FieldType
-            case is Double.Type:
-                field = value as? FieldType
-            case is Float.Type:
-                field = value as? FieldType
-            case is Array<CollectionType>.Type:
-                field = value as? FieldType
-            case is Dictionary<String, CollectionType>.Type:
-                field = value as? FieldType
-            case is NSDate.Type:
-                field = value as? FieldType
-            default:
-				field = value as? FieldType
-                return
-            }
+            field = value as? FieldType
         }
     }
     
