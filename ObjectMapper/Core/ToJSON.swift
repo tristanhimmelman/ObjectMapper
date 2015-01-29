@@ -19,42 +19,42 @@ class ToJSON {
 		var temp = dictionary
 		var currentKey = key
 
-        switch N.self {
-		// basic Types
-        case is Bool.Type:
-            dictionary[currentKey] = field as Bool
-        case is Int.Type:
-            dictionary[currentKey] = field as Int
-        case is Double.Type:
-            dictionary[currentKey] = field as Double
-        case is Float.Type:
-            dictionary[currentKey] = field as Float
-        case is String.Type:
-            dictionary[currentKey] = field as String
+        switch field {
+        // basic Types
+        case let x as Bool:
+            dictionary[currentKey] = x
+        case let x as Int:
+            dictionary[currentKey] = x
+        case let x as Double:
+            dictionary[currentKey] = x
+        case let x as Float:
+            dictionary[currentKey] = x
+        case let x as String:
+            dictionary[currentKey] = x
 
-		// Arrays with basic types
-		case is Array<Bool>.Type:
-			dictionary[currentKey] = field as Array<Bool>
-		case is Array<Int>.Type:
-			dictionary[currentKey] = field as Array<Int>
-		case is Array<Double>.Type:
-			dictionary[currentKey] = field as Array<Double>
-		case is Array<Float>.Type:
-			dictionary[currentKey] = field as Array<Float>
-		case is Array<String>.Type:
-			dictionary[currentKey] = field as Array<String>
+        // Arrays with basic types
+        case let x as Array<Bool>:
+            dictionary[currentKey] = x
+        case let x as Array<Int>:
+            dictionary[currentKey] = x
+        case let x as Array<Double>:
+            dictionary[currentKey] = x
+        case let x as Array<Float>:
+            dictionary[currentKey] = x
+        case let x as Array<String>:
+            dictionary[currentKey] = x
 			
-		// Dictionaries with basic types
-		case is Dictionary<String, Bool>.Type:
-			dictionary[currentKey] = field as Dictionary<String, Bool>
-		case is Dictionary<String, Int>.Type:
-			dictionary[currentKey] = field as Dictionary<String, Int>
-		case is Dictionary<String, Double>.Type:
-			dictionary[currentKey] = field as Dictionary<String, Double>
-		case is Dictionary<String, Float>.Type:
-			dictionary[currentKey] = field as Dictionary<String, Float>
-		case is Dictionary<String, String>.Type:
-			dictionary[currentKey] = field as Dictionary<String, String>
+        // Dictionaries with basic types
+        case let x as Dictionary<String, Bool>:
+            dictionary[currentKey] = x
+        case let x as Dictionary<String, Int>:
+            dictionary[currentKey] = x
+        case let x as Dictionary<String, Double>:
+            dictionary[currentKey] = x
+        case let x as Dictionary<String, Float>:
+            dictionary[currentKey] = x
+        case let x as Dictionary<String, String>:
+            dictionary[currentKey] = x
         default:
             //println("Default")
             return
@@ -62,7 +62,7 @@ class ToJSON {
     }
     
     func optionalBaseType<N>(field: N?, key: String, inout dictionary: [String : AnyObject]) {
-        if let field: N = field {
+        if let field = field {
             baseType(field, key: key, dictionary: &dictionary)
         }
     }
