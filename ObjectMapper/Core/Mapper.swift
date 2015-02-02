@@ -79,22 +79,6 @@ public class Mapper<N: Mappable> {
 	public init(){
 
 	}
-
-	func mappingType() -> MappingType {
-		return map.mappingType
-	}
-	
-	func currentValue() -> AnyObject? {
-		return map.currentValue
-	}
-	
-	func currentKey() -> String? {
-		return map.currentKey
-	}
-	
-	func JSONDictionary() -> [String:AnyObject] {
-		return map.JSONDictionary
-	}
 	
 	// MARK: Public Mapping functions
 	
