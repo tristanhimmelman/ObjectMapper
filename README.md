@@ -26,14 +26,14 @@ class User: Mappable {
     required init(){}
 
     // Mappable    
-    func map<N>(mapper: Mapper<N>) {
-        username <= mapper["username"]
-        age <= mapper["age"]
-        weight <= mapper["weight"]
-        arr <= mapper["arr"]
-        dict <= mapper["dict"]
-        friend <= mapper["friend"]
-        birthday <= (mapper["birthday"], DateTransform<NSDate, Int>())
+    func map(map: Map) {
+        username <= map["username"]
+        age <= map["age"]
+        weight <= map["weight"]
+        arr <= map["arr"]
+        dict <= map["dict"]
+        friend <= map["friend"]
+        birthday <= (map["birthday"], DateTransform<NSDate, Int>())
     }
 }
 
@@ -43,9 +43,9 @@ struct Temperature: Mappable {
     
     init(){}
 	
-	mutating func map<N>(mapper: Mapper<N>) {
-		celcius <= mapper["celcius"]
-		fahrenheit <= mapper["fahrenheit"]
+	mutating func map(map: Map) {
+		celcius <= map["celcius"]
+		fahrenheit <= map["fahrenheit"]
 	}
 }
 ```
@@ -78,7 +78,7 @@ Object mapper can map classes composed of the following types:
 ##Custom Transfoms
 ObjectMapper also supports custom Transforms that convert values during the mapping process. To use a transform, simply create a tuple with the mapper["field_name"] and the transform of choice on the right side of the '<=' operator:
 ```swift
-birthday <= (mapper["birthday"], DateTransform<NSDate, Int>())
+birthday <= (map["birthday"], DateTransform<NSDate, Int>())
 ```
 The above transform will convert the JSON Int value to an NSDate when reading JSON and will convert the NSDate to an Int when converting objects to JSON.
 
