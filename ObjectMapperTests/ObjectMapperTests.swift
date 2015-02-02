@@ -356,13 +356,25 @@ class ObjectMapperTests: XCTestCase {
         XCTAssertTrue(value == "string")
     }
 	
-	func testGenericSubclass() {
-		var object = Subclass<String>()
+	func testSubclass() {
+		var object = Subclass()
 		object.base = "base var"
 		object.sub = "sub var"
 		
 		let json = Mapper().toJSON(object)
-		let parsedObject = Mapper<Subclass<String>>().map(json)
+		let parsedObject = Mapper<Subclass>().map(json)
+		
+		XCTAssert(object.base! == parsedObject.base!, "base class var was not mapped")
+		XCTAssert(object.sub! == parsedObject.sub!, "sub class var was not mapped")
+	}
+	
+	func testGenericSubclass() {
+		var object = GenericSubclass<String>()
+		object.base = "base var"
+		object.sub = "sub var"
+		
+		let json = Mapper().toJSON(object)
+		let parsedObject = Mapper<GenericSubclass<String>>().map(json)
 		
 		XCTAssert(object.base! == parsedObject.base!, "base class var was not mapped")
 		XCTAssert(object.sub! == parsedObject.sub!, "sub class var was not mapped")
@@ -539,7 +551,23 @@ class Base: Mappable {
 	}
 }
 
-class Subclass<T>: Base {
+class Subclass: Base {
+	
+	var sub: String?
+	
+	required init(){
+		
+	}
+	
+	override func map(map: Map) {
+		super.map(map)
+		
+		sub <= map["sub"]
+	}
+}
+
+
+class GenericSubclass<T>: Base {
 	
 	var sub: String?
 	
@@ -553,3 +581,5 @@ class Subclass<T>: Base {
 		sub <= map["sub"]
 	}
 }
+
+

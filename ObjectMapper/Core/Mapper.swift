@@ -231,5 +231,4 @@ public class Mapper<N: Mappable> {
 
 		return nil
 	}
-
 }
