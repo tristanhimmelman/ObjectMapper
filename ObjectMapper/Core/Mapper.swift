@@ -9,7 +9,7 @@
 import Foundation
 
 public protocol Mappable {
-	mutating func map<N>(mapper: Mapper<N>)
+	mutating func map(map: Map)
 	init()
 }
 
@@ -18,27 +18,84 @@ enum MappingType {
 	case toJSON
 }
 
-public class Mapper<N: Mappable> {
+/**
+* A class used for holding mapping data
+*/
+public class Map {
 	var JSONDictionary: [String : AnyObject] = [:]
 	var currentValue: AnyObject?
 	var currentKey: String?
 	var mappingType: MappingType = .fromJSON
 
 	public init(){
-
+		
 	}
-
+	
 	/**
 	* Sets the current mapper value and key
 	*/
-	public subscript(key: String) -> Mapper {
+	public subscript(key: String) -> Map {
 		// save key and value associated to it
 		currentKey = key
 		currentValue = valueFor(key)
-
+		
 		return self
 	}
+	
+	/**
+	* Fetch value from JSON dictionary
+	*/
+	private func valueFor<N>(key: String) -> N? {
+		// key can the form "distance.value", to allow mapping to sub objects
+		
+		// break down the components of the key and loop through them until we reach the desired object
+		let components = key.componentsSeparatedByString(".")
+		var index = 0
+		var temp = JSONDictionary
+		while index < components.count {
+			let currentKey = components[index]
+			if index == components.count - 1 {
+				return temp[currentKey] as? N
+			} else {
+				if temp[currentKey] is NSNull {
+					return nil
+				}
+				if let dict = temp[currentKey] as [String : AnyObject]? {
+					temp = dict
+					index++
+				} else {
+					return nil
+				}
+			}
+		}
+		
+		return (JSONDictionary[key] as? N)
+	}
+}
 
+public class Mapper<N: Mappable> {
+	var map = Map()
+	
+	public init(){
+
+	}
+
+	func mappingType() -> MappingType {
+		return map.mappingType
+	}
+	
+	func currentValue() -> AnyObject? {
+		return map.currentValue
+	}
+	
+	func currentKey() -> String? {
+		return map.currentKey
+	}
+	
+	func JSONDictionary() -> [String:AnyObject] {
+		return map.JSONDictionary
+	}
+	
 	// MARK: Public Mapping functions
 	
 	/**
@@ -74,9 +131,9 @@ public class Mapper<N: Mappable> {
 	* Usefull for those pesky objects that have crappy designated initializers like NSManagedObject
 	*/
 	public func map(JSON: [String : AnyObject], var toObject object: N) -> N! {
-		mappingType = .fromJSON
-		self.JSONDictionary = JSON
-		object.map(self)
+		map.mappingType = .fromJSON
+		map.JSONDictionary = JSON
+		object.map(map)
 		return object
 	}
 
@@ -112,14 +169,13 @@ public class Mapper<N: Mappable> {
 	* Maps an object that conforms to Mappable to a JSON dictionary <String : AnyObject>
 	*/
 	public func toJSON(var object: N) -> [String : AnyObject] {
-		mappingType = .toJSON
+		map.mappingType = .toJSON
+		map.JSONDictionary = [String : AnyObject]()
+		
+		object.map(map)
 
-		self.JSONDictionary = [String : AnyObject]()
-		object.map(self)
-
-		return self.JSONDictionary
+		return map.JSONDictionary
 	}
-
 	
 	/** 
 	* Maps an array of Objects to an array of JSON dictionaries [[String : AnyObject]]
@@ -150,38 +206,6 @@ public class Mapper<N: Mappable> {
 		}
 
 		return nil
-	}
-
-	// MARK: Private methods
-
-	/** 
-	* Fetch value from JSON dictionary 
-	*/
-	private func valueFor<N>(key: String) -> N? {
-		// key can the form "distance.value", to allow mapping to sub objects
-
-		// break down the components of the key and loop through them until we reach the desired object
-		let components = key.componentsSeparatedByString(".")
-		var index = 0
-		var temp = JSONDictionary
-		while index < components.count {
-			let currentKey = components[index]
-			if index == components.count - 1 {
-				return temp[currentKey] as? N
-			} else {
-				if temp[currentKey] is NSNull {
-					return nil
-				}
-				if let dict = temp[currentKey] as [String : AnyObject]? {
-					temp = dict
-					index++
-				} else {
-					return nil
-				}
-			}
-		}
-
-		return (JSONDictionary[key] as? N)
 	}
 
 	// MARK: Private utility functions for converting strings to JSON objects

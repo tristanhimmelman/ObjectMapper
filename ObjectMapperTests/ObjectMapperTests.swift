@@ -228,8 +228,7 @@ class ObjectMapperTests: XCTestCase {
 		XCTAssert(students[0].name == name1, "First student's does not match")
 	}
 
-	func testDoubleParsing(){
-		
+	func testArrayOfCustomObjects(){
 		let percentage1: Double = 0.1
 		let percentage2: Double = 1792.41
 		
@@ -245,6 +244,20 @@ class ObjectMapperTests: XCTestCase {
 			XCTAssertEqual(task2.percentage!, percentage2, "Percentage 2 should be the same")
 		} else {
 			XCTAssert(false, "Tasks not mapped")
+		}
+	}
+	
+	func testDoubleParsing(){
+		let percentage1: Double = 1792.41
+		
+		let JSON = "{\"taskId\":103,\"percentage\":\(percentage1)}"
+		
+		let task = Mapper<Task>().map(string: JSON)
+		
+		if let task = task {
+			XCTAssertEqual(task.percentage!, percentage1, "Percentage 1 should be the same")
+		} else {
+			XCTAssert(false, "Task not mapped")
 		}
 	}
 	
@@ -342,16 +355,28 @@ class ObjectMapperTests: XCTestCase {
         let value = dict["string"]! as String
         XCTAssertTrue(value == "string")
     }
+	
+	func testGenericSubclass() {
+		var object = Subclass<String>()
+		object.base = "base var"
+		object.sub = "sub var"
+		
+		let json = Mapper().toJSON(object)
+		let parsedObject = Mapper<Subclass<String>>().map(json)
+		
+		XCTAssert(object.base! == parsedObject.base!, "base class var was not mapped")
+		XCTAssert(object.sub! == parsedObject.sub!, "sub class var was not mapped")
+	}
 }
 
-class Response<T:Mappable>: Mappable {
+class Response<T: Mappable>: Mappable {
 	var result: T?
 	
 	required init() {
 	}
 	
-	func map<N>(mapper: Mapper<N>) {
-		result <= mapper["result"]
+	func map(map: Map) {
+		result <= map["result"]
 	}
 }
 
@@ -361,8 +386,8 @@ class Status: Mappable {
 	required init() {
 	}
 	
-	func map<N>(mapper: Mapper<N>) {
-		status <= mapper["code"]
+	func map(map: Map) {
+		status <= map["code"]
 	}
 }
 
@@ -373,8 +398,8 @@ class Plan: Mappable {
 		
 	}
 	
-	func map<N>(mapper: Mapper<N>) {
-		tasks <= mapper["tasks"]
+	func map(map: Map) {
+		tasks <= map["tasks"]
 	}
 }
 
@@ -386,9 +411,9 @@ class Task: Mappable {
 		
 	}
 	
-	func map<N>(mapper: Mapper<N>) {
-		taskId <= mapper["taskId"]
-		percentage <= mapper["percentage"]
+	func map(map: Map) {
+		taskId <= map["taskId"]
+		percentage <= map["percentage"]
 	}
 }
 
@@ -403,11 +428,11 @@ struct Student: Mappable {
 		
 	}
 	
-	mutating func map<N>(mapper: Mapper<N>) {
-		name <= mapper["name"]
-		UUID <= mapper["UUID"]
-		major <= mapper["major"]
-		minor <= mapper["minor"]
+	mutating func map(map: Map) {
+		name <= map["name"]
+		UUID <= map["UUID"]
+		major <= map["major"]
+		minor <= map["minor"]
 	}
 }
 
@@ -441,30 +466,31 @@ class User: Mappable {
 		
     }
 	
-	func map<N>(mapper: Mapper<N>) {
-		username         <= mapper["username"]
-		identifier       <= mapper["identifier"]
-		photoCount       <= mapper["photoCount"]
-		age              <= mapper["age"]
-		weight           <= mapper["weight"]
-		float            <= mapper["float"]
-		drinker          <= mapper["drinker"]
-		smoker           <= mapper["smoker"]
-		arr              <= mapper["arr"]
-		arrOptional      <= mapper["arrOpt"]
-		dict             <= mapper["dict"]
-		dictOptional     <= mapper["dictOpt"]
-		friend           <= mapper["friend"]
-		friends          <= mapper["friends"]
-		friendDictionary <= mapper["friendDictionary"]
-		dictString		 <= mapper["dictString"]
-		birthday         <= (mapper["birthday"], DateTransform<NSDate, Double>())
-		birthdayOpt      <= (mapper["birthdayOpt"], DateTransform<NSDate, Double>())
-        y2k              <= (mapper["y2k"], ISO8601DateTransform<NSDate, String>())
-        y2kOpt           <= (mapper["y2kOpt"], ISO8601DateTransform<NSDate, String>())
-		imageURL         <= (mapper["imageURL"], URLTransform<NSURL, String>())
-        intWithString    <= (mapper["intWithString"], TransformOf<Int, String>(fromJSON: { $0?.toInt() }, toJSON: { $0.map { String($0) } }))
-		heightInCM		 <= mapper["height.value"]
+	func map(map: Map) {
+		username         <= map["username"]
+		identifier       <= map["identifier"]
+		photoCount       <= map["photoCount"]
+		age              <= map["age"]
+		weight           <= map["weight"]
+		float            <= map["float"]
+		drinker          <= map["drinker"]
+		smoker           <= map["smoker"]
+		arr              <= map["arr"]
+		arrOptional      <= map["arrOpt"]
+		dict             <= map["dict"]
+		dictOptional     <= map["dictOpt"]
+		friend           <= map["friend"]
+		friends          <= map["friends"]
+		friendDictionary <= map["friendDictionary"]
+		dictString		 <= map["dictString"]
+		heightInCM		 <= map["height.value"]
+		birthday         <= (map["birthday"], DateTransform<NSDate, Double>())
+		birthdayOpt      <= (map["birthdayOpt"], DateTransform<NSDate, Double>())
+        y2k              <= (map["y2k"], ISO8601DateTransform<NSDate, String>())
+        y2kOpt           <= (map["y2kOpt"], ISO8601DateTransform<NSDate, String>())
+		imageURL         <= (map["imageURL"], URLTransform<NSURL, String>())
+        intWithString    <= (map["intWithString"], TransformOf<Int, String>(fromJSON: { $0?.toInt() }, toJSON: { $0.map { String($0) } }))
+
 	}
 	
     var description : String {
@@ -486,16 +512,44 @@ class TestCollectionOfPrimitives : Mappable {
     
     required init() {}
     
-    func map<N>(mapper: Mapper<N>) {
-        dictStringString    <= mapper["dictStringString"]
-        dictStringBool      <= mapper["dictStringBool"]
-        dictStringInt       <= mapper["dictStringInt"]
-        dictStringDouble    <= mapper["dictStringDouble"]
-        dictStringFloat     <= mapper["dictStringFloat"]
-        arrayString         <= mapper["arrayString"]
-        arrayInt            <= mapper["arrayInt"]
-        arrayBool           <= mapper["arrayBool"]
-        arrayDouble         <= mapper["arrayDouble"]
-        arrayFloat          <= mapper["arrayFloat"]
+    func map(map: Map) {
+        dictStringString    <= map["dictStringString"]
+        dictStringBool      <= map["dictStringBool"]
+        dictStringInt       <= map["dictStringInt"]
+        dictStringDouble    <= map["dictStringDouble"]
+        dictStringFloat     <= map["dictStringFloat"]
+        arrayString         <= map["arrayString"]
+        arrayInt            <= map["arrayInt"]
+        arrayBool           <= map["arrayBool"]
+        arrayDouble         <= map["arrayDouble"]
+        arrayFloat          <= map["arrayFloat"]
     }
+}
+
+class Base: Mappable {
+	
+	var base: String?
+	
+	required init(){
+		
+	}
+
+	func map(map: Map) {
+		base <= map["base"]
+	}
+}
+
+class Subclass<T>: Base {
+	
+	var sub: String?
+	
+	required init(){
+		
+	}
+
+	override func map(map: Map) {
+		super.map(map)
+		
+		sub <= map["sub"]
+	}
 }
