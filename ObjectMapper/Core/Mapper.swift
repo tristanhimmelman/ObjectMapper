@@ -21,7 +21,7 @@ enum MappingType {
 /**
 * A class used for holding mapping data
 */
-public class Map {
+public final class Map {
 	let mappingType: MappingType
 
 	var JSONDictionary: [String : AnyObject] = [:]
@@ -75,7 +75,7 @@ public class Map {
 	}
 }
 
-public class Mapper<N: Mappable> {
+public final class Mapper<N: Mappable> {
 	public init(){
 
 	}
