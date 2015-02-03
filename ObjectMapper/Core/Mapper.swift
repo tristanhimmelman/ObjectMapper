@@ -21,14 +21,16 @@ enum MappingType {
 /**
 * A class used for holding mapping data
 */
-public class Map {
+public final class Map {
+	let mappingType: MappingType
+
 	var JSONDictionary: [String : AnyObject] = [:]
 	var currentValue: AnyObject?
 	var currentKey: String?
-	var mappingType: MappingType = .fromJSON
 
-	public init(){
-		
+	private init(mappingType: MappingType, JSONDictionary: [String : AnyObject]) {
+		self.mappingType = mappingType
+		self.JSONDictionary = JSONDictionary
 	}
 	
 	/**
@@ -73,9 +75,7 @@ public class Map {
 	}
 }
 
-public class Mapper<N: Mappable> {
-	var map = Map()
-	
+public final class Mapper<N: Mappable> {
 	public init(){
 
 	}
@@ -115,8 +115,7 @@ public class Mapper<N: Mappable> {
 	* Usefull for those pesky objects that have crappy designated initializers like NSManagedObject
 	*/
 	public func map(JSON: [String : AnyObject], var toObject object: N) -> N! {
-		map.mappingType = .fromJSON
-		map.JSONDictionary = JSON
+		let map = Map(mappingType: .fromJSON, JSONDictionary: JSON)
 		object.map(map)
 		return object
 	}
@@ -153,11 +152,8 @@ public class Mapper<N: Mappable> {
 	* Maps an object that conforms to Mappable to a JSON dictionary <String : AnyObject>
 	*/
 	public func toJSON(var object: N) -> [String : AnyObject] {
-		map.mappingType = .toJSON
-		map.JSONDictionary = [String : AnyObject]()
-		
+		let map = Map(mappingType: .toJSON, JSONDictionary: [:])
 		object.map(map)
-
 		return map.JSONDictionary
 	}
 	
