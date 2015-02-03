@@ -32,45 +32,45 @@ public class Map {
 	}
 	
 	/**
-	* Sets the current mapper value and key
+	* Sets the current mapper value and key.
+	* 
+	* Key can the form "distance.value", to allow mapping to sub objects.
 	*/
 	public subscript(key: String) -> Map {
 		// save key and value associated to it
 		currentKey = key
-		currentValue = valueFor(key)
+		// break down the components of the key
+		currentValue = valueFor(key.componentsSeparatedByString("."), JSONDictionary)
 		
 		return self
 	}
-	
-	/**
-	* Fetch value from JSON dictionary
-	*/
-	private func valueFor<N>(key: String) -> N? {
-		// key can the form "distance.value", to allow mapping to sub objects
-		
-		// break down the components of the key and loop through them until we reach the desired object
-		let components = key.componentsSeparatedByString(".")
-		var index = 0
-		var temp = JSONDictionary
-		while index < components.count {
-			let currentKey = components[index]
-			if index == components.count - 1 {
-				return temp[currentKey] as? N
-			} else {
-				if temp[currentKey] is NSNull {
-					return nil
-				}
-				if let dict = temp[currentKey] as [String : AnyObject]? {
-					temp = dict
-					index++
-				} else {
-					return nil
-				}
-			}
-		}
-		
-		return (JSONDictionary[key] as? N)
+}
+
+/**
+* Fetch value from JSON dictionary, loop through them until we reach the desired object.
+*/
+private func valueFor<N>(keyPathComponents: [String], dictionary: [String : AnyObject]) -> N? {
+	// Implement it as a tail recursive function.
+
+	if keyPathComponents.isEmpty {
+		return nil
 	}
+
+	if let object: AnyObject = dictionary[keyPathComponents.first!] {
+		switch object {
+		case is NSNull:
+			return nil
+
+		case let dict as [String : AnyObject] where keyPathComponents.count > 1:
+			let tail = Array(keyPathComponents[1..<keyPathComponents.count])
+			return valueFor(tail, dict)
+
+		default:
+			return object as? N
+		}
+	}
+
+	return nil
 }
 
 public class Mapper<N: Mappable> {
