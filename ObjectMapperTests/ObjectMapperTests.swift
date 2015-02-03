@@ -247,6 +247,20 @@ class ObjectMapperTests: XCTestCase {
 		}
 	}
 	
+	func testDictionaryOfCustomObjects(){
+		let percentage1: Double = 0.1
+		let percentage2: Double = 1792.41
+		
+		let JSON = "{\"tasks\": { \"task1\": {\"taskId\":103,\"percentage\":\(percentage1)}, \"task2\": {\"taskId\":108,\"percentage\":\(percentage2)}}}"
+		
+		let taskDict = Mapper<TaskDictionary>().map(string: JSON)
+		if let task = taskDict.tasks?["task1"] {
+			XCTAssertEqual(task.percentage!, percentage1, "Percentage 1 should be the same")
+		} else {
+			XCTAssert(false, "Dictionary not mapped")
+		}
+	}
+	
 	func testDoubleParsing(){
 		let percentage1: Double = 1792.41
 		
@@ -428,6 +442,21 @@ class Task: Mappable {
 		percentage <= map["percentage"]
 	}
 }
+
+class TaskDictionary: Mappable {
+	var test: String?
+	var tasks: [String : Task]?
+	
+	required init(){
+		
+	}
+	
+	func map(map: Map) {
+		test <= map["test"]
+		tasks <= map["tasks"]
+	}
+}
+
 
 // Confirm that struct can conform to `Mappable`
 struct Student: Mappable {

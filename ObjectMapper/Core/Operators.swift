@@ -84,7 +84,7 @@ public func <=<T: Mappable>(inout left: Dictionary<String, T>, right: Map) {
 }
 
 // Optional Dictionary <String, T: Mappable>
-public func <=<T: Mappable, U>(inout left: Dictionary<String, T>?, right: Map) {
+public func <=<T: Mappable>(inout left: Dictionary<String, T>?, right: Map) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<T>().optionalObjectDictionary(&left, object: right.currentValue)
     } else {
