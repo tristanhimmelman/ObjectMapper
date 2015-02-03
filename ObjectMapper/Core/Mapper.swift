@@ -49,7 +49,7 @@ public class Map {
 /**
 * Fetch value from JSON dictionary, loop through them until we reach the desired object.
 */
-private func valueFor<N>(keyPathComponents: [String], dictionary: [String : AnyObject]) -> N? {
+private func valueFor(keyPathComponents: [String], dictionary: [String : AnyObject]) -> AnyObject? {
 	// Implement it as a tail recursive function.
 
 	if keyPathComponents.isEmpty {
@@ -66,7 +66,7 @@ private func valueFor<N>(keyPathComponents: [String], dictionary: [String : AnyO
 			return valueFor(tail, dict)
 
 		default:
-			return object as? N
+			return object
 		}
 	}
 
