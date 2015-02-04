@@ -10,7 +10,7 @@ ObjectMapper is a framework written in Swift that makes it easy for you to conve
 - Struct support
 
 ##The Basics
-To support mapping, a Class or Struct just needs to implement the ```Mappable```. ObjectMapper uses the ```<=``` operator to define how each member variable maps to and from JSON.
+To support mapping, a Class or Struct just needs to implement the ```Mappable``` protocol. ObjectMapper uses the ```<=``` operator to define how each member variable maps to and from JSON.
 
 ```swift
 class User: Mappable {
@@ -106,8 +106,8 @@ ObjectMapper supports dot notation within keys for easy mapping of nested object
 ```
 You can access the nested objects as follows:
 ```
-func map<N>(mapper: Mapper<N>){
-    distance <= mapper["distance.value"]
+func map(map: Map){
+    distance <= map["distance.value"]
 }
 ```
 
