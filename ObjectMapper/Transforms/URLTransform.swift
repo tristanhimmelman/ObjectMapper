@@ -8,26 +8,23 @@
 
 import Foundation
 
-public class URLTransform<ObjectType, JSONType>: MapperTransform<ObjectType, JSONType> {
-    
-    public override init(){
-        
-    }
-    
-    override public func transformFromJSON(value: AnyObject?) -> ObjectType? {
-        if let URLString = value as? String {
-            let url = NSURL(string: URLString)
-            if let unwrappedUrl = url {
-                return (url as ObjectType)
-            }
-        }
-        return nil
-    }
-    
-    override public func transformToJSON(value: ObjectType?) -> JSONType? {
-        if let URL = value as? NSURL {
-            return (URL.absoluteString as JSONType)
-        }
-        return nil
-    }
+public class URLTransform: TransformType {
+	public typealias Object = NSURL
+	public typealias JSON = String
+
+	public init() {}
+
+	public func transformFromJSON(value: AnyObject?) -> NSURL? {
+		if let URLString = value as? String {
+			return NSURL(string: URLString)
+		}
+		return nil
+	}
+
+	public func transformToJSON(value: NSURL?) -> String? {
+		if let URL = value {
+			return URL.absoluteString
+		}
+		return nil
+	}
 }

@@ -31,26 +31,26 @@ public func <=<T>(inout left: T?, right: Map) {
 }
 
 // Basic type with Transform
-public func <=<T, N>(inout left: T, right: (Map, MapperTransform<T, N>)) {
+public func <=<T, Transform: TransformType where Transform.Object == T>(inout left: T, right: (Map, Transform)) {
     if right.0.mappingType == MappingType.fromJSON {
         var value: T? = right.1.transformFromJSON(right.0.currentValue)
         //println("FromJSON \(value)");
         FromJSON<T>().basicType(&left, object: value)
     } else {
-        var value: N? = right.1.transformToJSON(left)
+        var value: Transform.JSON? = right.1.transformToJSON(left)
         //println("\(left) toJSON \(value)")
         ToJSON().optionalBasicType(value, key: right.0.currentKey!, dictionary: &right.0.JSONDictionary)
     }
 }
 
 // Optional basic type with Transform
-public func <=<T, N>(inout left: T?, right: (Map, MapperTransform<T, N>)) {
+public func <=<T, Transform: TransformType where Transform.Object == T>(inout left: T?, right: (Map, Transform)) {
     if right.0.mappingType == MappingType.fromJSON {
         var value: T? = right.1.transformFromJSON(right.0.currentValue)
         //println("FromJSON \(value)");
         FromJSON<T>().optionalBasicType(&left, object: value)
     } else {
-        var value: N? = right.1.transformToJSON(left)
+        var value: Transform.JSON? = right.1.transformToJSON(left)
         //println("\(left) toJSON \(value)")
         ToJSON().optionalBasicType(value, key: right.0.currentKey!, dictionary: &right.0.JSONDictionary)
     }

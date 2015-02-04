@@ -381,7 +381,7 @@ class ObjectMapperTests: XCTestCase {
 		XCTAssert(object.base! == parsedObject.base!, "base class var was not mapped")
 		XCTAssert(object.sub! == parsedObject.sub!, "sub class var was not mapped")
 	}
-	
+
 	func testGenericSubclass() {
 		var object = GenericSubclass<String>()
 		object.base = "base var"
@@ -525,13 +525,12 @@ class User: Mappable {
 		friendDictionary <= map["friendDictionary"]
 		dictString		 <= map["dictString"]
 		heightInCM		 <= map["height.value"]
-		birthday         <= (map["birthday"], DateTransform<NSDate, Double>())
-		birthdayOpt      <= (map["birthdayOpt"], DateTransform<NSDate, Double>())
-        y2k              <= (map["y2k"], ISO8601DateTransform<NSDate, String>())
-        y2kOpt           <= (map["y2kOpt"], ISO8601DateTransform<NSDate, String>())
-		imageURL         <= (map["imageURL"], URLTransform<NSURL, String>())
-        intWithString    <= (map["intWithString"], TransformOf<Int, String>(fromJSON: { $0?.toInt() }, toJSON: { $0.map { String($0) } }))
-
+		birthday         <= (map["birthday"], DateTransform())
+		birthdayOpt      <= (map["birthdayOpt"], DateTransform())
+		y2k              <= (map["y2k"], ISO8601DateTransform())
+		y2kOpt           <= (map["y2kOpt"], ISO8601DateTransform())
+		imageURL         <= (map["imageURL"], URLTransform())
+		intWithString    <= (map["intWithString"], TransformOf<Int, String>(fromJSON: { $0?.toInt() }, toJSON: { $0.map { String($0) } }))
 	}
 	
     var description : String {

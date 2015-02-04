@@ -8,28 +8,30 @@
 
 import Foundation
 
-public class ISO8601DateTransform<ObjectType, JSONType>: MapperTransform<ObjectType, JSONType> {
-    public override init() {
-    }
+public class ISO8601DateTransform: TransformType {
+	public typealias Object = NSDate
+	public typealias JSON = String
 
-    func dateFormatter() -> NSDateFormatter {
-        let formatter = NSDateFormatter()
-        formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
-        return formatter
-    }
+	public init() {}
 
-    override public func transformFromJSON(value: AnyObject?) -> ObjectType? {
-        if let dateString = value as? String {
-            return (dateFormatter().dateFromString(dateString) as ObjectType?)
-        }
-        return nil
-    }
+	private lazy var dateFormatter: NSDateFormatter = {
+		let formatter = NSDateFormatter()
+		formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+		formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+		return formatter
+	}()
 
-    override public func transformToJSON(value: ObjectType?) -> JSONType? {
-        if let date = value as? NSDate {
-            return (dateFormatter().stringFromDate(date) as JSONType)
-        }
-        return nil
-    }
+	public func transformFromJSON(value: AnyObject?) -> NSDate? {
+		if let dateString = value as? String {
+			return dateFormatter.dateFromString(dateString)
+		}
+		return nil
+	}
+
+	public func transformToJSON(value: NSDate?) -> String? {
+		if let date = value {
+			return dateFormatter.stringFromDate(date)
+		}
+		return nil
+	}
 }
