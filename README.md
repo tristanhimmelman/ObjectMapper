@@ -33,7 +33,7 @@ class User: Mappable {
         arr <= map["arr"]
         dict <= map["dict"]
         friend <= map["friend"]
-        birthday <= (map["birthday"], DateTransform<NSDate, Int>())
+        birthday <= (map["birthday"], DateTransform())
     }
 }
 
@@ -78,22 +78,18 @@ Object mapper can map classes composed of the following types:
 ##Custom Transfoms
 ObjectMapper also supports custom Transforms that convert values during the mapping process. To use a transform, simply create a tuple with the mapper["field_name"] and the transform of choice on the right side of the '<=' operator:
 ```swift
-birthday <= (map["birthday"], DateTransform<NSDate, Int>())
+birthday <= (map["birthday"], DateTransform())
 ```
 The above transform will convert the JSON Int value to an NSDate when reading JSON and will convert the NSDate to an Int when converting objects to JSON.
 
-You can easily create your own custom transforms by subclassing and overriding the methods in the MapperTransform class:
+You can easily create your own custom transforms by adopting and implementing the methods in the TransformType protocol:
 ```swift
-public class MapperTransform<ObjectType, JSONType> {
-    init(){}
-    
-    func transformFromJSON(value: AnyObject?) -> ObjectType? {
-        return nil
-    }
-    
-    func transformToJSON(value: ObjectType?) -> JSONType? {
-        return nil
-    }
+public protocol TransformType {
+    typealias Object
+    typealias JSON
+
+    func transformFromJSON(value: AnyObject?) -> Object?
+    func transformToJSON(value: Object?) -> JSON?
 }
 ```
 ##Easy Mapping of Nested Objects 
