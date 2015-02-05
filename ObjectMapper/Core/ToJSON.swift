@@ -11,7 +11,6 @@ import Foundation
 class ToJSON {
 	
     func basicType<N>(field: N, key: String, inout dictionary: [String : AnyObject]) {
-		
 		var temp = dictionary
 		var currentKey = key
 
@@ -64,7 +63,7 @@ class ToJSON {
     }
     
     func basicArray(field: Array<AnyObject>, key: String, inout dictionary: [String : AnyObject]){
-        dictionary[key] = NSArray(array: field)
+        dictionary[key] = field
     }
     
     func optionalBasicArray(field: Array<AnyObject>?, key: String, inout dictionary: [String : AnyObject]){
@@ -74,7 +73,7 @@ class ToJSON {
     }
     
     func basicDictionary(field: Dictionary<String, AnyObject>, key: String, inout dictionary: [String : AnyObject]){
-        dictionary[key] = NSDictionary(dictionary: field)
+        dictionary[key] = field
     }
     
     func optionalBasicDictionary(field: Dictionary<String, AnyObject>?, key: String, inout dictionary: [String : AnyObject]){
@@ -84,9 +83,7 @@ class ToJSON {
     }
     
     func object<N: Mappable>(field: N, key: String, inout dictionary: [String : AnyObject]) {
-        let mapper = Mapper<N>()
-        
-        dictionary[key] = NSDictionary(dictionary: mapper.toJSON(field))
+        dictionary[key] = Mapper().toJSON(field)
     }
     
     func optionalObject<N: Mappable>(field: N?, key: String, inout dictionary: [String : AnyObject]) {
@@ -96,14 +93,9 @@ class ToJSON {
     }
     
     func objectArray<N: Mappable>(field: Array<N>, key: String, inout dictionary: [String : AnyObject]) {
-        var JSONObjects = NSMutableArray()
-        
-        for object in field {
-            let mapper = Mapper<N>()
-            JSONObjects.addObject(mapper.toJSON(object))
-        }
+		let JSONObjects = Mapper().toJSONArray(field)
 
-        if JSONObjects.count > 0 {
+		if !JSONObjects.isEmpty {
             dictionary[key] = JSONObjects
         }
     }
@@ -115,17 +107,11 @@ class ToJSON {
     }
     
     func objectDictionary<N: Mappable>(field: Dictionary<String, N>, key: String, inout dictionary: [String : AnyObject]) {
-        var JSONObjects = NSMutableDictionary()
-        
-        for (k, object) in field {
-            let mapper = Mapper<N>()
-            JSONObjects.setObject(mapper.toJSON(object), forKey: k)
+		let JSONObjects = Mapper().toJSONDictionary(field)
 
-        }
-        
-        if JSONObjects.count > 0 {
-            dictionary[key] = JSONObjects
-        }
+		if !JSONObjects.isEmpty {
+			dictionary[key] = JSONObjects
+		}
     }
     
     func optionalObjectDictionary<N: Mappable>(field: Dictionary<String, N>?, key: String, inout dictionary: [String : AnyObject]) {

@@ -36,7 +36,7 @@ public final class Map {
 	/**
 	* Sets the current mapper value and key.
 	* 
-	* Key can the form "distance.value", to allow mapping to sub objects.
+	* The Key paramater can be a period separated string (ex. "distance.value") to access sub objects.
 	*/
 	public subscript(key: String) -> Map {
 		// save key and value associated to it
@@ -75,6 +75,9 @@ private func valueFor(keyPathComponents: [String], dictionary: [String : AnyObje
 	return nil
 }
 
+/**
+* The Mapper class provides methods for converting Model objects to JSON and methods for converting JSON to Model objects
+*/
 public final class Mapper<N: Mappable> {
 	public init(){
 
@@ -138,12 +141,21 @@ public final class Mapper<N: Mappable> {
 	}
 	
 	/**
-	* Maps a JSON dictionary to an array of object that conforms to Mappable
+	* Maps an array of JSON dictionary to an array of object that conforms to Mappable
 	*/
 	public func mapArray(JSON: [[String : AnyObject]]) -> [N] {
 		return JSON.map {
 			self.map($0)
 		}		
+	}
+
+	/**
+	* Maps a JSON dictionary of dictionaries to a dictionary of objects that conform to Mappable.
+	*/
+	public func mapDictionary(JSON: [String : [String : AnyObject]]) -> [String : N] {
+		return JSON.map { k, v in
+			return (k, self.map(v))
+		}
 	}
 
 	// MARK: public toJSON functions
@@ -163,6 +175,15 @@ public final class Mapper<N: Mappable> {
 	public func toJSONArray(array: [N]) -> [[String : AnyObject]] {
 		return array.map {
 			self.toJSON($0)
+		}
+	}
+
+	/**
+	* Maps a dictionary of Objects that conform to Mappable to a JSON dictionary of dictionaries.
+	*/
+	public func toJSONDictionary(dictionary: [String : N]) -> [String : [String : AnyObject]] {
+		return dictionary.map { k, v in
+			return (k, self.toJSON(v))
 		}
 	}
 
@@ -226,5 +247,18 @@ public final class Mapper<N: Mappable> {
 		}
 
 		return nil
+	}
+}
+
+extension Dictionary {
+	private func map<K: Hashable, V>(f: Element -> (K, V)) -> [K : V] {
+		var mapped = [K : V]()
+
+		for element in self {
+			let newElement = f(element)
+			mapped[newElement.0] = newElement.1
+		}
+
+		return mapped
 	}
 }

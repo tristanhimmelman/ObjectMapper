@@ -13,7 +13,7 @@ class FromJSON<CollectionType> {
     func basicType<FieldType>(inout field: FieldType, object: AnyObject?) {
         basicType(&field, object: object as? FieldType)
     }
-    
+	
     func basicType<FieldType>(inout field: FieldType, object: FieldType?) {
         if let value = object {
             field = value
@@ -21,11 +21,9 @@ class FromJSON<CollectionType> {
     }
     
     func optionalBasicType<FieldType>(inout field: FieldType?, object: AnyObject?) {
-        if let value: AnyObject = object {
-            field = value as? FieldType
-        }
+		optionalBasicType(&field, object: object as? FieldType)
     }
-    
+	
     func optionalBasicType<FieldType>(inout field: FieldType?, object: FieldType?) {
         if let value: FieldType = object {
             field = value
@@ -38,81 +36,73 @@ class FromJSON<CollectionType> {
         }
     }
     
-    func object<N: Mappable>(inout field: N?, object: AnyObject?) {
+    func optionalObject<N: Mappable>(inout field: N?, object: AnyObject?) {
         if let value = object as? [String : AnyObject] {
             field = Mapper().map(value)
         }
     }
     
     func objectArray<N: Mappable>(inout field: Array<N>, object: AnyObject?) {
-        var parsedObjects: Array<N> = parseObjectArray(object)
-        
-        if parsedObjects.count > 0 {
+        let parsedObjects: Array<N> = parseObjectArray(object)
+
+		if !parsedObjects.isEmpty {
             field = parsedObjects
         }
     }
     
     func optionalObjectArray<N: Mappable>(inout field: Array<N>?, object: AnyObject?) {
-        var parsedObjects: Array<N> = parseObjectArray(object)
+        let parsedObjects: Array<N> = parseObjectArray(object)
 
-        if parsedObjects.count > 0 {
-            field = parsedObjects
-        } else {
-            field = nil
-        }
+		if parsedObjects.isEmpty {
+			field = nil
+		} else {
+			field = parsedObjects
+		}
     }
     
-    // parses a JSON array into an array of objects of type <N: Mappable>
+    /**
+	* Parses a JSON array into an array of Mappable objects
+	*/
     private func parseObjectArray<N: Mappable>(object: AnyObject?) -> Array<N>{
-        let mapper = Mapper<N>()
-        
-        var parsedObjects = Array<N>()
-        
-        if let array = object as [AnyObject]? {
-            for object in array {
-                let objectJSON = object as [String : AnyObject]
-                var parsedObj = mapper.map(objectJSON)
-                parsedObjects.append(parsedObj)
-            }
+		if let JSONArray = object as? [[String : AnyObject]] {
+			return Mapper<N>().mapArray(JSONArray)
         }
         
-        return parsedObjects
+        return []
     }
     
-    // parse a dictionary containing Mapable objects
+    /** 
+	* Parse a dictionary containing Mappable objects
+	*/
     func objectDictionary<N: Mappable>(inout field: Dictionary<String, N>, object: AnyObject?) {
-        var parsedObjects: Dictionary<String, N> = parseObjectDictionary(object)
+		let parsedObjects: Dictionary<String, N> = parseObjectDictionary(object)
         
-        if parsedObjects.count > 0 {
+		if !parsedObjects.isEmpty {
             field = parsedObjects
         }
     }
 
-    // parse a dictionary containing Mapable objects to optional field
+    /**
+	* Parses a dictionary containing Mappable objects to optional field
+	*/
     func optionalObjectDictionary<N: Mappable>(inout field: Dictionary<String, N>?, object: AnyObject?) {
-        var parsedObjects: Dictionary<String, N> = parseObjectDictionary(object)
-        
-        if parsedObjects.count > 0 {
+		let parsedObjects: Dictionary<String, N> = parseObjectDictionary(object)
+
+		if parsedObjects.isEmpty {
+			field = nil
+		} else {
             field = parsedObjects
-        } else {
-            field = nil
-        }
+		}
     }
     
-    // parses a JSON Dictionary into an Dictionay of objects of type <N: Mappable>
-    private func parseObjectDictionary<N: Mappable>(object: AnyObject?) -> Dictionary<String, N>{
-        let mapper = Mapper<N>()
-        
-        var parsedObjectsDictionary = Dictionary<String, N>()
-        
-        if let dictionary = object as Dictionary<String, AnyObject>? {
-            for (key, object) in dictionary {
-                let objectJSON = object as [String : AnyObject]
-                var parsedObj = mapper.map(objectJSON)
-                parsedObjectsDictionary[key] = parsedObj
-            }
+    /**
+	* Parses a JSON Dictionary of dictionary into a Dictionay of Mappable objects
+	*/
+    private func parseObjectDictionary<N: Mappable>(object: AnyObject?) -> Dictionary<String, N> {
+		if let dictionary = object as? [String : [String : AnyObject]] {
+			return Mapper<N>().mapDictionary(dictionary)
         }
         
-        return parsedObjectsDictionary
+		return [:]
     }
 }

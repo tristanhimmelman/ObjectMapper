@@ -68,7 +68,7 @@ public func <=<T: Mappable>(inout left: T, right: Map) {
 // Optional object conforming to Mappable
 public func <=<T: Mappable>(inout left: T?, right: Map) {
     if right.mappingType == MappingType.fromJSON {
-        FromJSON<T>().object(&left, object: right.currentValue)
+        FromJSON<T>().optionalObject(&left, object: right.currentValue)
     } else {
         ToJSON().optionalObject(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
     }
