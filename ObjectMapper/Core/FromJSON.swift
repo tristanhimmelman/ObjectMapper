@@ -13,7 +13,7 @@ class FromJSON<CollectionType> {
     func basicType<FieldType>(inout field: FieldType, object: AnyObject?) {
         basicType(&field, object: object as? FieldType)
     }
-    
+	
     func basicType<FieldType>(inout field: FieldType, object: FieldType?) {
         if let value = object {
             field = value
@@ -21,11 +21,9 @@ class FromJSON<CollectionType> {
     }
     
     func optionalBasicType<FieldType>(inout field: FieldType?, object: AnyObject?) {
-        if let value: AnyObject = object {
-            field = value as? FieldType
-        }
+		optionalBasicType(&field, object: object as? FieldType)
     }
-    
+	
     func optionalBasicType<FieldType>(inout field: FieldType?, object: FieldType?) {
         if let value: FieldType = object {
             field = value
@@ -38,7 +36,7 @@ class FromJSON<CollectionType> {
         }
     }
     
-    func object<N: Mappable>(inout field: N?, object: AnyObject?) {
+    func optionalObject<N: Mappable>(inout field: N?, object: AnyObject?) {
         if let value = object as? [String : AnyObject] {
             field = Mapper().map(value)
         }
@@ -62,7 +60,9 @@ class FromJSON<CollectionType> {
 		}
     }
     
-    /// parses a JSON array into an array of objects of type <N: Mappable>
+    /**
+	* Parses a JSON array into an array of Mappable objects
+	*/
     private func parseObjectArray<N: Mappable>(object: AnyObject?) -> Array<N>{
 		if let JSONArray = object as? [[String : AnyObject]] {
 			return Mapper<N>().mapArray(JSONArray)
@@ -71,7 +71,9 @@ class FromJSON<CollectionType> {
         return []
     }
     
-    /// parse a dictionary containing Mapable objects
+    /** 
+	* Parse a dictionary containing Mappable objects
+	*/
     func objectDictionary<N: Mappable>(inout field: Dictionary<String, N>, object: AnyObject?) {
 		let parsedObjects: Dictionary<String, N> = parseObjectDictionary(object)
         
@@ -80,7 +82,9 @@ class FromJSON<CollectionType> {
         }
     }
 
-    /// parse a dictionary containing Mapable objects to optional field
+    /**
+	* Parses a dictionary containing Mappable objects to optional field
+	*/
     func optionalObjectDictionary<N: Mappable>(inout field: Dictionary<String, N>?, object: AnyObject?) {
 		let parsedObjects: Dictionary<String, N> = parseObjectDictionary(object)
 
@@ -91,7 +95,9 @@ class FromJSON<CollectionType> {
 		}
     }
     
-    /// parses a JSON Dictionary of dictionary into a Dictionay of objects of type <N: Mappable>
+    /**
+	* Parses a JSON Dictionary of dictionary into a Dictionay of Mappable objects
+	*/
     private func parseObjectDictionary<N: Mappable>(object: AnyObject?) -> Dictionary<String, N> {
 		if let dictionary = object as? [String : [String : AnyObject]] {
 			return Mapper<N>().mapDictionary(dictionary)

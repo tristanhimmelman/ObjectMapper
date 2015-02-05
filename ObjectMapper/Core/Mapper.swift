@@ -36,7 +36,7 @@ public final class Map {
 	/**
 	* Sets the current mapper value and key.
 	* 
-	* Key can the form "distance.value", to allow mapping to sub objects.
+	* The Key paramater can be a period separated string (ex. "distance.value") to access sub objects.
 	*/
 	public subscript(key: String) -> Map {
 		// save key and value associated to it
@@ -75,6 +75,9 @@ private func valueFor(keyPathComponents: [String], dictionary: [String : AnyObje
 	return nil
 }
 
+/**
+* The Mapper class provides methods for converting Model objects to JSON and methods for converting JSON to Model objects
+*/
 public final class Mapper<N: Mappable> {
 	public init(){
 
@@ -146,7 +149,9 @@ public final class Mapper<N: Mappable> {
 		}		
 	}
 
-	/// Maps a JSON dictionary of dictionary to a dictionary of object that conforms to Mappable.
+	/**
+	* Maps a JSON dictionary of dictionaries to a dictionary of objects that conform to Mappable.
+	*/
 	public func mapDictionary(JSON: [String : [String : AnyObject]]) -> [String : N] {
 		return JSON.map { k, v in
 			return (k, self.map(v))
@@ -173,7 +178,9 @@ public final class Mapper<N: Mappable> {
 		}
 	}
 
-	/// Maps a dictionary of Objects to a JSON dictionary of dictionary.
+	/**
+	* Maps a dictionary of Objects that conform to Mappable to a JSON dictionary of dictionaries.
+	*/
 	public func toJSONDictionary(dictionary: [String : N]) -> [String : [String : AnyObject]] {
 		return dictionary.map { k, v in
 			return (k, self.toJSON(v))

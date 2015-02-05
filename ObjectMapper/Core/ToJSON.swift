@@ -11,7 +11,6 @@ import Foundation
 class ToJSON {
 	
     func basicType<N>(field: N, key: String, inout dictionary: [String : AnyObject]) {
-		
 		var temp = dictionary
 		var currentKey = key
 
