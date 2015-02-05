@@ -138,12 +138,24 @@ public final class Mapper<N: Mappable> {
 	}
 	
 	/**
-	* Maps a JSON dictionary to an array of object that conforms to Mappable
+	* Maps an array of JSON dictionary to an array of object that conforms to Mappable
 	*/
 	public func mapArray(JSON: [[String : AnyObject]]) -> [N] {
 		return JSON.map {
 			self.map($0)
 		}		
+	}
+
+	/// Maps a JSON dictionary of dictionary to a dictionary of object that conforms to Mappable.
+	public func mapDictionary(JSON: [String : [String : AnyObject]]) -> [String : N] {
+		var parsed = [String : N]()
+
+		for (k, v) in JSON {
+			let mapped = map(v)
+			parsed[k] = mapped
+		}
+
+		return parsed
 	}
 
 	// MARK: public toJSON functions
@@ -164,6 +176,18 @@ public final class Mapper<N: Mappable> {
 		return array.map {
 			self.toJSON($0)
 		}
+	}
+
+	/// Maps a dictionary of Objects to a JSON dictionary of dictionary.
+	public func toJSONDictionary(dictionary: [String : N]) -> [String : [String : AnyObject]] {
+		var parsed = [String : [String : AnyObject]]()
+
+		for (k, v) in dictionary {
+			let mapped = toJSON(v)
+			parsed[k] = mapped
+		}
+
+		return parsed
 	}
 
 	/** 
