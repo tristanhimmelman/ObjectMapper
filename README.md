@@ -70,13 +70,28 @@ Object mapper can map classes composed of the following types:
 - String
 - Array\<AnyObject\>
 - Dictionary\<String, AnyObject\>
-- Optionals of all the abovee
 - Object\<T: Mappable\>
 - Array\<T: Mappable\>
 - Dictionary\<String, T: Mappable\>
+- Optionals of all the above
+
+##Easy Mapping of Nested Objects 
+ObjectMapper supports dot notation within keys for easy mapping of nested objects. Given the following JSON String: 
+```
+"distance" : {
+     "text" : "102 ft",
+     "value" : 31
+}
+```
+You can access the nested objects as follows:
+```
+func mapping(map: Map){
+    distance <= map["distance.value"]
+}
+```
 
 ##Custom Transfoms
-ObjectMapper also supports custom Transforms that convert values during the mapping process. To use a transform, simply create a tuple with the mapper["field_name"] and the transform of choice on the right side of the '<=' operator:
+ObjectMapper also supports custom Transforms that convert values during the mapping process. To use a transform, simply create a tuple with ```map["field_name"]``` and the transform of choice on the right side of the ```<=``` operator:
 ```swift
 birthday <= (map["birthday"], DateTransform())
 ```
@@ -90,20 +105,6 @@ public protocol TransformType {
 
     func transformFromJSON(value: AnyObject?) -> Object?
     func transformToJSON(value: Object?) -> JSON?
-}
-```
-##Easy Mapping of Nested Objects 
-ObjectMapper supports dot notation within keys for easy mapping of nested objects. Given the following JSON String: 
-```
-"distance" : {
-     "text" : "102 ft",
-     "value" : 31
-}
-```
-You can access the nested objects as follows:
-```
-func mapping(map: Map){
-    distance <= map["distance.value"]
 }
 ```
 
