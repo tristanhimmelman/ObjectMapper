@@ -8,11 +8,20 @@
 
 import Foundation
 
+/**
+* This file defines a new operator which is used to create a mapping between an object and a JSON key value.
+* There is an overloaded operator definition for each type of object that is supported in ObjectMapper.
+* This provides a way to add custom logic to handle specific types of objects
+*/
+
 // The operator definition is commented out because it was causing "ambiguous operator" errors when linking to the framework
 // This seems like a bug in xcode will likely be fixed
-//infix operator <= {}
+// infix operator <= {}
 
-// MARK: basic type
+// MARK:- Objects with Basic types
+/**
+* Object of Basic type
+*/
 public func <=<T>(inout left: T, right: Map) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<T>().basicType(&left, object: right.currentValue)
@@ -21,7 +30,9 @@ public func <=<T>(inout left: T, right: Map) {
     }
 }
 
-// Optional basic type
+/**
+* Optional object of basic type
+*/
 public func <=<T>(inout left: T?, right: Map) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<T>().optionalBasicType(&left, object: right.currentValue)
@@ -30,7 +41,9 @@ public func <=<T>(inout left: T?, right: Map) {
     }
 }
 
-// Basic type with Transform
+/**
+* Object of Basic type with Transform
+*/
 public func <=<T, Transform: TransformType where Transform.Object == T>(inout left: T, right: (Map, Transform)) {
     if right.0.mappingType == MappingType.fromJSON {
         var value: T? = right.1.transformFromJSON(right.0.currentValue)
@@ -43,7 +56,9 @@ public func <=<T, Transform: TransformType where Transform.Object == T>(inout le
     }
 }
 
-// Optional basic type with Transform
+/**
+* Optional object of basic type with Transform
+*/
 public func <=<T, Transform: TransformType where Transform.Object == T>(inout left: T?, right: (Map, Transform)) {
     if right.0.mappingType == MappingType.fromJSON {
         var value: T? = right.1.transformFromJSON(right.0.currentValue)
@@ -56,7 +71,57 @@ public func <=<T, Transform: TransformType where Transform.Object == T>(inout le
     }
 }
 
-// MARK:- T: Mappable
+// MARK:- Array of Objects with Basic Type - Array<AnyObject>
+/**
+* Array of objects with Basic types
+*/
+public func <=(inout left: Array<AnyObject>, right: Map) {
+	if right.mappingType == MappingType.fromJSON {
+		FromJSON<AnyObject>().basicType(&left, object: right.currentValue)
+	} else {
+		ToJSON().basicArray(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
+	}
+}
+
+/**
+* Optional array of objects with Basic type
+*/
+public func <=(inout left: Array<AnyObject>?, right: Map) {
+	if right.mappingType == MappingType.fromJSON {
+		FromJSON<AnyObject>().optionalBasicType(&left, object: right.currentValue)
+	} else {
+		ToJSON().optionalBasicArray(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
+	}
+}
+
+// MARK:- Dictionary of Objects with Basic type - Dictionary<String, AnyObject>
+/**
+* Dictionary of objects with Basic type
+*/
+public func <=(inout left: Dictionary<String, AnyObject>, right: Map) {
+	if right.mappingType == MappingType.fromJSON {
+		FromJSON<AnyObject>().basicType(&left, object: right.currentValue)
+	} else {
+		ToJSON().basicDictionary(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
+	}
+}
+
+//
+/**
+* Optional dictionary of objects with Basic type <String, AnyObject>
+*/
+public func <=(inout left: Dictionary<String, AnyObject>?, right: Map) {
+	if right.mappingType == MappingType.fromJSON {
+		FromJSON<AnyObject>().optionalBasicType(&left, object: right.currentValue)
+	} else {
+		ToJSON().optionalBasicDictionary(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
+	}
+}
+
+// MARK:- Mappable Objects - <T: Mappable>
+/**
+* Object conforming to Mappable
+*/
 public func <=<T: Mappable>(inout left: T, right: Map) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<T>().object(&left, object: right.currentValue)
@@ -65,7 +130,9 @@ public func <=<T: Mappable>(inout left: T, right: Map) {
     }
 }
 
-// Optional object conforming to Mappable
+/**
+* Optional Mappable objects
+*/
 public func <=<T: Mappable>(inout left: T?, right: Map) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<T>().optionalObject(&left, object: right.currentValue)
@@ -74,7 +141,10 @@ public func <=<T: Mappable>(inout left: T?, right: Map) {
     }
 }
 
-// MARK:- Dictionary <String, T: Mappable>
+// MARK:- Dictionary of Mappable objects - Dictionary<String, T: Mappable>
+/**
+* Dictionary of Mappable objects <String, T: Mappable>
+*/
 public func <=<T: Mappable>(inout left: Dictionary<String, T>, right: Map) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<T>().objectDictionary(&left, object: right.currentValue)
@@ -83,7 +153,9 @@ public func <=<T: Mappable>(inout left: Dictionary<String, T>, right: Map) {
     }
 }
 
-// Optional Dictionary <String, T: Mappable>
+/**
+* Optional Dictionary of Mappable object <String, T: Mappable>
+*/
 public func <=<T: Mappable>(inout left: Dictionary<String, T>?, right: Map) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<T>().optionalObjectDictionary(&left, object: right.currentValue)
@@ -92,25 +164,10 @@ public func <=<T: Mappable>(inout left: Dictionary<String, T>?, right: Map) {
     }
 }
 
-// MARK: Dictionary <String, AnyObject>
-public func <=(inout left: Dictionary<String, AnyObject>, right: Map) {
-    if right.mappingType == MappingType.fromJSON {
-        FromJSON<AnyObject>().basicType(&left, object: right.currentValue)
-    } else {
-        ToJSON().basicDictionary(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
-    }
-}
-
-// Optional dictionary <String, AnyObject>
-public func <=(inout left: Dictionary<String, AnyObject>?, right: Map) {
-    if right.mappingType == MappingType.fromJSON {
-        FromJSON<AnyObject>().optionalBasicType(&left, object: right.currentValue)
-    } else {
-        ToJSON().optionalBasicDictionary(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
-    }
-}
-
-// MARK:- Array<T: Mappable>
+// MARK:- Array of Mappable objects - Array<T: Mappable>
+/**
+* Array of Mappable objects
+*/
 public func <=<T: Mappable>(inout left: Array<T>, right: Map) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<T>().objectArray(&left, object: right.currentValue)
@@ -119,29 +176,13 @@ public func <=<T: Mappable>(inout left: Array<T>, right: Map) {
     }
 }
 
-// Optional array of objects conforming to Mappable
+/**
+* Optional array of Mappable objects
+*/
 public func <=<T: Mappable>(inout left: Array<T>?, right: Map) {
     if right.mappingType == MappingType.fromJSON {
         FromJSON<T>().optionalObjectArray(&left, object: right.currentValue)
     } else {
         ToJSON().optionalObjectArray(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
-    }
-}
-
-// MARK: Array<AnyObject>
-public func <=(inout left: Array<AnyObject>, right: Map) {
-    if right.mappingType == MappingType.fromJSON {
-        FromJSON<AnyObject>().basicType(&left, object: right.currentValue)
-    } else {
-        ToJSON().basicArray(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
-    }
-}
-
-// Optional array of String type
-public func <=(inout left: Array<AnyObject>?, right: Map) {
-    if right.mappingType == MappingType.fromJSON {
-        FromJSON<AnyObject>().optionalBasicType(&left, object: right.currentValue)
-    } else {
-        ToJSON().optionalBasicArray(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
     }
 }

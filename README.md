@@ -26,7 +26,7 @@ class User: Mappable {
     required init(){}
 
     // Mappable    
-    func map(map: Map) {
+    func mapping(map: Map) {
         username <= map["username"]
         age <= map["age"]
         weight <= map["weight"]
@@ -43,7 +43,7 @@ struct Temperature: Mappable {
     
     init(){}
 	
-	mutating func map(map: Map) {
+	mutating func mapping(map: Map) {
 		celcius <= map["celcius"]
 		fahrenheit <= map["fahrenheit"]
 	}
@@ -102,7 +102,7 @@ ObjectMapper supports dot notation within keys for easy mapping of nested object
 ```
 You can access the nested objects as follows:
 ```
-func map(map: Map){
+func mapping(map: Map){
     distance <= map["distance.value"]
 }
 ```

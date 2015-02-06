@@ -401,7 +401,7 @@ class Response<T: Mappable>: Mappable {
 	required init() {
 	}
 	
-	func map(map: Map) {
+	func mapping(map: Map) {
 		result <= map["result"]
 	}
 }
@@ -412,7 +412,7 @@ class Status: Mappable {
 	required init() {
 	}
 	
-	func map(map: Map) {
+	func mapping(map: Map) {
 		status <= map["code"]
 	}
 }
@@ -424,7 +424,7 @@ class Plan: Mappable {
 		
 	}
 	
-	func map(map: Map) {
+	func mapping(map: Map) {
 		tasks <= map["tasks"]
 	}
 }
@@ -437,7 +437,7 @@ class Task: Mappable {
 		
 	}
 	
-	func map(map: Map) {
+	func mapping(map: Map) {
 		taskId <= map["taskId"]
 		percentage <= map["percentage"]
 	}
@@ -451,7 +451,7 @@ class TaskDictionary: Mappable {
 		
 	}
 	
-	func map(map: Map) {
+	func mapping(map: Map) {
 		test <= map["test"]
 		tasks <= map["tasks"]
 	}
@@ -469,7 +469,7 @@ struct Student: Mappable {
 		
 	}
 	
-	mutating func map(map: Map) {
+	mutating func mapping(map: Map) {
 		name <= map["name"]
 		UUID <= map["UUID"]
 		major <= map["major"]
@@ -507,7 +507,7 @@ class User: Mappable {
 		
     }
 	
-	func map(map: Map) {
+	func mapping(map: Map) {
 		username         <= map["username"]
 		identifier       <= map["identifier"]
 		photoCount       <= map["photoCount"]
@@ -552,7 +552,7 @@ class TestCollectionOfPrimitives : Mappable {
     
     required init() {}
     
-    func map(map: Map) {
+    func mapping(map: Map) {
         dictStringString    <= map["dictStringString"]
         dictStringBool      <= map["dictStringBool"]
         dictStringInt       <= map["dictStringInt"]
@@ -574,7 +574,7 @@ class Base: Mappable {
 		
 	}
 
-	func map(map: Map) {
+	func mapping(map: Map) {
 		base <= map["base"]
 	}
 }
@@ -587,8 +587,8 @@ class Subclass: Base {
 		
 	}
 	
-	override func map(map: Map) {
-		super.map(map)
+	override func mapping(map: Map) {
+		super.mapping(map)
 		
 		sub <= map["sub"]
 	}
@@ -603,8 +603,8 @@ class GenericSubclass<T>: Base {
 		
 	}
 
-	override func map(map: Map) {
-		super.map(map)
+	override func mapping(map: Map) {
+		super.mapping(map)
 		
 		sub <= map["sub"]
 	}

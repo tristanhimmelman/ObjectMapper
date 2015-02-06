@@ -349,7 +349,7 @@ class BasicTypes: Mappable {
 	required init() {
 	}
 	
-	func map(map: Map) {
+	func mapping(map: Map) {
 		bool			<= map["bool"]
 		boolOptional	<= map["boolOpt"]
 		int				<= map["int"]

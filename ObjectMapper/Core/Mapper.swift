@@ -9,7 +9,7 @@
 import Foundation
 
 public protocol Mappable {
-	mutating func map(map: Map)
+	mutating func mapping(map: Map)
 	init()
 }
 
@@ -119,7 +119,7 @@ public final class Mapper<N: Mappable> {
 	*/
 	public func map(JSON: [String : AnyObject], var toObject object: N) -> N! {
 		let map = Map(mappingType: .fromJSON, JSONDictionary: JSON)
-		object.map(map)
+		object.mapping(map)
 		return object
 	}
 
@@ -165,7 +165,7 @@ public final class Mapper<N: Mappable> {
 	*/
 	public func toJSON(var object: N) -> [String : AnyObject] {
 		let map = Map(mappingType: .toJSON, JSONDictionary: [:])
-		object.map(map)
+		object.mapping(map)
 		return map.JSONDictionary
 	}
 	
