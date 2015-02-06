@@ -9,7 +9,8 @@
 import Foundation
 
 class FromJSON<CollectionType> {
-    
+	
+	/// Basic type
     func basicType<FieldType>(inout field: FieldType, object: AnyObject?) {
         basicType(&field, object: object as? FieldType)
     }
@@ -19,7 +20,8 @@ class FromJSON<CollectionType> {
             field = value
         }
     }
-    
+	
+	/// optional basic type
     func optionalBasicType<FieldType>(inout field: FieldType?, object: AnyObject?) {
 		optionalBasicType(&field, object: object as? FieldType)
     }
@@ -29,19 +31,40 @@ class FromJSON<CollectionType> {
             field = value
         }
     }
-    
+	
+	/// Implicitly unwrapped optional basic type
+	func optionalBasicType<FieldType>(inout field: FieldType!, object: AnyObject?) {
+		optionalBasicType(&field, object: object as? FieldType)
+	}
+	
+	func optionalBasicType<FieldType>(inout field: FieldType!, object: FieldType?) {
+		if let value: FieldType = object {
+			field = value
+		}
+	}
+	
+	/// Mappable object
     func object<N: Mappable>(inout field: N, object: AnyObject?) {
         if let value = object as? [String : AnyObject] {
             field = Mapper().map(value)
         }
     }
-    
+	
+	/// Optional Mappable Object
     func optionalObject<N: Mappable>(inout field: N?, object: AnyObject?) {
         if let value = object as? [String : AnyObject] {
             field = Mapper().map(value)
         }
     }
-    
+
+	/// Implicitly unwrapped Optional Mappable Object
+	func optionalObject<N: Mappable>(inout field: N!, object: AnyObject?) {
+		if let value = object as? [String : AnyObject] {
+			field = Mapper().map(value)
+		}
+	}
+	
+	/// mappable object array
     func objectArray<N: Mappable>(inout field: Array<N>, object: AnyObject?) {
         let parsedObjects: Array<N> = parseObjectArray(object)
 
@@ -49,7 +72,8 @@ class FromJSON<CollectionType> {
             field = parsedObjects
         }
     }
-    
+	
+	/// optional mappable object array
     func optionalObjectArray<N: Mappable>(inout field: Array<N>?, object: AnyObject?) {
         let parsedObjects: Array<N> = parseObjectArray(object)
 
@@ -59,10 +83,19 @@ class FromJSON<CollectionType> {
 			field = parsedObjects
 		}
     }
-    
-    /**
-	* Parses a JSON array into an array of Mappable objects
-	*/
+	
+	/// Implicitly unwrapped optional mappable object array
+	func optionalObjectArray<N: Mappable>(inout field: Array<N>!, object: AnyObject?) {
+		let parsedObjects: Array<N> = parseObjectArray(object)
+		
+		if parsedObjects.isEmpty {
+			field = nil
+		} else {
+			field = parsedObjects
+		}
+	}
+	
+	///Parses a JSON array into an array of Mappable objects
     private func parseObjectArray<N: Mappable>(object: AnyObject?) -> Array<N>{
 		if let JSONArray = object as? [[String : AnyObject]] {
 			return Mapper<N>().mapArray(JSONArray)
@@ -71,9 +104,7 @@ class FromJSON<CollectionType> {
         return []
     }
     
-    /** 
-	* Parse a dictionary containing Mappable objects
-	*/
+    /// Dctionary containing Mappable objects
     func objectDictionary<N: Mappable>(inout field: Dictionary<String, N>, object: AnyObject?) {
 		let parsedObjects: Dictionary<String, N> = parseObjectDictionary(object)
         
@@ -82,9 +113,8 @@ class FromJSON<CollectionType> {
         }
     }
 
-    /**
-	* Parses a dictionary containing Mappable objects to optional field
-	*/
+
+	/// Optional dictionary containing Mappable objects
     func optionalObjectDictionary<N: Mappable>(inout field: Dictionary<String, N>?, object: AnyObject?) {
 		let parsedObjects: Dictionary<String, N> = parseObjectDictionary(object)
 
@@ -94,7 +124,18 @@ class FromJSON<CollectionType> {
             field = parsedObjects
 		}
     }
-    
+	
+	/// Implicitly unwrapped Dictionary containing Mappable objects
+	func optionalObjectDictionary<N: Mappable>(inout field: Dictionary<String, N>!, object: AnyObject?) {
+		let parsedObjects: Dictionary<String, N> = parseObjectDictionary(object)
+		
+		if parsedObjects.isEmpty {
+			field = nil
+		} else {
+			field = parsedObjects
+		}
+	}
+	
     /**
 	* Parses a JSON Dictionary of dictionary into a Dictionay of Mappable objects
 	*/

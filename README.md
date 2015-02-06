@@ -107,10 +107,7 @@ public protocol TransformType {
     func transformToJSON(value: Object?) -> JSON?
 }
 ```
-
-##To Do
-- Support for implicitly unwrapped optionals (ex. var user: User!)
-
+<!-- ##To Do -->
 
 ##Installation
 ObjectMapper can be added to your project using [Cocoapods 0.36 (beta)](http://blog.cocoapods.org/Pod-Authors-Guide-to-CocoaPods-Frameworks/) by adding the following line to your Podfile:
