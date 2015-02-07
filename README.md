@@ -17,10 +17,11 @@ class User: Mappable {
 
     var username: String?
     var age: Int?
-    var weight: Double?
+    var weight: Double!
     var arr: [AnyObject]?
     var dict: [String : AnyObject] = [:]
-    var friend: User?                       // Nested User object
+    var bestFriend: User?                       // Nested User object
+    var friends: [User]?			// Array of Users
     var birthday: NSDate?
 
     required init(){}
@@ -32,7 +33,8 @@ class User: Mappable {
         weight <= map["weight"]
         arr <= map["arr"]
         dict <= map["dict"]
-        friend <= map["friend"]
+        bestFriend <= map["best_friend"]
+        friends <= map["friends"]
         birthday <= (map["birthday"], DateTransform())
     }
 }
@@ -74,6 +76,7 @@ Object mapper can map classes composed of the following types:
 - Array\<T: Mappable\>
 - Dictionary\<String, T: Mappable\>
 - Optionals of all the above
+- Implicitly Unwrapped Optionals of the above
 
 ##Easy Mapping of Nested Objects 
 ObjectMapper supports dot notation within keys for easy mapping of nested objects. Given the following JSON String: 
