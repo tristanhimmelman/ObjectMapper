@@ -13,7 +13,7 @@ public protocol Mappable {
 	init()
 }
 
-enum MappingType {
+public enum MappingType {
 	case fromJSON
 	case toJSON
 }
