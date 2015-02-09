@@ -22,7 +22,7 @@ public enum MappingType {
 * A class used for holding mapping data
 */
 public final class Map {
-	let mappingType: MappingType
+	public let mappingType: MappingType
 
 	var JSONDictionary: [String : AnyObject] = [:]
 	var currentValue: AnyObject?
