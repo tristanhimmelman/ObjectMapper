@@ -143,7 +143,7 @@ public final class Mapper<N: Mappable> {
 		return []
 	}
 
-	/// Maps an JSON object to an array of Mappable objects if it is an array of
+	/// Maps a JSON object to an array of Mappable objects if it is an array of
 	/// JSON dictionary, or returns nil.
 	public func mapArray(JSON: AnyObject?) -> [N]? {
 		if let JSONArray = JSON as? [[String : AnyObject]] {
