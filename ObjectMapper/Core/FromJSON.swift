@@ -83,46 +83,33 @@ class FromJSON<CollectionType> {
 		field = Mapper<N>().mapArray(object)
 	}
 	
-    /// Dctionary containing Mappable objects
-    func objectDictionary<N: Mappable>(inout field: Dictionary<String, N>, object: AnyObject?) {
-		let parsedObjects: Dictionary<String, N> = parseObjectDictionary(object)
-        
-		if !parsedObjects.isEmpty {
-            field = parsedObjects
-        }
-    }
+	/// Dctionary containing Mappable objects
+	func objectDictionary<N: Mappable>(inout field: Dictionary<String, N>, object: AnyObject?) {
+		let parsedObjects: Dictionary<String, N>? = parseObjectDictionary(object)
 
-
-	/// Optional dictionary containing Mappable objects
-    func optionalObjectDictionary<N: Mappable>(inout field: Dictionary<String, N>?, object: AnyObject?) {
-		let parsedObjects: Dictionary<String, N> = parseObjectDictionary(object)
-
-		if parsedObjects.isEmpty {
-			field = nil
-		} else {
-            field = parsedObjects
-		}
-    }
-	
-	/// Implicitly unwrapped Dictionary containing Mappable objects
-	func optionalObjectDictionary<N: Mappable>(inout field: Dictionary<String, N>!, object: AnyObject?) {
-		let parsedObjects: Dictionary<String, N> = parseObjectDictionary(object)
-		
-		if parsedObjects.isEmpty {
-			field = nil
-		} else {
-			field = parsedObjects
+		if let objects = parsedObjects {
+			field = objects
 		}
 	}
+
+	/// Optional dictionary containing Mappable objects
+	func optionalObjectDictionary<N: Mappable>(inout field: Dictionary<String, N>?, object: AnyObject?) {
+		field = parseObjectDictionary(object)
+	}
+
+	/// Implicitly unwrapped Dictionary containing Mappable objects
+	func optionalObjectDictionary<N: Mappable>(inout field: Dictionary<String, N>!, object: AnyObject?) {
+		field = parseObjectDictionary(object)
+	}
 	
-    /**
+	/**
 	* Parses a JSON Dictionary of dictionary into a Dictionay of Mappable objects
 	*/
-    private func parseObjectDictionary<N: Mappable>(object: AnyObject?) -> Dictionary<String, N> {
+	private func parseObjectDictionary<N: Mappable>(object: AnyObject?) -> Dictionary<String, N>? {
 		if let dictionary = object as? [String : [String : AnyObject]] {
 			return Mapper<N>().mapDictionary(dictionary)
-        }
-        
-		return [:]
-    }
+		}
+
+		return nil
+	}
 }
