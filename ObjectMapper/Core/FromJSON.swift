@@ -85,7 +85,7 @@ class FromJSON<CollectionType> {
 	
 	/// Dctionary containing Mappable objects
 	func objectDictionary<N: Mappable>(inout field: Dictionary<String, N>, object: AnyObject?) {
-		let parsedObjects: Dictionary<String, N>? = parseObjectDictionary(object)
+		let parsedObjects = Mapper<N>().mapDictionary(object)
 
 		if let objects = parsedObjects {
 			field = objects
@@ -94,22 +94,11 @@ class FromJSON<CollectionType> {
 
 	/// Optional dictionary containing Mappable objects
 	func optionalObjectDictionary<N: Mappable>(inout field: Dictionary<String, N>?, object: AnyObject?) {
-		field = parseObjectDictionary(object)
+		field = Mapper<N>().mapDictionary(object)
 	}
 
 	/// Implicitly unwrapped Dictionary containing Mappable objects
 	func optionalObjectDictionary<N: Mappable>(inout field: Dictionary<String, N>!, object: AnyObject?) {
-		field = parseObjectDictionary(object)
-	}
-	
-	/**
-	* Parses a JSON Dictionary of dictionary into a Dictionay of Mappable objects
-	*/
-	private func parseObjectDictionary<N: Mappable>(object: AnyObject?) -> Dictionary<String, N>? {
-		if let dictionary = object as? [String : [String : AnyObject]] {
-			return Mapper<N>().mapDictionary(dictionary)
-		}
-
-		return nil
+		field = Mapper<N>().mapDictionary(object)
 	}
 }
