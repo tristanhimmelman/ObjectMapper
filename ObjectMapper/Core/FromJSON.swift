@@ -65,45 +65,24 @@ class FromJSON<CollectionType> {
 	}
 	
 	/// mappable object array
-    func objectArray<N: Mappable>(inout field: Array<N>, object: AnyObject?) {
-        let parsedObjects: Array<N> = parseObjectArray(object)
+	func objectArray<N: Mappable>(inout field: Array<N>, object: AnyObject?) {
+		let parsedObjects = Mapper<N>().mapArray(object)
 
-		if !parsedObjects.isEmpty {
-            field = parsedObjects
-        }
-    }
-	
-	/// optional mappable object array
-    func optionalObjectArray<N: Mappable>(inout field: Array<N>?, object: AnyObject?) {
-        let parsedObjects: Array<N> = parseObjectArray(object)
-
-		if parsedObjects.isEmpty {
-			field = nil
-		} else {
-			field = parsedObjects
-		}
-    }
-	
-	/// Implicitly unwrapped optional mappable object array
-	func optionalObjectArray<N: Mappable>(inout field: Array<N>!, object: AnyObject?) {
-		let parsedObjects: Array<N> = parseObjectArray(object)
-		
-		if parsedObjects.isEmpty {
-			field = nil
-		} else {
-			field = parsedObjects
+		if let objects = parsedObjects {
+			field = objects
 		}
 	}
+
+	/// optional mappable object array
+	func optionalObjectArray<N: Mappable>(inout field: Array<N>?, object: AnyObject?) {
+		field = Mapper<N>().mapArray(object)
+	}
+
+	/// Implicitly unwrapped optional mappable object array
+	func optionalObjectArray<N: Mappable>(inout field: Array<N>!, object: AnyObject?) {
+		field = Mapper<N>().mapArray(object)
+	}
 	
-	///Parses a JSON array into an array of Mappable objects
-    private func parseObjectArray<N: Mappable>(object: AnyObject?) -> Array<N>{
-		if let JSONArray = object as? [[String : AnyObject]] {
-			return Mapper<N>().mapArray(JSONArray)
-        }
-        
-        return []
-    }
-    
     /// Dctionary containing Mappable objects
     func objectDictionary<N: Mappable>(inout field: Dictionary<String, N>, object: AnyObject?) {
 		let parsedObjects: Dictionary<String, N> = parseObjectDictionary(object)

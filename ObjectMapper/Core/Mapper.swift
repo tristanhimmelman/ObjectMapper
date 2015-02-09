@@ -127,17 +127,29 @@ public final class Mapper<N: Mappable> {
 	* Maps a JSON array to an object that conforms to Mappable
 	*/
 	public func mapArray(string JSONString: String) -> [N] {
-		if let JSONArray = parseJSONArray(JSONString) {
-			return mapArray(JSONArray)
+		let parsedJSON: AnyObject? = parseJSONString(JSONString)
+
+		if let objectArray = mapArray(parsedJSON) {
+			return objectArray
 		}
 
 		// failed to parse JSON into array form
 		// try to parse it into a dictionary and then wrap it in an array
-		if let JSONDict = parseJSONDictionary(JSONString) {
+		if let JSONDict = parseJSONDictionary(parsedJSON) {
 			return mapArray([JSONDict])
 		}
 
 		return []
+	}
+
+	/// Maps an JSON object to an array of Mappable objects if it is an array of
+	/// JSON dictionary, or returns nil.
+	public func mapArray(JSON: AnyObject?) -> [N]? {
+		if let JSONArray = JSON as? [[String : AnyObject]] {
+			return mapArray(JSONArray)
+		}
+
+		return nil
 	}
 	
 	/**
@@ -216,26 +228,21 @@ public final class Mapper<N: Mappable> {
 	*/
 	private func parseJSONDictionary(JSON: String) -> [String : AnyObject]? {
 		let parsedJSON: AnyObject? = parseJSONString(JSON)
-		if let JSONDict = parsedJSON as? [String : AnyObject] {
+		return parseJSONDictionary(parsedJSON)
+	}
+
+	/**
+	* Convert a JSON Object into a Dictionary<String, AnyObject> using NSJSONSerialization
+	*/
+	private func parseJSONDictionary(JSON: AnyObject?) -> [String : AnyObject]? {
+		if let JSONDict = JSON as? [String : AnyObject] {
 			return JSONDict
 		}
 
 		return nil
 	}
 
-	/** 
-	* Convert a JSON String into a Array<String, AnyObject> using NSJSONSerialization 
-	*/
-	private func parseJSONArray(JSON: String) -> [[String : AnyObject]]? {
-		let parsedJSON: AnyObject? = parseJSONString(JSON)
-		if let JSONArray = parsedJSON as? [[String : AnyObject]] {
-			return JSONArray
-		}
-
-		return nil
-	}
-
-	/** 
+	/**
 	* Convert a JSON String into an Object using NSJSONSerialization 
 	*/
 	private func parseJSONString(JSON: String) -> AnyObject? {
