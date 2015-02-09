@@ -105,6 +105,26 @@ public final class Mapper<N: Mappable> {
 		return nil
 	}
 
+	/// Maps a JSON object to a Mappable object if it is a JSON dictionary,
+	/// or returns nil.
+	public func map(JSON: AnyObject?) -> N? {
+		if let JSON = JSON as? [String : AnyObject] {
+			return map(JSON)
+		}
+
+		return nil
+	}
+
+	/// Maps a JSON object to an existing Mappable object if it is a JSON dictionary,
+	/// or returns the passed object as is.
+	public func map(JSON: AnyObject?, var toObject object: N) -> N {
+		if let JSON = JSON as? [String : AnyObject] {
+			return map(JSON, toObject: object)
+		}
+
+		return object
+	}
+
 	/**
 	* Maps a JSON dictionary to an object that conforms to Mappable
 	*/

@@ -44,26 +44,22 @@ class FromJSON<CollectionType> {
 	}
 	
 	/// Mappable object
-    func object<N: Mappable>(inout field: N, object: AnyObject?) {
-        if let value = object as? [String : AnyObject] {
-            field = Mapper().map(value)
-        }
-    }
-	
+	func object<N: Mappable>(inout field: N, object: AnyObject?) {
+		if let value: N = Mapper().map(object) {
+			field = value
+		}
+	}
+
 	/// Optional Mappable Object
-    func optionalObject<N: Mappable>(inout field: N?, object: AnyObject?) {
-        if let value = object as? [String : AnyObject] {
-            field = Mapper().map(value)
-        }
-    }
+	func optionalObject<N: Mappable>(inout field: N?, object: AnyObject?) {
+		field = Mapper().map(object)
+	}
 
 	/// Implicitly unwrapped Optional Mappable Object
 	func optionalObject<N: Mappable>(inout field: N!, object: AnyObject?) {
-		if let value = object as? [String : AnyObject] {
-			field = Mapper().map(value)
-		}
+		field = Mapper().map(object)
 	}
-	
+
 	/// mappable object array
 	func objectArray<N: Mappable>(inout field: Array<N>, object: AnyObject?) {
 		let parsedObjects = Mapper<N>().mapArray(object)
