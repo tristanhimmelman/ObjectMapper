@@ -155,8 +155,7 @@ public final class Mapper<N: Mappable> {
 
 		// failed to parse JSON into array form
 		// try to parse it into a dictionary and then wrap it in an array
-		if let JSONDict = parseJSONDictionary(parsedJSON) {
-			let object = map(JSONDict)
+		if let object = map(parsedJSON) {
 			return [object]
 		}
 
