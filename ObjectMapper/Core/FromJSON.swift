@@ -75,12 +75,12 @@ class FromJSON<CollectionType> {
 
 	/// optional mappable object array
 	func optionalObjectArray<N: Mappable>(inout field: Array<N>?, object: AnyObject?) {
-		field = Mapper<N>().mapArray(object)
+		field = Mapper().mapArray(object)
 	}
 
 	/// Implicitly unwrapped optional mappable object array
 	func optionalObjectArray<N: Mappable>(inout field: Array<N>!, object: AnyObject?) {
-		field = Mapper<N>().mapArray(object)
+		field = Mapper().mapArray(object)
 	}
 	
 	/// Dctionary containing Mappable objects
@@ -94,11 +94,11 @@ class FromJSON<CollectionType> {
 
 	/// Optional dictionary containing Mappable objects
 	func optionalObjectDictionary<N: Mappable>(inout field: Dictionary<String, N>?, object: AnyObject?) {
-		field = Mapper<N>().mapDictionary(object)
+		field = Mapper().mapDictionary(object)
 	}
 
 	/// Implicitly unwrapped Dictionary containing Mappable objects
 	func optionalObjectDictionary<N: Mappable>(inout field: Dictionary<String, N>!, object: AnyObject?) {
-		field = Mapper<N>().mapDictionary(object)
+		field = Mapper().mapDictionary(object)
 	}
 }
