@@ -105,6 +105,26 @@ public final class Mapper<N: Mappable> {
 		return nil
 	}
 
+	/// Maps a JSON object to a Mappable object if it is a JSON dictionary,
+	/// or returns nil.
+	public func map(JSON: AnyObject?) -> N? {
+		if let JSON = JSON as? [String : AnyObject] {
+			return map(JSON)
+		}
+
+		return nil
+	}
+
+	/// Maps a JSON object to an existing Mappable object if it is a JSON dictionary,
+	/// or returns the passed object as is.
+	public func map(JSON: AnyObject?, var toObject object: N) -> N {
+		if let JSON = JSON as? [String : AnyObject] {
+			return map(JSON, toObject: object)
+		}
+
+		return object
+	}
+
 	/**
 	* Maps a JSON dictionary to an object that conforms to Mappable
 	*/
@@ -127,17 +147,29 @@ public final class Mapper<N: Mappable> {
 	* Maps a JSON array to an object that conforms to Mappable
 	*/
 	public func mapArray(string JSONString: String) -> [N] {
-		if let JSONArray = parseJSONArray(JSONString) {
-			return mapArray(JSONArray)
+		let parsedJSON: AnyObject? = parseJSONString(JSONString)
+
+		if let objectArray = mapArray(parsedJSON) {
+			return objectArray
 		}
 
 		// failed to parse JSON into array form
 		// try to parse it into a dictionary and then wrap it in an array
-		if let JSONDict = parseJSONDictionary(JSONString) {
-			return mapArray([JSONDict])
+		if let object = map(parsedJSON) {
+			return [object]
 		}
 
 		return []
+	}
+
+	/// Maps a JSON object to an array of Mappable objects if it is an array of
+	/// JSON dictionary, or returns nil.
+	public func mapArray(JSON: AnyObject?) -> [N]? {
+		if let JSONArray = JSON as? [[String : AnyObject]] {
+			return mapArray(JSONArray)
+		}
+
+		return nil
 	}
 	
 	/**
@@ -145,8 +177,19 @@ public final class Mapper<N: Mappable> {
 	*/
 	public func mapArray(JSON: [[String : AnyObject]]) -> [N] {
 		return JSON.map {
+			// map every element in JSON array to type N
 			self.map($0)
 		}		
+	}
+
+	/// Maps a JSON object to a dictionary of Mappable objects if it is a JSON
+	/// dictionary of dictionaries, or returns nil.
+	public func mapDictionary(JSON: AnyObject?) -> [String : N]? {
+		if let JSONDictionary = JSON as? [String : [String : AnyObject]] {
+			return mapDictionary(JSONDictionary)
+		}
+
+		return nil
 	}
 
 	/**
@@ -154,6 +197,7 @@ public final class Mapper<N: Mappable> {
 	*/
 	public func mapDictionary(JSON: [String : [String : AnyObject]]) -> [String : N] {
 		return JSON.map { k, v in
+			// map every value in dictionary to type N
 			return (k, self.map(v))
 		}
 	}
@@ -174,6 +218,7 @@ public final class Mapper<N: Mappable> {
 	*/
 	public func toJSONArray(array: [N]) -> [[String : AnyObject]] {
 		return array.map {
+			// convert every element in array to JSON dictionary equivalent
 			self.toJSON($0)
 		}
 	}
@@ -183,6 +228,7 @@ public final class Mapper<N: Mappable> {
 	*/
 	public func toJSONDictionary(dictionary: [String : N]) -> [String : [String : AnyObject]] {
 		return dictionary.map { k, v in
+			// convert every value in dictionary to its JSON dictionary equivalent			
 			return (k, self.toJSON(v))
 		}
 	}
@@ -216,26 +262,21 @@ public final class Mapper<N: Mappable> {
 	*/
 	private func parseJSONDictionary(JSON: String) -> [String : AnyObject]? {
 		let parsedJSON: AnyObject? = parseJSONString(JSON)
-		if let JSONDict = parsedJSON as? [String : AnyObject] {
+		return parseJSONDictionary(parsedJSON)
+	}
+
+	/**
+	* Convert a JSON Object into a Dictionary<String, AnyObject> using NSJSONSerialization
+	*/
+	private func parseJSONDictionary(JSON: AnyObject?) -> [String : AnyObject]? {
+		if let JSONDict = JSON as? [String : AnyObject] {
 			return JSONDict
 		}
 
 		return nil
 	}
 
-	/** 
-	* Convert a JSON String into a Array<String, AnyObject> using NSJSONSerialization 
-	*/
-	private func parseJSONArray(JSON: String) -> [[String : AnyObject]]? {
-		let parsedJSON: AnyObject? = parseJSONString(JSON)
-		if let JSONArray = parsedJSON as? [[String : AnyObject]] {
-			return JSONArray
-		}
-
-		return nil
-	}
-
-	/** 
+	/**
 	* Convert a JSON String into an Object using NSJSONSerialization 
 	*/
 	private func parseJSONString(JSON: String) -> AnyObject? {
