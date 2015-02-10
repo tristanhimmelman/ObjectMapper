@@ -177,6 +177,7 @@ public final class Mapper<N: Mappable> {
 	*/
 	public func mapArray(JSON: [[String : AnyObject]]) -> [N] {
 		return JSON.map {
+			// map every element in JSON array to type N
 			self.map($0)
 		}		
 	}
@@ -196,6 +197,7 @@ public final class Mapper<N: Mappable> {
 	*/
 	public func mapDictionary(JSON: [String : [String : AnyObject]]) -> [String : N] {
 		return JSON.map { k, v in
+			// map every value in dictionary to type N
 			return (k, self.map(v))
 		}
 	}
@@ -216,6 +218,7 @@ public final class Mapper<N: Mappable> {
 	*/
 	public func toJSONArray(array: [N]) -> [[String : AnyObject]] {
 		return array.map {
+			// convert every element in array to JSON dictionary equivalent
 			self.toJSON($0)
 		}
 	}
@@ -225,6 +228,7 @@ public final class Mapper<N: Mappable> {
 	*/
 	public func toJSONDictionary(dictionary: [String : N]) -> [String : [String : AnyObject]] {
 		return dictionary.map { k, v in
+			// convert every value in dictionary to its JSON dictionary equivalent			
 			return (k, self.toJSON(v))
 		}
 	}
