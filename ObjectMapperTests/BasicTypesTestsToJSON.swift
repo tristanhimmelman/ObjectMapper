@@ -121,6 +121,25 @@ class BasicTypesTestsToJSON: XCTestCase {
 		}
 	}
 	
+	func testMappingAnyObjectToJSON(){
+		var value: String = "STRINGNGNGG"
+		var object = BasicTypes()
+		object.anyObject = value
+		object.anyObjectOptional = value
+		object.anyObjectImplicitlyUnwrapped = value
+		
+		let JSON = Mapper().toJSONString(object, prettyPrint: true)
+		var mappedObject = mapper.map(string: JSON)
+		
+		if let mappedObject = mappedObject {
+			XCTAssertEqual(mappedObject.anyObject as String, value, "AnyObject failed")
+			XCTAssertEqual(mappedObject.anyObjectOptional! as String, value, "Optional AnyObject failed")
+			XCTAssertEqual(mappedObject.anyObjectImplicitlyUnwrapped as String, value, "Implicity unwrapped Optional AnyObject failed")
+		} else {
+			XCTAssert(false, "String to JSON failed")
+		}
+	}
+	
 	// MARK: Test mapping Arrays to JSON and back (with basic types in them Bool, Int, Double, Float, String)
 	
 	func testMappingBoolArrayToJSON(){
@@ -213,6 +232,25 @@ class BasicTypesTestsToJSON: XCTestCase {
 			XCTAssertEqual(mappedObject.arrayString[0], value, "String Array failed")
 			XCTAssertEqual(mappedObject.arrayStringOptional![0], value, "Optional String Array failed")
 			XCTAssertEqual(mappedObject.arrayStringImplicityUnwrapped[0], value, "Implicity unwrapped optional String Array failed")
+		} else {
+			XCTAssert(false, "String Array to JSON failed")
+		}
+	}
+	
+	func testMappingAnyObjectArrayToJSON(){
+		var value: String = "Stringgggg"
+		var object = BasicTypes()
+		object.arrayAnyObject = [value]
+		object.arrayAnyObjectOptional = [value]
+		object.arrayAnyObjectImplicitlyUnwrapped = [value]
+		
+		let JSON = Mapper().toJSONString(object, prettyPrint: true)
+		var mappedObject = mapper.map(string: JSON)
+		
+		if let mappedObject = mappedObject {
+			XCTAssertEqual(mappedObject.arrayAnyObject[0] as String, value, "AnyObject Array failed")
+			XCTAssertEqual(mappedObject.arrayAnyObjectOptional![0] as String, value, "Optional AnyObject Array failed")
+			XCTAssertEqual(mappedObject.arrayAnyObjectImplicitlyUnwrapped[0] as String, value, "Implicity Unwrapped Optional AnyObject Array failed")
 		} else {
 			XCTAssert(false, "String Array to JSON failed")
 		}
@@ -319,4 +357,25 @@ class BasicTypesTestsToJSON: XCTestCase {
 			XCTAssert(false, "String Dictionary to JSON failed")
 		}
 	}
+
+	func testMappingAnyObjectDictionaryToJSON(){
+		var key = "key"
+		var value = "value"
+		var object = BasicTypes()
+		object.dictAnyObject = [key:value]
+		object.dictAnyObjectOptional = [key:value]
+		object.dictAnyObjectImplicitlyUnwrapped = [key:value]
+		
+		let JSON = Mapper().toJSONString(object, prettyPrint: true)
+		var mappedObject = mapper.map(string: JSON)
+		
+		if let mappedObject = mappedObject {
+			XCTAssertEqual(mappedObject.dictAnyObject[key]! as String, value, "AnyObject Dictionary failed")
+			XCTAssertEqual(mappedObject.dictAnyObjectOptional![key]! as String, value, "Optional AnyObject Dictionary failed")
+			XCTAssertEqual(mappedObject.dictAnyObjectImplicitlyUnwrapped[key]! as String, value, "Implicity unwrapped optional AnyObject Dictionary failed")
+		} else {
+			XCTAssert(false, "String Dictionary to JSON failed")
+		}
+	}
+
 }
