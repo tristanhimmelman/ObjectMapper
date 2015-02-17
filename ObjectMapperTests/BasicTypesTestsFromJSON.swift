@@ -1,61 +1,51 @@
 //
-//  BasicTypesTests.swift
+//  BasicTypesFromJSON.swift
 //  ObjectMapper
 //
-//  Created by Tristan Himmelman on 2014-12-04.
-//  Copyright (c) 2014 hearst. All rights reserved.
+//  Created by Tristan Himmelman on 2015-02-17.
+//  Copyright (c) 2015 hearst. All rights reserved.
 //
 
 import UIKit
 import XCTest
 import ObjectMapper
 
-class BasicTypesTests: XCTestCase {
+class BasicTypesTestsFromJSON: XCTestCase {
 
-    let mapper = Mapper<BasicTypes>()
-
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-
+	let mapper = Mapper<BasicTypes>()
+	
+	override func setUp() {
+		super.setUp()
+		// Put setup code here. This method is called before the invocation of each test method in the class.
+	}
+	
+	override func tearDown() {
+		// Put teardown code here. This method is called after the invocation of each test method in the class.
+		super.tearDown()
+	}
+	
 	// MARK: Test mapping to JSON and back (basic types: Bool, Int, Double, Float, String)
 	
-	func testMappingBoolToJSON(){
+	func testMappingBoolFromJSON(){
 		var value: Bool = true
-		var object = BasicTypes()
-		object.bool = value
-		object.boolOptional = value
-		object.boolImplicityUnwrapped = value
-		
-		let JSON = Mapper().toJSONString(object, prettyPrint: true)
+		let JSON = "{\"bool\" : \(value), \"boolOpt\" : \(value), \"boolImp\" : \(value)}"
 		var mappedObject = mapper.map(string: JSON)
 		
 		if let mappedObject = mappedObject {
-
+			
 			XCTAssertEqual(mappedObject.bool, value, "Bool failed")
 			XCTAssertEqual(mappedObject.boolImplicityUnwrapped, value, "Implicitly unwrapped optional Bool failed")
 			if let val = mappedObject.boolOptional {
 				XCTAssertEqual(val, value, "Optional Bool failed")
 			}
 		} else {
-			XCTAssert(false, "Bool to JSON failed")
+			XCTAssert(false, "JSON to Bool failed")
 		}
 	}
 	
 	func testMappingIntToJSON(){
 		var value: Int = 11
-		var object = BasicTypes()
-		object.int = value
-		object.intOptional = value
-		object.intImplicityUnwrapped = value
-		
-		let JSON = Mapper().toJSONString(object, prettyPrint: true)
+		let JSON = "{\"int\" : \(value), \"intOpt\" : \(value), \"intImp\" : \(value)}"
 		var mappedObject = mapper.map(string: JSON)
 		
 		if let mappedObject = mappedObject {
@@ -66,18 +56,14 @@ class BasicTypesTests: XCTestCase {
 				XCTAssertEqual(val, value, "Optional Int failed")
 			}
 		} else {
-			XCTAssert(false, "Int to JSON failed")
+			XCTAssert(false, "JSON to Int failed")
 		}
 	}
-
+	
 	func testMappingDoubleToJSON(){
 		var value: Double = 11
-		var object = BasicTypes()
-		object.double = value
-		object.doubleOptional = value
-		object.doubleImplicityUnwrapped = value
-		
-		let JSON = Mapper().toJSONString(object, prettyPrint: true)
+		let JSON = "{\"double\" : \(value), \"doubleOpt\" : \(value), \"doubleImp\" : \(value)}"
+
 		var mappedObject = mapper.map(string: JSON)
 		
 		if let mappedObject = mappedObject {
@@ -88,18 +74,13 @@ class BasicTypesTests: XCTestCase {
 				XCTAssertEqual(val, value, "Optional Double failed")
 			}
 		} else {
-			XCTAssert(false, "Double to JSON failed")
+			XCTAssert(false, "JSON to Double failed")
 		}
 	}
-
+	
 	func testMappingFloatToJSON(){
 		var value: Float = 11
-		var object = BasicTypes()
-		object.float = value
-		object.floatOptional = value
-		object.floatImplicityUnwrapped = value
-		
-		let JSON = Mapper().toJSONString(object, prettyPrint: true)
+		let JSON = "{\"float\" : \(value), \"floatOpt\" : \(value), \"floatImp\" : \(value)}"
 		var mappedObject = mapper.map(string: JSON)
 		
 		if let mappedObject = mappedObject {
@@ -110,29 +91,23 @@ class BasicTypesTests: XCTestCase {
 				XCTAssertEqual(val, value, "Optional Float failed")
 			}
 		} else {
-			XCTAssert(false, "Float to JSON failed")
+			XCTAssert(false, "JSON to Float failed")
 		}
 	}
 	
 	func testMappingStringToJSON(){
 		var value: String = "STRINGNGNGG"
-		var object = BasicTypes()
-		object.string = value
-		object.stringOptional = value
-		object.stringImplicityUnwrapped = value
-		
-		let JSON = Mapper().toJSONString(object, prettyPrint: true)
+		let JSON = "{\"string\" : \"\(value)\", \"stringOpt\" : \"\(value)\", \"stringImp\" : \"\(value)\"}"
+
 		var mappedObject = mapper.map(string: JSON)
 		
 		if let mappedObject = mappedObject {
 			
 			XCTAssertEqual(mappedObject.string, value, "String failed")
+			XCTAssertEqual(mappedObject.stringOptional!, value, "Implicity unwrapped optional String failed")
 			XCTAssertEqual(mappedObject.stringImplicityUnwrapped, value, "Implicity unwrapped optional String failed")
-			if let val = mappedObject.stringOptional {
-				XCTAssertEqual(val, value, "Optional String failed")
-			}
 		} else {
-			XCTAssert(false, "String to JSON failed")
+			XCTAssert(false, "JSON to String failed")
 		}
 	}
 	
@@ -140,18 +115,14 @@ class BasicTypesTests: XCTestCase {
 	
 	func testMappingBoolArrayToJSON(){
 		var value: Bool = true
-		var object = BasicTypes()
-		object.arrayBool = [value]
-		object.arrayBoolOptional = [value]
-		object.arrayBoolImplicityUnwrapped = [value]
-		
-		let JSON = Mapper().toJSONString(object, prettyPrint: true)
+		let JSON = "{\"arrayBool\" : [\(value)], \"arrayBoolOpt\" : [\(value)], \"arrayBoolImp\" : [\(value)] }"
+
 		var mappedObject = mapper.map(string: JSON)
 		
 		if let mappedObject = mappedObject {
 			var firstObject = mappedObject.arrayBool[0]
 			XCTAssertEqual(firstObject, value, "Bool Array failed")
-
+			
 			firstObject = mappedObject.arrayBoolImplicityUnwrapped[0]
 			XCTAssertEqual(firstObject, value, "Implicity unwrapped optional Bool Array failed")
 			if let val = mappedObject.arrayBoolOptional?[0] {
@@ -164,12 +135,7 @@ class BasicTypesTests: XCTestCase {
 	
 	func testMappingIntArrayToJSON(){
 		var value: Int = 1
-		var object = BasicTypes()
-		object.arrayInt = [value]
-		object.arrayIntOptional = [value]
-		object.arrayIntImplicityUnwrapped = [value]
-		
-		let JSON = Mapper().toJSONString(object, prettyPrint: true)
+		let JSON = "{\"arrayInt\" : [\(value)], \"arrayIntOpt\" : [\(value)], \"arrayIntImp\" : [\(value)] }"
 		var mappedObject = mapper.map(string: JSON)
 		
 		if let mappedObject = mappedObject {
@@ -178,7 +144,7 @@ class BasicTypesTests: XCTestCase {
 			
 			firstObject = mappedObject.arrayIntImplicityUnwrapped[0]
 			XCTAssertEqual(firstObject, value, "Implicity unwrapped optional Int Array failed")
-
+			
 			if let val = mappedObject.arrayIntOptional?[0] {
 				XCTAssertEqual(val, value, "Optional Int Array failed")
 			}
@@ -189,12 +155,7 @@ class BasicTypesTests: XCTestCase {
 	
 	func testMappingDoubleArrayToJSON(){
 		var value: Double = 1.0
-		var object = BasicTypes()
-		object.arrayDouble = [value]
-		object.arrayDoubleOptional = [value]
-		object.arrayDoubleImplicityUnwrapped = [value]
-		
-		let JSON = Mapper().toJSONString(object, prettyPrint: true)
+		let JSON = "{\"arrayDouble\" : [\(value)], \"arrayDoubleOpt\" : [\(value)], \"arrayDoubleImp\" : [\(value)] }"
 		var mappedObject = mapper.map(string: JSON)
 		
 		if let mappedObject = mappedObject {
@@ -213,12 +174,7 @@ class BasicTypesTests: XCTestCase {
 	
 	func testMappingFloatArrayToJSON(){
 		var value: Float = 1.001
-		var object = BasicTypes()
-		object.arrayFloat = [value]
-		object.arrayFloatOptional = [value]
-		object.arrayFloatImplicityUnwrapped = [value]
-		
-		let JSON = Mapper().toJSONString(object, prettyPrint: true)
+		let JSON = "{\"arrayFloat\" : [\(value)], \"arrayFloatOpt\" : [\(value)], \"arrayFloatImp\" : [\(value)] }"
 		var mappedObject = mapper.map(string: JSON)
 		
 		if let mappedObject = mappedObject {
@@ -237,12 +193,7 @@ class BasicTypesTests: XCTestCase {
 	
 	func testMappingStringArrayToJSON(){
 		var value: String = "Stringgggg"
-		var object = BasicTypes()
-		object.arrayString = [value]
-		object.arrayStringOptional = [value]
-		object.arrayStringImplicityUnwrapped = [value]
-		
-		let JSON = Mapper().toJSONString(object, prettyPrint: true)
+		let JSON = "{\"arrayString\" : [\"\(value)\"], \"arrayStringOpt\" : [\"\(value)\"], \"arrayStringImp\" : [\"\(value)\"] }"
 		var mappedObject = mapper.map(string: JSON)
 		
 		if let mappedObject = mappedObject {
@@ -264,12 +215,7 @@ class BasicTypesTests: XCTestCase {
 	func testMappingBoolDictionaryToJSON(){
 		var key = "key"
 		var value: Bool = true
-		var object = BasicTypes()
-		object.dictBool = [key:value]
-		object.dictBoolOptional = [key:value]
-		object.dictBoolImplicityUnwrapped = [key:value]
-		
-		let JSON = Mapper().toJSONString(object, prettyPrint: true)
+		let JSON = "{\"dictBool\" : { \"\(key)\" : \(value)}, \"dictBoolOpt\" : { \"\(key)\" : \(value)}, \"dictBoolImp\" : { \"\(key)\" : \(value)} }"
 		var mappedObject = mapper.map(string: JSON)
 		
 		if let mappedObject = mappedObject {
@@ -290,12 +236,8 @@ class BasicTypesTests: XCTestCase {
 	func testMappingIntDictionaryToJSON(){
 		var key = "key"
 		var value: Int = 11
-		var object = BasicTypes()
-		object.dictInt = [key:value]
-		object.dictIntOptional = [key:value]
-		object.dictIntImplicityUnwrapped = [key:value]
+		let JSON = "{\"dictInt\" : { \"\(key)\" : \(value)}, \"dictIntOpt\" : { \"\(key)\" : \(value)}, \"dictIntImp\" : { \"\(key)\" : \(value)} }"
 		
-		let JSON = Mapper().toJSONString(object, prettyPrint: true)
 		var mappedObject = mapper.map(string: JSON)
 		
 		if let mappedObject = mappedObject {
@@ -316,12 +258,7 @@ class BasicTypesTests: XCTestCase {
 	func testMappingDoubleDictionaryToJSON(){
 		var key = "key"
 		var value: Double = 11
-		var object = BasicTypes()
-		object.dictDouble = [key:value]
-		object.dictDoubleOptional = [key:value]
-		object.dictDoubleImplicityUnwrapped = [key:value]
-		
-		let JSON = Mapper().toJSONString(object, prettyPrint: true)
+		let JSON = "{\"dictDouble\" : { \"\(key)\" : \(value)}, \"dictDoubleOpt\" : { \"\(key)\" : \(value)}, \"dictDoubleImp\" : { \"\(key)\" : \(value)} }"
 		var mappedObject = mapper.map(string: JSON)
 		
 		if let mappedObject = mappedObject {
@@ -341,13 +278,8 @@ class BasicTypesTests: XCTestCase {
 	
 	func testMappingFloatDictionaryToJSON(){
 		var key = "key"
-		var value: Float = 11
-		var object = BasicTypes()
-		object.dictFloat = [key:value]
-		object.dictFloatOptional = [key:value]
-		object.dictFloatImplicityUnwrapped = [key:value]
-		
-		let JSON = Mapper().toJSONString(object, prettyPrint: true)
+		var value: Float = 111.1
+		let JSON = "{\"dictFloat\" : { \"\(key)\" : \(value)}, \"dictFloatOpt\" : { \"\(key)\" : \(value)}, \"dictFloatImp\" : { \"\(key)\" : \(value)} }"
 		var mappedObject = mapper.map(string: JSON)
 		
 		if let mappedObject = mappedObject {
@@ -368,12 +300,8 @@ class BasicTypesTests: XCTestCase {
 	func testMappingStringDictionaryToJSON(){
 		var key = "key"
 		var value = "value"
-		var object = BasicTypes()
-		object.dictString = [key:value]
-		object.dictStringOptional = [key:value]
-		object.dictStringImplicityUnwrapped = [key:value]
+		let JSON = "{\"dictString\" : { \"\(key)\" : \"\(value)\"}, \"dictStringOpt\" : { \"\(key)\" : \"\(value)\"}, \"dictStringImp\" : { \"\(key)\" : \"\(value)\"} }"
 		
-		let JSON = Mapper().toJSONString(object, prettyPrint: true)
 		var mappedObject = mapper.map(string: JSON)
 		
 		if let mappedObject = mappedObject {
@@ -391,108 +319,3 @@ class BasicTypesTests: XCTestCase {
 		}
 	}
 }
-
-class BasicTypes: Mappable {
-	var bool: Bool = true
-	var boolOptional: Bool?
-	var boolImplicityUnwrapped: Bool!
-	var int: Int = 0
-	var intOptional: Int?
-	var intImplicityUnwrapped: Int!
-	var double: Double = 1.1
-	var doubleOptional: Double?
-	var doubleImplicityUnwrapped: Double!
-	var float: Float = 1.11
-	var floatOptional: Float?
-	var floatImplicityUnwrapped: Float!
-	var string: String = ""
-	var stringOptional: String?
-	var stringImplicityUnwrapped: String!
-	
-	var arrayBool: Array<Bool> = []
-	var arrayBoolOptional: Array<Bool>?
-	var arrayBoolImplicityUnwrapped: Array<Bool>!
-	var arrayInt: Array<Int> = []
-	var arrayIntOptional: Array<Int>?
-	var arrayIntImplicityUnwrapped: Array<Int>!
-	var arrayDouble: Array<Double> = []
-	var arrayDoubleOptional: Array<Double>?
-	var arrayDoubleImplicityUnwrapped: Array<Double>!
-	var arrayFloat: Array<Float> = []
-	var arrayFloatOptional: Array<Float>?
-	var arrayFloatImplicityUnwrapped: Array<Float>!
-	var arrayString: Array<String> = []
-	var arrayStringOptional: Array<String>?
-	var arrayStringImplicityUnwrapped: Array<String>!
-	
-	var dictBool: Dictionary<String,Bool> = [:]
-	var dictBoolOptional: Dictionary<String, Bool>?
-	var dictBoolImplicityUnwrapped: Dictionary<String, Bool>!
-	var dictInt: Dictionary<String,Int> = [:]
-	var dictIntOptional: Dictionary<String,Int>?
-	var dictIntImplicityUnwrapped: Dictionary<String,Int>!
-	var dictDouble: Dictionary<String,Double> = [:]
-	var dictDoubleOptional: Dictionary<String,Double>?
-	var dictDoubleImplicityUnwrapped: Dictionary<String,Double>!
-	var dictFloat: Dictionary<String,Float> = [:]
-	var dictFloatOptional: Dictionary<String,Float>?
-	var dictFloatImplicityUnwrapped: Dictionary<String,Float>!
-	var dictString: Dictionary<String,String> = [:]
-	var dictStringOptional: Dictionary<String,String>?
-	var dictStringImplicityUnwrapped: Dictionary<String,String>!
-	
-	required init() {
-	}
-	
-	func mapping(map: Map) {
-		bool						<= map["bool"]
-		boolOptional				<= map["boolOpt"]
-		boolImplicityUnwrapped		<= map["boolImp"]
-		int							<= map["int"]
-		intOptional					<= map["intOpt"]
-		intImplicityUnwrapped		<= map["intImp"]
-		double						<= map["double"]
-		doubleOptional				<= map["doubleOpt"]
-		doubleImplicityUnwrapped	<= map["doubleImp"]
-		float						<= map["float"]
-		floatOptional				<= map["floatOpt"]
-		floatImplicityUnwrapped		<= map["floatImp"]
-		string						<= map["string"]
-		stringOptional				<= map["stringOpt"]
-		stringImplicityUnwrapped	<= map["stringImp"]
-		
-		arrayBool						<= map["arrayBool"]
-		arrayBoolOptional				<= map["arrayBoolOpt"]
-		arrayBoolImplicityUnwrapped		<= map["arrayBoolImp"]
-		arrayInt						<= map["arrayInt"]
-		arrayIntOptional				<= map["arrayIntOpt"]
-		arrayIntImplicityUnwrapped		<= map["arrayIntImp"]
-		arrayDouble						<= map["arrayDouble"]
-		arrayDoubleOptional				<= map["arrayDoubleOpt"]
-		arrayDoubleImplicityUnwrapped	<= map["arrayDoubleImp"]
-		arrayFloat						<= map["arrayFloat"]
-		arrayFloatOptional				<= map["arrayFloatOpt"]
-		arrayFloatImplicityUnwrapped	<= map["arrayFloatImp"]
-		arrayString						<= map["arrayString"]
-		arrayStringOptional				<= map["arrayStringOpt"]
-		arrayStringImplicityUnwrapped	<= map["arrayStringImp"]
-		
-		dictBool						<= map["dictBool"]
-		dictBoolOptional				<= map["dictBoolOpt"]
-		dictBoolImplicityUnwrapped		<= map["dictBoolImp"]
-		dictInt							<= map["dictInt"]
-		dictIntOptional					<= map["dictIntOpt"]
-		dictIntImplicityUnwrapped		<= map["dictIntImp"]
-		dictDouble						<= map["dictDouble"]
-		dictDoubleOptional				<= map["dictDoubleOpt"]
-		dictDoubleImplicityUnwrapped	<= map["dictDoubleImp"]
-		dictFloat						<= map["dictFloat"]
-		dictFloatOptional				<= map["dictFloatOpt"]
-		dictFloatImplicityUnwrapped		<= map["dictFloatImp"]
-		dictString						<= map["dictString"]
-		dictStringOptional				<= map["dictStringOpt"]
-		dictStringImplicityUnwrapped	<= map["dictStringImp"]
-	}
-}
-
-
