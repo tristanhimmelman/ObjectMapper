@@ -43,6 +43,8 @@ class BasicTypesTests: XCTestCase {
 			if let val = mappedObject.boolOptional {
 				XCTAssertEqual(val, value, "Optional Bool failed")
 			}
+		} else {
+			XCTAssert(false, "Bool to JSON failed")
 		}
 	}
 	
@@ -63,6 +65,8 @@ class BasicTypesTests: XCTestCase {
 			if let val = mappedObject.intOptional {
 				XCTAssertEqual(val, value, "Optional Int failed")
 			}
+		} else {
+			XCTAssert(false, "Int to JSON failed")
 		}
 	}
 
@@ -83,6 +87,8 @@ class BasicTypesTests: XCTestCase {
 			if let val = mappedObject.doubleOptional {
 				XCTAssertEqual(val, value, "Optional Double failed")
 			}
+		} else {
+			XCTAssert(false, "Double to JSON failed")
 		}
 	}
 
@@ -103,6 +109,8 @@ class BasicTypesTests: XCTestCase {
 			if let val = mappedObject.floatOptional {
 				XCTAssertEqual(val, value, "Optional Float failed")
 			}
+		} else {
+			XCTAssert(false, "Float to JSON failed")
 		}
 	}
 	
@@ -123,6 +131,8 @@ class BasicTypesTests: XCTestCase {
 			if let val = mappedObject.stringOptional {
 				XCTAssertEqual(val, value, "Optional String failed")
 			}
+		} else {
+			XCTAssert(false, "String to JSON failed")
 		}
 	}
 	
@@ -147,6 +157,8 @@ class BasicTypesTests: XCTestCase {
 			if let val = mappedObject.arrayBoolOptional?[0] {
 				XCTAssertEqual(val, value, "Optional Bool Array failed")
 			}
+		} else {
+			XCTAssert(false, "Bool Array to JSON failed")
 		}
 	}
 	
@@ -170,6 +182,8 @@ class BasicTypesTests: XCTestCase {
 			if let val = mappedObject.arrayIntOptional?[0] {
 				XCTAssertEqual(val, value, "Optional Int Array failed")
 			}
+		} else {
+			XCTAssert(false, "Int Array to JSON failed")
 		}
 	}
 	
@@ -192,6 +206,8 @@ class BasicTypesTests: XCTestCase {
 			if let val = mappedObject.arrayDoubleOptional?[0] {
 				XCTAssertEqual(val, value, "Optional Double Array failed")
 			}
+		} else {
+			XCTAssert(false, "Double Array to JSON failed")
 		}
 	}
 	
@@ -214,6 +230,8 @@ class BasicTypesTests: XCTestCase {
 			if let val = mappedObject.arrayFloatOptional?[0] {
 				XCTAssertEqual(val, value, "Optional Float Array failed")
 			}
+		} else {
+			XCTAssert(false, "Float Array to JSON failed")
 		}
 	}
 	
@@ -229,13 +247,15 @@ class BasicTypesTests: XCTestCase {
 		
 		if let mappedObject = mappedObject {
 			var firstObject = mappedObject.arrayString[0]
-			XCTAssertEqual(firstObject, value, "Float Array failed")
+			XCTAssertEqual(firstObject, value, "String Array failed")
 			
 			firstObject = mappedObject.arrayStringImplicityUnwrapped[0]
-			XCTAssertEqual(firstObject, value, "Implicity unwrapped optional Float Array failed")
+			XCTAssertEqual(firstObject, value, "Implicity unwrapped optional String Array failed")
 			if let val = mappedObject.arrayStringOptional?[0] {
-				XCTAssertEqual(val, value, "Optional Float Array failed")
+				XCTAssertEqual(val, value, "Optional String Array failed")
 			}
+		} else {
+			XCTAssert(false, "String Array to JSON failed")
 		}
 	}
 	
@@ -262,6 +282,8 @@ class BasicTypesTests: XCTestCase {
 			if let val = mappedObject.dictBool[key] {
 				XCTAssertEqual(val, value, "Bool Dictionary failed")
 			}
+		} else {
+			XCTAssert(false, "Bool Dictionary to JSON failed")
 		}
 	}
 	
@@ -286,6 +308,8 @@ class BasicTypesTests: XCTestCase {
 			if let val = mappedObject.dictInt[key] {
 				XCTAssertEqual(val, value, "Int Dictionary failed")
 			}
+		} else {
+			XCTAssert(false, "Int Dictionary to JSON failed")
 		}
 	}
 	
@@ -310,6 +334,8 @@ class BasicTypesTests: XCTestCase {
 			if let val = mappedObject.dictDouble[key] {
 				XCTAssertEqual(val, value, "Double Dictionary failed")
 			}
+		} else {
+			XCTAssert(false, "Double Dictionary to JSON failed")
 		}
 	}
 	
@@ -334,6 +360,8 @@ class BasicTypesTests: XCTestCase {
 			if let val = mappedObject.dictFloat[key] {
 				XCTAssertEqual(val, value, "Float Dictionary failed")
 			}
+		} else {
+			XCTAssert(false, "Float Dictionary to JSON failed")
 		}
 	}
 	
@@ -358,6 +386,8 @@ class BasicTypesTests: XCTestCase {
 			if let val = mappedObject.dictString[key] {
 				XCTAssertEqual(val, value, "String Dictionary failed")
 			}
+		} else {
+			XCTAssert(false, "String Dictionary to JSON failed")
 		}
 	}
 }
