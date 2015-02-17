@@ -34,10 +34,8 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		if let mappedObject = mappedObject {
 			
 			XCTAssertEqual(mappedObject.bool, value, "Bool failed")
+			XCTAssertEqual(mappedObject.boolOptional!, value, "Optional Bool failed")
 			XCTAssertEqual(mappedObject.boolImplicityUnwrapped, value, "Implicitly unwrapped optional Bool failed")
-			if let val = mappedObject.boolOptional {
-				XCTAssertEqual(val, value, "Optional Bool failed")
-			}
 		} else {
 			XCTAssert(false, "JSON to Bool failed")
 		}
@@ -51,10 +49,8 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		if let mappedObject = mappedObject {
 			
 			XCTAssertEqual(mappedObject.int, value, "Int failed")
+			XCTAssertEqual(mappedObject.intOptional!, value, "Optional Int failed")
 			XCTAssertEqual(mappedObject.intImplicityUnwrapped, value, "Implicity unwrapped optional Int failed")
-			if let val = mappedObject.intOptional {
-				XCTAssertEqual(val, value, "Optional Int failed")
-			}
 		} else {
 			XCTAssert(false, "JSON to Int failed")
 		}
@@ -69,10 +65,8 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		if let mappedObject = mappedObject {
 			
 			XCTAssertEqual(mappedObject.double, value, "Double failed")
+			XCTAssertEqual(mappedObject.doubleOptional!, value, "Optional Double failed")
 			XCTAssertEqual(mappedObject.doubleImplicityUnwrapped, value, "Implicity unwrapped optional Double failed")
-			if let val = mappedObject.doubleOptional {
-				XCTAssertEqual(val, value, "Optional Double failed")
-			}
 		} else {
 			XCTAssert(false, "JSON to Double failed")
 		}
@@ -86,10 +80,8 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		if let mappedObject = mappedObject {
 			
 			XCTAssertEqual(mappedObject.float, value, "Float failed")
+			XCTAssertEqual(mappedObject.floatOptional!, value, "Optional Float failed")
 			XCTAssertEqual(mappedObject.floatImplicityUnwrapped, value, "Implicity unwrapped optional Float failed")
-			if let val = mappedObject.floatOptional {
-				XCTAssertEqual(val, value, "Optional Float failed")
-			}
 		} else {
 			XCTAssert(false, "JSON to Float failed")
 		}
@@ -142,9 +134,9 @@ class BasicTypesTestsFromJSON: XCTestCase {
 			
 			firstObject = mappedObject.arrayBoolImplicityUnwrapped[0]
 			XCTAssertEqual(firstObject, value, "Implicity unwrapped optional Bool Array failed")
+
 			let val = mappedObject.arrayBoolOptional?[0]
 			XCTAssertEqual(val!, value, "Optional Bool Array failed")
-			
 		} else {
 			XCTAssert(false, "Bool Array to JSON failed")
 		}
@@ -181,9 +173,9 @@ class BasicTypesTestsFromJSON: XCTestCase {
 			
 			firstObject = mappedObject.arrayDoubleImplicityUnwrapped[0]
 			XCTAssertEqual(firstObject, value, "Implicity unwrapped optional Double Array failed")
+			
 			let val = mappedObject.arrayDoubleOptional?[0]
 			XCTAssertEqual(val!, value, "Optional Double Array failed")
-			
 		} else {
 			XCTAssert(false, "Double Array to JSON failed")
 		}
@@ -203,7 +195,6 @@ class BasicTypesTestsFromJSON: XCTestCase {
 			
 			let val = mappedObject.arrayFloatOptional?[0]
 			XCTAssertEqual(val!, value, "Optional Float Array failed")
-			
 		} else {
 			XCTAssert(false, "Float Array to JSON failed")
 		}
@@ -223,7 +214,6 @@ class BasicTypesTestsFromJSON: XCTestCase {
 
 			let val = mappedObject.arrayStringOptional?[0]
 			XCTAssertEqual(val!, value, "Optional String Array failed")
-			
 		} else {
 			XCTAssert(false, "String Array to JSON failed")
 		}
