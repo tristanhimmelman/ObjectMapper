@@ -153,7 +153,7 @@ class ObjectMapperTests: XCTestCase {
 		XCTAssert(user.heightInCM == nil, "Username should be the same")
 	}
 	
-	func testToObject() {
+	func testToObjectFromString() {
 		let username = "bob"
 		let userJSONString = "{\"username\":\"\(username)\"}"
 		
@@ -161,6 +161,30 @@ class ObjectMapperTests: XCTestCase {
 		user.username = "Tristan"
 		
 		Mapper().map(string: userJSONString, toObject: user)
+		
+		XCTAssert(user.username == username, "Username should be the same")
+	}
+	
+	func testToObjectFromJSON() {
+		let username = "bob"
+		let userJSON = ["username":username]
+		
+		var user = User()
+		user.username = "Tristan"
+		
+		Mapper().map(userJSON, toObject: user)
+		
+		XCTAssert(user.username == username, "Username should be the same")
+	}
+	
+	func testToObjectFromAnyObject() {
+		let username = "bob"
+		let userJSON = ["username":username]
+		
+		var user = User()
+		user.username = "Tristan"
+		
+		Mapper().map(userJSON as AnyObject?, toObject: user)
 		
 		XCTAssert(user.username == username, "Username should be the same")
 	}
