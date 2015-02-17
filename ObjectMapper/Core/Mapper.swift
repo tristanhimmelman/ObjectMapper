@@ -121,17 +121,17 @@ public final class Mapper<N: Mappable> {
 	/**
 	* Map a JSON string to an object that conforms to Mappable
 	*/
-	public func map(string JSONString: String) -> N! {
+	public func map(string JSONString: String) -> N? {
 		if let JSON = parseJSONDictionary(JSONString) {
 			return map(JSON)
 		}
 		return nil
 	}
 
-	/** Maps a JSON object to a Mappable object if it is a JSON dictionary,
-	* or returns nil.
+	/**
+	* Maps a JSON object to a Mappable object if it is a JSON dictionary, or returns nil.
 	*/
-	public func map(JSON: AnyObject?) -> N! {
+	public func map(JSON: AnyObject?) -> N? {
 		if let JSON = JSON as? [String : AnyObject] {
 			return map(JSON)
 		}
@@ -142,7 +142,7 @@ public final class Mapper<N: Mappable> {
 	/**
 	* Maps a JSON dictionary to an object that conforms to Mappable
 	*/
-	public func map(JSON: [String : AnyObject]) -> N! {
+	public func map(JSON: [String : AnyObject]) -> N {
 		let object = N()
 		return map(JSON, toObject: object)
 	}
@@ -185,8 +185,8 @@ public final class Mapper<N: Mappable> {
 	public func mapArray(JSON: [[String : AnyObject]]) -> [N] {
 		return JSON.map {
 			// map every element in JSON array to type N
-			self.map($0)
-		}		
+			return self.map($0)
+		}
 	}
 
 	/** Maps a JSON object to a dictionary of Mappable objects if it is a JSON
@@ -204,9 +204,9 @@ public final class Mapper<N: Mappable> {
 	* Maps a JSON dictionary of dictionaries to a dictionary of objects that conform to Mappable.
 	*/
 	public func mapDictionary(JSON: [String : [String : AnyObject]]) -> [String : N] {
-		return JSON.map { k, v in
+		return JSON.map { key, value in
 			// map every value in dictionary to type N
-			return (k, self.map(v))
+			return (key, self.map(value))
 		}
 	}
 

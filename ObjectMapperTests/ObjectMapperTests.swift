@@ -46,22 +46,24 @@ class ObjectMapperTests: XCTestCase {
         
         let userJSONString = "{\"username\":\"\(username)\",\"identifier\":\"\(identifier)\",\"photoCount\":\(photoCount),\"age\":\(age),\"drinker\":\(drinker),\"smoker\":\(smoker), \"arr\":[ \"bla\", true, 42 ], \"dict\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"arrOpt\":[ \"bla\", true, 42 ], \"dictOpt\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"birthday\": 1398956159, \"birthdayOpt\": 1398956159, \"y2k\" : \"2000-01-01T00:00:00Z\", \"y2kOpt\" : \"2000-01-01T00:00:00Z\", \"weight\": \(weight), \"float\": \(float), \"friend\": \(subUserJSON), \"friendDictionary\":{ \"bestFriend\": \(subUserJSON)}}"
 		
-		let user = userMapper.map(string: userJSONString)
+		if let user = userMapper.map(string: userJSONString) {
+			XCTAssertEqual(username, user.username, "Username should be the same")
+			XCTAssertEqual(identifier, user.identifier!, "Identifier should be the same")
+			XCTAssertEqual(photoCount, user.photoCount, "PhotoCount should be the same")
+			XCTAssertEqual(age, user.age!, "Age should be the same")
+			XCTAssertEqual(weight, user.weight!, "Weight should be the same")
+			XCTAssertEqual(float, user.float!, "float should be the same")
+			XCTAssertEqual(drinker, user.drinker, "Drinker should be the same")
+			XCTAssertEqual(smoker, user.smoker!, "Smoker should be the same")
+			XCTAssertEqual(birthday, user.birthday, "Birthday should be the same")
+			XCTAssertEqual(birthday, user.birthdayOpt!, "Birthday should be the same")
+			XCTAssertEqual(y2k, user.y2k, "Y2K date should be the same")
+			XCTAssertEqual(y2k, user.y2kOpt!, "Y2K date should be the same")
 
-        XCTAssertEqual(username, user.username, "Username should be the same")
-        XCTAssertEqual(identifier, user.identifier!, "Identifier should be the same")
-        XCTAssertEqual(photoCount, user.photoCount, "PhotoCount should be the same")
-        XCTAssertEqual(age, user.age!, "Age should be the same")
-        XCTAssertEqual(weight, user.weight!, "Weight should be the same")
-        XCTAssertEqual(float, user.float!, "float should be the same")
-        XCTAssertEqual(drinker, user.drinker, "Drinker should be the same")
-        XCTAssertEqual(smoker, user.smoker!, "Smoker should be the same")
-        XCTAssertEqual(birthday, user.birthday, "Birthday should be the same")
-        XCTAssertEqual(birthday, user.birthdayOpt!, "Birthday should be the same")
-        XCTAssertEqual(y2k, user.y2k, "Y2K date should be the same")
-        XCTAssertEqual(y2k, user.y2kOpt!, "Y2K date should be the same")
-
-        println(Mapper().toJSONString(user, prettyPrint: true))
+			println(Mapper().toJSONString(user, prettyPrint: true))
+		} else {
+			XCTAssert(false, "Mapping user object failed")
+		}
     }
 	
     func testInstanceParsing() {
@@ -140,17 +142,21 @@ class ObjectMapperTests: XCTestCase {
 		
 		let userJSONString = "{\"username\":\"bob\", \"height\": {\"value\": \(heightInCM), \"text\": \"6 feet tall\"} }"
 		
-		let user = userMapper.map(string: userJSONString)
-
-		XCTAssertEqual(user.heightInCM!, heightInCM, "Username should be the same")
+		if let user = userMapper.map(string: userJSONString) {
+			XCTAssertEqual(user.heightInCM!, heightInCM, "Username should be the same")
+		} else {
+			XCTAssert(false, "Nested key failed")
+		}
 	}
 	
 	func testNullObject() {
 		let userJSONString = "{\"username\":\"bob\"}"
 		
-		let user = userMapper.map(string: userJSONString)
-		
-		XCTAssert(user.heightInCM == nil, "Username should be the same")
+		if let user = userMapper.map(string: userJSONString) {
+			XCTAssert(user.heightInCM == nil, "Username should be the same")
+		} else {
+			XCTAssert(false, "Null Object failed")
+		}
 	}
 	
 	func testToObjectFromString() {
@@ -206,33 +212,34 @@ class ObjectMapperTests: XCTestCase {
         
         let jsonString = Mapper().toJSONString(user, prettyPrint: true)
         println(jsonString)
-		var parsedUser = userMapper.map(string: jsonString)
-        
-		
-        XCTAssertEqual(user.identifier!, parsedUser.identifier!, "Identifier should be the same")
-        XCTAssertEqual(user.photoCount, parsedUser.photoCount, "PhotoCount should be the same")
-        XCTAssertEqual(user.age!, parsedUser.age!, "Age should be the same")
-        XCTAssertEqual(user.weight!, parsedUser.weight!, "Weight should be the same")
-        XCTAssertEqual(user.drinker, parsedUser.drinker, "Drinker should be the same")
-        XCTAssertEqual(user.smoker!, parsedUser.smoker!, "Smoker should be the same")
-        XCTAssertEqual(user.imageURL!, parsedUser.imageURL!, "Image URL should be the same")
-        XCTAssertEqual(user.intWithString, parsedUser.intWithString, "Int value from/to String should be the same")
-//        XCTAssert(user.birthday.compare(parsedUser.birthday) == .OrderedSame, "Birthday should be the same")
-        XCTAssert(user.y2k.compare(parsedUser.y2k) == .OrderedSame, "Y2k should be the same")
+		if let parsedUser = userMapper.map(string: jsonString) {
+			XCTAssertEqual(user.identifier!, parsedUser.identifier!, "Identifier should be the same")
+			XCTAssertEqual(user.photoCount, parsedUser.photoCount, "PhotoCount should be the same")
+			XCTAssertEqual(user.age!, parsedUser.age!, "Age should be the same")
+			XCTAssertEqual(user.weight!, parsedUser.weight!, "Weight should be the same")
+			XCTAssertEqual(user.drinker, parsedUser.drinker, "Drinker should be the same")
+			XCTAssertEqual(user.smoker!, parsedUser.smoker!, "Smoker should be the same")
+			XCTAssertEqual(user.imageURL!, parsedUser.imageURL!, "Image URL should be the same")
+			XCTAssertEqual(user.intWithString, parsedUser.intWithString, "Int value from/to String should be the same")
+			//        XCTAssert(user.birthday.compare(parsedUser.birthday) == .OrderedSame, "Birthday should be the same")
+			XCTAssert(user.y2k.compare(parsedUser.y2k) == .OrderedSame, "Y2k should be the same")
+		} else {
+			XCTAssert(false, "to JSON and back failed")
+		}
     }
 
     func testUnknownPropertiesIgnored() {
         let userJSONString = "{\"username\":\"bob\",\"identifier\":\"bob1987\", \"foo\" : \"bar\", \"fooArr\" : [ 1, 2, 3], \"fooObj\" : { \"baz\" : \"qux\" } }"
-        let user = userMapper.map(string: userJSONString)
-        
-        XCTAssert(user != nil, "User should not be nil")
+		let user = userMapper.map(string: userJSONString)
+	
+		XCTAssert(user != nil, "User should not be nil")
     }
     
     func testInvalidJsonResultsInNilObject() {
         let userJSONString = "{\"username\":\"bob\",\"identifier\":\"bob1987\"" // missing ending brace
 
         let user = userMapper.map(string: userJSONString)
-		
+	
         XCTAssert(user == nil, "User should be nil due to invalid JSON")
     }
 	
@@ -272,7 +279,7 @@ class ObjectMapperTests: XCTestCase {
 		
 		let plan = Mapper<Plan>().map(string: JSON)
 		
-		if let tasks = plan.tasks {
+		if let tasks = plan?.tasks {
 			let task1 = tasks[0]
 			XCTAssertEqual(task1.percentage!, percentage1, "Percentage 1 should be the same")
 			
@@ -290,7 +297,7 @@ class ObjectMapperTests: XCTestCase {
 		let JSON = "{\"tasks\": { \"task1\": {\"taskId\":103,\"percentage\":\(percentage1)}, \"task2\": {\"taskId\":108,\"percentage\":\(percentage2)}}}"
 		
 		let taskDict = Mapper<TaskDictionary>().map(string: JSON)
-		if let task = taskDict.tasks?["task1"] {
+		if let task = taskDict?.tasks?["task1"] {
 			XCTAssertEqual(task.percentage!, percentage1, "Percentage 1 should be the same")
 		} else {
 			XCTAssert(false, "Dictionary not mapped")
@@ -317,7 +324,7 @@ class ObjectMapperTests: XCTestCase {
 		
 		let response = Mapper<Response<Status>>().map(string: JSON)
 		
-		if let status = response.result?.status {
+		if let status = response?.result?.status {
 			XCTAssertEqual(status, code, "Code was not mapped correctly")
 		} else {
 			XCTAssert(false, "Generic object FAILED to map")
@@ -361,15 +368,13 @@ class ObjectMapperTests: XCTestCase {
 
     func testISO8601DateTransformWithInvalidInput() {
         var JSON: [String: AnyObject] = ["y2kOpt": ""]
-        let user1 = userMapper.map(JSON)
+		let user1 = userMapper.map(JSON)
 
-        XCTAssert(user1 != nil, "ISO8601DateTransform must not crash for empty string")
         XCTAssert(user1.y2kOpt == nil, "ISO8601DateTransform should return nil for empty string")
 
         JSON["y2kOpt"] = "incorrect format"
         let user2 = userMapper.map(JSON)
 
-        XCTAssert(user2 != nil, "ISO8601DateTransform must not crash for incorrect format")
         XCTAssert(user2.y2kOpt == nil, "ISO8601DateTransform should return nil for incorrect format")
     }
     
@@ -432,7 +437,7 @@ class ObjectMapperTests: XCTestCase {
 	
 	func testSubclassWithGenericArrayInSuperclass() {
 		let parsedObject = Mapper<SubclassWithGenericArrayInSuperclass<AnyObject>>().map(string:"{\"genericItems\":[{\"value\":\"value0\"}, {\"value\":\"value1\"}]}")
-		if let genericItems = parsedObject.genericItems {
+		if let genericItems = parsedObject?.genericItems {
 			XCTAssertEqual(genericItems[0].value!, "value0")
 			XCTAssertEqual(genericItems[1].value!, "value1")
 		} else {
