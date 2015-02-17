@@ -395,7 +395,7 @@ class ObjectMapperTests: XCTestCase {
 	}
 	
 	func testSubclassWithGenericArrayInSuperclass() {
-		let parsedObject = Mapper<SubclassWithGenericArrayInSuperclass<AnyObject>>().map(string:"{\"genericItems\":[{\"value\":\"value0\", \"value\":\"value1\"}]}")
+		let parsedObject = Mapper<SubclassWithGenericArrayInSuperclass<AnyObject>>().map(string:"{\"genericItems\":[{\"value\":\"value0\"}, {\"value\":\"value1\"}]}")
 		if let genericItems = parsedObject.genericItems {
 			XCTAssertEqual(genericItems[0].value!, "value0")
 			XCTAssertEqual(genericItems[1].value!, "value1")
@@ -620,14 +620,14 @@ class GenericSubclass<T>: Base {
 	}
 }
 
-class WithGenericArray<T>: Mappable {
+class WithGenericArray<T: Mappable>: Mappable {
 	var genericItems: [T]?
 	
 	required init(){
 		
 	}
 	
-	func map(map: Map) {
+	func mapping(map: Map) {
 		genericItems <= map["genericItems"]
 	}
 }
@@ -639,7 +639,7 @@ class ConcreteItem: Mappable {
 		
 	}
 	
-	func map(map: Map) {
+	func mapping(map: Map) {
 		value <= map["value"]
 	}
 }
