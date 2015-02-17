@@ -32,7 +32,6 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		var mappedObject = mapper.map(string: JSON)
 		
 		if let mappedObject = mappedObject {
-			
 			XCTAssertEqual(mappedObject.bool, value, "Bool failed")
 			XCTAssertEqual(mappedObject.boolOptional!, value, "Optional Bool failed")
 			XCTAssertEqual(mappedObject.boolImplicityUnwrapped, value, "Implicitly unwrapped optional Bool failed")
@@ -47,7 +46,6 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		var mappedObject = mapper.map(string: JSON)
 		
 		if let mappedObject = mappedObject {
-			
 			XCTAssertEqual(mappedObject.int, value, "Int failed")
 			XCTAssertEqual(mappedObject.intOptional!, value, "Optional Int failed")
 			XCTAssertEqual(mappedObject.intImplicityUnwrapped, value, "Implicity unwrapped optional Int failed")
@@ -63,7 +61,6 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		var mappedObject = mapper.map(string: JSON)
 		
 		if let mappedObject = mappedObject {
-			
 			XCTAssertEqual(mappedObject.double, value, "Double failed")
 			XCTAssertEqual(mappedObject.doubleOptional!, value, "Optional Double failed")
 			XCTAssertEqual(mappedObject.doubleImplicityUnwrapped, value, "Implicity unwrapped optional Double failed")
@@ -78,7 +75,6 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		var mappedObject = mapper.map(string: JSON)
 		
 		if let mappedObject = mappedObject {
-			
 			XCTAssertEqual(mappedObject.float, value, "Float failed")
 			XCTAssertEqual(mappedObject.floatOptional!, value, "Optional Float failed")
 			XCTAssertEqual(mappedObject.floatImplicityUnwrapped, value, "Implicity unwrapped optional Float failed")
@@ -94,7 +90,6 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		var mappedObject = mapper.map(string: JSON)
 		
 		if let mappedObject = mappedObject {
-			
 			XCTAssertEqual(mappedObject.string, value, "String failed")
 			XCTAssertEqual(mappedObject.stringOptional!, value, "Implicity unwrapped optional String failed")
 			XCTAssertEqual(mappedObject.stringImplicityUnwrapped, value, "Implicity unwrapped optional String failed")
@@ -156,7 +151,6 @@ class BasicTypesTestsFromJSON: XCTestCase {
 			
 			let val = mappedObject.arrayIntOptional?[0]
 			XCTAssertEqual(val!, value, "Optional Int Array failed")
-			
 		} else {
 			XCTAssert(false, "Int Array to JSON failed")
 		}
