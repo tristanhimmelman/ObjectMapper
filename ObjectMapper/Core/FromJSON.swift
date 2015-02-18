@@ -8,7 +8,7 @@
 
 import Foundation
 
-class FromJSON<CollectionType> {
+class FromJSON {
 	
 	/// Basic type
     func basicType<FieldType>(inout field: FieldType, object: AnyObject?) {
