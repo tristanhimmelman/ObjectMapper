@@ -66,11 +66,14 @@ class BasicTypes: Mappable {
 	var dictAnyObject: Dictionary<String, AnyObject> = [:]
 	var dictAnyObjectOptional: Dictionary<String, AnyObject>?
 	var dictAnyObjectImplicitlyUnwrapped: Dictionary<String, AnyObject>!
-	
-	required init() {
+
+	init() {}
+
+	class func mapping(map: Map) -> Self? {
+		return self.init().mapping(map)
 	}
 	
-	func mapping(map: Map) {
+	func mapping(map: Map) -> Self {
 		bool								<= map["bool"]
 		boolOptional						<= map["boolOpt"]
 		boolImplicityUnwrapped				<= map["boolImp"]
@@ -127,5 +130,7 @@ class BasicTypes: Mappable {
 		dictAnyObject						<= map["dictAnyObject"]
 		dictAnyObjectOptional				<= map["dictAnyObjectOpt"]
 		dictAnyObjectImplicitlyUnwrapped	<= map["dictAnyObjectImp"]
+
+		return self
 	}
 }
