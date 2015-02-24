@@ -69,11 +69,13 @@ class BasicTypes: Mappable {
 
 	init() {}
 
+	init(_ map: Map) { mapping(map) }
+
 	class func mapping(map: Map) -> Self? {
-		return self.init().mapping(map)
+		return self.init(map)
 	}
 	
-	func mapping(map: Map) -> Self {
+	func mapping(map: Map) {
 		bool								<= map["bool"]
 		boolOptional						<= map["boolOpt"]
 		boolImplicityUnwrapped				<= map["boolImp"]
@@ -130,7 +132,5 @@ class BasicTypes: Mappable {
 		dictAnyObject						<= map["dictAnyObject"]
 		dictAnyObjectOptional				<= map["dictAnyObjectOpt"]
 		dictAnyObjectImplicitlyUnwrapped	<= map["dictAnyObjectImp"]
-
-		return self
 	}
 }

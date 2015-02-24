@@ -502,39 +502,42 @@ extension Immutable: ImmutableMappable {
 class Response<T: Mappable>: Mappable {
 	var result: T?
 
+	init(_ map: Map) { mapping(map) }
+
 	class func mapping(map: Map) -> Self? {
-		return self.init().mapping(map)
+		return self.init(map)
 	}
 
-	func mapping(map: Map) -> Self {
+	func mapping(map: Map) {
 		result <= map["result"]
-		return self
 	}
 }
 
 class Status: Mappable {
 	var status: Int?
 
+	init(_ map: Map) { mapping(map) }
+
 	class func mapping(map: Map) -> Self? {
-		return self.init().mapping(map)
+		return self.init(map)
 	}
 
-	func mapping(map: Map) -> Self {
+	func mapping(map: Map) {
 		status <= map["code"]
-		return self
 	}
 }
 
 class Plan: Mappable {
 	var tasks: [Task]?
-	
+
+	init(_ map: Map) { mapping(map) }
+
 	class func mapping(map: Map) -> Self? {
-		return self.init().mapping(map)
+		return self.init(map)
 	}
 
-	func mapping(map: Map) -> Self {
+	func mapping(map: Map) {
 		tasks <= map["tasks"]
-		return self
 	}
 }
 
@@ -544,29 +547,31 @@ class Task: Mappable {
 
 	init() {}
 
+	init(_ map: Map) { mapping(map) }
+
 	class func mapping(map: Map) -> Self? {
-		return self.init().mapping(map)
+		return self.init(map)
 	}
 
-	func mapping(map: Map) -> Self {
+	func mapping(map: Map) {
 		taskId <= map["taskId"]
 		percentage <= map["percentage"]
-		return self
 	}
 }
 
 class TaskDictionary: Mappable {
 	var test: String?
 	var tasks: [String : Task]?
-	
+
+	init(_ map: Map) { mapping(map) }
+
 	class func mapping(map: Map) -> Self? {
-		return self.init().mapping(map)
+		return self.init(map)
 	}
 
-	func mapping(map: Map) -> Self {
+	func mapping(map: Map) {
 		test <= map["test"]
 		tasks <= map["tasks"]
-		return self
 	}
 }
 
@@ -580,17 +585,17 @@ struct Student: Mappable {
 
 	init() {}
 
+	init(_ map: Map) { mapping(map) }
+
 	static func mapping(map: Map) -> Student? {
-		var s = self.init()
-		return s.mapping(map)
+		return self.init(map)
 	}
 	
-	mutating func mapping(map: Map) -> Student {
+	mutating func mapping(map: Map) {
 		name <= map["name"]
 		UUID <= map["UUID"]
 		major <= map["major"]
 		minor <= map["minor"]
-		return self
 	}
 }
 
@@ -622,11 +627,13 @@ class User: Mappable {
 
 	init() {}
 
+	init(_ map: Map) { mapping(map) }
+
 	class func mapping(map: Map) -> Self? {
-		return self.init().mapping(map)
+		return self.init(map)
 	}
 
-	func mapping(map: Map) -> Self {
+	func mapping(map: Map) {
 		username         <= map["username"]
 		identifier       <= map["identifier"]
 		photoCount       <= map["photoCount"]
@@ -650,7 +657,6 @@ class User: Mappable {
 		y2kOpt           <= (map["y2kOpt"], ISO8601DateTransform())
 		imageURL         <= (map["imageURL"], URLTransform())
 		intWithString    <= (map["intWithString"], TransformOf<Int, String>(fromJSON: { $0?.toInt() }, toJSON: { $0.map { String($0) } }))
-		return self
 	}
 	
     var description : String {
@@ -671,12 +677,14 @@ class TestCollectionOfPrimitives : Mappable {
     var arrayFloat: [Float] = []
 
 	init() {}
-    
+
+	init(_ map: Map) { mapping(map) }
+
 	class func mapping(map: Map) -> Self? {
-		return self.init().mapping(map)
+		return self.init(map)
 	}
 
-    func mapping(map: Map) -> Self {
+    func mapping(map: Map) {
         dictStringString    <= map["dictStringString"]
         dictStringBool      <= map["dictStringBool"]
         dictStringInt       <= map["dictStringInt"]
@@ -687,7 +695,6 @@ class TestCollectionOfPrimitives : Mappable {
         arrayBool           <= map["arrayBool"]
         arrayDouble         <= map["arrayDouble"]
         arrayFloat          <= map["arrayFloat"]
-		return self
     }
 }
 
@@ -697,13 +704,14 @@ class Base: Mappable {
 
 	init() {}
 
+	init(_ map: Map) { mapping(map) }
+
 	class func mapping(map: Map) -> Self? {
-		return self.init().mapping(map)
+		return self.init(map)
 	}
 
-	func mapping(map: Map) -> Self {
+	func mapping(map: Map) {
 		base <= map["base"]
-		return self
 	}
 }
 
@@ -715,16 +723,19 @@ class Subclass: Base {
 		super.init()
 	}
 
-	override class func mapping(map: Map) -> Self? {
-		return self.init().mapping(map)
+	override init(_ map: Map) {
+		super.init(map)
+		mapping(map)
 	}
 
-	override func mapping(map: Map) -> Self {
+	override class func mapping(map: Map) -> Self? {
+		return self.init(map)
+	}
+
+	override func mapping(map: Map) {
 		super.mapping(map)
 		
 		sub <= map["sub"]
-
-		return self
 	}
 }
 
@@ -733,42 +744,51 @@ class GenericSubclass<T>: Base {
 	
 	var sub: String?
 
-	override class func mapping(map: Map) -> Self? {
-		return self.init().mapping(map)
+	override init() {
+		super.init()
 	}
 
-	override func mapping(map: Map) -> Self {
+	override init(_ map: Map) {
+		super.init(map)
+		mapping(map)
+	}
+
+	override class func mapping(map: Map) -> Self? {
+		return self.init(map)
+	}
+
+	override func mapping(map: Map) {
 		super.mapping(map)
 		
 		sub <= map["sub"]
-
-		return self
 	}
 }
 
 class WithGenericArray<T: Mappable>: Mappable {
 	var genericItems: [T]?
-	
+
+	init(_ map: Map) { mapping(map) }
+
 	class func mapping(map: Map) -> Self? {
-		return self.init().mapping(map)
+		return self.init(map)
 	}
 
-	func mapping(map: Map) -> Self {
+	func mapping(map: Map) {
 		genericItems <= map["genericItems"]
-		return self
 	}
 }
 
 class ConcreteItem: Mappable {
 	var value: String?
-	
+
+	init(_ map: Map) { mapping(map) }
+
 	class func mapping(map: Map) -> Self? {
-		return self.init().mapping(map)
+		return self.init(map)
 	}
 
-	func mapping(map: Map) -> Self {
+	func mapping(map: Map) {
 		value <= map["value"]
-		return self
 	}
 }
 

@@ -13,7 +13,7 @@ public protocol ImmutableMappable {
 }
 
 public protocol Mappable: ImmutableMappable {
-	mutating func mapping(map: Map) -> Self
+	mutating func mapping(map: Map)
 }
 
 public enum MappingType {
