@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'ObjectMapper'
-  s.version = '0.6'
+  s.version = '0.7'
   s.license = 'MIT'
   s.summary = 'JSON Object mapping written in Swift'
   s.homepage = 'https://github.com/Hearst-DD/ObjectMapper'
