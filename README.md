@@ -1,7 +1,7 @@
 ObjectMapper
 ============
 
-ObjectMapper is a framework written in Swift that makes it easy for you to convert your Model objects (Classes and Structs) to and from JSON. 
+ObjectMapper is a framework written in Swift that makes it easy for you to convert your Model objects (Classes and Structs) to and from JSON.
 ##Features:
 - Mapping JSON to objects
 - Mapping objects to JSON
@@ -10,7 +10,7 @@ ObjectMapper is a framework written in Swift that makes it easy for you to conve
 - Struct support
 
 ##The Basics
-To support mapping, a Class or Struct just needs to implement the ```Mappable``` protocol. ObjectMapper uses the ```<=``` operator to define how each member variable maps to and from JSON.
+To support mapping, a Class or Struct just needs to implement the ```Mappable``` protocol. ObjectMapper uses the ```<|``` operator to define how each member variable maps to and from JSON.
 
 ```swift
 class User: Mappable {
@@ -26,28 +26,28 @@ class User: Mappable {
 
     required init(){}
 
-    // Mappable    
+    // Mappable
     func mapping(map: Map) {
-        username <= map["username"]
-        age <= map["age"]
-        weight <= map["weight"]
-        arr <= map["arr"]
-        dict <= map["dict"]
-        bestFriend <= map["best_friend"]
-        friends <= map["friends"]
-        birthday <= (map["birthday"], DateTransform())
+        username <| map["username"]
+        age <| map["age"]
+        weight <| map["weight"]
+        arr <| map["arr"]
+        dict <| map["dict"]
+        bestFriend <| map["best_friend"]
+        friends <| map["friends"]
+        birthday <| (map["birthday"], DateTransform())
     }
 }
 
 struct Temperature: Mappable {
     var celcius: Double?
     var fahrenheit: Double?
-    
+
     init(){}
-	
+
 	mutating func mapping(map: Map) {
-		celcius <= map["celcius"]
-		fahrenheit <= map["fahrenheit"]
+		celcius <| map["celcius"]
+		fahrenheit <| map["fahrenheit"]
 	}
 }
 ```
@@ -78,8 +78,8 @@ Object mapper can map classes composed of the following types:
 - Optionals of all the above
 - Implicitly Unwrapped Optionals of the above
 
-##Easy Mapping of Nested Objects 
-ObjectMapper supports dot notation within keys for easy mapping of nested objects. Given the following JSON String: 
+##Easy Mapping of Nested Objects
+ObjectMapper supports dot notation within keys for easy mapping of nested objects. Given the following JSON String:
 ```
 "distance" : {
      "text" : "102 ft",
@@ -89,14 +89,14 @@ ObjectMapper supports dot notation within keys for easy mapping of nested object
 You can access the nested objects as follows:
 ```
 func mapping(map: Map){
-    distance <= map["distance.value"]
+    distance <| map["distance.value"]
 }
 ```
 
 ##Custom Transfoms
-ObjectMapper also supports custom Transforms that convert values during the mapping process. To use a transform, simply create a tuple with ```map["field_name"]``` and the transform of choice on the right side of the ```<=``` operator:
+ObjectMapper also supports custom Transforms that convert values during the mapping process. To use a transform, simply create a tuple with ```map["field_name"]``` and the transform of choice on the right side of the ```<|``` operator:
 ```swift
-birthday <= (map["birthday"], DateTransform())
+birthday <| (map["birthday"], DateTransform())
 ```
 The above transform will convert the JSON Int value to an NSDate when reading JSON and will convert the NSDate to an Int when converting objects to JSON.
 
