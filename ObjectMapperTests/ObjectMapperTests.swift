@@ -23,6 +23,20 @@ class ObjectMapperTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
+
+	func testImmutableMappable() {
+		let mapper = ImmutableMapper<Immutable>()
+		let JSON = [ "prop1": "Immutable!", "prop2": 255, "prop3": true ]
+
+		let immutable = mapper.map(JSON)
+		XCTAssertEqual(immutable.prop1, "Immutable!")
+		XCTAssertEqual(immutable.prop2, 255)
+		XCTAssertEqual(immutable.prop3, true)
+
+		let JSON2 = [ "prop1": "prop1", "prop2": NSNull() ]
+		let immutable2 = mapper.map(JSON2)
+		XCTAssert(immutable2 == nil)
+	}
     
     func testBasicParsing() {
         let username = "John Doe"
@@ -446,12 +460,54 @@ class ObjectMapperTests: XCTestCase {
 	}
 }
 
+infix operator <^> { associativity left }
+infix operator <*> { associativity left }
+
+public func <^><T, U>(f: T -> U, a: T?) -> U? {
+	return a.map(f)
+}
+
+public func <*><T, U>(f: (T -> U)?, a: T?) -> U? {
+	return a.apply(f)
+}
+
+extension Optional {
+	func apply<U>(f: (T -> U)?) -> U? {
+		switch (self, f) {
+		case let (.Some(x), .Some(fx)): return fx(x)
+		default: return .None
+		}
+	}
+}
+
+struct Immutable {
+	let prop1: String
+	let prop2: Int
+	let prop3: Bool
+}
+
+extension Immutable: ImmutableMappable {
+	static func create(prop1: String)(prop2: Int)(prop3: Bool) -> Immutable {
+		return Immutable(prop1: prop1, prop2: prop2, prop3: prop3)
+	}
+
+	static func mapping(map: Map) -> Immutable? {
+		return Immutable.create
+			<^> map["prop1"].value()
+			<*> map["prop2"].value()
+			<*> map["prop3"].value()
+	}
+}
+
 class Response<T: Mappable>: Mappable {
 	var result: T?
-	
-	required init() {
+
+	init(_ map: Map) { mapping(map) }
+
+	class func mapping(map: Map) -> Self? {
+		return self.init(map)
 	}
-	
+
 	func mapping(map: Map) {
 		result <- map["result"]
 	}
@@ -459,10 +515,13 @@ class Response<T: Mappable>: Mappable {
 
 class Status: Mappable {
 	var status: Int?
-	
-	required init() {
+
+	init(_ map: Map) { mapping(map) }
+
+	class func mapping(map: Map) -> Self? {
+		return self.init(map)
 	}
-	
+
 	func mapping(map: Map) {
 		status <- map["code"]
 	}
@@ -470,11 +529,13 @@ class Status: Mappable {
 
 class Plan: Mappable {
 	var tasks: [Task]?
-	
-	required init(){
-		
+
+	init(_ map: Map) { mapping(map) }
+
+	class func mapping(map: Map) -> Self? {
+		return self.init(map)
 	}
-	
+
 	func mapping(map: Map) {
 		tasks <- map["tasks"]
 	}
@@ -483,11 +544,15 @@ class Plan: Mappable {
 class Task: Mappable {
 	var taskId: Int?
 	var percentage: Double?
-	
-	required init(){
-		
+
+	init() {}
+
+	init(_ map: Map) { mapping(map) }
+
+	class func mapping(map: Map) -> Self? {
+		return self.init(map)
 	}
-	
+
 	func mapping(map: Map) {
 		taskId <- map["taskId"]
 		percentage <- map["percentage"]
@@ -497,11 +562,13 @@ class Task: Mappable {
 class TaskDictionary: Mappable {
 	var test: String?
 	var tasks: [String : Task]?
-	
-	required init(){
-		
+
+	init(_ map: Map) { mapping(map) }
+
+	class func mapping(map: Map) -> Self? {
+		return self.init(map)
 	}
-	
+
 	func mapping(map: Map) {
 		test <- map["test"]
 		tasks <- map["tasks"]
@@ -515,9 +582,13 @@ struct Student: Mappable {
 	var UUID: String?
 	var major: Int?
 	var minor: Int?
-	
-	init(){
-		
+
+	init() {}
+
+	init(_ map: Map) { mapping(map) }
+
+	static func mapping(map: Map) -> Student? {
+		return self.init(map)
 	}
 	
 	mutating func mapping(map: Map) {
@@ -553,11 +624,15 @@ class User: Mappable {
     var imageURL: NSURL?
     var intWithString: Int = 0
 	var heightInCM: Double?
-	
-    required init() {
-		
-    }
-	
+
+	init() {}
+
+	init(_ map: Map) { mapping(map) }
+
+	class func mapping(map: Map) -> Self? {
+		return self.init(map)
+	}
+
 	func mapping(map: Map) {
 		username         <- map["username"]
 		identifier       <- map["identifier"]
@@ -600,9 +675,15 @@ class TestCollectionOfPrimitives : Mappable {
     var arrayBool: [Bool] = []
     var arrayDouble: [Double] = []
     var arrayFloat: [Float] = []
-    
-    required init() {}
-    
+
+	init() {}
+
+	init(_ map: Map) { mapping(map) }
+
+	class func mapping(map: Map) -> Self? {
+		return self.init(map)
+	}
+
     func mapping(map: Map) {
         dictStringString    <- map["dictStringString"]
         dictStringBool      <- map["dictStringBool"]
@@ -620,9 +701,13 @@ class TestCollectionOfPrimitives : Mappable {
 class Base: Mappable {
 	
 	var base: String?
-	
-	required init(){
-		
+
+	init() {}
+
+	init(_ map: Map) { mapping(map) }
+
+	class func mapping(map: Map) -> Self? {
+		return self.init(map)
 	}
 
 	func mapping(map: Map) {
@@ -633,11 +718,20 @@ class Base: Mappable {
 class Subclass: Base {
 	
 	var sub: String?
-	
-	required init(){
-		
+
+	override init() {
+		super.init()
 	}
-	
+
+	override init(_ map: Map) {
+		super.init(map)
+		mapping(map)
+	}
+
+	override class func mapping(map: Map) -> Self? {
+		return self.init(map)
+	}
+
 	override func mapping(map: Map) {
 		super.mapping(map)
 		
@@ -649,9 +743,18 @@ class Subclass: Base {
 class GenericSubclass<T>: Base {
 	
 	var sub: String?
-	
-	required init(){
-		
+
+	override init() {
+		super.init()
+	}
+
+	override init(_ map: Map) {
+		super.init(map)
+		mapping(map)
+	}
+
+	override class func mapping(map: Map) -> Self? {
+		return self.init(map)
 	}
 
 	override func mapping(map: Map) {
@@ -663,11 +766,13 @@ class GenericSubclass<T>: Base {
 
 class WithGenericArray<T: Mappable>: Mappable {
 	var genericItems: [T]?
-	
-	required init(){
-		
+
+	init(_ map: Map) { mapping(map) }
+
+	class func mapping(map: Map) -> Self? {
+		return self.init(map)
 	}
-	
+
 	func mapping(map: Map) {
 		genericItems <- map["genericItems"]
 	}
@@ -675,18 +780,18 @@ class WithGenericArray<T: Mappable>: Mappable {
 
 class ConcreteItem: Mappable {
 	var value: String?
-	
-	required init(){
-		
+
+	init(_ map: Map) { mapping(map) }
+
+	class func mapping(map: Map) -> Self? {
+		return self.init(map)
 	}
-	
+
 	func mapping(map: Map) {
 		value <- map["value"]
 	}
 }
 
 class SubclassWithGenericArrayInSuperclass<Unused>: WithGenericArray<ConcreteItem> {
-	required init(){
-		
-	}
+
 }

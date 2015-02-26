@@ -66,8 +66,13 @@ class BasicTypes: Mappable {
 	var dictAnyObject: Dictionary<String, AnyObject> = [:]
 	var dictAnyObjectOptional: Dictionary<String, AnyObject>?
 	var dictAnyObjectImplicitlyUnwrapped: Dictionary<String, AnyObject>!
-	
-	required init() {
+
+	init() {}
+
+	init(_ map: Map) { mapping(map) }
+
+	class func mapping(map: Map) -> Self? {
+		return self.init(map)
 	}
 	
 	func mapping(map: Map) {
