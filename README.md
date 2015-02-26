@@ -18,24 +18,20 @@ class User: Mappable {
     var username: String?
     var age: Int?
     var weight: Double!
-    var arr: [AnyObject]?
-    var dict: [String : AnyObject] = [:]
-    var bestFriend: User?                       // Nested User object
-    var friends: [User]?			// Array of Users
-    var birthday: NSDate?
-
+    var bestFriend: User?	// User object
+    var friends: [User]?	// Array of Users
+    var birthday: NSDate?			
+    
     required init(){}
 
     // Mappable
     func mapping(map: Map) {
-        username <- map["username"]
-        age <- map["age"]
-        weight <- map["weight"]
-        arr <- map["arr"]
-        dict <- map["dict"]
-        bestFriend <- map["best_friend"]
-        friends <- map["friends"]
-        birthday <- (map["birthday"], DateTransform())
+        username	<- map["username"]
+        age 		<- map["age"]
+        weight 		<- map["weight"]
+        friends 	<- map["friends"]
+        bestFriend 	<- map["best_friend"]        
+        birthday 	<- (map["birthday"], DateTransform())
     }
 }
 
@@ -46,8 +42,8 @@ struct Temperature: Mappable {
     init(){}
 
 	mutating func mapping(map: Map) {
-		celcius <- map["celcius"]
-		fahrenheit <- map["fahrenheit"]
+		celcius 	<- map["celcius"]
+		fahrenheit 	<- map["fahrenheit"]
 	}
 }
 ```
