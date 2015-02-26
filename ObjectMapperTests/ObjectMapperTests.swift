@@ -497,6 +497,19 @@ extension Immutable: ImmutableMappable {
 			<*> map["prop2"].value()
 			<*> map["prop3"].value()
 	}
+
+	init?(map: Map) {
+		let x = Immutable.create
+			<^> map["prop1"].value()
+			<*> map["prop2"].value()
+			<*> map["prop3"].value()
+
+		if let x = x {
+			self = x
+		} else {
+			return nil
+		}
+	}
 }
 
 class Response<T: Mappable>: Mappable {
