@@ -10,32 +10,40 @@ ObjectMapper is a framework written in Swift that makes it easy for you to conve
 - Struct support
 
 ##The Basics
-To support mapping, a Class or Struct just needs to implement the ```Mappable``` protocol. ObjectMapper uses the ```<-``` operator to define how each member variable maps to and from JSON.
+To support mapping, a Class or Struct just needs to implement the ```Mappable``` protocol.
+```swift
+public protocol Mappable {
+    init?(_ map: Map)
+    mutating func mapping(map: Map)
+}
+```
+ObjectMapper uses the ```<-``` operator to define how each member variable maps to and from JSON.
 
 ```swift
 class User: Mappable {
-
     var username: String?
     var age: Int?
     var weight: Double!
-    var arr: [AnyObject]?
-    var dict: [String : AnyObject] = [:]
+    var array: [AnyObject]?
+    var dictionary: [String : AnyObject] = [:]
     var bestFriend: User?                       // Nested User object
-    var friends: [User]?			// Array of Users
+    var friends: [User]?                        // Array of Users
     var birthday: NSDate?
 
-    required init(){}
+    required init?(_ map: Map) {
+        mapping(map)
+    }
 
     // Mappable
     func mapping(map: Map) {
-        username <- map["username"]
-        age <- map["age"]
-        weight <- map["weight"]
-        arr <- map["arr"]
-        dict <- map["dict"]
-        bestFriend <- map["best_friend"]
-        friends <- map["friends"]
-        birthday <- (map["birthday"], DateTransform())
+        username    <- map["username"]
+        age         <- map["age"]
+        weight      <- map["weight"]
+        arrary      <- map["arr"]
+        dictionary  <- map["dict"]
+        best_friend <- map["best_friend"]
+        friends     <- map["friends"]
+        birthday    <- (map["birthday"], DateTransform())
     }
 }
 
@@ -45,9 +53,13 @@ struct Temperature: Mappable {
 
     init(){}
 
+    init?(_ map: Map) {
+        mapping(map)
+    }
+
 	mutating func mapping(map: Map) {
-		celcius <- map["celcius"]
-		fahrenheit <- map["fahrenheit"]
+		celcius       <- map["celcius"]
+		fahrenheit    <- map["fahrenheit"]
 	}
 }
 ```
