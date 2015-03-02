@@ -58,8 +58,8 @@ struct Temperature: Mappable {
     }
 
 	mutating func mapping(map: Map) {
-		celcius       <- map["celcius"]
-		fahrenheit    <- map["fahrenheit"]
+		celcius 	<- map["celcius"]
+		fahrenheit 	<- map["fahrenheit"]
 	}
 }
 ```
@@ -127,12 +127,12 @@ public protocol TransformType {
 ##Installation
 ObjectMapper can be added to your project using [Cocoapods 0.36 (beta)](http://blog.cocoapods.org/Pod-Authors-Guide-to-CocoaPods-Frameworks/) by adding the following line to your Podfile:
 ```
-pod 'ObjectMapper', '~> 0.5'
+pod 'ObjectMapper', '~> 0.7'
 ```
 
 If your using [Carthage](https://github.com/Carthage/Carthage) you can add a dependency on ObjectMapper by adding it to your Cartfile:
 ```
-github "Hearst-DD/ObjectMapper" ~> 0.5
+github "Hearst-DD/ObjectMapper" ~> 0.7
 ```
 
 Otherwise, ObjectMapper can be added as a submodule:
