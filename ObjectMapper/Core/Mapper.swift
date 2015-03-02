@@ -10,7 +10,7 @@ import Foundation
 
 public protocol Mappable {
 	mutating func mapping(map: Map)
-	init()
+	init?(_ map: Map)
 }
 
 public enum MappingType {
@@ -45,6 +45,14 @@ public final class Map {
 		currentValue = valueFor(key.componentsSeparatedByString("."), JSONDictionary)
 		
 		return self
+	}
+
+	public func value<T>() -> T? {
+		return currentValue as? T
+	}
+
+	public func valueOr<T>(defaultValue: T) -> T {
+		return (currentValue as? T) ?? defaultValue
 	}
 }
 
@@ -142,9 +150,10 @@ public final class Mapper<N: Mappable> {
 	/**
 	* Maps a JSON dictionary to an object that conforms to Mappable
 	*/
-	public func map(JSON: [String : AnyObject]) -> N {
-		let object = N()
-		return map(JSON, toObject: object)
+	public func map(JSON: [String : AnyObject]) -> N! {
+		let map = Map(mappingType: .fromJSON, JSONDictionary: JSON)
+		let object = N(map)
+		return object
 	}
 
 	//MARK: Mapping functions for Arrays and Dictionaries
