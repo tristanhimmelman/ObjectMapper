@@ -508,16 +508,20 @@ extension Immutable: Mappable {
 	}
 
 	mutating func mapping(map: Map) {
-		var prop1 = self.prop1
-		var prop2 = self.prop2
-		var prop3 = self.prop3
+		switch map.mappingType {
+		case .fromJSON:
+			if let x = Immutable(map) {
+				self = x
+			}
 
-		prop1 <= map["prop1"]
-		prop2 <= map["prop2"]
-		prop3 <= map["prop3"]
+		case .toJSON:
+			var prop1 = self.prop1
+			var prop2 = self.prop2
+			var prop3 = self.prop3
 
-		if map.mappingType == .fromJSON {
-			self = Immutable(prop1: prop1, prop2: prop2, prop3: prop3)
+			prop1 <= map["prop1"]
+			prop2 <= map["prop2"]
+			prop3 <= map["prop3"]
 		}
 	}
 }
