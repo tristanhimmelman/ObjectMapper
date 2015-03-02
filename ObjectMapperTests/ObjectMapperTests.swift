@@ -519,9 +519,9 @@ extension Immutable: Mappable {
 			var prop2 = self.prop2
 			var prop3 = self.prop3
 
-			prop1 <= map["prop1"]
-			prop2 <= map["prop2"]
-			prop3 <= map["prop3"]
+			prop1 <- map["prop1"]
+			prop2 <- map["prop2"]
+			prop3 <- map["prop3"]
 		}
 	}
 }

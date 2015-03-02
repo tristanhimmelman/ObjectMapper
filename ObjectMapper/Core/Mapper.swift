@@ -9,8 +9,8 @@
 import Foundation
 
 public protocol Mappable {
-	mutating func mapping(map: Map)
 	init?(_ map: Map)
+	mutating func mapping(map: Map)
 }
 
 public enum MappingType {
