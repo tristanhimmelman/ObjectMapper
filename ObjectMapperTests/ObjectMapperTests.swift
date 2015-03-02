@@ -25,7 +25,7 @@ class ObjectMapperTests: XCTestCase {
     }
 
 	func testImmutableMappable() {
-		let mapper = ImmutableMapper<Immutable>()
+		let mapper = Mapper<Immutable>()
 		let JSON = [ "prop1": "Immutable!", "prop2": 255, "prop3": true ]
 
 		let immutable = mapper.map(JSON)
@@ -36,8 +36,11 @@ class ObjectMapperTests: XCTestCase {
 		let JSON2 = [ "prop1": "prop1", "prop2": NSNull() ]
 		let immutable2 = mapper.map(JSON2)
 		XCTAssert(immutable2 == nil)
+
+		let JSONFromObject = mapper.toJSON(immutable)
+		XCTAssert(mapper.map(JSONFromObject) == immutable)
 	}
-    
+
     func testBasicParsing() {
         let username = "John Doe"
         let identifier = "user8723"
@@ -480,32 +483,58 @@ extension Optional {
 	}
 }
 
-struct Immutable {
+struct Immutable: Equatable {
 	let prop1: String
 	let prop2: Int
 	let prop3: Bool
 }
 
-extension Immutable: ImmutableMappable {
+extension Immutable: Mappable {
 	static func create(prop1: String)(prop2: Int)(prop3: Bool) -> Immutable {
 		return Immutable(prop1: prop1, prop2: prop2, prop3: prop3)
 	}
 
-	static func mapping(map: Map) -> Immutable? {
-		return Immutable.create
+	init?(_ map: Map) {
+		let x = Immutable.create
 			<^> map["prop1"].value()
 			<*> map["prop2"].value()
 			<*> map["prop3"].value()
+
+		if let x = x {
+			self = x
+		} else {
+			return nil
+		}
 	}
+
+	mutating func mapping(map: Map) {
+		switch map.mappingType {
+		case .fromJSON:
+			if let x = Immutable(map) {
+				self = x
+			}
+
+		case .toJSON:
+			var prop1 = self.prop1
+			var prop2 = self.prop2
+			var prop3 = self.prop3
+
+			prop1 <= map["prop1"]
+			prop2 <= map["prop2"]
+			prop3 <= map["prop3"]
+		}
+	}
+}
+
+func ==(lhs: Immutable, rhs: Immutable) -> Bool {
+	return lhs.prop1 == rhs.prop1 && lhs.prop2 == rhs.prop2 && lhs.prop3 == rhs.prop3
 }
 
 class Response<T: Mappable>: Mappable {
 	var result: T?
-
-	init(_ map: Map) { mapping(map) }
-
-	class func mapping(map: Map) -> Self? {
-		return self.init(map)
+	
+	required init?(_ map: Map) {
+		mapping(map)
 	}
 
 	func mapping(map: Map) {
@@ -515,11 +544,9 @@ class Response<T: Mappable>: Mappable {
 
 class Status: Mappable {
 	var status: Int?
-
-	init(_ map: Map) { mapping(map) }
-
-	class func mapping(map: Map) -> Self? {
-		return self.init(map)
+	
+	required init?(_ map: Map) {
+		mapping(map)
 	}
 
 	func mapping(map: Map) {
@@ -529,11 +556,9 @@ class Status: Mappable {
 
 class Plan: Mappable {
 	var tasks: [Task]?
-
-	init(_ map: Map) { mapping(map) }
-
-	class func mapping(map: Map) -> Self? {
-		return self.init(map)
+	
+	required init?(_ map: Map) {
+		mapping(map)
 	}
 
 	func mapping(map: Map) {
@@ -546,11 +571,9 @@ class Task: Mappable {
 	var percentage: Double?
 
 	init() {}
-
-	init(_ map: Map) { mapping(map) }
-
-	class func mapping(map: Map) -> Self? {
-		return self.init(map)
+	
+	required init?(_ map: Map) {
+		mapping(map)
 	}
 
 	func mapping(map: Map) {
@@ -562,11 +585,9 @@ class Task: Mappable {
 class TaskDictionary: Mappable {
 	var test: String?
 	var tasks: [String : Task]?
-
-	init(_ map: Map) { mapping(map) }
-
-	class func mapping(map: Map) -> Self? {
-		return self.init(map)
+	
+	required init?(_ map: Map) {
+		mapping(map)
 	}
 
 	func mapping(map: Map) {
@@ -584,13 +605,11 @@ struct Student: Mappable {
 	var minor: Int?
 
 	init() {}
-
-	init(_ map: Map) { mapping(map) }
-
-	static func mapping(map: Map) -> Student? {
-		return self.init(map)
-	}
 	
+	init?(_ map: Map) {
+		mapping(map)
+	}
+
 	mutating func mapping(map: Map) {
 		name <- map["name"]
 		UUID <- map["UUID"]
@@ -627,10 +646,8 @@ class User: Mappable {
 
 	init() {}
 
-	init(_ map: Map) { mapping(map) }
-
-	class func mapping(map: Map) -> Self? {
-		return self.init(map)
+	required init?(_ map: Map) {
+		mapping(map)
 	}
 
 	func mapping(map: Map) {
@@ -677,11 +694,9 @@ class TestCollectionOfPrimitives : Mappable {
     var arrayFloat: [Float] = []
 
 	init() {}
-
-	init(_ map: Map) { mapping(map) }
-
-	class func mapping(map: Map) -> Self? {
-		return self.init(map)
+    
+	required init?(_ map: Map) {
+		mapping(map)
 	}
 
     func mapping(map: Map) {
@@ -703,11 +718,9 @@ class Base: Mappable {
 	var base: String?
 
 	init() {}
-
-	init(_ map: Map) { mapping(map) }
-
-	class func mapping(map: Map) -> Self? {
-		return self.init(map)
+	
+	required init?(_ map: Map) {
+		mapping(map)
 	}
 
 	func mapping(map: Map) {
@@ -722,14 +735,10 @@ class Subclass: Base {
 	override init() {
 		super.init()
 	}
-
-	override init(_ map: Map) {
+	
+	required init?(_ map: Map) {
 		super.init(map)
 		mapping(map)
-	}
-
-	override class func mapping(map: Map) -> Self? {
-		return self.init(map)
 	}
 
 	override func mapping(map: Map) {
@@ -748,13 +757,9 @@ class GenericSubclass<T>: Base {
 		super.init()
 	}
 
-	override init(_ map: Map) {
+	required init?(_ map: Map) {
 		super.init(map)
 		mapping(map)
-	}
-
-	override class func mapping(map: Map) -> Self? {
-		return self.init(map)
 	}
 
 	override func mapping(map: Map) {
@@ -767,10 +772,8 @@ class GenericSubclass<T>: Base {
 class WithGenericArray<T: Mappable>: Mappable {
 	var genericItems: [T]?
 
-	init(_ map: Map) { mapping(map) }
-
-	class func mapping(map: Map) -> Self? {
-		return self.init(map)
+	required init?(_ map: Map) {
+		mapping(map)
 	}
 
 	func mapping(map: Map) {
@@ -781,10 +784,8 @@ class WithGenericArray<T: Mappable>: Mappable {
 class ConcreteItem: Mappable {
 	var value: String?
 
-	init(_ map: Map) { mapping(map) }
-
-	class func mapping(map: Map) -> Self? {
-		return self.init(map)
+	required init?(_ map: Map) {
+		mapping(map)
 	}
 
 	func mapping(map: Map) {
@@ -793,5 +794,7 @@ class ConcreteItem: Mappable {
 }
 
 class SubclassWithGenericArrayInSuperclass<Unused>: WithGenericArray<ConcreteItem> {
-
+	required init?(_ map: Map) {
+		super.init(map)
+	}
 }

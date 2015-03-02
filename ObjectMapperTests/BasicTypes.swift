@@ -69,10 +69,8 @@ class BasicTypes: Mappable {
 
 	init() {}
 
-	init(_ map: Map) { mapping(map) }
-
-	class func mapping(map: Map) -> Self? {
-		return self.init(map)
+	required init?(_ map: Map) {
+		mapping(map)
 	}
 	
 	func mapping(map: Map) {
