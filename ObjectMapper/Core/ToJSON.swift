@@ -14,11 +14,10 @@ class ToJSON {
 		var currentKey = key
 
 		// Nested keys
-		var allKeys = currentKey.componentsSeparatedByString(".")
+		let allKeys = currentKey.componentsSeparatedByString(".")
 		if allKeys.count > 1 {
 			currentKey = allKeys.first!
-			allKeys.removeAtIndex(0)
-			let remainingKey = join(".", allKeys)
+			let remainingKey = join(".", Array(allKeys[1..<allKeys.count]))
 
 			var innerDictionary : [String : AnyObject] = [:]
 			basicType(field, key: remainingKey, dictionary: &innerDictionary)
