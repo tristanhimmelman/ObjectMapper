@@ -12,7 +12,7 @@ class ToJSON {
 	
     func basicType<N>(field: N, key: String, inout dictionary: [String : AnyObject]) {
 		var currentKey = key
-
+		
 		// Nested keys
 		let allKeys = currentKey.componentsSeparatedByString(".")
 		if allKeys.count > 1 {
@@ -74,7 +74,21 @@ class ToJSON {
     }
     
     func basicArray(field: Array<AnyObject>, key: String, inout dictionary: [String : AnyObject]){
-        dictionary[key] = field
+		var currentKey = key
+		
+		// Nested keys
+		let allKeys = currentKey.componentsSeparatedByString(".")
+		if allKeys.count > 1 {
+			currentKey = allKeys.first!
+			let remainingKey = join(".", Array(allKeys[1..<allKeys.count]))
+			
+			var innerDictionary : [String : AnyObject] = [:]
+			basicArray(field, key: remainingKey, dictionary: &innerDictionary)
+			dictionary[currentKey] = innerDictionary
+			return
+		}
+		
+        dictionary[currentKey] = field
     }
     
     func optionalBasicArray(field: Array<AnyObject>?, key: String, inout dictionary: [String : AnyObject]){
@@ -84,6 +98,20 @@ class ToJSON {
     }
     
     func basicDictionary(field: Dictionary<String, AnyObject>, key: String, inout dictionary: [String : AnyObject]){
+		var currentKey = key
+		
+		// Nested keys
+		let allKeys = currentKey.componentsSeparatedByString(".")
+		if allKeys.count > 1 {
+			currentKey = allKeys.first!
+			let remainingKey = join(".", Array(allKeys[1..<allKeys.count]))
+			
+			var innerDictionary : [String : AnyObject] = [:]
+			basicDictionary(field, key: remainingKey, dictionary: &innerDictionary)
+			dictionary[currentKey] = innerDictionary
+			return
+		}
+		
         dictionary[key] = field
     }
     
@@ -94,6 +122,20 @@ class ToJSON {
     }
     
     func object<N: Mappable>(field: N, key: String, inout dictionary: [String : AnyObject]) {
+		var currentKey = key
+		
+		// Nested keys
+		let allKeys = currentKey.componentsSeparatedByString(".")
+		if allKeys.count > 1 {
+			currentKey = allKeys.first!
+			let remainingKey = join(".", Array(allKeys[1..<allKeys.count]))
+			
+			var innerDictionary : [String : AnyObject] = [:]
+			object(field, key: remainingKey, dictionary: &innerDictionary)
+			dictionary[currentKey] = innerDictionary
+			return
+		}
+		
         dictionary[key] = Mapper().toJSON(field)
     }
     
@@ -104,6 +146,20 @@ class ToJSON {
     }
     
     func objectArray<N: Mappable>(field: Array<N>, key: String, inout dictionary: [String : AnyObject]) {
+		var currentKey = key
+		
+		// Nested keys
+		let allKeys = currentKey.componentsSeparatedByString(".")
+		if allKeys.count > 1 {
+			currentKey = allKeys.first!
+			let remainingKey = join(".", Array(allKeys[1..<allKeys.count]))
+			
+			var innerDictionary : [String : AnyObject] = [:]
+			objectArray(field, key: remainingKey, dictionary: &innerDictionary)
+			dictionary[currentKey] = innerDictionary
+			return
+		}
+		
 		let JSONObjects = Mapper().toJSONArray(field)
 
 		if !JSONObjects.isEmpty {
@@ -118,6 +174,20 @@ class ToJSON {
     }
     
     func objectDictionary<N: Mappable>(field: Dictionary<String, N>, key: String, inout dictionary: [String : AnyObject]) {
+		var currentKey = key
+		
+		// Nested keys
+		let allKeys = currentKey.componentsSeparatedByString(".")
+		if allKeys.count > 1 {
+			currentKey = allKeys.first!
+			let remainingKey = join(".", Array(allKeys[1..<allKeys.count]))
+			
+			var innerDictionary : [String : AnyObject] = [:]
+			objectDictionary(field, key: remainingKey, dictionary: &innerDictionary)
+			dictionary[currentKey] = innerDictionary
+			return
+		}
+		
 		let JSONObjects = Mapper().toJSONDictionary(field)
 
 		if !JSONObjects.isEmpty {

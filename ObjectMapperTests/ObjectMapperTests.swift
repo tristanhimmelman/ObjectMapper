@@ -176,6 +176,27 @@ class ObjectMapperTests: XCTestCase {
 		}
 	}
 	
+	func testNestedKeyObject(){
+		let nestedUsername = "nested username"
+		
+		let userJSONString = "{\"username\":\"bob\", \"nested\": {\"user\": {\"username\":\"\(nestedUsername)\"} } }"
+		
+		// Test that a nested JSON can be mapped to an object
+		if let user = userMapper.map(string: userJSONString) {
+			
+			// Test that nested keys can be mapped to JSON
+			let userJSONString = userMapper.toJSONString(user, prettyPrint: true)
+			
+			if let user = userMapper.map(string: userJSONString) {
+				XCTAssertEqual(user.nestedUser!.username, nestedUsername, "Height should be the same")
+			} else {
+				XCTAssert(false, "Nested key failed")
+			}
+		} else {
+			XCTAssert(false, "Nested key failed")
+		}
+	}
+	
 	func testNullObject() {
 		let userJSONString = "{\"username\":\"bob\"}"
 		
@@ -646,6 +667,7 @@ class User: Mappable {
     var friendDictionary: [String : User]?
     var friend: User?
     var friends: [User]? = []
+	var nestedUser: User?
     var birthday: NSDate = NSDate()
     var birthdayOpt: NSDate?
     var y2k: NSDate = NSDate()
@@ -678,6 +700,7 @@ class User: Mappable {
 		friendDictionary <- map["friendDictionary"]
 		dictString		 <- map["dictString"]
 		heightInCM		 <- map["height.value"]
+		nestedUser		 <- map["nested.user"]
 		birthday         <- (map["birthday"], DateTransform())
 		birthdayOpt      <- (map["birthdayOpt"], DateTransform())
 		y2k              <- (map["y2k"], ISO8601DateTransform())
