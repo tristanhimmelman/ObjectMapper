@@ -161,13 +161,13 @@ class ObjectMapperTests: XCTestCase {
 
 		// Test that a nested JSON can be mapped to an object
 		if let user = userMapper.map(string: userJSONString) {
-			XCTAssertEqual(user.heightInCM!, heightInCM, "Username should be the same")
+			XCTAssertEqual(user.heightInCM!, heightInCM, "Height should be the same")
 
 			// Test that nested keys can be mapped to JSON
 			let userJSONString = userMapper.toJSONString(user, prettyPrint: true)
 
 			if let user = userMapper.map(string: userJSONString) {
-				XCTAssertEqual(user.heightInCM!, heightInCM, "Username should be the same")
+				XCTAssertEqual(user.heightInCM!, heightInCM, "Height should be the same")
 			} else {
 				XCTAssert(false, "Nested key failed")
 			}
