@@ -738,7 +738,6 @@ class Subclass: Base {
 	
 	required init?(_ map: Map) {
 		super.init(map)
-		mapping(map)
 	}
 
 	override func mapping(map: Map) {
@@ -759,7 +758,6 @@ class GenericSubclass<T>: Base {
 
 	required init?(_ map: Map) {
 		super.init(map)
-		mapping(map)
 	}
 
 	override func mapping(map: Map) {
