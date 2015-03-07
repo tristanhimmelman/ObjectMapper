@@ -11,8 +11,20 @@ import Foundation
 class ToJSON {
 	
     func basicType<N>(field: N, key: String, inout dictionary: [String : AnyObject]) {
-		var temp = dictionary
 		var currentKey = key
+
+		// Nested keys
+		var allKeys = currentKey.componentsSeparatedByString(".")
+		if allKeys.count > 1 {
+			currentKey = allKeys.first!
+			allKeys.removeAtIndex(0)
+			let remainingKey = join(".", allKeys)
+
+			var innerDictionary : [String : AnyObject] = [:]
+			basicType(field, key: remainingKey, dictionary: &innerDictionary)
+			dictionary[currentKey] = innerDictionary
+			return
+		}
 
         switch field {
         // basic Types
