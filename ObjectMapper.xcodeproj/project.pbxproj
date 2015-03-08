@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		37AFD9B91AAD191C00AB59B5 /* CustomDateFormatTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AFD9B81AAD191C00AB59B5 /* CustomDateFormatTransform.swift */; };
 		6A3774341A31427F00CC0AB5 /* BasicTypesTestsToJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3774331A31427F00CC0AB5 /* BasicTypesTestsToJSON.swift */; };
 		6A6AEB961A93874F002573D3 /* BasicTypesTestsFromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6AEB951A93874F002573D3 /* BasicTypesTestsFromJSON.swift */; };
 		6A6AEB981A9387D0002573D3 /* BasicTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6AEB971A9387D0002573D3 /* BasicTypes.swift */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		37AFD9B81AAD191C00AB59B5 /* CustomDateFormatTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDateFormatTransform.swift; sourceTree = "<group>"; };
 		6A3774331A31427F00CC0AB5 /* BasicTypesTestsToJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = BasicTypesTestsToJSON.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		6A6AEB951A93874F002573D3 /* BasicTypesTestsFromJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicTypesTestsFromJSON.swift; sourceTree = "<group>"; };
 		6A6AEB971A9387D0002573D3 /* BasicTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicTypes.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				CD71C8C01A7218AD009D4161 /* TransformOf.swift */,
 				CD50B6FC1A82518300744312 /* TransformType.swift */,
 				6A6C54CF19FE8DB600239454 /* URLTransform.swift */,
+				37AFD9B81AAD191C00AB59B5 /* CustomDateFormatTransform.swift */,
 			);
 			path = Transforms;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37AFD9B91AAD191C00AB59B5 /* CustomDateFormatTransform.swift in Sources */,
 				CD50B6FD1A82518300744312 /* TransformType.swift in Sources */,
 				6AAC8FD319F048FE00E7A677 /* DateTransform.swift in Sources */,
 				D86BDEA41A51E5AD00120819 /* ISO8601DateTransform.swift in Sources */,
