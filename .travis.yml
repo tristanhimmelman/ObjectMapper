@@ -1,0 +1,19 @@
+language: objective-c
+osx_image: xcode611
+
+xcode_project: ObjectMapper.xcodeproj
+xcode_scheme: ObjectMapper
+xcode_sdk:
+  - iphonesimulator8.1
+
+before_install:
+  - brew update
+  - brew outdated xctool || brew upgrade xctool
+
+env:
+  global:
+    - LANG=en_US.UTF-8
+    - LC_ALL=en_US.UTF-8
+
+notifications:
+  email: false

@@ -1,6 +1,8 @@
 ObjectMapper
 ============
 
+[![Build Status](https://travis-ci.org/Hearst-DD/ObjectMapper.svg?branch=master)](https://travis-ci.org/Hearst-DD/ObjectMapper)
+
 ObjectMapper is a framework written in Swift that makes it easy for you to convert your Model objects (Classes and Structs) to and from JSON.
 ##Features:
 - Mapping JSON to objects
