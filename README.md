@@ -148,6 +148,36 @@ Here is a more condensed version of the above:
 id <- (map["id"], TransformOf<Int, String>(fromJSON: { $0?.toInt() }, toJSON: { $0.map { String($0) } }))
 ```
 
+##Subclasses
+Classes that implement the Mappable protocol can easily be subclassed. When subclassing Mappable classes, follow the structure below:
+```
+class Base: Mappable {
+	var base: String?
+	
+	required init?(_ map: Map) {
+		mapping(map)
+	}
+
+	func mapping(map: Map) {
+		base <- map["base"]
+	}
+}
+
+class Subclass: Base {
+	var sub: String?
+
+	required init?(_ map: Map) {
+		super.init(map)
+	}
+
+	override func mapping(map: Map) {
+		super.mapping(map)
+		
+		sub <- map["sub"]
+	}
+}
+```
+
 <!-- ##To Do -->
 
 ##Installation
