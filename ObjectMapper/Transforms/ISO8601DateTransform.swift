@@ -8,30 +8,14 @@
 
 import Foundation
 
-public class ISO8601DateTransform: TransformType {
-	public typealias Object = NSDate
-	public typealias JSON = String
+public class ISO8601DateTransform: DateFormaterTransform {
 
-	public init() {}
-
-	private lazy var dateFormatter: NSDateFormatter = {
+	public init() {
 		let formatter = NSDateFormatter()
 		formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
 		formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
-		return formatter
-	}()
-
-	public func transformFromJSON(value: AnyObject?) -> NSDate? {
-		if let dateString = value as? String {
-			return dateFormatter.dateFromString(dateString)
-		}
-		return nil
+		
+		super.init(dateFormatter: formatter)
 	}
-
-	public func transformToJSON(value: NSDate?) -> String? {
-		if let date = value {
-			return dateFormatter.stringFromDate(date)
-		}
-		return nil
-	}
+	
 }
