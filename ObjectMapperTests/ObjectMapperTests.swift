@@ -257,6 +257,7 @@ class ObjectMapperTests: XCTestCase {
         user.y2k = NSDate(timeIntervalSince1970: 946684800)
         user.imageURL = NSURL(string: "http://google.com/image/1234")
         user.intWithString = 12345
+		user.int64Value = INT64_MAX
         
         let jsonString = Mapper().toJSONString(user, prettyPrint: true)
         println(jsonString)
@@ -269,6 +270,7 @@ class ObjectMapperTests: XCTestCase {
 			XCTAssertEqual(user.smoker!, parsedUser.smoker!, "Smoker should be the same")
 			XCTAssertEqual(user.imageURL!, parsedUser.imageURL!, "Image URL should be the same")
 			XCTAssertEqual(user.intWithString, parsedUser.intWithString, "Int value from/to String should be the same")
+			XCTAssert(user.int64Value == parsedUser.int64Value, "int64Type should be the same")
 			//        XCTAssert(user.birthday.compare(parsedUser.birthday) == .OrderedSame, "Birthday should be the same")
 			XCTAssert(user.y2k.compare(parsedUser.y2k) == .OrderedSame, "Y2k should be the same")
 		} else {
@@ -674,6 +676,7 @@ class User: Mappable {
     var y2kOpt: NSDate?
     var imageURL: NSURL?
     var intWithString: Int = 0
+	var int64Value: Int64 = 0
 	var heightInCM: Double?
 
 	init() {}
@@ -707,6 +710,7 @@ class User: Mappable {
 		y2kOpt           <- (map["y2kOpt"], ISO8601DateTransform())
 		imageURL         <- (map["imageURL"], URLTransform())
 		intWithString    <- (map["intWithString"], TransformOf<Int, String>(fromJSON: { $0?.toInt() }, toJSON: { $0.map { String($0) } }))
+		int64Value       <- (map["int64Value"], TransformOf<Int64, NSNumber>(fromJSON: { $0?.longLongValue }, toJSON: { $0.map { NSNumber(longLong: $0) } }))
 	}
 	
     var description : String {

@@ -27,6 +27,8 @@ class ToJSON {
 
         switch field {
         // basic Types
+		case let x as NSNumber:
+			dictionary[currentKey] = x
         case let x as Bool:
             dictionary[currentKey] = x
         case let x as Int:
@@ -39,6 +41,8 @@ class ToJSON {
             dictionary[currentKey] = x
 
         // Arrays with basic types
+		case let x as Array<NSNumber>:
+			dictionary[currentKey] = x
         case let x as Array<Bool>:
             dictionary[currentKey] = x
         case let x as Array<Int>:
@@ -51,6 +55,8 @@ class ToJSON {
             dictionary[currentKey] = x
 			
         // Dictionaries with basic types
+		case let x as Dictionary<String, NSNumber>:
+			dictionary[currentKey] = x
         case let x as Dictionary<String, Bool>:
             dictionary[currentKey] = x
         case let x as Dictionary<String, Int>:
