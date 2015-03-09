@@ -393,39 +393,6 @@ class ObjectMapperTests: XCTestCase {
 		XCTAssertEqual(taskId3, task3.taskId!, "TaskId3 was not mapped correctly")
 		XCTAssertEqual(percentage3, task3.percentage!, "percentage3 was not mapped correctly")
 	}
-
-    func testJsonToObjectModelOptionalDictionnaryOfPrimitives() {
-        var json = ["dictStringString":["string": "string"], "dictStringBool":["string": false], "dictStringInt":["string": 1], "dictStringDouble":["string": 1.1], "dictStringFloat":["string": 1.2]]
-        
-        let mapper = Mapper<TestCollectionOfPrimitives>()
-        let testSet = mapper.map(json)
-        
-        XCTAssertTrue(testSet.dictStringString.count == 1)
-        XCTAssertTrue(testSet.dictStringInt.count == 1)
-        XCTAssertTrue(testSet.dictStringBool.count == 1)
-        XCTAssertTrue(testSet.dictStringDouble.count == 1)
-        XCTAssertTrue(testSet.dictStringFloat.count == 1)
-    }
-    
-    func testObjectToModelDictionnaryOfPrimitives() {
-        var object = TestCollectionOfPrimitives()
-        object.dictStringString = ["string": "string"]
-        object.dictStringBool = ["string": false]
-        object.dictStringInt = ["string": 1]
-        object.dictStringDouble = ["string": 1.2]
-        object.dictStringFloat = ["string": 1.3]
-        
-        let json = Mapper<TestCollectionOfPrimitives>().toJSON(object)
-        
-        XCTAssertTrue((json["dictStringString"] as [String:String]).count == 1)
-        XCTAssertTrue((json["dictStringBool"] as [String:Bool]).count == 1)
-        XCTAssertTrue((json["dictStringInt"] as [String:Int]).count == 1)
-        XCTAssertTrue((json["dictStringDouble"] as [String:Double]).count == 1)
-        XCTAssertTrue((json["dictStringFloat"] as [String:Float]).count == 1)
-        let dict:[String: String] = json["dictStringString"] as [String:String]
-        let value = dict["string"]! as String
-        XCTAssertTrue(value == "string")
-    }
 	
 	func testSubclass() {
 		var object = Subclass()
@@ -664,38 +631,6 @@ class User: Mappable {
 		heightInCM		 <- map["height.value"]
 		nestedUser		 <- map["nested.user"]
 	}
-}
-
-class TestCollectionOfPrimitives : Mappable {
-    var dictStringString: [String: String] = [:]
-    var dictStringInt: [String: Int] = [:]
-    var dictStringBool: [String: Bool] = [:]
-    var dictStringDouble: [String: Double] = [:]
-    var dictStringFloat: [String: Float] = [:]
-    var arrayString: [String] = []
-    var arrayInt: [Int] = []
-    var arrayBool: [Bool] = []
-    var arrayDouble: [Double] = []
-    var arrayFloat: [Float] = []
-
-	init() {}
-    
-	required init?(_ map: Map) {
-		mapping(map)
-	}
-
-    func mapping(map: Map) {
-        dictStringString    <- map["dictStringString"]
-        dictStringBool      <- map["dictStringBool"]
-        dictStringInt       <- map["dictStringInt"]
-        dictStringDouble    <- map["dictStringDouble"]
-        dictStringFloat     <- map["dictStringFloat"]
-        arrayString         <- map["arrayString"]
-        arrayInt            <- map["arrayInt"]
-        arrayBool           <- map["arrayBool"]
-        arrayDouble         <- map["arrayDouble"]
-        arrayFloat          <- map["arrayFloat"]
-    }
 }
 
 class Base: Mappable {

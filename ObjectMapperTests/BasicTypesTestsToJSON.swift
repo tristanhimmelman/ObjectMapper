@@ -378,4 +378,23 @@ class BasicTypesTestsToJSON: XCTestCase {
 		}
 	}
 
+	func testObjectToModelDictionnaryOfPrimitives() {
+		var object = TestCollectionOfPrimitives()
+		object.dictStringString = ["string": "string"]
+		object.dictStringBool = ["string": false]
+		object.dictStringInt = ["string": 1]
+		object.dictStringDouble = ["string": 1.2]
+		object.dictStringFloat = ["string": 1.3]
+		
+		let json = Mapper<TestCollectionOfPrimitives>().toJSON(object)
+		
+		XCTAssertTrue((json["dictStringString"] as [String:String]).count == 1)
+		XCTAssertTrue((json["dictStringBool"] as [String:Bool]).count == 1)
+		XCTAssertTrue((json["dictStringInt"] as [String:Int]).count == 1)
+		XCTAssertTrue((json["dictStringDouble"] as [String:Double]).count == 1)
+		XCTAssertTrue((json["dictStringFloat"] as [String:Float]).count == 1)
+		let dict:[String: String] = json["dictStringString"] as [String:String]
+		let value = dict["string"]! as String
+		XCTAssertTrue(value == "string")
+	}
 }

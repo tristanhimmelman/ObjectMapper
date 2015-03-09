@@ -132,3 +132,35 @@ class BasicTypes: Mappable {
 		dictAnyObjectImplicitlyUnwrapped	<- map["dictAnyObjectImp"]
 	}
 }
+
+class TestCollectionOfPrimitives : Mappable {
+	var dictStringString: [String: String] = [:]
+	var dictStringInt: [String: Int] = [:]
+	var dictStringBool: [String: Bool] = [:]
+	var dictStringDouble: [String: Double] = [:]
+	var dictStringFloat: [String: Float] = [:]
+	var arrayString: [String] = []
+	var arrayInt: [Int] = []
+	var arrayBool: [Bool] = []
+	var arrayDouble: [Double] = []
+	var arrayFloat: [Float] = []
+	
+	init() {}
+	
+	required init?(_ map: Map) {
+		mapping(map)
+	}
+	
+	func mapping(map: Map) {
+		dictStringString    <- map["dictStringString"]
+		dictStringBool      <- map["dictStringBool"]
+		dictStringInt       <- map["dictStringInt"]
+		dictStringDouble    <- map["dictStringDouble"]
+		dictStringFloat     <- map["dictStringFloat"]
+		arrayString         <- map["arrayString"]
+		arrayInt            <- map["arrayInt"]
+		arrayBool           <- map["arrayBool"]
+		arrayDouble         <- map["arrayDouble"]
+		arrayFloat          <- map["arrayFloat"]
+	}
+}
