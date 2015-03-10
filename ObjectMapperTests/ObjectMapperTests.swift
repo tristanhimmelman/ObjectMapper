@@ -142,57 +142,11 @@ class ObjectMapperTests: XCTestCase {
         XCTAssertEqual(user.photoCount, photoCount, "photo count should be the same")
     }
     
-	func testNestedKeys(){
-		let heightInCM = 180.0
-		let heightText = "6 feet tall"
-		
-		let userJSONString = "{\"username\":\"bob\", \"height\": {\"value\": \(heightInCM), \"text\": \"\(heightText)\"} }"
-
-		// Test that a nested JSON can be mapped to an object
-		if let user = userMapper.map(string: userJSONString) {
-			XCTAssert(user.heightInCM == heightInCM, "Height should be the same")
-			XCTAssert(user.heightText == heightText, "Height text should be the same")
-
-			// Test that nested keys can be mapped to JSON
-			let userJSONString = userMapper.toJSONString(user, prettyPrint: true)
-
-			if let user = userMapper.map(string: userJSONString) {
-				XCTAssert(user.heightInCM == heightInCM, "Height should be the same")
-				XCTAssert(user.heightText == heightText, "Height text should be the same")
-			} else {
-				XCTAssert(false, "Nested key failed")
-			}
-		} else {
-			XCTAssert(false, "Nested key failed")
-		}
-	}
-	
-	func testNestedKeyObject(){
-		let nestedUsername = "nested username"
-		
-		let userJSONString = "{\"username\":\"bob\", \"nested\": {\"user\": {\"username\":\"\(nestedUsername)\"} } }"
-		
-		// Test that a nested JSON can be mapped to an object
-		if let user = userMapper.map(string: userJSONString) {
-			
-			// Test that nested keys can be mapped to JSON
-			let userJSONString = userMapper.toJSONString(user, prettyPrint: true)
-			
-			if let user = userMapper.map(string: userJSONString) {
-				XCTAssertEqual(user.nestedUser!.username, nestedUsername, "Height should be the same")
-			} else {
-				XCTAssert(false, "Nested key failed")
-			}
-		} else {
-			XCTAssert(false, "Nested key failed")
-		}
-	}
-	
 	func testNullObject() {
 		let userJSONString = "{\"username\":\"bob\"}"
 		
 		if let user = userMapper.map(string: userJSONString) {
-			XCTAssert(user.heightInCM == nil, "Username should be the same")
+			XCTAssert(user.age == nil, "Username should be the same")
 		} else {
 			XCTAssert(false, "Null Object failed")
 		}
@@ -605,9 +559,6 @@ class User: Mappable {
     var friendDictionary: [String : User]?
     var friend: User?
     var friends: [User]? = []
-	var nestedUser: User?
-	var heightInCM: Double?
-	var heightText: String?
 
 	init() {}
 
@@ -632,9 +583,6 @@ class User: Mappable {
 		friends          <- map["friends"]
 		friendDictionary <- map["friendDictionary"]
 		dictString		 <- map["dictString"]
-		heightInCM		 <- map["height.value"]
-		heightText		 <- map["height.text"]
-		nestedUser		 <- map["nested.user"]
 	}
 }
 
