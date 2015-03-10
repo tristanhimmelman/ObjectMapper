@@ -144,18 +144,21 @@ class ObjectMapperTests: XCTestCase {
     
 	func testNestedKeys(){
 		let heightInCM = 180.0
+		let heightText = "6 feet tall"
 		
-		let userJSONString = "{\"username\":\"bob\", \"height\": {\"value\": \(heightInCM), \"text\": \"6 feet tall\"} }"
+		let userJSONString = "{\"username\":\"bob\", \"height\": {\"value\": \(heightInCM), \"text\": \"\(heightText)\"} }"
 
 		// Test that a nested JSON can be mapped to an object
 		if let user = userMapper.map(string: userJSONString) {
-			XCTAssertEqual(user.heightInCM!, heightInCM, "Height should be the same")
+			XCTAssert(user.heightInCM == heightInCM, "Height should be the same")
+			XCTAssert(user.heightText == heightText, "Height text should be the same")
 
 			// Test that nested keys can be mapped to JSON
 			let userJSONString = userMapper.toJSONString(user, prettyPrint: true)
 
 			if let user = userMapper.map(string: userJSONString) {
-				XCTAssertEqual(user.heightInCM!, heightInCM, "Height should be the same")
+				XCTAssert(user.heightInCM == heightInCM, "Height should be the same")
+				XCTAssert(user.heightText == heightText, "Height text should be the same")
 			} else {
 				XCTAssert(false, "Nested key failed")
 			}
@@ -604,6 +607,7 @@ class User: Mappable {
     var friends: [User]? = []
 	var nestedUser: User?
 	var heightInCM: Double?
+	var heightText: String?
 
 	init() {}
 
@@ -629,6 +633,7 @@ class User: Mappable {
 		friendDictionary <- map["friendDictionary"]
 		dictString		 <- map["dictString"]
 		heightInCM		 <- map["height.value"]
+		heightText		 <- map["height.text"]
 		nestedUser		 <- map["nested.user"]
 	}
 }
