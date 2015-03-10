@@ -19,7 +19,7 @@ class ToJSON {
 			currentKey = allKeys.first!
 			let remainingKey = join(".", Array(allKeys[1..<allKeys.count]))
 
-			var innerDictionary : [String : AnyObject] = [:]
+			var innerDictionary = (dictionary[currentKey] as? [String : AnyObject]) ?? [:]
 			basicType(field, key: remainingKey, dictionary: &innerDictionary)
 			dictionary[currentKey] = innerDictionary
 			return
@@ -88,7 +88,7 @@ class ToJSON {
 			currentKey = allKeys.first!
 			let remainingKey = join(".", Array(allKeys[1..<allKeys.count]))
 			
-			var innerDictionary : [String : AnyObject] = [:]
+			var innerDictionary = (dictionary[currentKey] as? [String : AnyObject]) ?? [:]
 			basicArray(field, key: remainingKey, dictionary: &innerDictionary)
 			dictionary[currentKey] = innerDictionary
 			return
@@ -112,7 +112,7 @@ class ToJSON {
 			currentKey = allKeys.first!
 			let remainingKey = join(".", Array(allKeys[1..<allKeys.count]))
 			
-			var innerDictionary : [String : AnyObject] = [:]
+			var innerDictionary = (dictionary[currentKey] as? [String : AnyObject]) ?? [:]
 			basicDictionary(field, key: remainingKey, dictionary: &innerDictionary)
 			dictionary[currentKey] = innerDictionary
 			return
@@ -136,7 +136,7 @@ class ToJSON {
 			currentKey = allKeys.first!
 			let remainingKey = join(".", Array(allKeys[1..<allKeys.count]))
 			
-			var innerDictionary : [String : AnyObject] = [:]
+			var innerDictionary = (dictionary[currentKey] as? [String : AnyObject]) ?? [:]
 			object(field, key: remainingKey, dictionary: &innerDictionary)
 			dictionary[currentKey] = innerDictionary
 			return
@@ -160,7 +160,7 @@ class ToJSON {
 			currentKey = allKeys.first!
 			let remainingKey = join(".", Array(allKeys[1..<allKeys.count]))
 			
-			var innerDictionary : [String : AnyObject] = [:]
+			var innerDictionary = (dictionary[currentKey] as? [String : AnyObject]) ?? [:]
 			objectArray(field, key: remainingKey, dictionary: &innerDictionary)
 			dictionary[currentKey] = innerDictionary
 			return
@@ -188,7 +188,7 @@ class ToJSON {
 			currentKey = allKeys.first!
 			let remainingKey = join(".", Array(allKeys[1..<allKeys.count]))
 			
-			var innerDictionary : [String : AnyObject] = [:]
+			var innerDictionary = (dictionary[currentKey] as? [String : AnyObject]) ?? [:]
 			objectDictionary(field, key: remainingKey, dictionary: &innerDictionary)
 			dictionary[currentKey] = innerDictionary
 			return
