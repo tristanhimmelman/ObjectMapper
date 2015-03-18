@@ -72,7 +72,7 @@ class CustomTransformTests: XCTestCase {
 		
 		let JSONOutput = mapper.toJSON(transform)
 		
-		XCTAssert(JSONOutput["customFormateDate"]! as String == dateString, "CustomFormatDateTransform failed")
+		XCTAssert(JSONOutput["customFormateDate"]! as! String == dateString, "CustomFormatDateTransform failed")
 	}
 	
 	func testIntToStringTransformOf() {
