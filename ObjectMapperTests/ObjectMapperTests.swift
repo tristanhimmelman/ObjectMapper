@@ -199,7 +199,7 @@ class ObjectMapperTests: XCTestCase {
         let jsonString = Mapper().toJSONString(user, prettyPrint: true)
         println(jsonString)
 
-		let parsedUser = userMapper.map(string: jsonString)!
+		let parsedUser = userMapper.map(string: jsonString!)!
 		expect(parsedUser).notTo(beNil())
 		expect(user.identifier).to(equal(parsedUser.identifier))
 		expect(user.photoCount).to(equal(parsedUser.photoCount))
