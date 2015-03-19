@@ -9,6 +9,7 @@
 import UIKit
 import XCTest
 import ObjectMapper
+import Nimble
 
 class ObjectMapperTests: XCTestCase {
 
@@ -29,16 +30,16 @@ class ObjectMapperTests: XCTestCase {
 		let JSON = [ "prop1": "Immutable!", "prop2": 255, "prop3": true ]
 
 		let immutable = mapper.map(JSON)
-		XCTAssertEqual(immutable.prop1, "Immutable!")
-		XCTAssertEqual(immutable.prop2, 255)
-		XCTAssertEqual(immutable.prop3, true)
+		expect(immutable.prop1).to(equal("Immutable!"))
+		expect(immutable.prop2).to(equal(255))
+		expect(immutable.prop3).to(equal(true))
 
 		let JSON2 = [ "prop1": "prop1", "prop2": NSNull() ]
 		let immutable2 = mapper.map(JSON2)
-		XCTAssert(immutable2 == nil)
+		expect(immutable2).to(beNil())
 
 		let JSONFromObject = mapper.toJSON(immutable)
-		XCTAssert(mapper.map(JSONFromObject) == immutable)
+		expect(mapper.map(JSONFromObject)).to(equal(immutable))
 	}
 
     func testBasicParsing() {
@@ -60,23 +61,21 @@ class ObjectMapperTests: XCTestCase {
         let subUserJSON = "{\"identifier\" : \"user8723\", \"drinker\" : true, \"age\": 17, \"username\" : \"sub user\" }"
         
         let userJSONString = "{\"username\":\"\(username)\",\"identifier\":\"\(identifier)\",\"photoCount\":\(photoCount),\"age\":\(age),\"drinker\":\(drinker),\"smoker\":\(smoker), \"arr\":[ \"bla\", true, 42 ], \"dict\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"arrOpt\":[ \"bla\", true, 42 ], \"dictOpt\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"weight\": \(weight), \"float\": \(float), \"friend\": \(subUserJSON), \"friendDictionary\":{ \"bestFriend\": \(subUserJSON)}}"
-		
-		if let user = userMapper.map(string: userJSONString) {
-			XCTAssertEqual(username, user.username, "Username should be the same")
-			XCTAssertEqual(identifier, user.identifier!, "Identifier should be the same")
-			XCTAssertEqual(photoCount, user.photoCount, "PhotoCount should be the same")
-			XCTAssertEqual(age, user.age!, "Age should be the same")
-			XCTAssertEqual(weight, user.weight!, "Weight should be the same")
-			XCTAssertEqual(float, user.float!, "float should be the same")
-			XCTAssertEqual(drinker, user.drinker, "Drinker should be the same")
-			XCTAssertEqual(smoker, user.smoker!, "Smoker should be the same")
 
-			//println(Mapper().toJSONString(user, prettyPrint: true))
-		} else {
-			XCTAssert(false, "Mapping user object failed")
-		}
+		let user = userMapper.map(string: userJSONString)!
+		expect(user).notTo(beNil())
+		expect(username).to(equal(user.username))
+		expect(identifier).to(equal(user.identifier))
+		expect(photoCount).to(equal(user.photoCount))
+		expect(age).to(equal(user.age))
+		expect(weight).to(equal(user.weight))
+		expect(float).to(equal(user.float))
+		expect(drinker).to(equal(user.drinker))
+		expect(smoker).to(equal(user.smoker))
+
+		//println(Mapper().toJSONString(user, prettyPrint: true))
     }
-	
+
     func testInstanceParsing() {
         let username = "John Doe"
         let identifier = "user8723"
@@ -98,15 +97,15 @@ class ObjectMapperTests: XCTestCase {
         let userJSONString = "{\"username\":\"\(username)\",\"identifier\":\"\(identifier)\",\"photoCount\":\(photoCount),\"age\":\(age),\"drinker\":\(drinker),\"smoker\":\(smoker), \"arr\":[ \"bla\", true, 42 ], \"dict\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"arrOpt\":[ \"bla\", true, 42 ], \"dictOpt\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 },\"weight\": \(weight), \"float\": \(float), \"friend\": \(subUserJSON), \"friendDictionary\":{ \"bestFriend\": \(subUserJSON)}}"
         
         let user = Mapper().map(string: userJSONString, toObject: User())
-        
-        XCTAssertEqual(username, user.username, "Username should be the same")
-        XCTAssertEqual(identifier, user.identifier!, "Identifier should be the same")
-        XCTAssertEqual(photoCount, user.photoCount, "PhotoCount should be the same")
-        XCTAssertEqual(age, user.age!, "Age should be the same")
-        XCTAssertEqual(weight, user.weight!, "Weight should be the same")
-        XCTAssertEqual(float, user.float!, "float should be the same")
-        XCTAssertEqual(drinker, user.drinker, "Drinker should be the same")
-        XCTAssertEqual(smoker, user.smoker!, "Smoker should be the same")
+
+		expect(username).to(equal(user.username))
+		expect(identifier).to(equal(user.identifier))
+		expect(photoCount).to(equal(user.photoCount))
+		expect(age).to(equal(user.age))
+		expect(weight).to(equal(user.weight))
+		expect(float).to(equal(user.float))
+		expect(drinker).to(equal(user.drinker))
+		expect(smoker).to(equal(user.smoker))
 
         println(Mapper().toJSONString(user, prettyPrint: true))
     }
@@ -123,12 +122,12 @@ class ObjectMapperTests: XCTestCase {
         var s = Student()
         s.minor = minor
         let student = Mapper().map(json, toObject: s)
-        
-        XCTAssertEqual(student.name!, name, "Names should be the same")
-        XCTAssertEqual(student.UUID!, UUID, "UUID should be the same")
-        XCTAssertEqual(student.major!, major, "major should be the same")
-        XCTAssertEqual(student.minor!, minor, "minor should be the same")
-        
+
+		expect(student.name).to(equal(name))
+		expect(student.UUID).to(equal(UUID))
+		expect(student.major).to(equal(major))
+		expect(student.minor).to(equal(minor))
+
         //Test that mapping a reference type works as expected while not relying on the return value
         var username: String = "Barack Obama"
         var identifier: String = "Political"
@@ -137,19 +136,17 @@ class ObjectMapperTests: XCTestCase {
         let json2: [String: AnyObject] = ["username": username, "identifier": identifier, "photoCount": photoCount]
         let user = User()
         Mapper().map(json2, toObject: user)
-        XCTAssertEqual(user.username, username, "Usernames should be the same")
-        XCTAssertEqual(user.identifier!, identifier, "identifiers should be the same")
-        XCTAssertEqual(user.photoCount, photoCount, "photo count should be the same")
+		expect(user.username).to(equal(username))
+		expect(user.identifier).to(equal(identifier))
+		expect(user.photoCount).to(equal(photoCount))
     }
     
 	func testNullObject() {
 		let userJSONString = "{\"username\":\"bob\"}"
-		
-		if let user = userMapper.map(string: userJSONString) {
-			XCTAssert(user.age == nil, "Username should be the same")
-		} else {
-			XCTAssert(false, "Null Object failed")
-		}
+
+		let user = userMapper.map(string: userJSONString)
+		expect(user).notTo(beNil())
+		expect(user?.age).to(beNil())
 	}
 	
 	func testToObjectFromString() {
@@ -160,8 +157,8 @@ class ObjectMapperTests: XCTestCase {
 		user.username = "Tristan"
 		
 		Mapper().map(string: userJSONString, toObject: user)
-		
-		XCTAssert(user.username == username, "Username should be the same")
+
+		expect(user.username).to(equal(username))
 	}
 	
 	func testToObjectFromJSON() {
@@ -172,8 +169,8 @@ class ObjectMapperTests: XCTestCase {
 		user.username = "Tristan"
 		
 		Mapper().map(userJSON, toObject: user)
-		
-		XCTAssert(user.username == username, "Username should be the same")
+
+		expect(user.username).to(equal(username))
 	}
 	
 	func testToObjectFromAnyObject() {
@@ -184,8 +181,8 @@ class ObjectMapperTests: XCTestCase {
 		user.username = "Tristan"
 		
 		Mapper().map(userJSON as AnyObject?, toObject: user)
-		
-		XCTAssert(user.username == username, "Username should be the same")
+
+		expect(user.username).to(equal(username))
 	}
 	
     func testToJSONAndBack(){
@@ -201,31 +198,30 @@ class ObjectMapperTests: XCTestCase {
         
         let jsonString = Mapper().toJSONString(user, prettyPrint: true)
         println(jsonString)
-		if let parsedUser = userMapper.map(string: jsonString) {
-			XCTAssertEqual(user.identifier!, parsedUser.identifier!, "Identifier should be the same")
-			XCTAssertEqual(user.photoCount, parsedUser.photoCount, "PhotoCount should be the same")
-			XCTAssertEqual(user.age!, parsedUser.age!, "Age should be the same")
-			XCTAssertEqual(user.weight!, parsedUser.weight!, "Weight should be the same")
-			XCTAssertEqual(user.drinker, parsedUser.drinker, "Drinker should be the same")
-			XCTAssertEqual(user.smoker!, parsedUser.smoker!, "Smoker should be the same")
-		} else {
-			XCTAssert(false, "to JSON and back failed")
-		}
+
+		let parsedUser = userMapper.map(string: jsonString)!
+		expect(parsedUser).notTo(beNil())
+		expect(user.identifier).to(equal(parsedUser.identifier))
+		expect(user.photoCount).to(equal(parsedUser.photoCount))
+		expect(user.age).to(equal(parsedUser.age))
+		expect(user.weight).to(equal(parsedUser.weight))
+		expect(user.drinker).to(equal(parsedUser.drinker))
+		expect(user.smoker).to(equal(parsedUser.smoker))
     }
 
     func testUnknownPropertiesIgnored() {
         let userJSONString = "{\"username\":\"bob\",\"identifier\":\"bob1987\", \"foo\" : \"bar\", \"fooArr\" : [ 1, 2, 3], \"fooObj\" : { \"baz\" : \"qux\" } }"
 		let user = userMapper.map(string: userJSONString)
-	
-		XCTAssert(user != nil, "User should not be nil")
+
+		expect(user).notTo(beNil())
     }
     
     func testInvalidJsonResultsInNilObject() {
         let userJSONString = "{\"username\":\"bob\",\"identifier\":\"bob1987\"" // missing ending brace
 
         let user = userMapper.map(string: userJSONString)
-	
-        XCTAssert(user == nil, "User should be nil due to invalid JSON")
+
+		expect(user).to(beNil())
     }
 	
 	func testMapArrayJSON(){
@@ -236,10 +232,10 @@ class ObjectMapperTests: XCTestCase {
 	
 		let students = Mapper<Student>().mapArray(string: arrayJSONString)
 
-		XCTAssert(!students.isEmpty, "Student Array should not be empty")
-		XCTAssert(students.count == 2, "There should be 2 students in array")
-		XCTAssert(students[0].name == name1, "First student's does not match")
-		XCTAssert(students[1].name == name2, "Second student's does not match")
+		expect(students).notTo(beEmpty())
+		expect(students.count).to(equal(2))
+		expect(students[0].name).to(equal(name1))
+		expect(students[1].name).to(equal(name2))
 	}
 
 	// test mapArray() with JSON string that is not an array form
@@ -251,9 +247,9 @@ class ObjectMapperTests: XCTestCase {
 		
 		let students = Mapper<Student>().mapArray(string: arrayJSONString)
 
-		XCTAssert(!students.isEmpty, "Student Array should not be empty")
-		XCTAssert(students.count == 1, "There should be 1 student in array")
-		XCTAssert(students[0].name == name1, "First student's does not match")
+		expect(students).notTo(beEmpty())
+		expect(students.count).to(equal(1))
+		expect(students[0].name).to(equal(name1))
 	}
 
 	func testArrayOfCustomObjects(){
@@ -263,16 +259,11 @@ class ObjectMapperTests: XCTestCase {
 		let JSON = "{ \"tasks\": [{\"taskId\":103,\"percentage\":\(percentage1)},{\"taskId\":108,\"percentage\":\(percentage2)}] }"
 		
 		let plan = Mapper<Plan>().map(string: JSON)
-		
-		if let tasks = plan?.tasks {
-			let task1 = tasks[0]
-			XCTAssertEqual(task1.percentage!, percentage1, "Percentage 1 should be the same")
-			
-			let task2 = tasks[1]
-			XCTAssertEqual(task2.percentage!, percentage2, "Percentage 2 should be the same")
-		} else {
-			XCTAssert(false, "Tasks not mapped")
-		}
+
+		let tasks = plan?.tasks
+		expect(tasks).notTo(beNil())
+		expect(tasks?[0].percentage).to(equal(percentage1))
+		expect(tasks?[1].percentage).to(equal(percentage2))
 	}
 	
 	func testDictionaryOfCustomObjects(){
@@ -282,11 +273,9 @@ class ObjectMapperTests: XCTestCase {
 		let JSON = "{\"tasks\": { \"task1\": {\"taskId\":103,\"percentage\":\(percentage1)}, \"task2\": {\"taskId\":108,\"percentage\":\(percentage2)}}}"
 		
 		let taskDict = Mapper<TaskDictionary>().map(string: JSON)
-		if let task = taskDict?.tasks?["task1"] {
-			XCTAssertEqual(task.percentage!, percentage1, "Percentage 1 should be the same")
-		} else {
-			XCTAssert(false, "Dictionary not mapped")
-		}
+		let task = taskDict?.tasks?["task1"]
+		expect(task).notTo(beNil())
+		expect(task?.percentage).to(equal(percentage1))
 	}
 	
 	func testDoubleParsing(){
@@ -295,12 +284,9 @@ class ObjectMapperTests: XCTestCase {
 		let JSON = "{\"taskId\":103,\"percentage\":\(percentage1)}"
 		
 		let task = Mapper<Task>().map(string: JSON)
-		
-		if let task = task {
-			XCTAssertEqual(task.percentage!, percentage1, "Percentage 1 should be the same")
-		} else {
-			XCTAssert(false, "Task not mapped")
-		}
+
+		expect(task).notTo(beNil())
+		expect(task?.percentage).to(equal(percentage1))
 	}
 	
 	func testMappingAGenericObject(){
@@ -308,12 +294,10 @@ class ObjectMapperTests: XCTestCase {
 		let JSON = "{\"result\":{\"code\":\(code)}}"
 		
 		let response = Mapper<Response<Status>>().map(string: JSON)
-		
-		if let status = response?.result?.status {
-			XCTAssertEqual(status, code, "Code was not mapped correctly")
-		} else {
-			XCTAssert(false, "Generic object FAILED to map")
-		}
+
+		let status = response?.result?.status
+		expect(status).notTo(beNil())
+		expect(status).to(equal(code))
 	}
 
 	func testToJSONArray(){
@@ -332,23 +316,23 @@ class ObjectMapperTests: XCTestCase {
 		let JSONArray = Mapper().toJSONArray(taskArray)
 		println(JSONArray)
 		
-		let taskId1 = JSONArray[0]["taskId"] as Int
-		let percentage1 = JSONArray[0]["percentage"] as Double
-		
-		XCTAssertEqual(taskId1, task1.taskId!, "TaskId1 was not mapped correctly")
-		XCTAssertEqual(percentage1, task1.percentage!, "percentage1 was not mapped correctly")
+		let taskId1 = JSONArray[0]["taskId"] as? Int
+		let percentage1 = JSONArray[0]["percentage"] as? Double
 
-		let taskId2 = JSONArray[1]["taskId"] as Int
-		let percentage2 = JSONArray[1]["percentage"] as Double
+		expect(taskId1).to(equal(task1.taskId))
+		expect(percentage1).to(equal(task1.percentage))
+
+		let taskId2 = JSONArray[1]["taskId"] as? Int
+		let percentage2 = JSONArray[1]["percentage"] as? Double
 		
-		XCTAssertEqual(taskId2, task2.taskId!, "TaskId2 was not mapped correctly")
-		XCTAssertEqual(percentage2, task2.percentage!, "percentage2 was not mapped correctly")
+		expect(taskId2).to(equal(task2.taskId))
+		expect(percentage2).to(equal(task2.percentage))
+
+		let taskId3 = JSONArray[2]["taskId"] as? Int
+		let percentage3 = JSONArray[2]["percentage"] as? Double
 		
-		let taskId3 = JSONArray[2]["taskId"] as Int
-		let percentage3 = JSONArray[2]["percentage"] as Double
-		
-		XCTAssertEqual(taskId3, task3.taskId!, "TaskId3 was not mapped correctly")
-		XCTAssertEqual(percentage3, task3.percentage!, "percentage3 was not mapped correctly")
+		expect(taskId3).to(equal(task3.taskId))
+		expect(percentage3).to(equal(task3.percentage))
 	}
 	
 	func testSubclass() {
@@ -358,9 +342,9 @@ class ObjectMapperTests: XCTestCase {
 		
 		let json = Mapper().toJSON(object)
 		let parsedObject = Mapper<Subclass>().map(json)
-		
-		XCTAssert(object.base! == parsedObject.base!, "base class var was not mapped")
-		XCTAssert(object.sub! == parsedObject.sub!, "sub class var was not mapped")
+
+		expect(object.base).to(equal(parsedObject.base))
+		expect(object.sub).to(equal(parsedObject.sub))
 	}
 
 	func testGenericSubclass() {
@@ -370,19 +354,17 @@ class ObjectMapperTests: XCTestCase {
 		
 		let json = Mapper().toJSON(object)
 		let parsedObject = Mapper<GenericSubclass<String>>().map(json)
-		
-		XCTAssert(object.base! == parsedObject.base!, "base class var was not mapped")
-		XCTAssert(object.sub! == parsedObject.sub!, "sub class var was not mapped")
+
+		expect(object.base).to(equal(parsedObject.base))
+		expect(object.sub).to(equal(parsedObject.sub))
 	}
 	
 	func testSubclassWithGenericArrayInSuperclass() {
 		let parsedObject = Mapper<SubclassWithGenericArrayInSuperclass<AnyObject>>().map(string:"{\"genericItems\":[{\"value\":\"value0\"}, {\"value\":\"value1\"}]}")
-		if let genericItems = parsedObject?.genericItems {
-			XCTAssertEqual(genericItems[0].value!, "value0")
-			XCTAssertEqual(genericItems[1].value!, "value1")
-		} else {
-			XCTFail("genericItems should not be .None")
-		}
+		let genericItems = parsedObject?.genericItems
+		expect(genericItems).notTo(beNil())
+		expect(genericItems?[0].value).to(equal("value0"))
+		expect(genericItems?[1].value).to(equal("value1"))
 	}
 }
 
