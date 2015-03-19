@@ -9,6 +9,7 @@
 import UIKit
 import XCTest
 import ObjectMapper
+import Nimble
 
 class CustomTransformTests: XCTestCase {
 
@@ -30,12 +31,10 @@ class CustomTransformTests: XCTestCase {
 		transforms.dateOpt = NSDate(timeIntervalSince1970: 946684912)
 		
 		let JSON = mapper.toJSON(transforms)
-		if let parsedTransforms = mapper.map(JSON) {
-			XCTAssert(transforms.date.compare(parsedTransforms.date) == .OrderedSame, "Date should be the same")
-			XCTAssert(transforms.dateOpt!.compare(parsedTransforms.dateOpt!) == .OrderedSame, "Date optional should be the same")
-		} else {
-			XCTAssert(false, "Date Transform failed")
-		}
+		let parsedTransforms = mapper.map(JSON)
+		expect(parsedTransforms).notTo(beNil())
+		expect(parsedTransforms.date).to(equal(transforms.date))
+		expect(parsedTransforms.dateOpt).to(equal(transforms.dateOpt))
 	}
 	
 	func testISO8601DateTransform() {
@@ -43,26 +42,24 @@ class CustomTransformTests: XCTestCase {
 		transforms.ISO8601Date = NSDate(timeIntervalSince1970: 1398956159)
 		transforms.ISO8601DateOpt = NSDate(timeIntervalSince1970: 1398956159)
 		let JSON = mapper.toJSON(transforms)
-		
-		if let parsedTransforms = mapper.map(JSON) {
-			XCTAssert(transforms.ISO8601Date.compare(parsedTransforms.ISO8601Date) == .OrderedSame, "ISO8601Date should be the same")
-			XCTAssert(transforms.ISO8601DateOpt!.compare(parsedTransforms.ISO8601DateOpt!) == .OrderedSame, "ISO8601Date optional should be the same")
-		} else {
-			XCTAssert(false, "ISO8601Date Transform failed")
-		}
+
+		let parsedTransforms = mapper.map(JSON)
+		expect(parsedTransforms).notTo(beNil())
+		expect(parsedTransforms.ISO8601Date).to(equal(transforms.ISO8601Date))
+		expect(parsedTransforms.ISO8601DateOpt).to(equal(transforms.ISO8601DateOpt))
 	}
 	
 	func testISO8601DateTransformWithInvalidInput() {
 		var JSON: [String: AnyObject] = ["ISO8601Date": ""]
 		let transforms = mapper.map(JSON)
-		
-		XCTAssert(transforms.ISO8601DateOpt == nil, "ISO8601DateTransform should return nil for empty string")
-		
+
+		expect(transforms.ISO8601DateOpt).to(beNil())
+
 		JSON["ISO8601Date"] = "incorrect format"
 
 		let transforms2 = mapper.map(JSON)
-		
-		XCTAssert(transforms2.ISO8601DateOpt == nil, "ISO8601DateTransform should return nil for incorrect format")
+
+		expect(transforms2.ISO8601DateOpt).to(beNil())
 	}
 	
 	func testCustomFormatDateTransform(){
@@ -71,8 +68,8 @@ class CustomTransformTests: XCTestCase {
 		let transform = mapper.map(JSON)
 		
 		let JSONOutput = mapper.toJSON(transform)
-		
-		XCTAssert(JSONOutput["customFormateDate"]! as String == dateString, "CustomFormatDateTransform failed")
+
+		expect(JSONOutput["customFormateDate"] as? String).to(equal(dateString))
 	}
 	
 	func testIntToStringTransformOf() {
@@ -80,7 +77,7 @@ class CustomTransformTests: XCTestCase {
 		var JSON: [String: AnyObject] = ["intWithString": "\(intValue)"]
 		let transforms = mapper.map(JSON)
 
-		XCTAssert(transforms.intWithString == intValue, "IntToString failed")
+		expect(transforms.intWithString).to(equal(intValue))
 	}
 	
 	func testInt64MaxValue() {
@@ -88,12 +85,10 @@ class CustomTransformTests: XCTestCase {
 		transforms.int64Value = INT64_MAX
 		
 		let JSON = mapper.toJSON(transforms)
-		
-		if let parsedTransforms = mapper.map(JSON) {
-			XCTAssert(parsedTransforms.int64Value == transforms.int64Value, "int64Type should be the same")
-		} else {
-			XCTAssert(false, "Int64Max failed")
-		}
+
+		let parsedTransforms = mapper.map(JSON)
+		expect(parsedTransforms).notTo(beNil())
+		expect(parsedTransforms.int64Value).to(equal(transforms.int64Value))
 	}
 	
 	func testURLTranform() {
@@ -102,13 +97,11 @@ class CustomTransformTests: XCTestCase {
 		transforms.URLOpt = NSURL(string: "http://google.com/image/1234")
 		
 		let JSON = mapper.toJSON(transforms)
-		
-		if let parsedTransforms = mapper.map(JSON) {
-			XCTAssert(parsedTransforms.URL == transforms.URL, "URLs should be the same")
-			XCTAssert(parsedTransforms.URLOpt! == transforms.URLOpt!, "URLs should be the same")
-		} else {
-			XCTAssert(false, "URL transform failed failed")
-		}
+
+		let parsedTransforms = mapper.map(JSON)
+		expect(parsedTransforms).notTo(beNil())
+		expect(parsedTransforms.URL).to(equal(transforms.URL))
+		expect(parsedTransforms.URLOpt).to(equal(transforms.URLOpt))
 	}
 }
 
