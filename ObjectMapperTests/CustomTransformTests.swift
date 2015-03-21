@@ -107,9 +107,10 @@ class CustomTransformTests: XCTestCase {
 	func testEnumTransform() {
 		var JSON: [String: AnyObject] = ["firstImageType" : "cover", "secondImageType" : "thumbnail"]
 		let transforms = mapper.map(JSON)
-		
-		XCTAssert(transforms.firstImageType == .Cover, "First image type should be of case Cover")
-		XCTAssert(transforms.secondImageType == .Thumbnail, "Second image type should be of case Thumbnail")
+
+		let imageType = Transforms.ImageType.self
+		expect(transforms.firstImageType).to(equal(imageType.Cover))
+		expect(transforms.secondImageType).to(equal(imageType.Thumbnail))
 	}
 }
 
