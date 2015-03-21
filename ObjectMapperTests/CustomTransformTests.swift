@@ -103,9 +103,22 @@ class CustomTransformTests: XCTestCase {
 		expect(parsedTransforms.URL).to(equal(transforms.URL))
 		expect(parsedTransforms.URLOpt).to(equal(transforms.URLOpt))
 	}
+	
+	func testEnumTransform() {
+		var JSON: [String: AnyObject] = ["firstImageType" : "cover", "secondImageType" : "thumbnail"]
+		let transforms = mapper.map(JSON)
+		
+		XCTAssert(transforms.firstImageType == .Cover, "First image type should be of case Cover")
+		XCTAssert(transforms.secondImageType == .Thumbnail, "Second image type should be of case Thumbnail")
+	}
 }
 
 class Transforms: Mappable {
+	
+	internal enum ImageType: String {
+		case Cover = "cover"
+		case Thumbnail = "thumbnail"
+	}
 
 	var date = NSDate()
 	var dateOpt: NSDate?
@@ -122,6 +135,9 @@ class Transforms: Mappable {
 	var intWithString: Int = 0
 	
 	var int64Value: Int64 = 0
+	
+	var firstImageType: ImageType?
+	var secondImageType: ImageType?
 	
 	init() {}
 	
@@ -144,6 +160,9 @@ class Transforms: Mappable {
 		
 		intWithString		<- (map["intWithString"], TransformOf<Int, String>(fromJSON: { $0?.toInt() }, toJSON: { $0.map { String($0) } }))
 		int64Value			<- (map["int64Value"], TransformOf<Int64, NSNumber>(fromJSON: { $0?.longLongValue }, toJSON: { $0.map { NSNumber(longLong: $0) } }))
+		
+		firstImageType		<- (map["firstImageType"], EnumTransform<ImageType>())
+		secondImageType		<- (map["secondImageType"], EnumTransform<ImageType>())
 	}
 }
 
