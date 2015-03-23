@@ -22,6 +22,26 @@
 		6AAC8FD119F048FE00E7A677 /* ToJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC719F048FE00E7A677 /* ToJSON.swift */; };
 		6AAC8FD319F048FE00E7A677 /* DateTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FCB19F048FE00E7A677 /* DateTransform.swift */; };
 		BC1E7F371ABC44C000F9B1CF /* EnumTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1E7F361ABC44C000F9B1CF /* EnumTransform.swift */; };
+		CD16030A1AC023D6000CD69A /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD1602FF1AC023D5000CD69A /* ObjectMapper.framework */; };
+		CD1603181AC02437000CD69A /* ObjectMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AAC8F7B19F03C2900E7A677 /* ObjectMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD1603191AC02451000CD69A /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC419F048FE00E7A677 /* Mapper.swift */; };
+		CD16031A1AC02451000CD69A /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC519F048FE00E7A677 /* Operators.swift */; };
+		CD16031B1AC02451000CD69A /* FromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC319F048FE00E7A677 /* FromJSON.swift */; };
+		CD16031C1AC02451000CD69A /* ToJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC719F048FE00E7A677 /* ToJSON.swift */; };
+		CD16031D1AC02461000CD69A /* DateTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FCB19F048FE00E7A677 /* DateTransform.swift */; };
+		CD16031E1AC02461000CD69A /* DateFormaterTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A51372B1AADDE2700B82516 /* DateFormaterTransform.swift */; };
+		CD16031F1AC02461000CD69A /* ISO8601DateTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86BDEA31A51E5AC00120819 /* ISO8601DateTransform.swift */; };
+		CD1603201AC02461000CD69A /* CustomDateFormatTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AFD9B81AAD191C00AB59B5 /* CustomDateFormatTransform.swift */; };
+		CD1603211AC02472000CD69A /* TransformOf.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD71C8C01A7218AD009D4161 /* TransformOf.swift */; };
+		CD1603221AC02472000CD69A /* TransformType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD50B6FC1A82518300744312 /* TransformType.swift */; };
+		CD1603231AC02472000CD69A /* URLTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6C54CF19FE8DB600239454 /* URLTransform.swift */; };
+		CD1603241AC02472000CD69A /* EnumTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1E7F361ABC44C000F9B1CF /* EnumTransform.swift */; };
+		CD1603251AC02480000CD69A /* BasicTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6AEB971A9387D0002573D3 /* BasicTypes.swift */; };
+		CD1603261AC02480000CD69A /* BasicTypesTestsFromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6AEB951A93874F002573D3 /* BasicTypesTestsFromJSON.swift */; };
+		CD1603271AC02480000CD69A /* BasicTypesTestsToJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3774331A31427F00CC0AB5 /* BasicTypesTestsToJSON.swift */; };
+		CD1603281AC02480000CD69A /* CustomTransformTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A51372E1AADE12C00B82516 /* CustomTransformTests.swift */; };
+		CD1603291AC02480000CD69A /* NestedKeysTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD44374C1AAE9C1100A271BA /* NestedKeysTests.swift */; };
+		CD16032A1AC02480000CD69A /* ObjectMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8F8519F03C2900E7A677 /* ObjectMapperTests.swift */; };
 		CD4437491AAD692B00A271BA /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAC8F7619F03C2900E7A677 /* ObjectMapper.framework */; };
 		CD44374B1AAD698400A271BA /* ObjectMapper.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAC8F7619F03C2900E7A677 /* ObjectMapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CD44374D1AAE9C1100A271BA /* NestedKeysTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD44374C1AAE9C1100A271BA /* NestedKeysTests.swift */; };
@@ -37,6 +57,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 6AAC8F7519F03C2900E7A677;
 			remoteInfo = ObjectMapper;
+		};
+		CD16030B1AC023D6000CD69A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6AAC8F6D19F03C2900E7A677 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CD1602FE1AC023D5000CD69A;
+			remoteInfo = "ObjectMapper-Mac";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -65,7 +92,7 @@
 		6AAC8F7619F03C2900E7A677 /* ObjectMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ObjectMapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AAC8F7A19F03C2900E7A677 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6AAC8F7B19F03C2900E7A677 /* ObjectMapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjectMapper.h; sourceTree = "<group>"; };
-		6AAC8F8119F03C2900E7A677 /* ObjectMapperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ObjectMapperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6AAC8F8119F03C2900E7A677 /* ObjectMapper-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ObjectMapper-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AAC8F8419F03C2900E7A677 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6AAC8F8519F03C2900E7A677 /* ObjectMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ObjectMapperTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		6AAC8FC319F048FE00E7A677 /* FromJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FromJSON.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -74,6 +101,8 @@
 		6AAC8FC719F048FE00E7A677 /* ToJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToJSON.swift; sourceTree = "<group>"; };
 		6AAC8FCB19F048FE00E7A677 /* DateTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTransform.swift; sourceTree = "<group>"; };
 		BC1E7F361ABC44C000F9B1CF /* EnumTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnumTransform.swift; sourceTree = "<group>"; };
+		CD1602FF1AC023D5000CD69A /* ObjectMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ObjectMapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD1603091AC023D6000CD69A /* ObjectMapper-MacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ObjectMapper-MacTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD44374C1AAE9C1100A271BA /* NestedKeysTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NestedKeysTests.swift; sourceTree = "<group>"; };
 		CD50B6FC1A82518300744312 /* TransformType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformType.swift; sourceTree = "<group>"; };
 		CD71C8C01A7218AD009D4161 /* TransformOf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformOf.swift; sourceTree = "<group>"; };
@@ -93,6 +122,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD4437491AAD692B00A271BA /* ObjectMapper.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD1602FB1AC023D5000CD69A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD1603061AC023D6000CD69A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD16030A1AC023D6000CD69A /* ObjectMapper.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,7 +168,9 @@
 			isa = PBXGroup;
 			children = (
 				6AAC8F7619F03C2900E7A677 /* ObjectMapper.framework */,
-				6AAC8F8119F03C2900E7A677 /* ObjectMapperTests.xctest */,
+				6AAC8F8119F03C2900E7A677 /* ObjectMapper-iOSTests.xctest */,
+				CD1602FF1AC023D5000CD69A /* ObjectMapper.framework */,
+				CD1603091AC023D6000CD69A /* ObjectMapper-MacTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -204,12 +250,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CD1602FC1AC023D5000CD69A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD1603181AC02437000CD69A /* ObjectMapper.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		6AAC8F7519F03C2900E7A677 /* ObjectMapper */ = {
+		6AAC8F7519F03C2900E7A677 /* ObjectMapper-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6AAC8F8919F03C2900E7A677 /* Build configuration list for PBXNativeTarget "ObjectMapper" */;
+			buildConfigurationList = 6AAC8F8919F03C2900E7A677 /* Build configuration list for PBXNativeTarget "ObjectMapper-iOS" */;
 			buildPhases = (
 				6AAC8F7119F03C2900E7A677 /* Sources */,
 				6AAC8F7219F03C2900E7A677 /* Frameworks */,
@@ -220,14 +274,14 @@
 			);
 			dependencies = (
 			);
-			name = ObjectMapper;
+			name = "ObjectMapper-iOS";
 			productName = ObjectMapper;
 			productReference = 6AAC8F7619F03C2900E7A677 /* ObjectMapper.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		6AAC8F8019F03C2900E7A677 /* ObjectMapperTests */ = {
+		6AAC8F8019F03C2900E7A677 /* ObjectMapper-iOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6AAC8F8C19F03C2900E7A677 /* Build configuration list for PBXNativeTarget "ObjectMapperTests" */;
+			buildConfigurationList = 6AAC8F8C19F03C2900E7A677 /* Build configuration list for PBXNativeTarget "ObjectMapper-iOSTests" */;
 			buildPhases = (
 				6AAC8F7D19F03C2900E7A677 /* Sources */,
 				6AAC8F7E19F03C2900E7A677 /* Frameworks */,
@@ -239,9 +293,45 @@
 			dependencies = (
 				6AAC8FD619F04A5600E7A677 /* PBXTargetDependency */,
 			);
-			name = ObjectMapperTests;
+			name = "ObjectMapper-iOSTests";
 			productName = ObjectMapperTests;
-			productReference = 6AAC8F8119F03C2900E7A677 /* ObjectMapperTests.xctest */;
+			productReference = 6AAC8F8119F03C2900E7A677 /* ObjectMapper-iOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		CD1602FE1AC023D5000CD69A /* ObjectMapper-Mac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD1603161AC023D6000CD69A /* Build configuration list for PBXNativeTarget "ObjectMapper-Mac" */;
+			buildPhases = (
+				CD1602FA1AC023D5000CD69A /* Sources */,
+				CD1602FB1AC023D5000CD69A /* Frameworks */,
+				CD1602FC1AC023D5000CD69A /* Headers */,
+				CD1602FD1AC023D5000CD69A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ObjectMapper-Mac";
+			productName = "ObjectMapper-Mac";
+			productReference = CD1602FF1AC023D5000CD69A /* ObjectMapper.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		CD1603081AC023D6000CD69A /* ObjectMapper-MacTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD1603171AC023D6000CD69A /* Build configuration list for PBXNativeTarget "ObjectMapper-MacTests" */;
+			buildPhases = (
+				CD1603051AC023D6000CD69A /* Sources */,
+				CD1603061AC023D6000CD69A /* Frameworks */,
+				CD1603071AC023D6000CD69A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CD16030C1AC023D6000CD69A /* PBXTargetDependency */,
+			);
+			name = "ObjectMapper-MacTests";
+			productName = "ObjectMapper-MacTests";
+			productReference = CD1603091AC023D6000CD69A /* ObjectMapper-MacTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -259,6 +349,12 @@
 					6AAC8F8019F03C2900E7A677 = {
 						CreatedOnToolsVersion = 6.0.1;
 					};
+					CD1602FE1AC023D5000CD69A = {
+						CreatedOnToolsVersion = 6.2;
+					};
+					CD1603081AC023D6000CD69A = {
+						CreatedOnToolsVersion = 6.2;
+					};
 				};
 			};
 			buildConfigurationList = 6AAC8F7019F03C2900E7A677 /* Build configuration list for PBXProject "ObjectMapper" */;
@@ -273,8 +369,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6AAC8F7519F03C2900E7A677 /* ObjectMapper */,
-				6AAC8F8019F03C2900E7A677 /* ObjectMapperTests */,
+				6AAC8F7519F03C2900E7A677 /* ObjectMapper-iOS */,
+				6AAC8F8019F03C2900E7A677 /* ObjectMapper-iOSTests */,
+				CD1602FE1AC023D5000CD69A /* ObjectMapper-Mac */,
+				CD1603081AC023D6000CD69A /* ObjectMapper-MacTests */,
 			);
 		};
 /* End PBXProject section */
@@ -288,6 +386,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		6AAC8F7F19F03C2900E7A677 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD1602FD1AC023D5000CD69A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD1603071AC023D6000CD69A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -329,13 +441,50 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CD1602FA1AC023D5000CD69A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD1603221AC02472000CD69A /* TransformType.swift in Sources */,
+				CD1603201AC02461000CD69A /* CustomDateFormatTransform.swift in Sources */,
+				CD16031E1AC02461000CD69A /* DateFormaterTransform.swift in Sources */,
+				CD1603241AC02472000CD69A /* EnumTransform.swift in Sources */,
+				CD16031F1AC02461000CD69A /* ISO8601DateTransform.swift in Sources */,
+				CD1603211AC02472000CD69A /* TransformOf.swift in Sources */,
+				CD1603231AC02472000CD69A /* URLTransform.swift in Sources */,
+				CD16031C1AC02451000CD69A /* ToJSON.swift in Sources */,
+				CD16031D1AC02461000CD69A /* DateTransform.swift in Sources */,
+				CD1603191AC02451000CD69A /* Mapper.swift in Sources */,
+				CD16031A1AC02451000CD69A /* Operators.swift in Sources */,
+				CD16031B1AC02451000CD69A /* FromJSON.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD1603051AC023D6000CD69A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD1603261AC02480000CD69A /* BasicTypesTestsFromJSON.swift in Sources */,
+				CD1603291AC02480000CD69A /* NestedKeysTests.swift in Sources */,
+				CD1603251AC02480000CD69A /* BasicTypes.swift in Sources */,
+				CD16032A1AC02480000CD69A /* ObjectMapperTests.swift in Sources */,
+				CD1603271AC02480000CD69A /* BasicTypesTestsToJSON.swift in Sources */,
+				CD1603281AC02480000CD69A /* CustomTransformTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
 		6AAC8FD619F04A5600E7A677 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6AAC8F7519F03C2900E7A677 /* ObjectMapper */;
+			target = 6AAC8F7519F03C2900E7A677 /* ObjectMapper-iOS */;
 			targetProxy = 6AAC8FD519F04A5600E7A677 /* PBXContainerItemProxy */;
+		};
+		CD16030C1AC023D6000CD69A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CD1602FE1AC023D5000CD69A /* ObjectMapper-Mac */;
+			targetProxy = CD16030B1AC023D6000CD69A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -376,6 +525,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -416,6 +566,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -436,7 +587,7 @@
 				INFOPLIST_FILE = ObjectMapper/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -452,7 +603,7 @@
 				INFOPLIST_FILE = ObjectMapper/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -487,6 +638,88 @@
 			};
 			name = Release;
 		};
+		CD1603121AC023D6000CD69A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ObjectMapper/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(PROJECT_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		CD1603131AC023D6000CD69A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = ObjectMapper/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(PROJECT_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		CD1603141AC023D6000CD69A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ObjectMapperTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		CD1603151AC023D6000CD69A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ObjectMapperTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -499,7 +732,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6AAC8F8919F03C2900E7A677 /* Build configuration list for PBXNativeTarget "ObjectMapper" */ = {
+		6AAC8F8919F03C2900E7A677 /* Build configuration list for PBXNativeTarget "ObjectMapper-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6AAC8F8A19F03C2900E7A677 /* Debug */,
@@ -508,11 +741,29 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6AAC8F8C19F03C2900E7A677 /* Build configuration list for PBXNativeTarget "ObjectMapperTests" */ = {
+		6AAC8F8C19F03C2900E7A677 /* Build configuration list for PBXNativeTarget "ObjectMapper-iOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6AAC8F8D19F03C2900E7A677 /* Debug */,
 				6AAC8F8E19F03C2900E7A677 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CD1603161AC023D6000CD69A /* Build configuration list for PBXNativeTarget "ObjectMapper-Mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD1603121AC023D6000CD69A /* Debug */,
+				CD1603131AC023D6000CD69A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CD1603171AC023D6000CD69A /* Build configuration list for PBXNativeTarget "ObjectMapper-MacTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD1603141AC023D6000CD69A /* Debug */,
+				CD1603151AC023D6000CD69A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
