@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 hearst. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for ObjectMapper.
 FOUNDATION_EXPORT double ObjectMapperVersionNumber;
