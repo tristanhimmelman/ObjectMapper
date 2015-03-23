@@ -65,7 +65,7 @@
 		6AAC8F7619F03C2900E7A677 /* ObjectMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ObjectMapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AAC8F7A19F03C2900E7A677 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6AAC8F7B19F03C2900E7A677 /* ObjectMapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjectMapper.h; sourceTree = "<group>"; };
-		6AAC8F8119F03C2900E7A677 /* ObjectMapperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ObjectMapperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6AAC8F8119F03C2900E7A677 /* ObjectMapper-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ObjectMapper-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AAC8F8419F03C2900E7A677 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6AAC8F8519F03C2900E7A677 /* ObjectMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ObjectMapperTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		6AAC8FC319F048FE00E7A677 /* FromJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FromJSON.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -124,7 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				6AAC8F7619F03C2900E7A677 /* ObjectMapper.framework */,
-				6AAC8F8119F03C2900E7A677 /* ObjectMapperTests.xctest */,
+				6AAC8F8119F03C2900E7A677 /* ObjectMapper-iOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -207,9 +207,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		6AAC8F7519F03C2900E7A677 /* ObjectMapper */ = {
+		6AAC8F7519F03C2900E7A677 /* ObjectMapper-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6AAC8F8919F03C2900E7A677 /* Build configuration list for PBXNativeTarget "ObjectMapper" */;
+			buildConfigurationList = 6AAC8F8919F03C2900E7A677 /* Build configuration list for PBXNativeTarget "ObjectMapper-iOS" */;
 			buildPhases = (
 				6AAC8F7119F03C2900E7A677 /* Sources */,
 				6AAC8F7219F03C2900E7A677 /* Frameworks */,
@@ -220,14 +220,14 @@
 			);
 			dependencies = (
 			);
-			name = ObjectMapper;
+			name = "ObjectMapper-iOS";
 			productName = ObjectMapper;
 			productReference = 6AAC8F7619F03C2900E7A677 /* ObjectMapper.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		6AAC8F8019F03C2900E7A677 /* ObjectMapperTests */ = {
+		6AAC8F8019F03C2900E7A677 /* ObjectMapper-iOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6AAC8F8C19F03C2900E7A677 /* Build configuration list for PBXNativeTarget "ObjectMapperTests" */;
+			buildConfigurationList = 6AAC8F8C19F03C2900E7A677 /* Build configuration list for PBXNativeTarget "ObjectMapper-iOSTests" */;
 			buildPhases = (
 				6AAC8F7D19F03C2900E7A677 /* Sources */,
 				6AAC8F7E19F03C2900E7A677 /* Frameworks */,
@@ -239,9 +239,9 @@
 			dependencies = (
 				6AAC8FD619F04A5600E7A677 /* PBXTargetDependency */,
 			);
-			name = ObjectMapperTests;
+			name = "ObjectMapper-iOSTests";
 			productName = ObjectMapperTests;
-			productReference = 6AAC8F8119F03C2900E7A677 /* ObjectMapperTests.xctest */;
+			productReference = 6AAC8F8119F03C2900E7A677 /* ObjectMapper-iOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -273,8 +273,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6AAC8F7519F03C2900E7A677 /* ObjectMapper */,
-				6AAC8F8019F03C2900E7A677 /* ObjectMapperTests */,
+				6AAC8F7519F03C2900E7A677 /* ObjectMapper-iOS */,
+				6AAC8F8019F03C2900E7A677 /* ObjectMapper-iOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -334,7 +334,7 @@
 /* Begin PBXTargetDependency section */
 		6AAC8FD619F04A5600E7A677 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6AAC8F7519F03C2900E7A677 /* ObjectMapper */;
+			target = 6AAC8F7519F03C2900E7A677 /* ObjectMapper-iOS */;
 			targetProxy = 6AAC8FD519F04A5600E7A677 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -436,7 +436,7 @@
 				INFOPLIST_FILE = ObjectMapper/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -452,7 +452,7 @@
 				INFOPLIST_FILE = ObjectMapper/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -499,7 +499,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6AAC8F8919F03C2900E7A677 /* Build configuration list for PBXNativeTarget "ObjectMapper" */ = {
+		6AAC8F8919F03C2900E7A677 /* Build configuration list for PBXNativeTarget "ObjectMapper-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6AAC8F8A19F03C2900E7A677 /* Debug */,
@@ -508,7 +508,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6AAC8F8C19F03C2900E7A677 /* Build configuration list for PBXNativeTarget "ObjectMapperTests" */ = {
+		6AAC8F8C19F03C2900E7A677 /* Build configuration list for PBXNativeTarget "ObjectMapper-iOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6AAC8F8D19F03C2900E7A677 /* Debug */,

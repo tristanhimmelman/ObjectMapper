@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6AAC8F7519F03C2900E7A677"
                BuildableName = "ObjectMapper.framework"
-               BlueprintName = "ObjectMapper"
+               BlueprintName = "ObjectMapper-iOS"
                ReferencedContainer = "container:ObjectMapper.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -29,8 +29,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6AAC8F8019F03C2900E7A677"
-               BuildableName = "ObjectMapperTests.xctest"
-               BlueprintName = "ObjectMapperTests"
+               BuildableName = "ObjectMapper-iOSTests.xctest"
+               BlueprintName = "ObjectMapper-iOSTests"
                ReferencedContainer = "container:ObjectMapper.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,8 +47,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6AAC8F8019F03C2900E7A677"
-               BuildableName = "ObjectMapperTests.xctest"
-               BlueprintName = "ObjectMapperTests"
+               BuildableName = "ObjectMapper-iOSTests.xctest"
+               BlueprintName = "ObjectMapper-iOSTests"
                ReferencedContainer = "container:ObjectMapper.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -58,7 +58,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6AAC8F7519F03C2900E7A677"
             BuildableName = "ObjectMapper.framework"
-            BlueprintName = "ObjectMapper"
+            BlueprintName = "ObjectMapper-iOS"
             ReferencedContainer = "container:ObjectMapper.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -77,7 +77,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6AAC8F7519F03C2900E7A677"
             BuildableName = "ObjectMapper.framework"
-            BlueprintName = "ObjectMapper"
+            BlueprintName = "ObjectMapper-iOS"
             ReferencedContainer = "container:ObjectMapper.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -95,7 +95,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6AAC8F7519F03C2900E7A677"
             BuildableName = "ObjectMapper.framework"
-            BlueprintName = "ObjectMapper"
+            BlueprintName = "ObjectMapper-iOS"
             ReferencedContainer = "container:ObjectMapper.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
