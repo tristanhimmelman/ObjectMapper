@@ -1,10 +1,13 @@
 language: objective-c
 osx_image: xcode611
 
-xcode_project: ObjectMapper.xcodeproj
-xcode_scheme: ObjectMapper
-xcode_sdk:
-  - iphonesimulator8.1
+env:
+  global:
+    - LANG=en_US.UTF-8
+    - LC_ALL=en_US.UTF-8
+  matrix:
+    - XCODE_SCHEME=ObjectMapper-iOS XCODE_SDK=iphonesimulator8.1
+    - XCODE_SCHEME=ObjectMapper-Mac XCODE_SDK=macosx10.10
 
 before_install:
   - brew update
@@ -12,10 +15,7 @@ before_install:
   - brew install carthage
   - carthage bootstrap
 
-env:
-  global:
-    - LANG=en_US.UTF-8
-    - LC_ALL=en_US.UTF-8
+script: xctool -project ObjectMapper.xcodeproj -scheme $XCODE_SCHEME -sdk $XCODE_SDK test
 
 notifications:
   email: false

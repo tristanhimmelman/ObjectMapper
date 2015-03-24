@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 hearst. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import XCTest
 import ObjectMapper
 import Nimble
