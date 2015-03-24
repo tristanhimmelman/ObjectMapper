@@ -42,14 +42,13 @@
 		CD1603281AC02480000CD69A /* CustomTransformTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A51372E1AADE12C00B82516 /* CustomTransformTests.swift */; };
 		CD1603291AC02480000CD69A /* NestedKeysTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD44374C1AAE9C1100A271BA /* NestedKeysTests.swift */; };
 		CD16032A1AC02480000CD69A /* ObjectMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8F8519F03C2900E7A677 /* ObjectMapperTests.swift */; };
-		CD16032D1AC0E7D8000CD69A /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD16032C1AC0E7D8000CD69A /* Nimble.framework */; };
-		CD16032F1AC0E9ED000CD69A /* Nimble.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = CD16032C1AC0E7D8000CD69A /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CD208C991AC10D2B00E21781 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD208C981AC10D2B00E21781 /* Nimble.framework */; };
+		CD208C9A1AC10D2B00E21781 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD208C981AC10D2B00E21781 /* Nimble.framework */; };
+		CD208C9B1AC10D6D00E21781 /* Nimble.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = CD208C981AC10D2B00E21781 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CD4437491AAD692B00A271BA /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAC8F7619F03C2900E7A677 /* ObjectMapper.framework */; };
 		CD44374B1AAD698400A271BA /* ObjectMapper.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAC8F7619F03C2900E7A677 /* ObjectMapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CD44374D1AAE9C1100A271BA /* NestedKeysTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD44374C1AAE9C1100A271BA /* NestedKeysTests.swift */; };
 		CD50B6FD1A82518300744312 /* TransformType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD50B6FC1A82518300744312 /* TransformType.swift */; };
-		CD6AD7801ABA4D370054A664 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD6AD77F1ABA4D370054A664 /* Nimble.framework */; };
-		CD6AD7811ABA4D4B0054A664 /* Nimble.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = CD6AD77F1ABA4D370054A664 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CD71C8C11A7218AD009D4161 /* TransformOf.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD71C8C01A7218AD009D4161 /* TransformOf.swift */; };
 		D86BDEA41A51E5AD00120819 /* ISO8601DateTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86BDEA31A51E5AC00120819 /* ISO8601DateTransform.swift */; };
 /* End PBXBuildFile section */
@@ -72,25 +71,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		CD16032E1AC0E9D8000CD69A /* Copy Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				CD16032F1AC0E9ED000CD69A /* Nimble.framework in Copy Frameworks */,
-			);
-			name = "Copy Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		CD44374A1AAD696B00A271BA /* Copy Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				CD6AD7811ABA4D4B0054A664 /* Nimble.framework in Copy Frameworks */,
 				CD44374B1AAD698400A271BA /* ObjectMapper.framework in Copy Frameworks */,
+				CD208C9B1AC10D6D00E21781 /* Nimble.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -119,10 +107,9 @@
 		BC1E7F361ABC44C000F9B1CF /* EnumTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnumTransform.swift; sourceTree = "<group>"; };
 		CD1602FF1AC023D5000CD69A /* ObjectMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ObjectMapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD1603091AC023D6000CD69A /* ObjectMapper-MacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ObjectMapper-MacTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CD16032C1AC0E7D8000CD69A /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = ../Carthage/Build/Mac/Nimble.framework; sourceTree = "<group>"; };
+		CD208C981AC10D2B00E21781 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Nimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD44374C1AAE9C1100A271BA /* NestedKeysTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NestedKeysTests.swift; sourceTree = "<group>"; };
 		CD50B6FC1A82518300744312 /* TransformType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformType.swift; sourceTree = "<group>"; };
-		CD6AD77F1ABA4D370054A664 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = ../Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		CD71C8C01A7218AD009D4161 /* TransformOf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformOf.swift; sourceTree = "<group>"; };
 		D86BDEA31A51E5AC00120819 /* ISO8601DateTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISO8601DateTransform.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -139,8 +126,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD6AD7801ABA4D370054A664 /* Nimble.framework in Frameworks */,
 				CD4437491AAD692B00A271BA /* ObjectMapper.framework in Frameworks */,
+				CD208C991AC10D2B00E21781 /* Nimble.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,8 +142,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD16032D1AC0E7D8000CD69A /* Nimble.framework in Frameworks */,
 				CD16030A1AC023D6000CD69A /* ObjectMapper.framework in Frameworks */,
+				CD208C9A1AC10D2B00E21781 /* Nimble.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,8 +218,7 @@
 		6AAC8F8319F03C2900E7A677 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				CD6AD77F1ABA4D370054A664 /* Nimble.framework */,
-				CD16032C1AC0E7D8000CD69A /* Nimble.framework */,
+				CD208C981AC10D2B00E21781 /* Nimble.framework */,
 				6AAC8F8419F03C2900E7A677 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -345,7 +331,6 @@
 				CD1603051AC023D6000CD69A /* Sources */,
 				CD1603061AC023D6000CD69A /* Frameworks */,
 				CD1603071AC023D6000CD69A /* Resources */,
-				CD16032E1AC0E9D8000CD69A /* Copy Frameworks */,
 			);
 			buildRules = (
 			);
@@ -637,7 +622,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -655,7 +639,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = ObjectMapperTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -714,7 +697,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -737,7 +719,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
 				INFOPLIST_FILE = ObjectMapperTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
