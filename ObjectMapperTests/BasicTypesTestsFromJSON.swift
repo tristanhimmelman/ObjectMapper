@@ -107,9 +107,9 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		var mappedObject = mapper.map(string: JSON)
 		
 		if let mappedObject = mappedObject {
-			XCTAssert(mappedObject.anyObject as String == value1, "AnyObject failed")
-			XCTAssertEqual(mappedObject.anyObjectOptional! as Int, value2, "Implicity unwrapped optional String failed")
-			XCTAssertEqual(mappedObject.anyObjectImplicitlyUnwrapped as Double, value3, "Implicity unwrapped optional String failed")
+			XCTAssert(mappedObject.anyObject as! String == value1, "AnyObject failed")
+			XCTAssertEqual(mappedObject.anyObjectOptional! as! Int, value2, "Implicity unwrapped optional String failed")
+			XCTAssertEqual(mappedObject.anyObjectImplicitlyUnwrapped as! Double, value3, "Implicity unwrapped optional String failed")
 		} else {
 			XCTAssert(false, "JSON to String failed")
 		}
@@ -222,9 +222,9 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		var mappedObject = mapper.map(string: JSON)
 		
 		if let mappedObject = mappedObject {
-			XCTAssert(mappedObject.arrayAnyObject[0] as String == value1, "AnyObject array failed")
-			XCTAssertEqual(mappedObject.arrayAnyObjectOptional![0] as Int, value2, "Optional AnyObject array failed")
-			XCTAssertEqual(mappedObject.arrayAnyObjectImplicitlyUnwrapped[0] as Double, value3, "Implicity unwrapped optional AnyObject array failed")
+			XCTAssert(mappedObject.arrayAnyObject[0] as! String == value1, "AnyObject array failed")
+			XCTAssertEqual(mappedObject.arrayAnyObjectOptional![0] as! Int, value2, "Optional AnyObject array failed")
+			XCTAssertEqual(mappedObject.arrayAnyObjectImplicitlyUnwrapped[0] as! Double, value3, "Implicity unwrapped optional AnyObject array failed")
 		} else {
 			XCTAssert(false, "JSON to String failed")
 		}
@@ -344,13 +344,13 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		var mappedObject = mapper.map(string: JSON)
 		
 		if let mappedObject = mappedObject {
-			let val1 = mappedObject.dictAnyObject[key] as String
+			let val1 = mappedObject.dictAnyObject[key] as! String
 			XCTAssertEqual(val1, value1, "AnyObject Dictionary failed")
 			
-			let val2 = mappedObject.dictAnyObjectOptional?[key] as Int
+			let val2 = mappedObject.dictAnyObjectOptional?[key] as! Int
 			XCTAssertEqual(val2, value2, "Optional AnyObject Dictionary failed")
 			
-			let val3 = mappedObject.dictAnyObjectImplicitlyUnwrapped[key] as Double
+			let val3 = mappedObject.dictAnyObjectImplicitlyUnwrapped[key] as! Double
 			XCTAssertEqual(val3, value3, "Implicity unwrapped optional AnyObject Dictionary failed")
 		} else {
 			XCTAssert(false, "String Dictionary to JSON failed")
@@ -358,7 +358,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 	}
 	
 	func testObjectModelOptionalDictionnaryOfPrimitives() {
-		var json = ["dictStringString":["string": "string"], "dictStringBool":["string": false], "dictStringInt":["string": 1], "dictStringDouble":["string": 1.1], "dictStringFloat":["string": 1.2]]
+		var json: [String: [String: AnyObject]] = ["dictStringString":["string": "string"], "dictStringBool":["string": false], "dictStringInt":["string": 1], "dictStringDouble":["string": 1.1], "dictStringFloat":["string": 1.2]]
 		
 		let mapper = Mapper<TestCollectionOfPrimitives>()
 		let testSet = mapper.map(json)
