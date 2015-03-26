@@ -150,7 +150,7 @@ public final class Mapper<N: Mappable> {
 	/**
 	* Maps a JSON dictionary to an object that conforms to Mappable
 	*/
-	public func map(JSON: [String : AnyObject]) -> N! {
+	public func map(JSON: [String : AnyObject]) -> N? {
 		let map = Map(mappingType: .fromJSON, JSONDictionary: JSON)
 		let object = N(map)
 		return object
@@ -191,10 +191,13 @@ public final class Mapper<N: Mappable> {
 	/**
 	* Maps an array of JSON dictionary to an array of object that conforms to Mappable
 	*/
-	public func mapArray(JSON: [[String : AnyObject]]) -> [N] {
-		return JSON.map {
+	public func mapArray(JSONArray: [[String : AnyObject]]) -> [N] {
+		return JSONArray.reduce([]) { (var values, JSON) in
 			// map every element in JSON array to type N
-			return self.map($0)
+			if let value = self.map(JSON) {
+				values.append(value)
+			}
+			return values
 		}
 	}
 
@@ -213,9 +216,14 @@ public final class Mapper<N: Mappable> {
 	* Maps a JSON dictionary of dictionaries to a dictionary of objects that conform to Mappable.
 	*/
 	public func mapDictionary(JSON: [String : [String : AnyObject]]) -> [String : N] {
-		return JSON.map { key, value in
+		return reduce(JSON, [String: N]()) { (var values, element) in
+			let (key, value) = element
+
 			// map every value in dictionary to type N
-			return (key, self.map(value))
+			if let newValue = self.map(value) {
+				values[key] = newValue
+			}
+			return values
 		}
 	}
 

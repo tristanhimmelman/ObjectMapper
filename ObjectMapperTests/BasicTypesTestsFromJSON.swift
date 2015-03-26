@@ -253,7 +253,8 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let json: [String: [String: AnyObject]] = ["dictStringString":["string": "string"], "dictStringBool":["string": false], "dictStringInt":["string": 1], "dictStringDouble":["string": 1.1], "dictStringFloat":["string": 1.2]]
 		
 		let mapper = Mapper<TestCollectionOfPrimitives>()
-		let testSet = mapper.map(json)
+		let testSet: TestCollectionOfPrimitives! = mapper.map(json)
+		expect(testSet).notTo(beNil())
 
 		expect(testSet.dictStringString).notTo(beEmpty())
 		expect(testSet.dictStringInt).notTo(beEmpty())
