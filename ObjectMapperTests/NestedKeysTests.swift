@@ -9,6 +9,7 @@
 import Foundation
 import XCTest
 import ObjectMapper
+import Nimble
 
 class NestedKeysTests: XCTestCase {
 
@@ -62,30 +63,30 @@ class NestedKeysTests: XCTestCase {
 		let JSONFromValue = mapper.toJSON(value)
 		let valueFromParsedJSON = mapper.map(JSONFromValue)
 
-		XCTAssert(value.int64 == valueFromParsedJSON.int64)
-		XCTAssert(value.bool == valueFromParsedJSON.bool)
-		XCTAssert(value.int == valueFromParsedJSON.int)
-		XCTAssert(value.double == valueFromParsedJSON.double)
-		XCTAssert(value.float == valueFromParsedJSON.float)
-		XCTAssert(value.string == valueFromParsedJSON.string)
+		expect(value.int64).to(equal(valueFromParsedJSON.int64))
+		expect(value.bool).to(equal(valueFromParsedJSON.bool))
+		expect(value.int).to(equal(valueFromParsedJSON.int))
+		expect(value.double).to(equal(valueFromParsedJSON.double))
+		expect(value.float).to(equal(valueFromParsedJSON.float))
+		expect(value.string).to(equal(valueFromParsedJSON.string))
 
-		XCTAssert(value.int64Array == valueFromParsedJSON.int64Array)
-		XCTAssert(value.boolArray == valueFromParsedJSON.boolArray)
-		XCTAssert(value.intArray == valueFromParsedJSON.intArray)
-		XCTAssert(value.doubleArray == valueFromParsedJSON.doubleArray)
-		XCTAssert(value.floatArray == valueFromParsedJSON.floatArray)
-		XCTAssert(value.stringArray == valueFromParsedJSON.stringArray)
+		expect(value.int64Array).to(equal(valueFromParsedJSON.int64Array))
+		expect(value.boolArray).to(equal(valueFromParsedJSON.boolArray))
+		expect(value.intArray).to(equal(valueFromParsedJSON.intArray))
+		expect(value.doubleArray).to(equal(valueFromParsedJSON.doubleArray))
+		expect(value.floatArray).to(equal(valueFromParsedJSON.floatArray))
+		expect(value.stringArray).to(equal(valueFromParsedJSON.stringArray))
 
-		XCTAssert(value.int64Dict == valueFromParsedJSON.int64Dict)
-		XCTAssert(value.boolDict == valueFromParsedJSON.boolDict)
-		XCTAssert(value.intDict == valueFromParsedJSON.intDict)
-		XCTAssert(value.doubleDict == valueFromParsedJSON.doubleDict)
-		XCTAssert(value.floatDict == valueFromParsedJSON.floatDict)
-		XCTAssert(value.stringDict == valueFromParsedJSON.stringDict)
+		expect(value.int64Dict).to(equal(valueFromParsedJSON.int64Dict))
+		expect(value.boolDict).to(equal(valueFromParsedJSON.boolDict))
+		expect(value.intDict).to(equal(valueFromParsedJSON.intDict))
+		expect(value.doubleDict).to(equal(valueFromParsedJSON.doubleDict))
+		expect(value.floatDict).to(equal(valueFromParsedJSON.floatDict))
+		expect(value.stringDict).to(equal(valueFromParsedJSON.stringDict))
 
-		XCTAssert(value.object == valueFromParsedJSON.object)
-		XCTAssert(value.objectArray == valueFromParsedJSON.objectArray)
-		XCTAssert(value.objectDict == valueFromParsedJSON.objectDict)
+		expect(value.object).to(equal(valueFromParsedJSON.object))
+		expect(value.objectArray).to(equal(valueFromParsedJSON.objectArray))
+		expect(value.objectDict).to(equal(valueFromParsedJSON.objectDict))
 	}
 
 }

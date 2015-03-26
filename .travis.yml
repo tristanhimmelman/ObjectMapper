@@ -5,15 +5,16 @@ env:
   global:
     - LANG=en_US.UTF-8
     - LC_ALL=en_US.UTF-8
+    - XCODE_WORKSPACE=ObjectMapper.xcworkspace
   matrix:
-    - XCODE_SCHEME=ObjectMapper-iOS XCODE_SDK=iphonesimulator8.1
-    - XCODE_SCHEME=ObjectMapper-Mac XCODE_SDK=macosx10.10
+    - SCRIPT="xctool -workspace $XCODE_WORKSPACE -scheme ObjectMapper-iOS -sdk iphonesimulator8.1 test"
+    - SCRIPT="xctool -workspace $XCODE_WORKSPACE -scheme ObjectMapper-Mac test"
 
 before_install:
   - brew update
   - brew outdated xctool || brew upgrade xctool
 
-script: xctool -project ObjectMapper.xcodeproj -scheme $XCODE_SCHEME -sdk $XCODE_SDK test
+script: $SCRIPT
 
 notifications:
   email: false
