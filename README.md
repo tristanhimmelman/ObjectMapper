@@ -3,15 +3,24 @@ ObjectMapper
 
 [![Build Status](https://travis-ci.org/Hearst-DD/ObjectMapper.svg?branch=master)](https://travis-ci.org/Hearst-DD/ObjectMapper)
 
-ObjectMapper is a framework written in Swift that makes it easy for you to convert your Model objects (Classes and Structs) to and from JSON.
-##Features:
+ObjectMapper is a framework written in Swift that makes it easy for you to convert your Model objects (Classes and Structs) to and from JSON. 
+
+- [Features](#features)
+- [The Basics](#the-basics)
+- [Mapping Nested Objects](#easy-mapping-of-nested-objects)
+- [Custom Transformations](#custom-transfoms)
+- [Subclassing](#subclasses)
+- [Contributing](#contributing)
+- [Installation](#installation)
+
+#Features:
 - Mapping JSON to objects
 - Mapping objects to JSON
 - Nested Objects (stand alone, in Arrays or in Dictionaries)
 - Custom transformations during mapping
 - Struct support
 
-##The Basics
+#The Basics
 To support mapping, a Class or Struct just needs to implement the ```Mappable``` protocol.
 ```swift
 public protocol Mappable {
@@ -92,7 +101,7 @@ Object mapper can map classes composed of the following types:
 - Optionals of all the above
 - Implicitly Unwrapped Optionals of the above
 
-##Easy Mapping of Nested Objects
+#Easy Mapping of Nested Objects
 ObjectMapper supports dot notation within keys for easy mapping of nested objects. Given the following JSON String:
 ```
 "distance" : {
@@ -107,7 +116,7 @@ func mapping(map: Map){
 }
 ```
 
-##Custom Transfoms
+#Custom Transfoms
 ObjectMapper also supports custom Transforms that convert values during the mapping process. To use a transform, simply create a tuple with ```map["field_name"]``` and the transform of choice on the right side of the ```<-``` operator:
 ```swift
 birthday <- (map["birthday"], DateTransform())
@@ -125,7 +134,7 @@ public protocol TransformType {
 }
 ```
 
-#### TransformOf
+### TransformOf
 In a lot of situations you can use the built in transform class ```TransformOf``` to quickly perform a desired transformation. ```TransformOf``` is initialized with two types and two closures. The types define what the transform is converting to and from and the closures perform the actual transformation. 
 
 For example, if you want to transform a JSON String value to an Int you could use ```TransformOf``` as follows:
@@ -148,7 +157,7 @@ Here is a more condensed version of the above:
 id <- (map["id"], TransformOf<Int, String>(fromJSON: { $0?.toInt() }, toJSON: { $0.map { String($0) } }))
 ```
 
-##Subclasses
+#Subclasses
 Classes that implement the Mappable protocol can easily be subclassed. When subclassing Mappable classes, follow the structure below:
 ```
 class Base: Mappable {
@@ -180,7 +189,19 @@ class Subclass: Base {
 
 <!-- ##To Do -->
 
-##Installation
+#Contributing
+
+Contributions are very welcomed 👍😃. 
+
+Before submitting any Pull Request, please ensure you have run the included tests and that they have passed. If you are including new functionality, please write test cases for it as well. 
+
+ObjectMapper uses [Nimble](https://github.com/Quick/Nimble) to ensure test success. It is included using [Carthage](https://github.com/Carthage/Carthage). Run the following command in the ObjectMapper root directory to fetch the Nimble depency and get the environment ready for running tests:
+```
+carthage checkout
+```
+From this point on, you should open the project using ObjectMapper.xcworkspace and NOT ObjectMapper.xcodeproj
+
+#Installation
 ObjectMapper can be added to your project using [Cocoapods 0.36 (beta)](http://blog.cocoapods.org/Pod-Authors-Guide-to-CocoaPods-Frameworks/) by adding the following line to your Podfile:
 ```
 pod 'ObjectMapper', '~> 0.9'
