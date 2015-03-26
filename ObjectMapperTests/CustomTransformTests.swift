@@ -33,8 +33,8 @@ class CustomTransformTests: XCTestCase {
 		let JSON = mapper.toJSON(transforms)
 		let parsedTransforms = mapper.map(JSON)
 		expect(parsedTransforms).notTo(beNil())
-		expect(parsedTransforms.date).to(equal(transforms.date))
-		expect(parsedTransforms.dateOpt).to(equal(transforms.dateOpt))
+		expect(parsedTransforms?.date).to(equal(transforms.date))
+		expect(parsedTransforms?.dateOpt).to(equal(transforms.dateOpt))
 	}
 	
 	func testISO8601DateTransform() {
@@ -45,27 +45,28 @@ class CustomTransformTests: XCTestCase {
 
 		let parsedTransforms = mapper.map(JSON)
 		expect(parsedTransforms).notTo(beNil())
-		expect(parsedTransforms.ISO8601Date).to(equal(transforms.ISO8601Date))
-		expect(parsedTransforms.ISO8601DateOpt).to(equal(transforms.ISO8601DateOpt))
+		expect(parsedTransforms?.ISO8601Date).to(equal(transforms.ISO8601Date))
+		expect(parsedTransforms?.ISO8601DateOpt).to(equal(transforms.ISO8601DateOpt))
 	}
 	
 	func testISO8601DateTransformWithInvalidInput() {
 		var JSON: [String: AnyObject] = ["ISO8601Date": ""]
 		let transforms = mapper.map(JSON)
 
-		expect(transforms.ISO8601DateOpt).to(beNil())
+		expect(transforms?.ISO8601DateOpt).to(beNil())
 
 		JSON["ISO8601Date"] = "incorrect format"
 
 		let transforms2 = mapper.map(JSON)
 
-		expect(transforms2.ISO8601DateOpt).to(beNil())
+		expect(transforms2?.ISO8601DateOpt).to(beNil())
 	}
 	
 	func testCustomFormatDateTransform(){
 		let dateString = "2015-03-03T02:36:44"
 		var JSON: [String: AnyObject] = ["customFormateDate": dateString]
-		let transform = mapper.map(JSON)
+		let transform: Transforms! = mapper.map(JSON)
+		expect(transform).notTo(beNil())
 		
 		let JSONOutput = mapper.toJSON(transform)
 
@@ -77,7 +78,7 @@ class CustomTransformTests: XCTestCase {
 		var JSON: [String: AnyObject] = ["intWithString": "\(intValue)"]
 		let transforms = mapper.map(JSON)
 
-		expect(transforms.intWithString).to(equal(intValue))
+		expect(transforms?.intWithString).to(equal(intValue))
 	}
 	
 	func testInt64MaxValue() {
@@ -88,7 +89,7 @@ class CustomTransformTests: XCTestCase {
 
 		let parsedTransforms = mapper.map(JSON)
 		expect(parsedTransforms).notTo(beNil())
-		expect(parsedTransforms.int64Value).to(equal(transforms.int64Value))
+		expect(parsedTransforms?.int64Value).to(equal(transforms.int64Value))
 	}
 	
 	func testURLTranform() {
@@ -100,8 +101,8 @@ class CustomTransformTests: XCTestCase {
 
 		let parsedTransforms = mapper.map(JSON)
 		expect(parsedTransforms).notTo(beNil())
-		expect(parsedTransforms.URL).to(equal(transforms.URL))
-		expect(parsedTransforms.URLOpt).to(equal(transforms.URLOpt))
+		expect(parsedTransforms?.URL).to(equal(transforms.URL))
+		expect(parsedTransforms?.URLOpt).to(equal(transforms.URLOpt))
 	}
 	
 	func testEnumTransform() {
@@ -109,8 +110,8 @@ class CustomTransformTests: XCTestCase {
 		let transforms = mapper.map(JSON)
 
 		let imageType = Transforms.ImageType.self
-		expect(transforms.firstImageType).to(equal(imageType.Cover))
-		expect(transforms.secondImageType).to(equal(imageType.Thumbnail))
+		expect(transforms?.firstImageType).to(equal(imageType.Cover))
+		expect(transforms?.secondImageType).to(equal(imageType.Thumbnail))
 	}
 }
 

@@ -29,10 +29,11 @@ class ObjectMapperTests: XCTestCase {
 		let mapper = Mapper<Immutable>()
 		let JSON = [ "prop1": "Immutable!", "prop2": 255, "prop3": true ]
 
-		let immutable = mapper.map(JSON)
-		expect(immutable.prop1).to(equal("Immutable!"))
-		expect(immutable.prop2).to(equal(255))
-		expect(immutable.prop3).to(equal(true))
+		let immutable: Immutable! = mapper.map(JSON)
+		expect(immutable).notTo(beNil())
+		expect(immutable?.prop1).to(equal("Immutable!"))
+		expect(immutable?.prop2).to(equal(255))
+		expect(immutable?.prop3).to(equal(true))
 
 		let JSON2 = [ "prop1": "prop1", "prop2": NSNull() ]
 		let immutable2 = mapper.map(JSON2)
@@ -343,8 +344,8 @@ class ObjectMapperTests: XCTestCase {
 		let json = Mapper().toJSON(object)
 		let parsedObject = Mapper<Subclass>().map(json)
 
-		expect(object.base).to(equal(parsedObject.base))
-		expect(object.sub).to(equal(parsedObject.sub))
+		expect(object.base).to(equal(parsedObject?.base))
+		expect(object.sub).to(equal(parsedObject?.sub))
 	}
 
 	func testGenericSubclass() {
@@ -355,8 +356,8 @@ class ObjectMapperTests: XCTestCase {
 		let json = Mapper().toJSON(object)
 		let parsedObject = Mapper<GenericSubclass<String>>().map(json)
 
-		expect(object.base).to(equal(parsedObject.base))
-		expect(object.sub).to(equal(parsedObject.sub))
+		expect(object.base).to(equal(parsedObject?.base))
+		expect(object.sub).to(equal(parsedObject?.sub))
 	}
 	
 	func testSubclassWithGenericArrayInSuperclass() {

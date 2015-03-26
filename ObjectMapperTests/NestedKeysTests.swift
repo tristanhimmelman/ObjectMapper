@@ -59,9 +59,12 @@ class NestedKeysTests: XCTestCase {
 
 		let mapper = Mapper<NestedKeys>()
 
-		let value = mapper.map(JSON)
+		let value: NestedKeys! = mapper.map(JSON)
+		expect(value).notTo(beNil())
+
 		let JSONFromValue = mapper.toJSON(value)
-		let valueFromParsedJSON = mapper.map(JSONFromValue)
+		let valueFromParsedJSON: NestedKeys! = mapper.map(JSONFromValue)
+		expect(valueFromParsedJSON).notTo(beNil())
 
 		expect(value.int64).to(equal(valueFromParsedJSON.int64))
 		expect(value.bool).to(equal(valueFromParsedJSON.bool))
