@@ -79,7 +79,7 @@ Once your class implements Mappable, the Mapper class handles everything else fo
 
 Convert a JSON string to a model object:
 ```swift
-let user = Mapper<User>().map(string: JSONString)
+let user = Mapper<User>().map(JSONString)
 ```
 
 Convert a model object to a JSON string:
