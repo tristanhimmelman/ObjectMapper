@@ -29,8 +29,9 @@ class BasicTypesTestsFromJSON: XCTestCase {
 	
 	func testMappingBoolFromJSON(){
 		var value: Bool = true
-		let JSON = "{\"bool\" : \(value), \"boolOpt\" : \(value), \"boolImp\" : \(value)}"
-		var mappedObject = mapper.map(string: JSON)
+		let JSONString = "{\"bool\" : \(value), \"boolOpt\" : \(value), \"boolImp\" : \(value)}"
+		
+		var mappedObject = mapper.map(JSONString)
 
 		expect(mappedObject).notTo(beNil())
 		expect(mappedObject?.bool).to(equal(value))
@@ -40,8 +41,9 @@ class BasicTypesTestsFromJSON: XCTestCase {
 	
 	func testMappingIntFromJSON(){
 		var value: Int = 11
-		let JSON = "{\"int\" : \(value), \"intOpt\" : \(value), \"intImp\" : \(value)}"
-		var mappedObject = mapper.map(string: JSON)
+		let JSONString = "{\"int\" : \(value), \"intOpt\" : \(value), \"intImp\" : \(value)}"
+		
+		var mappedObject = mapper.map(JSONString)
 
 		expect(mappedObject).notTo(beNil())
 		expect(mappedObject?.int).to(equal(value))
@@ -51,9 +53,9 @@ class BasicTypesTestsFromJSON: XCTestCase {
 	
 	func testMappingDoubleFromJSON(){
 		var value: Double = 11
-		let JSON = "{\"double\" : \(value), \"doubleOpt\" : \(value), \"doubleImp\" : \(value)}"
+		let JSONString = "{\"double\" : \(value), \"doubleOpt\" : \(value), \"doubleImp\" : \(value)}"
 
-		var mappedObject = mapper.map(string: JSON)
+		var mappedObject = mapper.map(JSONString)
 
 		expect(mappedObject).notTo(beNil())
 		expect(mappedObject?.double).to(equal(value))
@@ -63,8 +65,9 @@ class BasicTypesTestsFromJSON: XCTestCase {
 	
 	func testMappingFloatFromJSON(){
 		var value: Float = 11
-		let JSON = "{\"float\" : \(value), \"floatOpt\" : \(value), \"floatImp\" : \(value)}"
-		var mappedObject = mapper.map(string: JSON)
+		let JSONString = "{\"float\" : \(value), \"floatOpt\" : \(value), \"floatImp\" : \(value)}"
+		
+		var mappedObject = mapper.map(JSONString)
 
 		expect(mappedObject).notTo(beNil())
 		expect(mappedObject?.float).to(equal(value))
@@ -74,9 +77,9 @@ class BasicTypesTestsFromJSON: XCTestCase {
 	
 	func testMappingStringFromJSON(){
 		var value: String = "STRINGNGNGG"
-		let JSON = "{\"string\" : \"\(value)\", \"stringOpt\" : \"\(value)\", \"stringImp\" : \"\(value)\"}"
+		let JSONString = "{\"string\" : \"\(value)\", \"stringOpt\" : \"\(value)\", \"stringImp\" : \"\(value)\"}"
 
-		var mappedObject = mapper.map(string: JSON)
+		var mappedObject = mapper.map(JSONString)
 
 		expect(mappedObject).notTo(beNil())
 		expect(mappedObject?.string).to(equal(value))
@@ -88,9 +91,9 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		var value1 = "STRING"
 		var value2: Int = 1234
 		var value3: Double = 11.11
-		let JSON = "{\"anyObject\" : \"\(value1)\", \"anyObjectOpt\" : \(value2), \"anyObjectImp\" : \(value3)}"
+		let JSONString = "{\"anyObject\" : \"\(value1)\", \"anyObjectOpt\" : \(value2), \"anyObjectImp\" : \(value3)}"
 		
-		var mappedObject = mapper.map(string: JSON)
+		var mappedObject = mapper.map(JSONString)
 
 		expect(mappedObject).notTo(beNil())
 		expect(mappedObject?.anyObject as? String).to(equal(value1))
@@ -102,9 +105,9 @@ class BasicTypesTestsFromJSON: XCTestCase {
 	
 	func testMappingBoolArrayFromJSON(){
 		var value: Bool = true
-		let JSON = "{\"arrayBool\" : [\(value)], \"arrayBoolOpt\" : [\(value)], \"arrayBoolImp\" : [\(value)] }"
+		let JSONString = "{\"arrayBool\" : [\(value)], \"arrayBoolOpt\" : [\(value)], \"arrayBoolImp\" : [\(value)] }"
 
-		var mappedObject = mapper.map(string: JSON)
+		var mappedObject = mapper.map(JSONString)
 
 		expect(mappedObject).notTo(beNil())
 		expect(mappedObject?.arrayBool.first).to(equal(value))
@@ -114,8 +117,9 @@ class BasicTypesTestsFromJSON: XCTestCase {
 	
 	func testMappingIntArrayFromJSON(){
 		var value: Int = 1
-		let JSON = "{\"arrayInt\" : [\(value)], \"arrayIntOpt\" : [\(value)], \"arrayIntImp\" : [\(value)] }"
-		var mappedObject = mapper.map(string: JSON)
+		let JSONString = "{\"arrayInt\" : [\(value)], \"arrayIntOpt\" : [\(value)], \"arrayIntImp\" : [\(value)] }"
+
+		var mappedObject = mapper.map(JSONString)
 
 		expect(mappedObject).notTo(beNil())
 		expect(mappedObject?.arrayInt.first).to(equal(value))
@@ -125,8 +129,9 @@ class BasicTypesTestsFromJSON: XCTestCase {
 	
 	func testMappingDoubleArrayFromJSON(){
 		var value: Double = 1.0
-		let JSON = "{\"arrayDouble\" : [\(value)], \"arrayDoubleOpt\" : [\(value)], \"arrayDoubleImp\" : [\(value)] }"
-		var mappedObject = mapper.map(string: JSON)
+		let JSONString = "{\"arrayDouble\" : [\(value)], \"arrayDoubleOpt\" : [\(value)], \"arrayDoubleImp\" : [\(value)] }"
+
+		var mappedObject = mapper.map(JSONString)
 
 		expect(mappedObject).notTo(beNil())
 		expect(mappedObject?.arrayDouble.first).to(equal(value))
@@ -136,8 +141,9 @@ class BasicTypesTestsFromJSON: XCTestCase {
 	
 	func testMappingFloatArrayFromJSON(){
 		var value: Float = 1.001
-		let JSON = "{\"arrayFloat\" : [\(value)], \"arrayFloatOpt\" : [\(value)], \"arrayFloatImp\" : [\(value)] }"
-		var mappedObject = mapper.map(string: JSON)
+		let JSONString = "{\"arrayFloat\" : [\(value)], \"arrayFloatOpt\" : [\(value)], \"arrayFloatImp\" : [\(value)] }"
+		
+		var mappedObject = mapper.map(JSONString)
 
 		expect(mappedObject).notTo(beNil())
 		expect(mappedObject?.arrayFloat.first).to(equal(value))
@@ -147,8 +153,9 @@ class BasicTypesTestsFromJSON: XCTestCase {
 	
 	func testMappingStringArrayFromJSON(){
 		var value: String = "Stringgggg"
-		let JSON = "{\"arrayString\" : [\"\(value)\"], \"arrayStringOpt\" : [\"\(value)\"], \"arrayStringImp\" : [\"\(value)\"] }"
-		var mappedObject = mapper.map(string: JSON)
+		let JSONString = "{\"arrayString\" : [\"\(value)\"], \"arrayStringOpt\" : [\"\(value)\"], \"arrayStringImp\" : [\"\(value)\"] }"
+		
+		var mappedObject = mapper.map(JSONString)
 
 		expect(mappedObject).notTo(beNil())
 		expect(mappedObject?.arrayString.first).to(equal(value))
@@ -160,9 +167,9 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		var value1 = "STRING"
 		var value2: Int = 1234
 		var value3: Double = 11.11
-		let JSON = "{\"arrayAnyObject\" : [\"\(value1)\"], \"arrayAnyObjectOpt\" : [\(value2)], \"arratAnyObjectImp\" : [\(value3)] }"
+		let JSONString = "{\"arrayAnyObject\" : [\"\(value1)\"], \"arrayAnyObjectOpt\" : [\(value2)], \"arratAnyObjectImp\" : [\(value3)] }"
 		
-		var mappedObject = mapper.map(string: JSON)
+		var mappedObject = mapper.map(JSONString)
 
 		expect(mappedObject).notTo(beNil())
 		expect(mappedObject?.arrayAnyObject.first as? String).to(equal(value1))
@@ -175,8 +182,9 @@ class BasicTypesTestsFromJSON: XCTestCase {
 	func testMappingBoolDictionaryFromJSON(){
 		var key = "key"
 		var value: Bool = true
-		let JSON = "{\"dictBool\" : { \"\(key)\" : \(value)}, \"dictBoolOpt\" : { \"\(key)\" : \(value)}, \"dictBoolImp\" : { \"\(key)\" : \(value)} }"
-		var mappedObject = mapper.map(string: JSON)
+		let JSONString = "{\"dictBool\" : { \"\(key)\" : \(value)}, \"dictBoolOpt\" : { \"\(key)\" : \(value)}, \"dictBoolImp\" : { \"\(key)\" : \(value)} }"
+		
+		var mappedObject = mapper.map(JSONString)
 
 		expect(mappedObject).notTo(beNil())
 		expect(mappedObject?.dictBoolOptional?[key]).to(equal(value))
@@ -187,9 +195,9 @@ class BasicTypesTestsFromJSON: XCTestCase {
 	func testMappingIntDictionaryFromJSON(){
 		var key = "key"
 		var value: Int = 11
-		let JSON = "{\"dictInt\" : { \"\(key)\" : \(value)}, \"dictIntOpt\" : { \"\(key)\" : \(value)}, \"dictIntImp\" : { \"\(key)\" : \(value)} }"
+		let JSONString = "{\"dictInt\" : { \"\(key)\" : \(value)}, \"dictIntOpt\" : { \"\(key)\" : \(value)}, \"dictIntImp\" : { \"\(key)\" : \(value)} }"
 		
-		var mappedObject = mapper.map(string: JSON)
+		var mappedObject = mapper.map(JSONString)
 
 		expect(mappedObject).notTo(beNil())
 		expect(mappedObject?.dictIntOptional?[key]).to(equal(value))
@@ -200,8 +208,9 @@ class BasicTypesTestsFromJSON: XCTestCase {
 	func testMappingDoubleDictionaryFromJSON(){
 		var key = "key"
 		var value: Double = 11
-		let JSON = "{\"dictDouble\" : { \"\(key)\" : \(value)}, \"dictDoubleOpt\" : { \"\(key)\" : \(value)}, \"dictDoubleImp\" : { \"\(key)\" : \(value)} }"
-		var mappedObject = mapper.map(string: JSON)
+		let JSONString = "{\"dictDouble\" : { \"\(key)\" : \(value)}, \"dictDoubleOpt\" : { \"\(key)\" : \(value)}, \"dictDoubleImp\" : { \"\(key)\" : \(value)} }"
+		
+		var mappedObject = mapper.map(JSONString)
 
 		expect(mappedObject).notTo(beNil())
 		expect(mappedObject?.dictDoubleOptional?[key]).to(equal(value))
@@ -212,8 +221,9 @@ class BasicTypesTestsFromJSON: XCTestCase {
 	func testMappingFloatDictionaryFromJSON(){
 		var key = "key"
 		var value: Float = 111.1
-		let JSON = "{\"dictFloat\" : { \"\(key)\" : \(value)}, \"dictFloatOpt\" : { \"\(key)\" : \(value)}, \"dictFloatImp\" : { \"\(key)\" : \(value)} }"
-		var mappedObject = mapper.map(string: JSON)
+		let JSONString = "{\"dictFloat\" : { \"\(key)\" : \(value)}, \"dictFloatOpt\" : { \"\(key)\" : \(value)}, \"dictFloatImp\" : { \"\(key)\" : \(value)} }"
+
+		var mappedObject = mapper.map(JSONString)
 
 		expect(mappedObject).notTo(beNil())
 		expect(mappedObject?.dictFloat[key]).to(equal(value))
@@ -224,9 +234,9 @@ class BasicTypesTestsFromJSON: XCTestCase {
 	func testMappingStringDictionaryFromJSON(){
 		var key = "key"
 		var value = "value"
-		let JSON = "{\"dictString\" : { \"\(key)\" : \"\(value)\"}, \"dictStringOpt\" : { \"\(key)\" : \"\(value)\"}, \"dictStringImp\" : { \"\(key)\" : \"\(value)\"} }"
+		let JSONString = "{\"dictString\" : { \"\(key)\" : \"\(value)\"}, \"dictStringOpt\" : { \"\(key)\" : \"\(value)\"}, \"dictStringImp\" : { \"\(key)\" : \"\(value)\"} }"
 		
-		var mappedObject = mapper.map(string: JSON)
+		var mappedObject = mapper.map(JSONString)
 
 		expect(mappedObject).notTo(beNil())
 		expect(mappedObject?.dictString[key]).to(equal(value))
@@ -239,9 +249,9 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		var value1 = "STRING"
 		var value2: Int = 1234
 		var value3: Double = 11.11
-		let JSON = "{\"dictAnyObject\" : { \"\(key)\" : \"\(value1)\"}, \"dictAnyObjectOpt\" : { \"\(key)\" : \(value2)}, \"dictAnyObjectImp\" : { \"\(key)\" : \(value3)} }"
+		let JSONString = "{\"dictAnyObject\" : { \"\(key)\" : \"\(value1)\"}, \"dictAnyObjectOpt\" : { \"\(key)\" : \(value2)}, \"dictAnyObjectImp\" : { \"\(key)\" : \(value3)} }"
 		
-		var mappedObject = mapper.map(string: JSON)
+		var mappedObject = mapper.map(JSONString)
 
 		expect(mappedObject).notTo(beNil())
 		expect(mappedObject?.dictAnyObject[key] as? String).to(equal(value1))
@@ -250,10 +260,10 @@ class BasicTypesTestsFromJSON: XCTestCase {
 	}
 	
 	func testObjectModelOptionalDictionnaryOfPrimitives() {
-		let json: [String: [String: AnyObject]] = ["dictStringString":["string": "string"], "dictStringBool":["string": false], "dictStringInt":["string": 1], "dictStringDouble":["string": 1.1], "dictStringFloat":["string": 1.2]]
+		let JSON: [String: [String: AnyObject]] = ["dictStringString":["string": "string"], "dictStringBool":["string": false], "dictStringInt":["string": 1], "dictStringDouble":["string": 1.1], "dictStringFloat":["string": 1.2]]
 		
 		let mapper = Mapper<TestCollectionOfPrimitives>()
-		let testSet: TestCollectionOfPrimitives! = mapper.map(json)
+		let testSet: TestCollectionOfPrimitives! = mapper.map(JSON)
 		expect(testSet).notTo(beNil())
 
 		expect(testSet.dictStringString).notTo(beEmpty())
