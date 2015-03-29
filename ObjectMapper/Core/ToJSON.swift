@@ -93,7 +93,7 @@ class ToJSON {
     }
     
 	func object<N: Mappable>(field: N, key: String, inout dictionary: [String : AnyObject]) {
-		setValue(NSDictionary(dictionary: Mapper().toJSON(field)), forKey: key, dictionary: &dictionary)
+		setValue(Mapper().toJSON(field), forKey: key, dictionary: &dictionary)
 	}
 
     func optionalObject<N: Mappable>(field: N?, key: String, inout dictionary: [String : AnyObject]) {
