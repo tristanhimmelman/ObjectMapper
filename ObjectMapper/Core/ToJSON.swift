@@ -62,6 +62,8 @@ class ToJSON {
 			setValue(x, forKey: key, dictionary: &dictionary)
 		case let x as Array<String>:
 			setValue(x, forKey: key, dictionary: &dictionary)
+		case let x as Array<AnyObject>:
+			setValue(x, forKey: key, dictionary: &dictionary)
 
 		// Dictionaries with basic types
 		case let x as Dictionary<String, NSNumber>:
@@ -76,6 +78,8 @@ class ToJSON {
 			setValue(x, forKey: key, dictionary: &dictionary)
 		case let x as Dictionary<String, String>:
 			setValue(x, forKey: key, dictionary: &dictionary)
+		case let x as Dictionary<String, AnyObject>:
+			setValue(x, forKey: key, dictionary: &dictionary)
 		default:
 			//println("Default")
 			return
@@ -88,26 +92,6 @@ class ToJSON {
         }
     }
     
-	func basicArray(field: Array<AnyObject>, key: String, inout dictionary: [String : AnyObject]) {
-		setValue(field, forKey: key, dictionary: &dictionary)
-	}
-
-	func optionalBasicArray(field: Array<AnyObject>?, key: String, inout dictionary: [String : AnyObject]) {
-		if let value = field {
-			basicArray(value, key: key, dictionary: &dictionary)
-		}
-	}
-
-	func basicDictionary(field: Dictionary<String, AnyObject>, key: String, inout dictionary: [String : AnyObject]) {
-		setValue(field, forKey: key, dictionary: &dictionary)
-	}
-
-	func optionalBasicDictionary(field: Dictionary<String, AnyObject>?, key: String, inout dictionary: [String : AnyObject]) {
-		if let value = field {
-			basicDictionary(value, key: key, dictionary: &dictionary)
-		}
-	}
-
 	func object<N: Mappable>(field: N, key: String, inout dictionary: [String : AnyObject]) {
 		setValue(NSDictionary(dictionary: Mapper().toJSON(field)), forKey: key, dictionary: &dictionary)
 	}
