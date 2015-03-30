@@ -22,7 +22,7 @@ private func setValue(value: AnyObject, forKeyPathComponents components: [String
 	if components.count == 1 {
 		return dictionary[head] = value
 	} else {
-		var child = (dictionary[head] as? [String : AnyObject])
+		var child = dictionary[head] as? [String : AnyObject]
 		if child == nil {
 			child = [:]
 		}
