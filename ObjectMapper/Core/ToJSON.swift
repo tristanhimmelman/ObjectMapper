@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 hearst. All rights reserved.
 //
 
-import Foundation
+import class Foundation.NSNumber
 
 private func setValue(value: AnyObject, forKey key: String, inout #dictionary: [String : AnyObject]) {
 	return setValue(value, forKeyPathComponents: key.componentsSeparatedByString("."), dictionary: &dictionary)
@@ -31,9 +31,9 @@ private func setValue(value: AnyObject, forKeyPathComponents components: [String
 	}
 }
 
-class ToJSON {
+internal final class ToJSON {
 	
-	func basicType<N>(field: N, key: String, inout dictionary: [String : AnyObject]) {
+	class func basicType<N>(field: N, key: String, inout dictionary: [String : AnyObject]) {
 		switch field {
 		// basic Types
 		case let x as NSNumber:
@@ -86,23 +86,23 @@ class ToJSON {
 		}
 	}
 
-    func optionalBasicType<N>(field: N?, key: String, inout dictionary: [String : AnyObject]) {
+    class func optionalBasicType<N>(field: N?, key: String, inout dictionary: [String : AnyObject]) {
         if let field = field {
             basicType(field, key: key, dictionary: &dictionary)
         }
     }
     
-	func object<N: Mappable>(field: N, key: String, inout dictionary: [String : AnyObject]) {
+	class func object<N: Mappable>(field: N, key: String, inout dictionary: [String : AnyObject]) {
 		setValue(Mapper().toJSON(field), forKey: key, dictionary: &dictionary)
 	}
 
-    func optionalObject<N: Mappable>(field: N?, key: String, inout dictionary: [String : AnyObject]) {
+    class func optionalObject<N: Mappable>(field: N?, key: String, inout dictionary: [String : AnyObject]) {
         if let field = field {
             object(field, key: key, dictionary: &dictionary)
         }
     }
     
-	func objectArray<N: Mappable>(field: Array<N>, key: String, inout dictionary: [String : AnyObject]) {
+	class func objectArray<N: Mappable>(field: Array<N>, key: String, inout dictionary: [String : AnyObject]) {
 		let JSONObjects = Mapper().toJSONArray(field)
 
 		if !JSONObjects.isEmpty {
@@ -110,13 +110,13 @@ class ToJSON {
 		}
 	}
 
-    func optionalObjectArray<N: Mappable>(field: Array<N>?, key: String, inout dictionary: [String : AnyObject]) {
+    class func optionalObjectArray<N: Mappable>(field: Array<N>?, key: String, inout dictionary: [String : AnyObject]) {
         if let field = field {
             objectArray(field, key: key, dictionary: &dictionary)
         }
     }
     
-	func objectDictionary<N: Mappable>(field: Dictionary<String, N>, key: String, inout dictionary: [String : AnyObject]) {
+	class func objectDictionary<N: Mappable>(field: Dictionary<String, N>, key: String, inout dictionary: [String : AnyObject]) {
 		let JSONObjects = Mapper().toJSONDictionary(field)
 
 		if !JSONObjects.isEmpty {
@@ -124,7 +124,7 @@ class ToJSON {
 		}
 	}
 
-    func optionalObjectDictionary<N: Mappable>(field: Dictionary<String, N>?, key: String, inout dictionary: [String : AnyObject]) {
+    class func optionalObjectDictionary<N: Mappable>(field: Dictionary<String, N>?, key: String, inout dictionary: [String : AnyObject]) {
         if let field = field {
             objectDictionary(field, key: key, dictionary: &dictionary)
         }
