@@ -23,9 +23,9 @@ infix operator <- {}
 
 public func <- <T>(inout left: T, right: Map) {
     if right.mappingType == MappingType.fromJSON {
-        FromJSON().basicType(&left, object: right.currentValue)
+        FromJSON.basicType(&left, object: right.currentValue)
     } else {
-        ToJSON().basicType(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
+        ToJSON.basicType(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
     }
 }
 
@@ -34,9 +34,9 @@ public func <- <T>(inout left: T, right: Map) {
 */
 public func <- <T>(inout left: T?, right: Map) {
     if right.mappingType == MappingType.fromJSON {
-        FromJSON().optionalBasicType(&left, object: right.currentValue)
+        FromJSON.optionalBasicType(&left, object: right.currentValue)
     } else {
-        ToJSON().optionalBasicType(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
+        ToJSON.optionalBasicType(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
     }
 }
 
@@ -45,9 +45,9 @@ public func <- <T>(inout left: T?, right: Map) {
 */
 public func <- <T>(inout left: T!, right: Map) {
 	if right.mappingType == MappingType.fromJSON {
-		FromJSON().optionalBasicType(&left, object: right.currentValue)
+		FromJSON.optionalBasicType(&left, object: right.currentValue)
 	} else {
-		ToJSON().optionalBasicType(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
+		ToJSON.optionalBasicType(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
 	}
 }
 
@@ -57,10 +57,10 @@ public func <- <T>(inout left: T!, right: Map) {
 public func <- <T, Transform: TransformType where Transform.Object == T>(inout left: T, right: (Map, Transform)) {
     if right.0.mappingType == MappingType.fromJSON {
         var value: T? = right.1.transformFromJSON(right.0.currentValue)
-        FromJSON().basicType(&left, object: value)
+        FromJSON.basicType(&left, object: value)
     } else {
         var value: Transform.JSON? = right.1.transformToJSON(left)
-        ToJSON().optionalBasicType(value, key: right.0.currentKey!, dictionary: &right.0.JSONDictionary)
+        ToJSON.optionalBasicType(value, key: right.0.currentKey!, dictionary: &right.0.JSONDictionary)
     }
 }
 
@@ -70,10 +70,10 @@ public func <- <T, Transform: TransformType where Transform.Object == T>(inout l
 public func <- <T, Transform: TransformType where Transform.Object == T>(inout left: T?, right: (Map, Transform)) {
     if right.0.mappingType == MappingType.fromJSON {
         var value: T? = right.1.transformFromJSON(right.0.currentValue)
-        FromJSON().optionalBasicType(&left, object: value)
+        FromJSON.optionalBasicType(&left, object: value)
     } else {
         var value: Transform.JSON? = right.1.transformToJSON(left)
-        ToJSON().optionalBasicType(value, key: right.0.currentKey!, dictionary: &right.0.JSONDictionary)
+        ToJSON.optionalBasicType(value, key: right.0.currentKey!, dictionary: &right.0.JSONDictionary)
     }
 }
 
@@ -83,10 +83,10 @@ public func <- <T, Transform: TransformType where Transform.Object == T>(inout l
 public func <- <T, Transform: TransformType where Transform.Object == T>(inout left: T!, right: (Map, Transform)) {
 	if right.0.mappingType == MappingType.fromJSON {
 		var value: T? = right.1.transformFromJSON(right.0.currentValue)
-		FromJSON().optionalBasicType(&left, object: value)
+		FromJSON.optionalBasicType(&left, object: value)
 	} else {
 		var value: Transform.JSON? = right.1.transformToJSON(left)
-		ToJSON().optionalBasicType(value, key: right.0.currentKey!, dictionary: &right.0.JSONDictionary)
+		ToJSON.optionalBasicType(value, key: right.0.currentKey!, dictionary: &right.0.JSONDictionary)
 	}
 }
 
@@ -96,9 +96,9 @@ public func <- <T, Transform: TransformType where Transform.Object == T>(inout l
 */
 public func <- <T: Mappable>(inout left: T, right: Map) {
     if right.mappingType == MappingType.fromJSON {
-        FromJSON().object(&left, object: right.currentValue)
+        FromJSON.object(&left, object: right.currentValue)
     } else {
-        ToJSON().object(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
+        ToJSON.object(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
     }
 }
 
@@ -107,9 +107,9 @@ public func <- <T: Mappable>(inout left: T, right: Map) {
 */
 public func <- <T: Mappable>(inout left: T?, right: Map) {
     if right.mappingType == MappingType.fromJSON {
-        FromJSON().optionalObject(&left, object: right.currentValue)
+        FromJSON.optionalObject(&left, object: right.currentValue)
     } else {
-        ToJSON().optionalObject(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
+        ToJSON.optionalObject(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
     }
 }
 
@@ -118,9 +118,9 @@ public func <- <T: Mappable>(inout left: T?, right: Map) {
 */
 public func <- <T: Mappable>(inout left: T!, right: Map) {
 	if right.mappingType == MappingType.fromJSON {
-		FromJSON().optionalObject(&left, object: right.currentValue)
+		FromJSON.optionalObject(&left, object: right.currentValue)
 	} else {
-		ToJSON().optionalObject(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
+		ToJSON.optionalObject(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
 	}
 }
 
@@ -130,9 +130,9 @@ public func <- <T: Mappable>(inout left: T!, right: Map) {
 */
 public func <- <T: Mappable>(inout left: Dictionary<String, T>, right: Map) {
     if right.mappingType == MappingType.fromJSON {
-        FromJSON().objectDictionary(&left, object: right.currentValue)
+        FromJSON.objectDictionary(&left, object: right.currentValue)
     } else {
-        ToJSON().objectDictionary(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
+        ToJSON.objectDictionary(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
     }
 }
 
@@ -141,9 +141,9 @@ public func <- <T: Mappable>(inout left: Dictionary<String, T>, right: Map) {
 */
 public func <- <T: Mappable>(inout left: Dictionary<String, T>?, right: Map) {
     if right.mappingType == MappingType.fromJSON {
-        FromJSON().optionalObjectDictionary(&left, object: right.currentValue)
+        FromJSON.optionalObjectDictionary(&left, object: right.currentValue)
     } else {
-        ToJSON().optionalObjectDictionary(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
+        ToJSON.optionalObjectDictionary(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
     }
 }
 
@@ -152,9 +152,9 @@ public func <- <T: Mappable>(inout left: Dictionary<String, T>?, right: Map) {
 */
 public func <- <T: Mappable>(inout left: Dictionary<String, T>!, right: Map) {
 	if right.mappingType == MappingType.fromJSON {
-		FromJSON().optionalObjectDictionary(&left, object: right.currentValue)
+		FromJSON.optionalObjectDictionary(&left, object: right.currentValue)
 	} else {
-		ToJSON().optionalObjectDictionary(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
+		ToJSON.optionalObjectDictionary(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
 	}
 }
 
@@ -164,9 +164,9 @@ public func <- <T: Mappable>(inout left: Dictionary<String, T>!, right: Map) {
 */
 public func <- <T: Mappable>(inout left: Array<T>, right: Map) {
     if right.mappingType == MappingType.fromJSON {
-        FromJSON().objectArray(&left, object: right.currentValue)
+        FromJSON.objectArray(&left, object: right.currentValue)
     } else {
-        ToJSON().objectArray(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
+        ToJSON.objectArray(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
     }
 }
 
@@ -175,9 +175,9 @@ public func <- <T: Mappable>(inout left: Array<T>, right: Map) {
 */
 public func <- <T: Mappable>(inout left: Array<T>?, right: Map) {
     if right.mappingType == MappingType.fromJSON {
-        FromJSON().optionalObjectArray(&left, object: right.currentValue)
+        FromJSON.optionalObjectArray(&left, object: right.currentValue)
     } else {
-        ToJSON().optionalObjectArray(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
+        ToJSON.optionalObjectArray(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
     }
 }
 
@@ -186,8 +186,8 @@ public func <- <T: Mappable>(inout left: Array<T>?, right: Map) {
 */
 public func <- <T: Mappable>(inout left: Array<T>!, right: Map) {
 	if right.mappingType == MappingType.fromJSON {
-		FromJSON().optionalObjectArray(&left, object: right.currentValue)
+		FromJSON.optionalObjectArray(&left, object: right.currentValue)
 	} else {
-		ToJSON().optionalObjectArray(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
+		ToJSON.optionalObjectArray(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
 	}
 }
