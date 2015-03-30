@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 hearst. All rights reserved.
 //
 
-import Foundation
-
 internal final class FromJSON {
 	
 	/// Basic type

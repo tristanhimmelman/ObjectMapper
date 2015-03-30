@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 hearst. All rights reserved.
 //
 
-import Foundation
-
 /**
 * This file defines a new operator which is used to create a mapping between an object and a JSON key value.
 * There is an overloaded operator definition for each type of object that is supported in ObjectMapper.

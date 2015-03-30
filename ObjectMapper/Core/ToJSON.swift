@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 hearst. All rights reserved.
 //
 
-import Foundation
+import class Foundation.NSNumber
 
 private func setValue(value: AnyObject, forKey key: String, inout #dictionary: [String : AnyObject]) {
 	return setValue(value, forKeyPathComponents: key.componentsSeparatedByString("."), dictionary: &dictionary)
