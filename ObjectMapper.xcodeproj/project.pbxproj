@@ -14,7 +14,6 @@
 		6A6AEB961A93874F002573D3 /* BasicTypesTestsFromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6AEB951A93874F002573D3 /* BasicTypesTestsFromJSON.swift */; };
 		6A6AEB981A9387D0002573D3 /* BasicTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6AEB971A9387D0002573D3 /* BasicTypes.swift */; };
 		6A6C54D019FE8DB600239454 /* URLTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6C54CF19FE8DB600239454 /* URLTransform.swift */; };
-		6A9EEBD51AC5BFA30011F22C /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 6A9EEBD41AC5BFA30011F22C /* README.md */; };
 		6AAC8F7C19F03C2900E7A677 /* ObjectMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AAC8F7B19F03C2900E7A677 /* ObjectMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6AAC8F8619F03C2900E7A677 /* ObjectMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8F8519F03C2900E7A677 /* ObjectMapperTests.swift */; };
 		6AAC8FCD19F048FE00E7A677 /* FromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC319F048FE00E7A677 /* FromJSON.swift */; };
@@ -428,7 +427,6 @@
 				CD50B6FD1A82518300744312 /* TransformType.swift in Sources */,
 				6AAC8FD319F048FE00E7A677 /* DateTransform.swift in Sources */,
 				BC1E7F371ABC44C000F9B1CF /* EnumTransform.swift in Sources */,
-				6A9EEBD51AC5BFA30011F22C /* README.md in Sources */,
 				D86BDEA41A51E5AD00120819 /* ISO8601DateTransform.swift in Sources */,
 				CD71C8C11A7218AD009D4161 /* TransformOf.swift in Sources */,
 				6A6C54D019FE8DB600239454 /* URLTransform.swift in Sources */,
