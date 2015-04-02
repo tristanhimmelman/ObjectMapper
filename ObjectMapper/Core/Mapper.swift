@@ -14,8 +14,8 @@ public protocol Mappable {
 }
 
 public enum MappingType {
-	case fromJSON
-	case toJSON
+	case FromJSON
+	case ToJSON
 }
 
 /**
@@ -119,7 +119,7 @@ public final class Mapper<N: Mappable> {
 	* Usefull for those pesky objects that have crappy designated initializers like NSManagedObject
 	*/
 	public func map(JSONDictionary: [String : AnyObject], var toObject object: N) -> N {
-		let map = Map(mappingType: .fromJSON, JSONDictionary: JSONDictionary)
+		let map = Map(mappingType: .FromJSON, JSONDictionary: JSONDictionary)
 		object.mapping(map)
 		return object
 	}
@@ -151,7 +151,7 @@ public final class Mapper<N: Mappable> {
 	* Maps a JSON dictionary to an object that conforms to Mappable
 	*/
 	public func map(JSONDictionary: [String : AnyObject]) -> N? {
-		let map = Map(mappingType: .fromJSON, JSONDictionary: JSONDictionary)
+		let map = Map(mappingType: .FromJSON, JSONDictionary: JSONDictionary)
 		let object = N(map)
 		return object
 	}
@@ -233,7 +233,7 @@ public final class Mapper<N: Mappable> {
 	* Maps an object that conforms to Mappable to a JSON dictionary <String : AnyObject>
 	*/
 	public func toJSON(var object: N) -> [String : AnyObject] {
-		let map = Map(mappingType: .toJSON, JSONDictionary: [:])
+		let map = Map(mappingType: .ToJSON, JSONDictionary: [:])
 		object.mapping(map)
 		return map.JSONDictionary
 	}
