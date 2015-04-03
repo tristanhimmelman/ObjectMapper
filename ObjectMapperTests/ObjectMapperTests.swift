@@ -108,8 +108,7 @@ class ObjectMapperTests: XCTestCase {
 		expect(float).to(equal(user.float))
 		expect(drinker).to(equal(user.drinker))
 		expect(smoker).to(equal(user.smoker))
-
-        println(Mapper().toJSONString(user, prettyPrint: true))
+        //println(Mapper().toJSONString(user, prettyPrint: true))
     }
     
     func testDictionaryParsing() {
@@ -318,7 +317,6 @@ class ObjectMapperTests: XCTestCase {
 		var taskArray = [task1, task2, task3]
 		
 		let JSONArray = Mapper().toJSONArray(taskArray)
-		println(JSONArray)
 		
 		let taskId1 = JSONArray[0]["taskId"] as? Int
 		let percentage1 = JSONArray[0]["percentage"] as? Double
