@@ -9,38 +9,26 @@
 internal final class FromJSON {
 	
 	/// Basic type
-    class func basicType<FieldType>(inout field: FieldType, object: AnyObject?) {
-        basicType(&field, object: object as? FieldType)
-    }
-	
-    class func basicType<FieldType>(inout field: FieldType, object: FieldType?) {
-        if let value = object {
-            field = value
-        }
-    }
-	
-	/// optional basic type
-    class func optionalBasicType<FieldType>(inout field: FieldType?, object: AnyObject?) {
-		optionalBasicType(&field, object: object as? FieldType)
-    }
-	
-    class func optionalBasicType<FieldType>(inout field: FieldType?, object: FieldType?) {
-        if let value: FieldType = object {
-            field = value
-        }
-    }
-	
-	/// Implicitly unwrapped optional basic type
-	class func optionalBasicType<FieldType>(inout field: FieldType!, object: AnyObject?) {
-		optionalBasicType(&field, object: object as? FieldType)
-	}
-	
-	class func optionalBasicType<FieldType>(inout field: FieldType!, object: FieldType?) {
-		if let value: FieldType = object {
+	class func basicType<FieldType>(inout field: FieldType, object: FieldType?) {
+		if let value = object {
 			field = value
 		}
 	}
-	
+
+	/// optional basic type
+	class func optionalBasicType<FieldType>(inout field: FieldType?, object: FieldType?) {
+		if let value = object {
+			field = value
+		}
+	}
+
+	/// Implicitly unwrapped optional basic type
+	class func optionalBasicType<FieldType>(inout field: FieldType!, object: FieldType?) {
+		if let value = object {
+			field = value
+		}
+	}
+
 	/// Mappable object
 	class func object<N: Mappable>(inout field: N, object: AnyObject?) {
 		if let value: N = Mapper().map(object) {

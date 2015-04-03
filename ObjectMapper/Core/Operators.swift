@@ -21,7 +21,7 @@ infix operator <- {}
 
 public func <- <T>(inout left: T, right: Map) {
     if right.mappingType == MappingType.fromJSON {
-        FromJSON.basicType(&left, object: right.currentValue)
+        FromJSON.basicType(&left, object: right.value())
     } else {
         ToJSON.basicType(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
     }
@@ -32,7 +32,7 @@ public func <- <T>(inout left: T, right: Map) {
 */
 public func <- <T>(inout left: T?, right: Map) {
     if right.mappingType == MappingType.fromJSON {
-        FromJSON.optionalBasicType(&left, object: right.currentValue)
+        FromJSON.optionalBasicType(&left, object: right.value())
     } else {
         ToJSON.optionalBasicType(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
     }
@@ -43,7 +43,7 @@ public func <- <T>(inout left: T?, right: Map) {
 */
 public func <- <T>(inout left: T!, right: Map) {
 	if right.mappingType == MappingType.fromJSON {
-		FromJSON.optionalBasicType(&left, object: right.currentValue)
+		FromJSON.optionalBasicType(&left, object: right.value())
 	} else {
 		ToJSON.optionalBasicType(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
 	}
