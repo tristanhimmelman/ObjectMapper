@@ -21,6 +21,8 @@
 		6AAC8FCF19F048FE00E7A677 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC519F048FE00E7A677 /* Operators.swift */; };
 		6AAC8FD119F048FE00E7A677 /* ToJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC719F048FE00E7A677 /* ToJSON.swift */; };
 		6AAC8FD319F048FE00E7A677 /* DateTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FCB19F048FE00E7A677 /* DateTransform.swift */; };
+		6AAE6A431ACED93500FBC899 /* ObjectMapper.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = CD1602FF1AC023D5000CD69A /* ObjectMapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6AAE6A441ACED93B00FBC899 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = CD208C981AC10D2B00E21781 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BC1E7F371ABC44C000F9B1CF /* EnumTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1E7F361ABC44C000F9B1CF /* EnumTransform.swift */; };
 		CD16030A1AC023D6000CD69A /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD1602FF1AC023D5000CD69A /* ObjectMapper.framework */; };
 		CD1603181AC02437000CD69A /* ObjectMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AAC8F7B19F03C2900E7A677 /* ObjectMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -71,6 +73,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		6AAE6A421ACED92700FBC899 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				6AAE6A441ACED93B00FBC899 /* Nimble.framework in CopyFiles */,
+				6AAE6A431ACED93500FBC899 /* ObjectMapper.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CD44374A1AAD696B00A271BA /* Copy Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -333,6 +346,7 @@
 				CD1603051AC023D6000CD69A /* Sources */,
 				CD1603061AC023D6000CD69A /* Frameworks */,
 				CD1603071AC023D6000CD69A /* Resources */,
+				6AAE6A421ACED92700FBC899 /* CopyFiles */,
 			);
 			buildRules = (
 			);
