@@ -28,6 +28,8 @@ public final class Map {
 	var currentValue: AnyObject?
 	var currentKey: String?
 
+	private var failedCount: Int = 0
+
 	private init(mappingType: MappingType, JSONDictionary: [String : AnyObject]) {
 		self.mappingType = mappingType
 		self.JSONDictionary = JSONDictionary
@@ -47,12 +49,32 @@ public final class Map {
 		return self
 	}
 
+	// MARK: Immutable Mapping
+
 	public func value<T>() -> T? {
 		return currentValue as? T
 	}
 
 	public func valueOr<T>(defaultValue: T) -> T {
-		return (currentValue as? T) ?? defaultValue
+		return value() ?? defaultValue
+	}
+
+	public func valueOrFail<T>() -> T {
+		if let value: T = value() {
+			return value
+		} else {
+			// Collects failed count
+			failedCount++
+
+			// Returns dummy memory as a proxy for type `T`
+			let pointer = UnsafeMutablePointer<T>.alloc(0)
+			pointer.dealloc(0)
+			return pointer.memory
+		}
+	}
+
+	public var isValid: Bool {
+		return failedCount == 0
 	}
 }
 
