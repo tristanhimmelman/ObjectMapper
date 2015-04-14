@@ -50,9 +50,9 @@ class User: Mappable {
         username    <- map["username"]
         age         <- map["age"]
         weight      <- map["weight"]
-        arrary      <- map["arr"]
+        array       <- map["arr"]
         dictionary  <- map["dict"]
-        best_friend <- map["best_friend"]
+        bestFriend  <- map["best_friend"]
         friends     <- map["friends"]
         birthday    <- (map["birthday"], DateTransform())
     }
