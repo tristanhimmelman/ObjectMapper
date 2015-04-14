@@ -373,26 +373,6 @@ class ObjectMapperTests: XCTestCase {
 	}
 }
 
-infix operator <^> { associativity left }
-infix operator <*> { associativity left }
-
-public func <^><T, U>(f: T -> U, a: T?) -> U? {
-	return a.map(f)
-}
-
-public func <*><T, U>(f: (T -> U)?, a: T?) -> U? {
-	return a.apply(f)
-}
-
-extension Optional {
-	func apply<U>(f: (T -> U)?) -> U? {
-		switch (self, f) {
-		case let (.Some(x), .Some(fx)): return fx(x)
-		default: return .None
-		}
-	}
-}
-
 struct Immutable: Equatable {
 	let prop1: String
 	let prop2: Int
@@ -400,19 +380,12 @@ struct Immutable: Equatable {
 }
 
 extension Immutable: Mappable {
-	static func create(prop1: String)(prop2: Int)(prop3: Bool) -> Immutable {
-		return Immutable(prop1: prop1, prop2: prop2, prop3: prop3)
-	}
-
 	init?(_ map: Map) {
-		let x = Immutable.create
-			<^> map["prop1"].value()
-			<*> map["prop2"].value()
-			<*> map["prop3"].value()
+		prop1 = map["prop1"].valueOrFail()
+		prop2 = map["prop2"].valueOrFail()
+		prop3 = map["prop3"].valueOrFail()
 
-		if let x = x {
-			self = x
-		} else {
+		if !map.isValid {
 			return nil
 		}
 	}
