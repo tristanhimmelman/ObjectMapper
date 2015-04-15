@@ -415,7 +415,10 @@ extension Immutable: Mappable {
 }
 
 func ==(lhs: Immutable, rhs: Immutable) -> Bool {
-	return lhs.prop1 == rhs.prop1 && lhs.prop2 == rhs.prop2 && lhs.prop3 == rhs.prop3
+	return lhs.prop1 == rhs.prop1
+		&& lhs.prop2 == rhs.prop2
+		&& lhs.prop3 == rhs.prop3
+		&& lhs.prop4 == rhs.prop4
 }
 
 class Response<T: Mappable>: Mappable {
