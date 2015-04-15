@@ -34,6 +34,7 @@ class ObjectMapperTests: XCTestCase {
 		expect(immutable?.prop1).to(equal("Immutable!"))
 		expect(immutable?.prop2).to(equal(255))
 		expect(immutable?.prop3).to(equal(true))
+		expect(immutable?.prop4).to(equal(DBL_MAX))
 
 		let JSON2 = [ "prop1": "prop1", "prop2": NSNull() ]
 		let immutable2 = mapper.map(JSON2)
@@ -377,6 +378,7 @@ struct Immutable: Equatable {
 	let prop1: String
 	let prop2: Int
 	let prop3: Bool
+	let prop4: Double
 }
 
 extension Immutable: Mappable {
@@ -384,6 +386,7 @@ extension Immutable: Mappable {
 		prop1 = map["prop1"].valueOrFail()
 		prop2 = map["prop2"].valueOrFail()
 		prop3 = map["prop3"].valueOrFail()
+		prop4 = map["prop4"].valueOr(DBL_MAX)
 
 		if !map.isValid {
 			return nil
@@ -401,10 +404,12 @@ extension Immutable: Mappable {
 			var prop1 = self.prop1
 			var prop2 = self.prop2
 			var prop3 = self.prop3
+			var prop4 = self.prop4
 
 			prop1 <- map["prop1"]
 			prop2 <- map["prop2"]
 			prop3 <- map["prop3"]
+			prop4 <- map["prop4"]
 		}
 	}
 }
