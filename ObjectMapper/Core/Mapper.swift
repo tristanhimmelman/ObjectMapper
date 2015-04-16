@@ -56,8 +56,8 @@ public final class Map {
 		return currentValue as? T
 	}
 
-	public func valueOr<T>(defaultValue: T) -> T {
-		return value() ?? defaultValue
+	public func valueOr<T>(@autoclosure defaultValue: () -> T) -> T {
+		return value() ?? defaultValue()
 	}
 
 	/// Returns current JSON value of type `T` if it is existing, or returns a
