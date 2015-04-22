@@ -98,7 +98,17 @@ internal final class ToJSON {
             basicType(field, key: key, dictionary: &dictionary)
         }
     }
-    
+
+	class func rawRepresentable<N: RawRepresentable>(field: N, key: String, inout dictionary: [String : AnyObject]) {
+		basicType(field.rawValue, key: key, dictionary: &dictionary)
+	}
+
+  	class func rawRepresentable<N: RawRepresentable>(field: N?, key: String, inout dictionary: [String : AnyObject]) {
+			if let field = field {
+				rawRepresentable(field, key: key, dictionary: &dictionary)
+			}
+	  }
+
 	class func object<N: Mappable>(field: N, key: String, inout dictionary: [String : AnyObject]) {
 		setValue(Mapper().toJSON(field), forKey: key, dictionary: &dictionary)
 	}

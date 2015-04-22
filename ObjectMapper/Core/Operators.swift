@@ -56,7 +56,7 @@ public func <- <T: RawRepresentable>(inout left: T, right: Map) {
 	if right.mappingType == MappingType.FromJSON {
 		FromJSON.rawRepresentable(&left, object: right.value())
 	} else {
-		// TODO: 
+		ToJSON.rawRepresentable(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
 	}
 }
 
@@ -67,7 +67,7 @@ public func <- <T: RawRepresentable>(inout left: T?, right: Map) {
 	if right.mappingType == MappingType.FromJSON {
 		FromJSON.rawRepresentable(&left, object: right.value())
 	} else {
-		// TODO:
+		ToJSON.rawRepresentable(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
 	}
 }
 
@@ -78,7 +78,7 @@ public func <- <T: RawRepresentable>(inout left: T!, right: Map) {
 	if right.mappingType == MappingType.FromJSON {
 		FromJSON.rawRepresentable(&left, object: right.value())
 	} else {
-		// TODO:
+		ToJSON.rawRepresentable(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
 	}
 }
 
