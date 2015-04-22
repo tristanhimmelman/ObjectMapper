@@ -67,6 +67,14 @@ class BasicTypes: Mappable {
 	var dictAnyObjectOptional: Dictionary<String, AnyObject>?
 	var dictAnyObjectImplicitlyUnwrapped: Dictionary<String, AnyObject>!
 
+	enum EnumInt: Int {
+		case Default
+		case Another
+	}
+	var enumInt: EnumInt = .Default
+	var enumIntOptional: EnumInt?
+	var enumIntImplicityUnwrapped: EnumInt!
+
 	init() {}
 
 	required init?(_ map: Map) {
@@ -130,6 +138,10 @@ class BasicTypes: Mappable {
 		dictAnyObject						<- map["dictAnyObject"]
 		dictAnyObjectOptional				<- map["dictAnyObjectOpt"]
 		dictAnyObjectImplicitlyUnwrapped	<- map["dictAnyObjectImp"]
+
+		enumInt              <- map["enumInt"]
+		enumIntOptional          <- map["enumIntOpt"]
+		enumIntImplicityUnwrapped      <- map["enumIntImp"]
 	}
 }
 

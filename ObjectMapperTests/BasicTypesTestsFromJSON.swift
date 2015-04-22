@@ -258,6 +258,18 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		expect(mappedObject?.dictAnyObjectOptional?[key] as? Int).to(equal(value2))
 		expect(mappedObject?.dictAnyObjectImplicitlyUnwrapped[key] as? Double).to(equal(value3))
 	}
+
+	func testMappingIntEnumFromJSON(){
+		var key = "key"
+		var value: BasicTypes.EnumInt = .Another
+		let JSONString = "{\"enumInt\" : \(value), \"enumIntOpt\" : \(value), \"enumIntImp\" : \(value) }"
+
+		var mappedObject = mapper.map(JSONString)
+		expect(mappedObject).notTo(beNil())
+		expect(mappedObject?.enumInt).to(equal(value))
+		expect(mappedObject?.enumIntOptional).to(equal(value))
+		expect(mappedObject?.enumIntImplicityUnwrapped).to(equal(value))
+	}
 	
 	func testObjectModelOptionalDictionnaryOfPrimitives() {
 		let JSON: [String: [String: AnyObject]] = ["dictStringString":["string": "string"], "dictStringBool":["string": false], "dictStringInt":["string": 1], "dictStringDouble":["string": 1.1], "dictStringFloat":["string": 1.2]]
