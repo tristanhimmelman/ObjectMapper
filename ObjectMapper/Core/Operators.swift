@@ -50,6 +50,39 @@ public func <- <T>(inout left: T!, right: Map) {
 }
 
 /**
+* Object of Raw Representable type
+*/
+public func <- <T: RawRepresentable>(inout left: T, right: Map) {
+	if right.mappingType == MappingType.FromJSON {
+		FromJSON.rawRepresentable(&left, object: right.value())
+	} else {
+		// TODO: 
+	}
+}
+
+/**
+* Optional Object of Raw Representable type
+*/
+public func <- <T: RawRepresentable>(inout left: T?, right: Map) {
+	if right.mappingType == MappingType.FromJSON {
+		FromJSON.rawRepresentable(&left, object: right.value())
+	} else {
+		// TODO:
+	}
+}
+
+/**
+* Implicitly Unwrapped Optional Object of Raw Representable type
+*/
+public func <- <T: RawRepresentable>(inout left: T!, right: Map) {
+	if right.mappingType == MappingType.FromJSON {
+		FromJSON.rawRepresentable(&left, object: right.value())
+	} else {
+		// TODO:
+	}
+}
+
+/**
 * Object of Basic type with Transform
 */
 public func <- <T, Transform: TransformType where Transform.Object == T>(inout left: T, right: (Map, Transform)) {

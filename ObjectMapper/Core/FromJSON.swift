@@ -29,6 +29,27 @@ internal final class FromJSON {
 		}
 	}
 
+	/// Raw representable
+	class func rawRepresentable<N: RawRepresentable>(inout field: N, object: N.RawValue?) {
+		if let value = object {
+			field = N(rawValue: value)!
+		}
+	}
+
+	/// Optional raw representable
+	class func rawRepresentable<N: RawRepresentable>(inout field: N?, object: N.RawValue?) {
+		if let value = object {
+			field = N(rawValue: value)
+		}
+	}
+
+	/// Implicitly unwrapped optional basic type
+	class func rawRepresentable<N: RawRepresentable>(inout field: N!, object: N.RawValue?) {
+		if let value = object {
+			field = N(rawValue: value)
+		}
+	}
+
 	/// Mappable object
 	class func object<N: Mappable>(inout field: N, object: AnyObject?) {
 		if let value: N = Mapper().map(object) {

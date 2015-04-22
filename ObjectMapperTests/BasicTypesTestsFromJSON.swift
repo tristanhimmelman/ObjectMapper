@@ -262,7 +262,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 	func testMappingIntEnumFromJSON(){
 		var key = "key"
 		var value: BasicTypes.EnumInt = .Another
-		let JSONString = "{\"enumInt\" : \(value), \"enumIntOpt\" : \(value), \"enumIntImp\" : \(value) }"
+		let JSONString = "{\"enumInt\" : \(value.rawValue), \"enumIntOpt\" : \(value.rawValue), \"enumIntImp\" : \(value.rawValue) }"
 
 		var mappedObject = mapper.map(JSONString)
 		expect(mappedObject).notTo(beNil())
