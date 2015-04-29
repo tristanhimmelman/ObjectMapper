@@ -286,7 +286,9 @@ class ObjectMapperTests: XCTestCase {
 		let enums = enumArray?.enums
 		expect(enums).notTo(beNil())
 		expect(enums?.count).to(equal(3))
-
+		expect(enums?[0]).to(equal(a))
+		expect(enums?[1]).to(equal(b))
+		expect(enums?[2]).to(equal(c))
 	}
 
 	func testDictionaryOfCustomObjects(){
@@ -301,7 +303,20 @@ class ObjectMapperTests: XCTestCase {
 		expect(task).notTo(beNil())
 		expect(task?.percentage).to(equal(percentage1))
 	}
-	
+
+	func testDictionryOfEnumObjects(){
+		let a: ExampleEnum = .A
+		let b: ExampleEnum = .B
+		let c: ExampleEnum = .C
+
+		let JSONString = "{ \"enums\": {\"A\": \(a.rawValue), \"B\": \(b.rawValue), \"C\": \(c.rawValue)} }"
+
+		let enumDict = Mapper<ExampleEnumDictionary>().map(JSONString)
+		let enums = enumDict?.enums
+		expect(enums).notTo(beNil())
+		expect(enums?.count).to(equal(3))
+	}
+
 	func testDoubleParsing(){
 		let percentage1: Double = 1792.41
 		
@@ -673,6 +688,18 @@ enum ExampleEnum: Int {
 
 class ExampleEnumArray: Mappable {
 	var enums: [ExampleEnum] = []
+
+	required init? (_ map: Map) {
+		mapping(map)
+	}
+
+	func mapping(map: Map) {
+		enums <- map["enums"]
+	}
+}
+
+class ExampleEnumDictionary: Mappable {
+	var enums: [String: ExampleEnum] = [:]
 
 	required init? (_ map: Map) {
 		mapping(map)
