@@ -102,7 +102,7 @@ class BasicTypes: Mappable {
 	var arrayEnumInt: [EnumInt] = []
 	var arrayEnumIntOptional: [EnumInt]?
 	var arrayEnumIntImplicitlyUnwrapped: [EnumInt]!
-	
+
 	var dictEnumInt: [String: EnumInt] = [:]
 	var dictEnumIntOptional: [String: EnumInt]?
 	var dictEnumIntImplicitlyUnwrapped: [String: EnumInt]!
@@ -171,26 +171,25 @@ class BasicTypes: Mappable {
 		dictAnyObjectOptional				<- map["dictAnyObjectOpt"]
 		dictAnyObjectImplicitlyUnwrapped	<- map["dictAnyObjectImp"]
 
-		enumInt								<- map["enumInt"]
-		enumIntOptional						<- map["enumIntOpt"]
-		enumIntImplicitlyUnwrapped			<- map["enumIntImp"]
-		enumDouble							<- map["enumDouble"]
-		enumDoubleOptional					<- map["enumDoubleOpt"]
-		enumDoubleImplicitlyUnwrapped		<- map["enumDoubleImp"]
-		enumFloat							<- map["enumFloat"]
-		enumFloatOptional					<- map["enumFloatOpt"]
-		enumFloatImplicitlyUnwrapped		<- map["enumFloatImp"]
-		enumString							<- map["enumString"]
-		enumStringOptional					<- map["enumStringOpt"]
-		enumStringImplicitlyUnwrapped		<- map["enumStringImp"]
+		enumInt              <- map["enumInt"]
+		enumIntOptional          <- map["enumIntOpt"]
+		enumIntImplicitlyUnwrapped      <- map["enumIntImp"]
+		enumDouble              <- map["enumDouble"]
+		enumDoubleOptional          <- map["enumDoubleOpt"]
+		enumDoubleImplicitlyUnwrapped      <- map["enumDoubleImp"]
+		enumFloat              <- map["enumFloat"]
+		enumFloatOptional          <- map["enumFloatOpt"]
+		enumFloatImplicitlyUnwrapped      <- map["enumFloatImp"]
+		enumString              <- map["enumString"]
+		enumStringOptional          <- map["enumStringOpt"]
+		enumStringImplicitlyUnwrapped      <- map["enumStringImp"]
 
-		arrayEnumInt						<- map["arrayEnumInt"]
-		arrayEnumIntOptional				<- map["arrayEnumIntOpt"]
-		arrayEnumIntImplicitlyUnwrapped		<- map["arrayEnumIntImp"]
-		
-		dictEnumInt							<- map["dictEnumInt"]
-		dictEnumIntOptional					<- map["dictEnumIntOpt"]
-		dictEnumIntImplicitlyUnwrapped		<- map["dictEnumIntImp"]
+		arrayEnumInt         <- map["arrayEnumInt"]
+		arrayEnumIntOptional     <- map["arrayEnumIntOpt"]
+		arrayEnumIntImplicitlyUnwrapped <- map["arrayEnumIntImp"]
+		dictEnumInt         <- map["dictEnumInt"]
+		dictEnumIntOptional     <- map["dictEnumIntOpt"]
+		dictEnumIntImplicitlyUnwrapped <- map["dictEnumIntImp"]
 	}
 }
 
