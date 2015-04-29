@@ -200,6 +200,7 @@ class ObjectMapperTests: XCTestCase {
         user.weight = 150
         user.drinker = true
         user.smoker = false
+			  user.sex = .Female
         user.arr = ["cheese", 11234]
         
         let JSONString = Mapper().toJSONString(user, prettyPrint: true)
@@ -213,6 +214,7 @@ class ObjectMapperTests: XCTestCase {
 		expect(user.weight).to(equal(parsedUser.weight))
 		expect(user.drinker).to(equal(parsedUser.drinker))
 		expect(user.smoker).to(equal(parsedUser.smoker))
+		expect(user.sex).to(equal(parsedUser.sex))
     }
 
     func testUnknownPropertiesIgnored() {
