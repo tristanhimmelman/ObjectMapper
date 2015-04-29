@@ -48,6 +48,12 @@ class NestedKeysTests: XCTestCase {
 					"floatDict": ["5": 123.456 as Float],
 					"stringDict": ["6": "InDict"],
 
+					"int64Enum": 1000,
+					"intEnum": 255,
+					"doubleEnum": 100.0,
+					"floatEnum": 100.0,
+					"stringEnum": "String B",
+
 					"nested": [
 						"object": ["value": 987],
 						"objectArray": [ ["value": 123], ["value": 456] ],
@@ -87,6 +93,12 @@ class NestedKeysTests: XCTestCase {
 		expect(value.floatDict).to(equal(valueFromParsedJSON.floatDict))
 		expect(value.stringDict).to(equal(valueFromParsedJSON.stringDict))
 
+		expect(value.int64Enum).to(equal(valueFromParsedJSON.int64Enum))
+		expect(value.intEnum).to(equal(valueFromParsedJSON.intEnum))
+		expect(value.doubleEnum).to(equal(valueFromParsedJSON.doubleEnum))
+		expect(value.floatEnum).to(equal(valueFromParsedJSON.floatEnum))
+		expect(value.stringEnum).to(equal(valueFromParsedJSON.stringEnum))
+
 		expect(value.object).to(equal(valueFromParsedJSON.object))
 		expect(value.objectArray).to(equal(valueFromParsedJSON.objectArray))
 		expect(value.objectDict).to(equal(valueFromParsedJSON.objectDict))
@@ -115,6 +127,12 @@ class NestedKeys: Mappable {
 	var doubleDict: [String: Double] = [:]
 	var floatDict: [String: Float] = [:]
 	var stringDict: [String: String] = [:]
+
+	var int64Enum: Int64Enum?
+	var intEnum: IntEnum?
+	var doubleEnum: DoubleEnum?
+	var floatEnum: FloatEnum?
+	var stringEnum: StringEnum?
 
 	var object: Object?
 	var objectArray: [Object] = []
@@ -146,6 +164,12 @@ class NestedKeys: Mappable {
 		floatDict	<- map["nested.nested.floatDict"]
 		stringDict	<- map["nested.nested.stringDict"]
 
+		int64Enum	<- map["nested.nested.int64Enum"]
+		intEnum		<- map["nested.nested.intEnum"]
+		doubleEnum	<- map["nested.nested.doubleEnum"]
+		floatEnum	<- map["nested.nested.floatEnum"]
+		stringEnum	<- map["nested.nested.stringEnum"]
+
 		object		<- map["nested.nested.nested.object"]
 		objectArray	<- map["nested.nested.nested.objectArray"]
 		objectDict	<- map["nested.nested.nested.objectDict"]
@@ -166,4 +190,29 @@ class Object: Mappable, Equatable {
 
 func == (lhs: Object, rhs: Object) -> Bool {
 	return lhs.value == rhs.value
+}
+
+enum Int64Enum: NSNumber {
+	case A = 0
+	case B = 1000
+}
+
+enum IntEnum: Int {
+	case A = 0
+	case B = 255
+}
+
+enum DoubleEnum: Double {
+	case A = 0.0
+	case B = 100.0
+}
+
+enum FloatEnum: Float {
+	case A = 0.0
+	case B = 100.0
+}
+
+enum StringEnum: String {
+	case A = "String A"
+	case B = "String B"
 }
