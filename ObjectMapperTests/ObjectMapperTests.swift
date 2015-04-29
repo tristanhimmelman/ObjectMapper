@@ -274,7 +274,21 @@ class ObjectMapperTests: XCTestCase {
 		expect(tasks?[0].percentage).to(equal(percentage1))
 		expect(tasks?[1].percentage).to(equal(percentage2))
 	}
-	
+
+	func testArrayOfEnumObjects(){
+    let a: ExampleEnum = .A
+    let b: ExampleEnum = .B
+    let c: ExampleEnum = .C
+
+    let JSONString = "{ \"enums\": [\(a.rawValue), \(b.rawValue), \(c.rawValue)] }"
+
+		let enumArray = Mapper<ExampleEnumArray>().map(JSONString)
+		let enums = enumArray?.enums
+		expect(enums).notTo(beNil())
+		expect(enums?.count).to(equal(3))
+
+	}
+
 	func testDictionaryOfCustomObjects(){
 		let percentage1: Double = 0.1
 		let percentage2: Double = 1792.41
@@ -648,5 +662,23 @@ class ConcreteItem: Mappable {
 class SubclassWithGenericArrayInSuperclass<Unused>: WithGenericArray<ConcreteItem> {
 	required init?(_ map: Map) {
 		super.init(map)
+	}
+}
+
+enum ExampleEnum: Int {
+	case A
+	case B
+	case C
+}
+
+class ExampleEnumArray: Mappable {
+	var enums: [ExampleEnum] = []
+
+	required init? (_ map: Map) {
+		mapping(map)
+	}
+
+	func mapping(map: Map) {
+		enums <- map["enums"]
 	}
 }
