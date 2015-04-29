@@ -53,9 +53,7 @@ internal final class FromJSON {
 	/// Array of Raw representable
 	class func rawRepresentableArray<N: RawRepresentable>(inout field: [N], object: [N.RawValue]?) {
 		if let values = object {
-			field = values.reduce([N]()) { (var vs, v) in
-				vs.append(N(rawValue: v)!)
-				return vs
+			field = values.map { (v: N.RawValue) in	N(rawValue: v)!	}
 		}
 	}
 
