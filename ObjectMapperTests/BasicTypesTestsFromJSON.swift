@@ -100,7 +100,19 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		expect(mappedObject?.anyObjectOptional as? Int).to(equal(value2))
 		expect(mappedObject?.anyObjectImplicitlyUnwrapped as? Double).to(equal(value3))
 	}
-	
+
+	func testMappingStringFromNSStringJSON(){
+		var value: String = "STRINGNGNGG"
+		let JSONNSString : NSString = "{\"string\" : \"\(value)\", \"stringOpt\" : \"\(value)\", \"stringImp\" : \"\(value)\"}"
+		
+		var mappedObject = mapper.map(JSONNSString)
+		
+		expect(mappedObject).notTo(beNil())
+		expect(mappedObject?.string).to(equal(value))
+		expect(mappedObject?.stringOptional).to(equal(value))
+		expect(mappedObject?.stringImplicityUnwrapped).to(equal(value))
+	}
+
 	// MARK: Test mapping Arrays to JSON and back (with basic types in them Bool, Int, Double, Float, String)
 	
 	func testMappingBoolArrayFromJSON(){
