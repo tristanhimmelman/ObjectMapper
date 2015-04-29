@@ -94,9 +94,53 @@ public func <- <T: RawRepresentable>(inout left: [T], right: Map) {
 }
 
 /**
+* Array of Raw Representable object
+*/
+public func <- <T: RawRepresentable>(inout left: [T]?, right: Map) {
+	if right.mappingType == MappingType.FromJSON {
+		FromJSON.rawRepresentableArray(&left, object: right.value())
+	} else {
+		// TODO:
+	}
+}
+
+/**
+* Array of Raw Representable object
+*/
+public func <- <T: RawRepresentable>(inout left: [T]!, right: Map) {
+	if right.mappingType == MappingType.FromJSON {
+		FromJSON.rawRepresentableArray(&left, object: right.value())
+	} else {
+		// TODO:
+	}
+}
+
+/**
 * Dictionary of Raw Representable object
 */
 public func <- <T: RawRepresentable>(inout left: [String: T], right: Map) {
+	if right.mappingType == MappingType.FromJSON {
+		FromJSON.rawRepresentableDict(&left, object: right.value())
+	} else {
+		// TODO:
+	}
+}
+
+/**
+* Dictionary of Raw Representable object
+*/
+public func <- <T: RawRepresentable>(inout left: [String: T]?, right: Map) {
+	if right.mappingType == MappingType.FromJSON {
+		FromJSON.rawRepresentableDict(&left, object: right.value())
+	} else {
+		// TODO:
+	}
+}
+
+/**
+* Dictionary of Raw Representable object
+*/
+public func <- <T: RawRepresentable>(inout left: [String: T]!, right: Map) {
 	if right.mappingType == MappingType.FromJSON {
 		FromJSON.rawRepresentableDict(&left, object: right.value())
 	} else {
