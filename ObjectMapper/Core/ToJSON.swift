@@ -98,7 +98,43 @@ internal final class ToJSON {
             basicType(field, key: key, dictionary: &dictionary)
         }
     }
-    
+
+	class func rawRepresentable<N: RawRepresentable>(field: N, key: String, inout dictionary: [String : AnyObject]) {
+		basicType(field.rawValue, key: key, dictionary: &dictionary)
+	}
+
+  	class func rawRepresentable<N: RawRepresentable>(field: N?, key: String, inout dictionary: [String : AnyObject]) {
+			if let field = field {
+				rawRepresentable(field, key: key, dictionary: &dictionary)
+			}
+	  }
+
+	class func rawRepresentableArray<N: RawRepresentable>(field: [N], key: String, inout dictionary: [String : AnyObject]) {
+		basicType(field.map { e in e.rawValue }, key: key, dictionary: &dictionary)
+	}
+
+	class func rawRepresentableArray<N: RawRepresentable>(field: [N]?, key: String, inout dictionary: [String : AnyObject]) {
+		if let field = field {
+			rawRepresentableArray(field, key: key, dictionary: &dictionary)
+		}
+	}
+
+	class func rawRepresentableDict<N: RawRepresentable>(field: [String: N], key: String, inout dictionary: [String : AnyObject]) {
+		let raw: [String: N.RawValue] = map(field) { (k, v) in (k, v.rawValue) }
+			.reduce([:]) { (var d, e) in
+				let (k, v) = e
+				d[k] = v
+				return d
+		}
+		basicType(raw, key: key, dictionary: &dictionary)
+	}
+
+	class func rawRepresentableDict<N: RawRepresentable>(field: [String: N]?, key: String, inout dictionary: [String : AnyObject]) {
+		if let field = field {
+			rawRepresentableDict(field, key: key, dictionary: &dictionary)
+		}
+	}
+
 	class func object<N: Mappable>(field: N, key: String, inout dictionary: [String : AnyObject]) {
 		setValue(Mapper().toJSON(field), forKey: key, dictionary: &dictionary)
 	}

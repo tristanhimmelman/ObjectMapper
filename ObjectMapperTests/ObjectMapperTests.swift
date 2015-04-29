@@ -53,6 +53,7 @@ class ObjectMapperTests: XCTestCase {
         let float: Float = 123.231
         let drinker = true
         let smoker = false
+  			let sex: Sex = .Female
         let arr = [ "bla", true, 42 ]
         let directory = [
             "key1" : "value1",
@@ -62,7 +63,7 @@ class ObjectMapperTests: XCTestCase {
         
         let subUserJSON = "{\"identifier\" : \"user8723\", \"drinker\" : true, \"age\": 17, \"username\" : \"sub user\" }"
         
-        let userJSONString = "{\"username\":\"\(username)\",\"identifier\":\"\(identifier)\",\"photoCount\":\(photoCount),\"age\":\(age),\"drinker\":\(drinker),\"smoker\":\(smoker), \"arr\":[ \"bla\", true, 42 ], \"dict\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"arrOpt\":[ \"bla\", true, 42 ], \"dictOpt\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"weight\": \(weight), \"float\": \(float), \"friend\": \(subUserJSON), \"friendDictionary\":{ \"bestFriend\": \(subUserJSON)}}"
+        let userJSONString = "{\"username\":\"\(username)\",\"identifier\":\"\(identifier)\",\"photoCount\":\(photoCount),\"age\":\(age),\"drinker\":\(drinker),\"smoker\":\(smoker), \"sex\":\"\(sex.rawValue)\", \"arr\":[ \"bla\", true, 42 ], \"dict\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"arrOpt\":[ \"bla\", true, 42 ], \"dictOpt\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"weight\": \(weight), \"float\": \(float), \"friend\": \(subUserJSON), \"friendDictionary\":{ \"bestFriend\": \(subUserJSON)}}"
 
 		let user = userMapper.map(userJSONString)!
 		
@@ -75,6 +76,7 @@ class ObjectMapperTests: XCTestCase {
 		expect(float).to(equal(user.float))
 		expect(drinker).to(equal(user.drinker))
 		expect(smoker).to(equal(user.smoker))
+		expect(sex).to(equal(user.sex))
 
 		//println(Mapper().toJSONString(user, prettyPrint: true))
     }
@@ -88,6 +90,7 @@ class ObjectMapperTests: XCTestCase {
         let float: Float = 123.231
         let drinker = true
         let smoker = false
+			  let sex: Sex = .Female
         let arr = [ "bla", true, 42 ]
         let directory = [
             "key1" : "value1",
@@ -97,7 +100,7 @@ class ObjectMapperTests: XCTestCase {
         
         let subUserJSON = "{\"identifier\" : \"user8723\", \"drinker\" : true, \"age\": 17, \"username\" : \"sub user\" }"
         
-        let userJSONString = "{\"username\":\"\(username)\",\"identifier\":\"\(identifier)\",\"photoCount\":\(photoCount),\"age\":\(age),\"drinker\":\(drinker),\"smoker\":\(smoker), \"arr\":[ \"bla\", true, 42 ], \"dict\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"arrOpt\":[ \"bla\", true, 42 ], \"dictOpt\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 },\"weight\": \(weight), \"float\": \(float), \"friend\": \(subUserJSON), \"friendDictionary\":{ \"bestFriend\": \(subUserJSON)}}"
+        let userJSONString = "{\"username\":\"\(username)\",\"identifier\":\"\(identifier)\",\"photoCount\":\(photoCount),\"age\":\(age),\"drinker\":\(drinker),\"smoker\":\(smoker), \"sex\":\"\(sex.rawValue)\", \"arr\":[ \"bla\", true, 42 ], \"dict\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"arrOpt\":[ \"bla\", true, 42 ], \"dictOpt\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 },\"weight\": \(weight), \"float\": \(float), \"friend\": \(subUserJSON), \"friendDictionary\":{ \"bestFriend\": \(subUserJSON)}}"
         
         let user = Mapper().map(userJSONString, toObject: User())
 
@@ -109,6 +112,7 @@ class ObjectMapperTests: XCTestCase {
 		expect(float).to(equal(user.float))
 		expect(drinker).to(equal(user.drinker))
 		expect(smoker).to(equal(user.smoker))
+		expect(sex).to(equal(user.sex))
         //println(Mapper().toJSONString(user, prettyPrint: true))
     }
     
@@ -196,6 +200,7 @@ class ObjectMapperTests: XCTestCase {
         user.weight = 150
         user.drinker = true
         user.smoker = false
+			  user.sex = .Female
         user.arr = ["cheese", 11234]
         
         let JSONString = Mapper().toJSONString(user, prettyPrint: true)
@@ -209,6 +214,7 @@ class ObjectMapperTests: XCTestCase {
 		expect(user.weight).to(equal(parsedUser.weight))
 		expect(user.drinker).to(equal(parsedUser.drinker))
 		expect(user.smoker).to(equal(parsedUser.smoker))
+		expect(user.sex).to(equal(parsedUser.sex))
     }
 
     func testUnknownPropertiesIgnored() {
@@ -268,7 +274,23 @@ class ObjectMapperTests: XCTestCase {
 		expect(tasks?[0].percentage).to(equal(percentage1))
 		expect(tasks?[1].percentage).to(equal(percentage2))
 	}
-	
+
+	func testArrayOfEnumObjects(){
+    let a: ExampleEnum = .A
+    let b: ExampleEnum = .B
+    let c: ExampleEnum = .C
+
+    let JSONString = "{ \"enums\": [\(a.rawValue), \(b.rawValue), \(c.rawValue)] }"
+
+		let enumArray = Mapper<ExampleEnumArray>().map(JSONString)
+		let enums = enumArray?.enums
+		expect(enums).notTo(beNil())
+		expect(enums?.count).to(equal(3))
+		expect(enums?[0]).to(equal(a))
+		expect(enums?[1]).to(equal(b))
+		expect(enums?[2]).to(equal(c))
+	}
+
 	func testDictionaryOfCustomObjects(){
 		let percentage1: Double = 0.1
 		let percentage2: Double = 1792.41
@@ -281,7 +303,20 @@ class ObjectMapperTests: XCTestCase {
 		expect(task).notTo(beNil())
 		expect(task?.percentage).to(equal(percentage1))
 	}
-	
+
+	func testDictionryOfEnumObjects(){
+		let a: ExampleEnum = .A
+		let b: ExampleEnum = .B
+		let c: ExampleEnum = .C
+
+		let JSONString = "{ \"enums\": {\"A\": \(a.rawValue), \"B\": \(b.rawValue), \"C\": \(c.rawValue)} }"
+
+		let enumDict = Mapper<ExampleEnumDictionary>().map(JSONString)
+		let enums = enumDict?.enums
+		expect(enums).notTo(beNil())
+		expect(enums?.count).to(equal(3))
+	}
+
 	func testDoubleParsing(){
 		let percentage1: Double = 1792.41
 		
@@ -509,6 +544,11 @@ struct Student: Mappable {
 	}
 }
 
+enum Sex: String {
+	case Male = "Male"
+	case Female = "Female"
+}
+
 class User: Mappable {
     
     var username: String = ""
@@ -519,6 +559,7 @@ class User: Mappable {
     var float: Float?
     var drinker: Bool = false
     var smoker: Bool?
+  	var sex: Sex?
     var arr: [AnyObject] = []
     var arrOptional: [AnyObject]?
     var dict: [String : AnyObject] = [:]
@@ -543,6 +584,7 @@ class User: Mappable {
 		float            <- map["float"]
 		drinker          <- map["drinker"]
 		smoker           <- map["smoker"]
+		sex              <- map["sex"]
 		arr              <- map["arr"]
 		arrOptional      <- map["arrOpt"]
 		dict             <- map["dict"]
@@ -635,5 +677,35 @@ class ConcreteItem: Mappable {
 class SubclassWithGenericArrayInSuperclass<Unused>: WithGenericArray<ConcreteItem> {
 	required init?(_ map: Map) {
 		super.init(map)
+	}
+}
+
+enum ExampleEnum: Int {
+	case A
+	case B
+	case C
+}
+
+class ExampleEnumArray: Mappable {
+	var enums: [ExampleEnum] = []
+
+	required init? (_ map: Map) {
+		mapping(map)
+	}
+
+	func mapping(map: Map) {
+		enums <- map["enums"]
+	}
+}
+
+class ExampleEnumDictionary: Mappable {
+	var enums: [String: ExampleEnum] = [:]
+
+	required init? (_ map: Map) {
+		mapping(map)
+	}
+
+	func mapping(map: Map) {
+		enums <- map["enums"]
 	}
 }

@@ -49,6 +49,109 @@ public func <- <T>(inout left: T!, right: Map) {
 	}
 }
 
+// MARK:- Raw Representable types
+/**
+* Object of Raw Representable type
+*/
+public func <- <T: RawRepresentable>(inout left: T, right: Map) {
+	if right.mappingType == MappingType.FromJSON {
+		FromJSON.rawRepresentable(&left, object: right.value())
+	} else {
+		ToJSON.rawRepresentable(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
+	}
+}
+
+/**
+* Optional Object of Raw Representable type
+*/
+public func <- <T: RawRepresentable>(inout left: T?, right: Map) {
+	if right.mappingType == MappingType.FromJSON {
+		FromJSON.rawRepresentable(&left, object: right.value())
+	} else {
+		ToJSON.rawRepresentable(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
+	}
+}
+
+/**
+* Implicitly Unwrapped Optional Object of Raw Representable type
+*/
+public func <- <T: RawRepresentable>(inout left: T!, right: Map) {
+	if right.mappingType == MappingType.FromJSON {
+		FromJSON.rawRepresentable(&left, object: right.value())
+	} else {
+		ToJSON.rawRepresentable(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
+	}
+}
+
+// MARK:- Arrays of Raw Representable type
+/**
+* Array of Raw Representable object
+*/
+public func <- <T: RawRepresentable>(inout left: [T], right: Map) {
+	if right.mappingType == MappingType.FromJSON {
+		FromJSON.rawRepresentableArray(&left, object: right.value())
+	} else {
+		ToJSON.rawRepresentableArray(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
+	}
+}
+
+/**
+* Array of Raw Representable object
+*/
+public func <- <T: RawRepresentable>(inout left: [T]?, right: Map) {
+	if right.mappingType == MappingType.FromJSON {
+		FromJSON.rawRepresentableArray(&left, object: right.value())
+	} else {
+		ToJSON.rawRepresentableArray(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
+	}
+}
+
+/**
+* Array of Raw Representable object
+*/
+public func <- <T: RawRepresentable>(inout left: [T]!, right: Map) {
+	if right.mappingType == MappingType.FromJSON {
+		FromJSON.rawRepresentableArray(&left, object: right.value())
+	} else {
+		ToJSON.rawRepresentableArray(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
+	}
+}
+
+// MARK:- Dictionaries of Raw Representable type
+/**
+* Dictionary of Raw Representable object
+*/
+public func <- <T: RawRepresentable>(inout left: [String: T], right: Map) {
+	if right.mappingType == MappingType.FromJSON {
+		FromJSON.rawRepresentableDict(&left, object: right.value())
+	} else {
+		ToJSON.rawRepresentableDict(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
+	}
+}
+
+/**
+* Dictionary of Raw Representable object
+*/
+public func <- <T: RawRepresentable>(inout left: [String: T]?, right: Map) {
+	if right.mappingType == MappingType.FromJSON {
+		FromJSON.rawRepresentableDict(&left, object: right.value())
+	} else {
+		ToJSON.rawRepresentableDict(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
+	}
+}
+
+/**
+* Dictionary of Raw Representable object
+*/
+public func <- <T: RawRepresentable>(inout left: [String: T]!, right: Map) {
+	if right.mappingType == MappingType.FromJSON {
+		FromJSON.rawRepresentableDict(&left, object: right.value())
+	} else {
+		ToJSON.rawRepresentableDict(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
+	}
+}
+
+// MARK:- Transforms
 /**
 * Object of Basic type with Transform
 */

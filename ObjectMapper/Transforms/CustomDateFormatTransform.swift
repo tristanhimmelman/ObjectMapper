@@ -17,5 +17,4 @@ public class CustomDateFormatTransform: DateFormaterTransform {
 		
 		super.init(dateFormatter: formatter)
     }
-	
 }

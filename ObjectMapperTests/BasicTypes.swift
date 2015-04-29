@@ -67,6 +67,46 @@ class BasicTypes: Mappable {
 	var dictAnyObjectOptional: Dictionary<String, AnyObject>?
 	var dictAnyObjectImplicitlyUnwrapped: Dictionary<String, AnyObject>!
 
+	enum EnumInt: Int {
+		case Default
+		case Another
+	}
+	var enumInt: EnumInt = .Default
+	var enumIntOptional: EnumInt?
+	var enumIntImplicitlyUnwrapped: EnumInt!
+
+	enum EnumDouble: Double {
+		case Default
+		case Another
+	}
+	var enumDouble: EnumDouble = .Default
+	var enumDoubleOptional: EnumDouble?
+	var enumDoubleImplicitlyUnwrapped: EnumDouble!
+
+	enum EnumFloat: Float {
+		case Default
+		case Another
+	}
+	var enumFloat: EnumFloat = .Default
+	var enumFloatOptional: EnumFloat?
+	var enumFloatImplicitlyUnwrapped: EnumFloat!
+
+	enum EnumString: String {
+		case Default = "Default"
+		case Another = "Another"
+	}
+	var enumString: EnumString = .Default
+	var enumStringOptional: EnumString?
+	var enumStringImplicitlyUnwrapped: EnumString!
+
+	var arrayEnumInt: [EnumInt] = []
+	var arrayEnumIntOptional: [EnumInt]?
+	var arrayEnumIntImplicitlyUnwrapped: [EnumInt]!
+	
+	var dictEnumInt: [String: EnumInt] = [:]
+	var dictEnumIntOptional: [String: EnumInt]?
+	var dictEnumIntImplicitlyUnwrapped: [String: EnumInt]!
+
 	init() {}
 
 	required init?(_ map: Map) {
@@ -130,6 +170,27 @@ class BasicTypes: Mappable {
 		dictAnyObject						<- map["dictAnyObject"]
 		dictAnyObjectOptional				<- map["dictAnyObjectOpt"]
 		dictAnyObjectImplicitlyUnwrapped	<- map["dictAnyObjectImp"]
+
+		enumInt								<- map["enumInt"]
+		enumIntOptional						<- map["enumIntOpt"]
+		enumIntImplicitlyUnwrapped			<- map["enumIntImp"]
+		enumDouble							<- map["enumDouble"]
+		enumDoubleOptional					<- map["enumDoubleOpt"]
+		enumDoubleImplicitlyUnwrapped		<- map["enumDoubleImp"]
+		enumFloat							<- map["enumFloat"]
+		enumFloatOptional					<- map["enumFloatOpt"]
+		enumFloatImplicitlyUnwrapped		<- map["enumFloatImp"]
+		enumString							<- map["enumString"]
+		enumStringOptional					<- map["enumStringOpt"]
+		enumStringImplicitlyUnwrapped		<- map["enumStringImp"]
+
+		arrayEnumInt						<- map["arrayEnumInt"]
+		arrayEnumIntOptional				<- map["arrayEnumIntOpt"]
+		arrayEnumIntImplicitlyUnwrapped		<- map["arrayEnumIntImp"]
+		
+		dictEnumInt							<- map["dictEnumInt"]
+		dictEnumIntOptional					<- map["dictEnumIntOpt"]
+		dictEnumIntImplicitlyUnwrapped		<- map["dictEnumIntImp"]
 	}
 }
 
@@ -139,6 +200,7 @@ class TestCollectionOfPrimitives : Mappable {
 	var dictStringBool: [String: Bool] = [:]
 	var dictStringDouble: [String: Double] = [:]
 	var dictStringFloat: [String: Float] = [:]
+	
 	var arrayString: [String] = []
 	var arrayInt: [Int] = []
 	var arrayBool: [Bool] = []

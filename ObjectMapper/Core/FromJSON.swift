@@ -29,6 +29,84 @@ internal final class FromJSON {
 		}
 	}
 
+	/// Raw representable
+	class func rawRepresentable<N: RawRepresentable>(inout field: N, object: N.RawValue?) {
+		if let value = object {
+			field = N(rawValue: value)!
+		}
+	}
+
+	/// Optional raw representable
+	class func rawRepresentable<N: RawRepresentable>(inout field: N?, object: N.RawValue?) {
+		if let value = object {
+			field = N(rawValue: value)
+		}
+	}
+
+	/// Implicitly unwrapped optional basic type
+	class func rawRepresentable<N: RawRepresentable>(inout field: N!, object: N.RawValue?) {
+		if let value = object {
+			field = N(rawValue: value)
+		}
+	}
+
+	/// Array of Raw representable
+	class func rawRepresentableArray<N: RawRepresentable>(inout field: [N], object: [N.RawValue]?) {
+		if let values = object {
+			field = values.map { (v: N.RawValue) in	N(rawValue: v)!	}
+		}
+	}
+
+	/// Array of Raw representable
+	class func rawRepresentableArray<N: RawRepresentable>(inout field: [N]?, object: [N.RawValue]?) {
+		if let values = object {
+			field = values.map { (v: N.RawValue) in	N(rawValue: v)!	}
+		}
+	}
+
+	/// Array of Raw representable
+	class func rawRepresentableArray<N: RawRepresentable>(inout field: [N]!, object: [N.RawValue]?) {
+		if let values = object {
+			field = values.map { (v: N.RawValue) in	N(rawValue: v)!	}
+		}
+	}
+
+	/// Dictionary of Raw representable
+	class func rawRepresentableDict<N: RawRepresentable>(inout field: [String: N], object: [String: N.RawValue]?) {
+		if let values = object {
+			field = map(values) { (k: String, v: N.RawValue) in	(k, N(rawValue: v)!) }
+				.reduce([:]) { (var d, e) in
+					let (k, v) = e
+					d[k] = v
+					return d
+			}
+		}
+	}
+
+	/// Dictionary of Raw representable
+	class func rawRepresentableDict<N: RawRepresentable>(inout field: [String: N]?, object: [String: N.RawValue]?) {
+		if let values = object {
+			field = map(values) { (k: String, v: N.RawValue) in	(k, N(rawValue: v)!) }
+				.reduce([:]) { (var d, e) in
+					var (k, v) = e
+					d?[k] = v
+					return d
+			}
+		}
+	}
+
+	/// Dictionary of Raw representable
+	class func rawRepresentableDict<N: RawRepresentable>(inout field: [String: N]!, object: [String: N.RawValue]?) {
+		if let values = object {
+			field = map(values) { (k: String, v: N.RawValue) in	(k, N(rawValue: v)!) }
+				.reduce([:]) { (var d, e) in
+					let (k, v) = e
+					d[k] = v
+					return d
+			}
+		}
+	}
+
 	/// Mappable object
 	class func object<N: Mappable>(inout field: N, object: AnyObject?) {
 		if let value: N = Mapper().map(object) {
