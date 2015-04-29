@@ -268,7 +268,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		expect(mappedObject).notTo(beNil())
 		expect(mappedObject?.enumInt).to(equal(value))
 		expect(mappedObject?.enumIntOptional).to(equal(value))
-		expect(mappedObject?.enumIntImplicityUnwrapped).to(equal(value))
+		expect(mappedObject?.enumIntImplicitlyUnwrapped).to(equal(value))
 	}
 	
 	func testObjectModelOptionalDictionnaryOfPrimitives() {

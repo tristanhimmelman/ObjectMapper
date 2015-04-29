@@ -330,7 +330,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		var object = BasicTypes()
 		object.enumInt = value
 		object.enumIntOptional = value
-		object.enumIntImplicityUnwrapped = value
+		object.enumIntImplicitlyUnwrapped = value
 
 		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
 		var mappedObject = mapper.map(JSONString!)
@@ -338,7 +338,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		expect(mappedObject).notTo(beNil())
 		expect(mappedObject?.enumInt).to(equal(value))
 		expect(mappedObject?.enumIntOptional).to(equal(value))
-		expect(mappedObject?.enumIntImplicityUnwrapped).to(equal(value))
+		expect(mappedObject?.enumIntImplicitlyUnwrapped).to(equal(value))
 	}
 
 	func testObjectToModelDictionnaryOfPrimitives() {

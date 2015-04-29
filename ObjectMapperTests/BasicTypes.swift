@@ -73,7 +73,7 @@ class BasicTypes: Mappable {
 	}
 	var enumInt: EnumInt = .Default
 	var enumIntOptional: EnumInt?
-	var enumIntImplicityUnwrapped: EnumInt!
+	var enumIntImplicitlyUnwrapped: EnumInt!
 
 	init() {}
 
@@ -141,7 +141,7 @@ class BasicTypes: Mappable {
 
 		enumInt              <- map["enumInt"]
 		enumIntOptional          <- map["enumIntOpt"]
-		enumIntImplicityUnwrapped      <- map["enumIntImp"]
+		enumIntImplicitlyUnwrapped      <- map["enumIntImp"]
 	}
 }
 
