@@ -94,6 +94,17 @@ public func <- <T: RawRepresentable>(inout left: [T], right: Map) {
 }
 
 /**
+* Dictionary of Raw Representable object
+*/
+public func <- <T: RawRepresentable>(inout left: [String: T], right: Map) {
+	if right.mappingType == MappingType.FromJSON {
+		FromJSON.rawRepresentableDict(&left, object: right.value())
+	} else {
+		// TODO:
+	}
+}
+
+/**
 * Object of Basic type with Transform
 */
 public func <- <T, Transform: TransformType where Transform.Object == T>(inout left: T, right: (Map, Transform)) {
