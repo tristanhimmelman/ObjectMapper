@@ -50,6 +50,16 @@ internal final class FromJSON {
 		}
 	}
 
+	/// Array of Raw representable
+	class func rawRepresentableArray<N: RawRepresentable>(inout field: [N], object: [N.RawValue]?) {
+		if let values = object {
+			field = values.reduce([N]()) { (var vs, v) in
+				vs.append(N(rawValue: v)!)
+				return vs
+			}
+		}
+	}
+
 	/// Mappable object
 	class func object<N: Mappable>(inout field: N, object: AnyObject?) {
 		if let value: N = Mapper().map(object) {

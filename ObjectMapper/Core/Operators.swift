@@ -83,6 +83,17 @@ public func <- <T: RawRepresentable>(inout left: T!, right: Map) {
 }
 
 /**
+* Array of Raw Representable object
+*/
+public func <- <T: RawRepresentable>(inout left: [T], right: Map) {
+	if right.mappingType == MappingType.FromJSON {
+		FromJSON.rawRepresentableArray(&left, object: right.value())
+	} else {
+		// TODO:
+	}
+}
+
+/**
 * Object of Basic type with Transform
 */
 public func <- <T, Transform: TransformType where Transform.Object == T>(inout left: T, right: (Map, Transform)) {
