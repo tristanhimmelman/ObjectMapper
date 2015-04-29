@@ -260,7 +260,6 @@ class BasicTypesTestsFromJSON: XCTestCase {
 	}
 
 	func testMappingIntEnumFromJSON(){
-		var key = "key"
 		var value: BasicTypes.EnumInt = .Another
 		let JSONString = "{\"enumInt\" : \(value.rawValue), \"enumIntOpt\" : \(value.rawValue), \"enumIntImp\" : \(value.rawValue) }"
 
@@ -272,7 +271,6 @@ class BasicTypesTestsFromJSON: XCTestCase {
 	}
 
 	func testMappingDoubleEnumFromJSON(){
-		var key = "key"
 		var value: BasicTypes.EnumDouble = .Another
 		let JSONString = "{\"enumDouble\" : \(value.rawValue), \"enumDoubleOpt\" : \(value.rawValue), \"enumDoubleImp\" : \(value.rawValue) }"
 
@@ -284,7 +282,6 @@ class BasicTypesTestsFromJSON: XCTestCase {
 	}
 
 	func testMappingFloatEnumFromJSON(){
-		var key = "key"
 		var value: BasicTypes.EnumFloat = .Another
 		let JSONString = "{\"enumFloat\" : \(value.rawValue), \"enumFloatOpt\" : \(value.rawValue), \"enumFloatImp\" : \(value.rawValue) }"
 
@@ -296,7 +293,6 @@ class BasicTypesTestsFromJSON: XCTestCase {
 	}
 
 	func testMappingStringEnumFromJSON(){
-		var key = "key"
 		var value: BasicTypes.EnumString = .Another
 		let JSONString = "{\"enumString\" : \"\(value.rawValue)\", \"enumStringOpt\" : \"\(value.rawValue)\", \"enumStringImp\" : \"\(value.rawValue)\" }"
 
