@@ -89,7 +89,7 @@ public func <- <T: RawRepresentable>(inout left: [T], right: Map) {
 	if right.mappingType == MappingType.FromJSON {
 		FromJSON.rawRepresentableArray(&left, object: right.value())
 	} else {
-		// TODO:
+		ToJSON.rawRepresentableArray(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
 	}
 }
 
@@ -100,7 +100,7 @@ public func <- <T: RawRepresentable>(inout left: [T]?, right: Map) {
 	if right.mappingType == MappingType.FromJSON {
 		FromJSON.rawRepresentableArray(&left, object: right.value())
 	} else {
-		// TODO:
+		ToJSON.rawRepresentableArray(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
 	}
 }
 
@@ -111,7 +111,7 @@ public func <- <T: RawRepresentable>(inout left: [T]!, right: Map) {
 	if right.mappingType == MappingType.FromJSON {
 		FromJSON.rawRepresentableArray(&left, object: right.value())
 	} else {
-		// TODO:
+		ToJSON.rawRepresentableArray(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
 	}
 }
 
@@ -122,7 +122,7 @@ public func <- <T: RawRepresentable>(inout left: [String: T], right: Map) {
 	if right.mappingType == MappingType.FromJSON {
 		FromJSON.rawRepresentableDict(&left, object: right.value())
 	} else {
-		// TODO:
+		ToJSON.rawRepresentableDict(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
 	}
 }
 
@@ -133,7 +133,7 @@ public func <- <T: RawRepresentable>(inout left: [String: T]?, right: Map) {
 	if right.mappingType == MappingType.FromJSON {
 		FromJSON.rawRepresentableDict(&left, object: right.value())
 	} else {
-		// TODO:
+		ToJSON.rawRepresentableDict(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
 	}
 }
 
@@ -144,7 +144,7 @@ public func <- <T: RawRepresentable>(inout left: [String: T]!, right: Map) {
 	if right.mappingType == MappingType.FromJSON {
 		FromJSON.rawRepresentableDict(&left, object: right.value())
 	} else {
-		// TODO:
+		ToJSON.rawRepresentableDict(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
 	}
 }
 
