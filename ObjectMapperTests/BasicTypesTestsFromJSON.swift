@@ -270,7 +270,43 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		expect(mappedObject?.enumIntOptional).to(equal(value))
 		expect(mappedObject?.enumIntImplicitlyUnwrapped).to(equal(value))
 	}
-	
+
+	func testMappingDoubleEnumFromJSON(){
+		var key = "key"
+		var value: BasicTypes.EnumDouble = .Another
+		let JSONString = "{\"enumDouble\" : \(value.rawValue), \"enumDoubleOpt\" : \(value.rawValue), \"enumDoubleImp\" : \(value.rawValue) }"
+
+		var mappedObject = mapper.map(JSONString)
+		expect(mappedObject).notTo(beNil())
+		expect(mappedObject?.enumDouble).to(equal(value))
+		expect(mappedObject?.enumDoubleOptional).to(equal(value))
+		expect(mappedObject?.enumDoubleImplicitlyUnwrapped).to(equal(value))
+	}
+
+	func testMappingFloatEnumFromJSON(){
+		var key = "key"
+		var value: BasicTypes.EnumFloat = .Another
+		let JSONString = "{\"enumFloat\" : \(value.rawValue), \"enumFloatOpt\" : \(value.rawValue), \"enumFloatImp\" : \(value.rawValue) }"
+
+		var mappedObject = mapper.map(JSONString)
+		expect(mappedObject).notTo(beNil())
+		expect(mappedObject?.enumFloat).to(equal(value))
+		expect(mappedObject?.enumFloatOptional).to(equal(value))
+		expect(mappedObject?.enumFloatImplicitlyUnwrapped).to(equal(value))
+	}
+
+	func testMappingStringEnumFromJSON(){
+		var key = "key"
+		var value: BasicTypes.EnumString = .Another
+		let JSONString = "{\"enumString\" : \"\(value.rawValue)\", \"enumStringOpt\" : \"\(value.rawValue)\", \"enumStringImp\" : \"\(value.rawValue)\" }"
+
+		var mappedObject = mapper.map(JSONString)
+		expect(mappedObject).notTo(beNil())
+		expect(mappedObject?.enumString).to(equal(value))
+		expect(mappedObject?.enumStringOptional).to(equal(value))
+		expect(mappedObject?.enumStringImplicitlyUnwrapped).to(equal(value))
+	}
+
 	func testObjectModelOptionalDictionnaryOfPrimitives() {
 		let JSON: [String: [String: AnyObject]] = ["dictStringString":["string": "string"], "dictStringBool":["string": false], "dictStringInt":["string": 1], "dictStringDouble":["string": 1.1], "dictStringFloat":["string": 1.2]]
 		

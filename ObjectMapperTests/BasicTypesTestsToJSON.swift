@@ -341,6 +341,54 @@ class BasicTypesTestsToJSON: XCTestCase {
 		expect(mappedObject?.enumIntImplicitlyUnwrapped).to(equal(value))
 	}
 
+	func testMappingDoubleEnumToJSON(){
+		var value = BasicTypes.EnumDouble.Another
+		var object = BasicTypes()
+		object.enumDouble = value
+		object.enumDoubleOptional = value
+		object.enumDoubleImplicitlyUnwrapped = value
+
+		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+		var mappedObject = mapper.map(JSONString!)
+
+		expect(mappedObject).notTo(beNil())
+		expect(mappedObject?.enumDouble).to(equal(value))
+		expect(mappedObject?.enumDoubleOptional).to(equal(value))
+		expect(mappedObject?.enumDoubleImplicitlyUnwrapped).to(equal(value))
+	}
+
+	func testMappingFloatEnumToJSON(){
+		var value = BasicTypes.EnumFloat.Another
+		var object = BasicTypes()
+		object.enumFloat = value
+		object.enumFloatOptional = value
+		object.enumFloatImplicitlyUnwrapped = value
+
+		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+		var mappedObject = mapper.map(JSONString!)
+
+		expect(mappedObject).notTo(beNil())
+		expect(mappedObject?.enumFloat).to(equal(value))
+		expect(mappedObject?.enumFloatOptional).to(equal(value))
+		expect(mappedObject?.enumFloatImplicitlyUnwrapped).to(equal(value))
+	}
+
+	func testMappingStringEnumToJSON(){
+		var value = BasicTypes.EnumString.Another
+		var object = BasicTypes()
+		object.enumString = value
+		object.enumStringOptional = value
+		object.enumStringImplicitlyUnwrapped = value
+
+		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+		var mappedObject = mapper.map(JSONString!)
+
+		expect(mappedObject).notTo(beNil())
+		expect(mappedObject?.enumString).to(equal(value))
+		expect(mappedObject?.enumStringOptional).to(equal(value))
+		expect(mappedObject?.enumStringImplicitlyUnwrapped).to(equal(value))
+	}
+
 	func testObjectToModelDictionnaryOfPrimitives() {
 		var object = TestCollectionOfPrimitives()
 		object.dictStringString = ["string": "string"]

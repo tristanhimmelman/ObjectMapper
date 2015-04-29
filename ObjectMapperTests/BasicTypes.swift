@@ -75,6 +75,30 @@ class BasicTypes: Mappable {
 	var enumIntOptional: EnumInt?
 	var enumIntImplicitlyUnwrapped: EnumInt!
 
+	enum EnumDouble: Double {
+		case Default
+		case Another
+	}
+	var enumDouble: EnumDouble = .Default
+	var enumDoubleOptional: EnumDouble?
+	var enumDoubleImplicitlyUnwrapped: EnumDouble!
+
+	enum EnumFloat: Float {
+		case Default
+		case Another
+	}
+	var enumFloat: EnumFloat = .Default
+	var enumFloatOptional: EnumFloat?
+	var enumFloatImplicitlyUnwrapped: EnumFloat!
+
+	enum EnumString: String {
+		case Default = "Default"
+		case Another = "Another"
+	}
+	var enumString: EnumString = .Default
+	var enumStringOptional: EnumString?
+	var enumStringImplicitlyUnwrapped: EnumString!
+
 	init() {}
 
 	required init?(_ map: Map) {
@@ -142,6 +166,15 @@ class BasicTypes: Mappable {
 		enumInt              <- map["enumInt"]
 		enumIntOptional          <- map["enumIntOpt"]
 		enumIntImplicitlyUnwrapped      <- map["enumIntImp"]
+		enumDouble              <- map["enumDouble"]
+		enumDoubleOptional          <- map["enumDoubleOpt"]
+		enumDoubleImplicitlyUnwrapped      <- map["enumDoubleImp"]
+		enumFloat              <- map["enumFloat"]
+		enumFloatOptional          <- map["enumFloatOpt"]
+		enumFloatImplicitlyUnwrapped      <- map["enumFloatImp"]
+		enumString              <- map["enumString"]
+		enumStringOptional          <- map["enumStringOpt"]
+		enumStringImplicitlyUnwrapped      <- map["enumStringImp"]
 	}
 }
 
