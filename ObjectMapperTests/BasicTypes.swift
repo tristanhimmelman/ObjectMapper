@@ -99,6 +99,13 @@ class BasicTypes: Mappable {
 	var enumStringOptional: EnumString?
 	var enumStringImplicitlyUnwrapped: EnumString!
 
+	var arrayEnumInt: [EnumInt] = []
+	var arrayEnumIntOptional: [EnumInt]?
+	var arrayEnumIntImplicitlyUnwrapped: [EnumInt]!
+	var dictEnumInt: [String: EnumInt] = [:]
+	var dictEnumIntOptional: [String: EnumInt]?
+	var dictEnumIntImplicitlyUnwrapped: [String: EnumInt]!
+
 	init() {}
 
 	required init?(_ map: Map) {
@@ -175,6 +182,13 @@ class BasicTypes: Mappable {
 		enumString              <- map["enumString"]
 		enumStringOptional          <- map["enumStringOpt"]
 		enumStringImplicitlyUnwrapped      <- map["enumStringImp"]
+
+		arrayEnumInt         <- map["arrayEnumInt"]
+		arrayEnumIntOptional     <- map["arrayEnumIntOpt"]
+		arrayEnumIntImplicitlyUnwrapped <- map["arrayEnumIntImp"]
+		dictEnumInt         <- map["dictEnumInt"]
+		dictEnumIntOptional     <- map["dictEnumIntOpt"]
+		dictEnumIntImplicitlyUnwrapped <- map["dictEnumIntImp"]
 	}
 }
 
