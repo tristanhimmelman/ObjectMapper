@@ -99,16 +99,6 @@ internal final class ToJSON {
         }
     }
 
-	class func rawRepresentable<N: RawRepresentable>(field: N, key: String, inout dictionary: [String : AnyObject]) {
-		basicType(field.rawValue, key: key, dictionary: &dictionary)
-	}
-
-  	class func rawRepresentable<N: RawRepresentable>(field: N?, key: String, inout dictionary: [String : AnyObject]) {
-			if let field = field {
-				rawRepresentable(field, key: key, dictionary: &dictionary)
-			}
-	  }
-
 	class func rawRepresentableArray<N: RawRepresentable>(field: [N], key: String, inout dictionary: [String : AnyObject]) {
 		basicType(field.map { e in e.rawValue }, key: key, dictionary: &dictionary)
 	}

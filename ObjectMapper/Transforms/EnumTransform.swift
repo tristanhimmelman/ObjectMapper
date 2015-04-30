@@ -14,16 +14,16 @@ public class EnumTransform<T: RawRepresentable>: TransformType {
 	
 	public init() {}
 	
-	public func transformFromJSON(value: AnyObject?) -> Object? {
+	public func transformFromJSON(value: AnyObject?) -> T? {
 		if let raw = value as? T.RawValue {
-			return T(rawValue: raw) ?? nil
+			return T(rawValue: raw)
 		}
 		return nil
 	}
 	
-	public func transformToJSON(value: Object?) -> JSON? {
+	public func transformToJSON(value: T?) -> T.RawValue? {
 		if let obj = value {
-			return obj.rawValue as T.RawValue
+			return obj.rawValue
 		}
 		return nil
 	}

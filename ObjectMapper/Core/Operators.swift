@@ -54,33 +54,21 @@ public func <- <T>(inout left: T!, right: Map) {
 * Object of Raw Representable type
 */
 public func <- <T: RawRepresentable>(inout left: T, right: Map) {
-	if right.mappingType == MappingType.FromJSON {
-		FromJSON.rawRepresentable(&left, object: right.value())
-	} else {
-		ToJSON.rawRepresentable(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
-	}
+	left <- (right, EnumTransform())
 }
 
 /**
 * Optional Object of Raw Representable type
 */
 public func <- <T: RawRepresentable>(inout left: T?, right: Map) {
-	if right.mappingType == MappingType.FromJSON {
-		FromJSON.rawRepresentable(&left, object: right.value())
-	} else {
-		ToJSON.rawRepresentable(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
-	}
+	left <- (right, EnumTransform())
 }
 
 /**
 * Implicitly Unwrapped Optional Object of Raw Representable type
 */
 public func <- <T: RawRepresentable>(inout left: T!, right: Map) {
-	if right.mappingType == MappingType.FromJSON {
-		FromJSON.rawRepresentable(&left, object: right.value())
-	} else {
-		ToJSON.rawRepresentable(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
-	}
+	left <- (right, EnumTransform())
 }
 
 // MARK:- Arrays of Raw Representable type
