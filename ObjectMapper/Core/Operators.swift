@@ -76,33 +76,21 @@ public func <- <T: RawRepresentable>(inout left: T!, right: Map) {
 * Array of Raw Representable object
 */
 public func <- <T: RawRepresentable>(inout left: [T], right: Map) {
-	if right.mappingType == MappingType.FromJSON {
-		FromJSON.rawRepresentableArray(&left, object: right.value())
-	} else {
-		ToJSON.rawRepresentableArray(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
-	}
+	left <- (right, EnumTransform())
 }
 
 /**
 * Array of Raw Representable object
 */
 public func <- <T: RawRepresentable>(inout left: [T]?, right: Map) {
-	if right.mappingType == MappingType.FromJSON {
-		FromJSON.rawRepresentableArray(&left, object: right.value())
-	} else {
-		ToJSON.rawRepresentableArray(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
-	}
+	left <- (right, EnumTransform())
 }
 
 /**
 * Array of Raw Representable object
 */
 public func <- <T: RawRepresentable>(inout left: [T]!, right: Map) {
-	if right.mappingType == MappingType.FromJSON {
-		FromJSON.rawRepresentableArray(&left, object: right.value())
-	} else {
-		ToJSON.rawRepresentableArray(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
-	}
+	left <- (right, EnumTransform())
 }
 
 // MARK:- Dictionaries of Raw Representable type
@@ -110,36 +98,25 @@ public func <- <T: RawRepresentable>(inout left: [T]!, right: Map) {
 * Dictionary of Raw Representable object
 */
 public func <- <T: RawRepresentable>(inout left: [String: T], right: Map) {
-	if right.mappingType == MappingType.FromJSON {
-		FromJSON.rawRepresentableDict(&left, object: right.value())
-	} else {
-		ToJSON.rawRepresentableDict(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
-	}
+	left <- (right, EnumTransform())
 }
 
 /**
 * Dictionary of Raw Representable object
 */
 public func <- <T: RawRepresentable>(inout left: [String: T]?, right: Map) {
-	if right.mappingType == MappingType.FromJSON {
-		FromJSON.rawRepresentableDict(&left, object: right.value())
-	} else {
-		ToJSON.rawRepresentableDict(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
-	}
+	left <- (right, EnumTransform())
 }
 
 /**
 * Dictionary of Raw Representable object
 */
 public func <- <T: RawRepresentable>(inout left: [String: T]!, right: Map) {
-	if right.mappingType == MappingType.FromJSON {
-		FromJSON.rawRepresentableDict(&left, object: right.value())
-	} else {
-		ToJSON.rawRepresentableDict(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
-	}
+	left <- (right, EnumTransform())
 }
 
 // MARK:- Transforms
+
 /**
 * Object of Basic type with Transform
 */
@@ -176,6 +153,110 @@ public func <- <T, Transform: TransformType where Transform.Object == T>(inout l
 	} else {
 		var value: Transform.JSON? = right.1.transformToJSON(left)
 		ToJSON.optionalBasicType(value, key: right.0.currentKey!, dictionary: &right.0.JSONDictionary)
+	}
+}
+
+/// Array of Basic type with Transform
+public func <- <T: TransformType>(inout left: [T.Object], right: (Map, T)) {
+	let (map, transform) = right
+	if map.mappingType == MappingType.FromJSON {
+		let values = fromJSONArrayWithTransform(map.currentValue, transform)
+		FromJSON.basicType(&left, object: values)
+	} else {
+		let values = toJSONArrayWithTransform(left, transform)
+		ToJSON.optionalBasicType(values, key: map.currentKey!, dictionary: &map.JSONDictionary)
+	}
+}
+
+/// Optional array of Basic type with Transform
+public func <- <T: TransformType>(inout left: [T.Object]?, right: (Map, T)) {
+	let (map, transform) = right
+	if map.mappingType == MappingType.FromJSON {
+		let values = fromJSONArrayWithTransform(map.currentValue, transform)
+		FromJSON.optionalBasicType(&left, object: values)
+	} else {
+		let values = toJSONArrayWithTransform(left, transform)
+		ToJSON.optionalBasicType(values, key: map.currentKey!, dictionary: &map.JSONDictionary)
+	}
+}
+
+/// Implicitly unwrapped optional array of Basic type with Transform
+public func <- <T: TransformType>(inout left: [T.Object]!, right: (Map, T)) {
+	let (map, transform) = right
+	if map.mappingType == MappingType.FromJSON {
+		let values = fromJSONArrayWithTransform(map.currentValue, transform)
+		FromJSON.optionalBasicType(&left, object: values)
+	} else {
+		let values = toJSONArrayWithTransform(left, transform)
+		ToJSON.optionalBasicType(values, key: map.currentKey!, dictionary: &map.JSONDictionary)
+	}
+}
+
+/// Dictionary of Basic type with Transform
+public func <- <T: TransformType>(inout left: [String: T.Object], right: (Map, T)) {
+	let (map, transform) = right
+	if map.mappingType == MappingType.FromJSON {
+		let values = fromJSONDictionaryWithTransform(map.currentValue, transform)
+		FromJSON.basicType(&left, object: values)
+	} else {
+		let values = toJSONDictionaryWithTransform(left, transform)
+		ToJSON.optionalBasicType(values, key: map.currentKey!, dictionary: &map.JSONDictionary)
+	}
+}
+
+/// Optional dictionary of Basic type with Transform
+public func <- <T: TransformType>(inout left: [String: T.Object]?, right: (Map, T)) {
+	let (map, transform) = right
+	if map.mappingType == MappingType.FromJSON {
+		let values = fromJSONDictionaryWithTransform(map.currentValue, transform)
+		FromJSON.optionalBasicType(&left, object: values)
+	} else {
+		let values = toJSONDictionaryWithTransform(left, transform)
+		ToJSON.optionalBasicType(values, key: map.currentKey!, dictionary: &map.JSONDictionary)
+	}
+}
+
+/// Implicitly unwrapped optional dictionary of Basic type with Transform
+public func <- <T: TransformType>(inout left: [String: T.Object]!, right: (Map, T)) {
+	let (map, transform) = right
+	if map.mappingType == MappingType.FromJSON {
+		let values = fromJSONDictionaryWithTransform(map.currentValue, transform)
+		FromJSON.optionalBasicType(&left, object: values)
+	} else {
+		let values = toJSONDictionaryWithTransform(left, transform)
+		ToJSON.optionalBasicType(values, key: map.currentKey!, dictionary: &map.JSONDictionary)
+	}
+}
+
+private func fromJSONArrayWithTransform<T: TransformType>(input: AnyObject?, transform: T) -> [T.Object] {
+	if let values = input as? [AnyObject] {
+		return values.filterMap { value in
+			return transform.transformFromJSON(value)
+		}
+	} else {
+		return []
+	}
+}
+
+private func fromJSONDictionaryWithTransform<T: TransformType>(input: AnyObject?, transform: T) -> [String: T.Object] {
+	if let values = input as? [String: AnyObject] {
+		return values.filterMap { value in
+			return transform.transformFromJSON(value)
+		}
+	} else {
+		return [:]
+	}
+}
+
+private func toJSONArrayWithTransform<T: TransformType>(input: [T.Object]?, transform: T) -> [T.JSON]? {
+	return input?.filterMap { value in
+		return transform.transformToJSON(value)
+	}
+}
+
+private func toJSONDictionaryWithTransform<T: TransformType>(input: [String: T.Object]?, transform: T) -> [String: T.JSON]? {
+	return input?.filterMap { value in
+		return transform.transformToJSON(value)
 	}
 }
 
