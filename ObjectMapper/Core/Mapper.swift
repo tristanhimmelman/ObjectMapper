@@ -228,13 +228,8 @@ public final class Mapper<N: Mappable> {
 	* Maps an array of JSON dictionary to an array of object that conforms to Mappable
 	*/
 	public func mapArray(JSONArray: [[String : AnyObject]]) -> [N] {
-		return JSONArray.reduce([]) { (var values, JSON) in
-			// map every element in JSON array to type N
-			if let value = self.map(JSON) {
-				values.append(value)
-			}
-			return values
-		}
+		// map every element in JSON array to type N
+		return JSONArray.filterMap(map)
 	}
 
 	/** Maps a JSON object to a dictionary of Mappable objects if it is a JSON
@@ -252,15 +247,8 @@ public final class Mapper<N: Mappable> {
 	* Maps a JSON dictionary of dictionaries to a dictionary of objects that conform to Mappable.
 	*/
 	public func mapDictionary(JSONDictionary: [String : [String : AnyObject]]) -> [String : N] {
-		return reduce(JSONDictionary, [String: N]()) { (var values, element) in
-			let (key, value) = element
-
-			// map every value in dictionary to type N
-			if let newValue = self.map(value) {
-				values[key] = newValue
-			}
-			return values
-		}
+		// map every value in dictionary to type N
+		return JSONDictionary.filterMap(map)
 	}
 
 	// MARK: Functions that create JSON from objects
@@ -352,13 +340,38 @@ public final class Mapper<N: Mappable> {
 	}
 }
 
+extension Array {
+	internal func filterMap<U>(@noescape f: T -> U?) -> [U] {
+		var mapped = [U]()
+
+		for value in self {
+			if let newValue = f(value) {
+				mapped.append(newValue)
+			}
+		}
+
+		return mapped
+	}
+}
+
 extension Dictionary {
-	private func map<K: Hashable, V>(f: Element -> (K, V)) -> [K : V] {
+	internal func map<K: Hashable, V>(@noescape f: Element -> (K, V)) -> [K : V] {
 		var mapped = [K : V]()
 
 		for element in self {
 			let newElement = f(element)
 			mapped[newElement.0] = newElement.1
+		}
+
+		return mapped
+	}
+
+	internal func filterMap<U>(@noescape f: Value -> U?) -> [Key : U] {
+		var mapped = [Key : U]()
+
+		for (key, value) in self {
+			let newValue = f(value)
+			mapped[key] = newValue
 		}
 
 		return mapped

@@ -282,6 +282,17 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		expect(mappedObject?.enumIntImplicitlyUnwrapped).to(equal(value))
 	}
 
+	func testMappingIntEnumFromJSONShouldNotCrashWithNonDefinedvalue() {
+		let value = Int.min
+		let JSONString = "{\"enumInt\" : \(value), \"enumIntOpt\" : \(value), \"enumIntImp\" : \(value) }"
+
+		let mappedObject = mapper.map(JSONString)
+		expect(mappedObject).notTo(beNil())
+		expect(mappedObject?.enumInt).to(equal(BasicTypes.EnumInt.Default))
+		expect(mappedObject?.enumIntOptional).to(beNil())
+		expect(mappedObject?.enumIntImplicitlyUnwrapped).to(beNil())
+	}
+
 	func testMappingDoubleEnumFromJSON(){
 		var value: BasicTypes.EnumDouble = .Another
 		let JSONString = "{\"enumDouble\" : \(value.rawValue), \"enumDoubleOpt\" : \(value.rawValue), \"enumDoubleImp\" : \(value.rawValue) }"
@@ -326,6 +337,17 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		expect(mappedObject?.arrayEnumIntImplicitlyUnwrapped?.first).to(equal(value))
 	}
 
+	func testMappingEnumIntArrayFromJSONShouldNotCrashWithNonDefinedvalue() {
+		let value = Int.min
+		let JSONString = "{ \"arrayEnumInt\" : [\(value)], \"arrayEnumIntOpt\" : [\(value)], \"arrayEnumIntImp\" : [\(value)] }"
+
+		var mappedObject = mapper.map(JSONString)
+		expect(mappedObject).notTo(beNil())
+		expect(mappedObject?.arrayEnumInt.first).to(beNil())
+		expect(mappedObject?.arrayEnumIntOptional?.first).to(beNil())
+		expect(mappedObject?.arrayEnumIntImplicitlyUnwrapped?.first).to(beNil())
+	}
+
 	func testMappingEnumIntDictionaryFromJSON(){
 		let key = "key"
 		let value: BasicTypes.EnumInt = .Another
@@ -336,6 +358,18 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		expect(mappedObject?.dictEnumInt[key]).to(equal(value))
 		expect(mappedObject?.dictEnumIntOptional?[key]).to(equal(value))
 		expect(mappedObject?.dictEnumIntImplicitlyUnwrapped?[key]).to(equal(value))
+	}
+
+	func testMappingEnumIntDictionaryFromJSONShouldNotCrashWithNonDefinedvalue() {
+		let key = "key"
+		let value = Int.min
+		let JSONString = "{ \"dictEnumInt\" : { \"\(key)\" : \(value) }, \"dictEnumIntOpt\" : { \"\(key)\" : \(value) }, \"dictEnumIntImp\" : { \"\(key)\" : \(value) } }"
+
+		let mappedObject = mapper.map(JSONString)
+		expect(mappedObject).notTo(beNil())
+		expect(mappedObject?.arrayEnumInt.first).to(beNil())
+		expect(mappedObject?.dictEnumIntOptional?[key]).to(beNil())
+		expect(mappedObject?.dictEnumIntImplicitlyUnwrapped?[key]).to(beNil())
 	}
 
 	func testObjectModelOptionalDictionnaryOfPrimitives() {
