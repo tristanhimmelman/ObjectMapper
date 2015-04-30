@@ -228,13 +228,8 @@ public final class Mapper<N: Mappable> {
 	* Maps an array of JSON dictionary to an array of object that conforms to Mappable
 	*/
 	public func mapArray(JSONArray: [[String : AnyObject]]) -> [N] {
-		return JSONArray.reduce([]) { (var values, JSON) in
-			// map every element in JSON array to type N
-			if let value = self.map(JSON) {
-				values.append(value)
-			}
-			return values
-		}
+		// map every element in JSON array to type N
+		return JSONArray.filterMap(map)
 	}
 
 	/** Maps a JSON object to a dictionary of Mappable objects if it is a JSON
@@ -252,15 +247,8 @@ public final class Mapper<N: Mappable> {
 	* Maps a JSON dictionary of dictionaries to a dictionary of objects that conform to Mappable.
 	*/
 	public func mapDictionary(JSONDictionary: [String : [String : AnyObject]]) -> [String : N] {
-		return reduce(JSONDictionary, [String: N]()) { (var values, element) in
-			let (key, value) = element
-
-			// map every value in dictionary to type N
-			if let newValue = self.map(value) {
-				values[key] = newValue
-			}
-			return values
-		}
+		// map every value in dictionary to type N
+		return JSONDictionary.filterMap(map)
 	}
 
 	// MARK: Functions that create JSON from objects
