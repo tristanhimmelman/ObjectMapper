@@ -29,48 +29,6 @@ internal final class FromJSON {
 		}
 	}
 
-	/// Array of Raw representable
-	class func rawRepresentableArray<N: RawRepresentable>(inout field: [N], object: [N.RawValue]?) {
-		if let values = object {
-			field = values.filterMap { N(rawValue: $0) }
-		}
-	}
-
-	/// Array of Raw representable
-	class func rawRepresentableArray<N: RawRepresentable>(inout field: [N]?, object: [N.RawValue]?) {
-		if let values = object {
-			field = values.filterMap { N(rawValue: $0) }
-		}
-	}
-
-	/// Array of Raw representable
-	class func rawRepresentableArray<N: RawRepresentable>(inout field: [N]!, object: [N.RawValue]?) {
-		if let values = object {
-			field = values.filterMap { N(rawValue: $0) }
-		}
-	}
-
-	/// Dictionary of Raw representable
-	class func rawRepresentableDict<N: RawRepresentable>(inout field: [String: N], object: [String: N.RawValue]?) {
-		if let values = object {
-			field = values.filterMap { N(rawValue: $0) }
-		}
-	}
-
-	/// Dictionary of Raw representable
-	class func rawRepresentableDict<N: RawRepresentable>(inout field: [String: N]?, object: [String: N.RawValue]?) {
-		if let values = object {
-			field = values.filterMap { N(rawValue: $0) }
-		}
-	}
-
-	/// Dictionary of Raw representable
-	class func rawRepresentableDict<N: RawRepresentable>(inout field: [String: N]!, object: [String: N.RawValue]?) {
-		if let values = object {
-			field = values.filterMap { N(rawValue: $0) }
-		}
-	}
-
 	/// Mappable object
 	class func object<N: Mappable>(inout field: N, object: AnyObject?) {
 		if let value: N = Mapper().map(object) {

@@ -76,33 +76,21 @@ public func <- <T: RawRepresentable>(inout left: T!, right: Map) {
 * Array of Raw Representable object
 */
 public func <- <T: RawRepresentable>(inout left: [T], right: Map) {
-	if right.mappingType == MappingType.FromJSON {
-		FromJSON.rawRepresentableArray(&left, object: right.value())
-	} else {
-		ToJSON.rawRepresentableArray(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
-	}
+	left <- (right, EnumTransform())
 }
 
 /**
 * Array of Raw Representable object
 */
 public func <- <T: RawRepresentable>(inout left: [T]?, right: Map) {
-	if right.mappingType == MappingType.FromJSON {
-		FromJSON.rawRepresentableArray(&left, object: right.value())
-	} else {
-		ToJSON.rawRepresentableArray(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
-	}
+	left <- (right, EnumTransform())
 }
 
 /**
 * Array of Raw Representable object
 */
 public func <- <T: RawRepresentable>(inout left: [T]!, right: Map) {
-	if right.mappingType == MappingType.FromJSON {
-		FromJSON.rawRepresentableArray(&left, object: right.value())
-	} else {
-		ToJSON.rawRepresentableArray(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
-	}
+	left <- (right, EnumTransform())
 }
 
 // MARK:- Dictionaries of Raw Representable type
@@ -110,33 +98,21 @@ public func <- <T: RawRepresentable>(inout left: [T]!, right: Map) {
 * Dictionary of Raw Representable object
 */
 public func <- <T: RawRepresentable>(inout left: [String: T], right: Map) {
-	if right.mappingType == MappingType.FromJSON {
-		FromJSON.rawRepresentableDict(&left, object: right.value())
-	} else {
-		ToJSON.rawRepresentableDict(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
-	}
+	left <- (right, EnumTransform())
 }
 
 /**
 * Dictionary of Raw Representable object
 */
 public func <- <T: RawRepresentable>(inout left: [String: T]?, right: Map) {
-	if right.mappingType == MappingType.FromJSON {
-		FromJSON.rawRepresentableDict(&left, object: right.value())
-	} else {
-		ToJSON.rawRepresentableDict(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
-	}
+	left <- (right, EnumTransform())
 }
 
 /**
 * Dictionary of Raw Representable object
 */
 public func <- <T: RawRepresentable>(inout left: [String: T]!, right: Map) {
-	if right.mappingType == MappingType.FromJSON {
-		FromJSON.rawRepresentableDict(&left, object: right.value())
-	} else {
-		ToJSON.rawRepresentableDict(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
-	}
+	left <- (right, EnumTransform())
 }
 
 // MARK:- Transforms
