@@ -10,7 +10,7 @@ ObjectMapper is a framework written in Swift that makes it easy for you to conve
 - [Mapping Nested Objects](#easy-mapping-of-nested-objects)
 - [Custom Transformations](#custom-transfoms)
 - [Subclassing](#subclasses)
-- [ObjectMapper + Alamofire](#objectmapper-+-alamofire) 
+- [ObjectMapper + Alamofire](#objectMapper--alamofire) 
 - [Contributing](#contributing)
 - [Installation](#installation)
 
