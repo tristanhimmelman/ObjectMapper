@@ -10,6 +10,7 @@ ObjectMapper is a framework written in Swift that makes it easy for you to conve
 - [Mapping Nested Objects](#easy-mapping-of-nested-objects)
 - [Custom Transformations](#custom-transfoms)
 - [Subclassing](#subclasses)
+- [ObjectMapper + Alamofire](#objectmapper) 
 - [Contributing](#contributing)
 - [Installation](#installation)
 
@@ -102,8 +103,6 @@ Object mapper can map classes composed of the following types:
 - Optionals of all the above
 - Implicitly Unwrapped Optionals of the above
 
-If you are using [Alamofire](https://github.com/Alamofire/Alamofire) for networking and you want to convert your responses to swift objects, you can use [AlamofireObjectMapper](https://github.com/tristanhimmelman/AlamofireObjectMapper). It is a simple Alamofire extension that uses ObjectMapper to map response data to objects.
-
 #Easy Mapping of Nested Objects
 ObjectMapper supports dot notation within keys for easy mapping of nested objects. Given the following JSON String:
 ```
@@ -191,6 +190,10 @@ class Subclass: Base {
 ```
 
 <!-- ##To Do -->
+
+#ObjectMapper + Alamofire
+
+If you are using [Alamofire](https://github.com/Alamofire/Alamofire) for networking and you want to convert your responses to swift objects, you can use [AlamofireObjectMapper](https://github.com/tristanhimmelman/AlamofireObjectMapper). It is a simple Alamofire extension that uses ObjectMapper to map JSON response data to swift objects.
 
 #Contributing
 
