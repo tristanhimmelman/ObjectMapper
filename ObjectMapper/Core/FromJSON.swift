@@ -83,4 +83,23 @@ internal final class FromJSON {
 	class func optionalObjectDictionary<N: Mappable>(inout field: Dictionary<String, N>!, object: AnyObject?) {
 		field = Mapper().mapDictionary(object)
 	}
+	
+	/// Dictionary containing Array of Mappable objects
+	class func objectDictionaryOfArrays<N: Mappable>(inout field: Dictionary<String, [N]>, object: AnyObject?) {
+		let parsedObjects = Mapper<N>().mapDictionaryOfArrays(object)
+		
+		if let objects = parsedObjects {
+			field = objects
+		}
+	}
+	
+	/// Optional Dictionary containing Array of Mappable objects
+	class func optionalObjectDictionaryOfArrays<N: Mappable>(inout field: Dictionary<String, [N]>?, object: AnyObject?) {
+		field = Mapper<N>().mapDictionaryOfArrays(object)
+	}
+	
+	/// Implicitly unwrapped Dictionary containing Array of Mappable objects
+	class func optionalObjectDictionaryOfArrays<N: Mappable>(inout field: Dictionary<String, [N]>!, object: AnyObject?) {
+		field = Mapper<N>().mapDictionaryOfArrays(object)
+	}
 }

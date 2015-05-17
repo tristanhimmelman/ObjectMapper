@@ -100,6 +100,7 @@ Object mapper can map classes composed of the following types:
 - Object\<T: Mappable\>
 - Array\<T: Mappable\>
 - Dictionary\<String, T: Mappable\>
+- Dictionary\<String, Array\<T: Mappable\>\>
 - Optionals of all the above
 - Implicitly Unwrapped Optionals of the above
 

@@ -275,12 +275,35 @@ class ObjectMapperTests: XCTestCase {
 		expect(tasks?[1].percentage).to(equal(percentage2))
 	}
 
-	func testArrayOfEnumObjects(){
-    let a: ExampleEnum = .A
-    let b: ExampleEnum = .B
-    let c: ExampleEnum = .C
+	func testDictionaryOfArrayOfCustomObjects(){
+		let percentage1: Double = 0.1
+		let percentage2: Double = 1792.41
+		
+		let JSONString = "{ \"dictionaryOfTasks\": { \"mondayTasks\" :[{\"taskId\":103,\"percentage\":\(percentage1)},{\"taskId\":108,\"percentage\":\(percentage2)}] } }"
+		
+		let plan = Mapper<Plan>().map(JSONString)
+		
+		let dictionaryOfTasks = plan?.dictionaryOfTasks
+		expect(dictionaryOfTasks).notTo(beNil())
+		expect(dictionaryOfTasks?["mondayTasks"]?[0].percentage).to(equal(percentage1))
+		expect(dictionaryOfTasks?["mondayTasks"]?[1].percentage).to(equal(percentage2))
+		
+		let planToJSON = Mapper().toJSONString(plan!, prettyPrint: false)
+		//println(planToJSON)
+		let planFromJSON = Mapper<Plan>().map(planToJSON!)
 
-    let JSONString = "{ \"enums\": [\(a.rawValue), \(b.rawValue), \(c.rawValue)] }"
+		let dictionaryOfTasks2 = planFromJSON?.dictionaryOfTasks
+		expect(dictionaryOfTasks2).notTo(beNil())
+		expect(dictionaryOfTasks2?["mondayTasks"]?[0].percentage).to(equal(percentage1))
+		expect(dictionaryOfTasks2?["mondayTasks"]?[1].percentage).to(equal(percentage2))
+	}
+	
+	func testArrayOfEnumObjects(){
+		let a: ExampleEnum = .A
+		let b: ExampleEnum = .B
+		let c: ExampleEnum = .C
+
+		let JSONString = "{ \"enums\": [\(a.rawValue), \(b.rawValue), \(c.rawValue)] }"
 
 		let enumArray = Mapper<ExampleEnumArray>().map(JSONString)
 		let enums = enumArray?.enums
@@ -482,6 +505,7 @@ class Status: Mappable {
 
 class Plan: Mappable {
 	var tasks: [Task]?
+	var dictionaryOfTasks: [String: [Task]]?
 	
 	required init?(_ map: Map) {
 		mapping(map)
@@ -489,6 +513,7 @@ class Plan: Mappable {
 
 	func mapping(map: Map) {
 		tasks <- map["tasks"]
+		dictionaryOfTasks <- map["dictionaryOfTasks"]
 	}
 }
 
@@ -568,6 +593,7 @@ class User: Mappable {
     var friendDictionary: [String : User]?
     var friend: User?
     var friends: [User]? = []
+	
 
 	init() {}
 
