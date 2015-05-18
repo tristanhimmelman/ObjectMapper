@@ -42,7 +42,7 @@ public final class Map {
 		// save key and value associated to it
 		currentKey = key
 		// break down the components of the key
-		currentValue = valueFor(key.componentsSeparatedByString("."), JSONDictionary)
+		currentValue = valueFor(ArraySlice(split(key) { $0 == "." }), JSONDictionary)
 		
 		return self
 	}
@@ -80,7 +80,7 @@ public final class Map {
 }
 
 /// Fetch value from JSON dictionary, loop through them until we reach the desired object.
-private func valueFor(keyPathComponents: [String], dictionary: [String : AnyObject]) -> AnyObject? {
+private func valueFor(keyPathComponents: ArraySlice<String>, dictionary: [String : AnyObject]) -> AnyObject? {
 	// Implement it as a tail recursive function.
 
 	if keyPathComponents.isEmpty {
@@ -93,7 +93,7 @@ private func valueFor(keyPathComponents: [String], dictionary: [String : AnyObje
 			return nil
 
 		case let dict as [String : AnyObject] where keyPathComponents.count > 1:
-			let tail = Array(keyPathComponents[1..<keyPathComponents.count])
+			let tail = dropFirst(keyPathComponents)
 			return valueFor(tail, dict)
 
 		default:
