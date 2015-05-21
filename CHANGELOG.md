@@ -2,9 +2,117 @@
 
 ## [Unreleased](https://github.com/Hearst-DD/ObjectMapper/tree/HEAD)
 
-[Full Changelog](https://github.com/Hearst-DD/ObjectMapper/compare/0.8...HEAD)
+[Full Changelog](https://github.com/Hearst-DD/ObjectMapper/compare/0.12...HEAD)
 
 **Closed issues:**
+
+- Code=3840 "The operation couldn’t be completed." [\#126](https://github.com/Hearst-DD/ObjectMapper/issues/126)
+
+- Dictionaries of Arrays? [\#121](https://github.com/Hearst-DD/ObjectMapper/issues/121)
+
+**Merged pull requests:**
+
+- Use ArraySlice for performance optimization in recursive functions [\#125](https://github.com/Hearst-DD/ObjectMapper/pull/125) ([ikesyo](https://github.com/ikesyo))
+
+## [0.12](https://github.com/Hearst-DD/ObjectMapper/tree/0.12) (2015-05-17)
+
+[Full Changelog](https://github.com/Hearst-DD/ObjectMapper/compare/0.11...0.12)
+
+**Closed issues:**
+
+- Implicit mapping from underscore to camel case? [\#122](https://github.com/Hearst-DD/ObjectMapper/issues/122)
+
+- Can't get the sample work [\#120](https://github.com/Hearst-DD/ObjectMapper/issues/120)
+
+- Empty dictionaries/arrays of custom types not reflected in JSON [\#119](https://github.com/Hearst-DD/ObjectMapper/issues/119)
+
+- Trying to use TransformOf, to Map \[lat, lon\] Array to CLLocation [\#118](https://github.com/Hearst-DD/ObjectMapper/issues/118)
+
+**Merged pull requests:**
+
+- Dictionary of arrays [\#124](https://github.com/Hearst-DD/ObjectMapper/pull/124) ([tristanhimmelman](https://github.com/tristanhimmelman))
+
+## [0.11](https://github.com/Hearst-DD/ObjectMapper/tree/0.11) (2015-04-30)
+
+[Full Changelog](https://github.com/Hearst-DD/ObjectMapper/compare/0.10...0.11)
+
+**Closed issues:**
+
+- A little help with nested objects needed [\#114](https://github.com/Hearst-DD/ObjectMapper/issues/114)
+
+- fail to import ObjectMapper from cocoapods [\#113](https://github.com/Hearst-DD/ObjectMapper/issues/113)
+
+- put the transform dir in 1 swift file [\#111](https://github.com/Hearst-DD/ObjectMapper/issues/111)
+
+- Xcode 6.3 and ObjectMapper 0.9 [\#110](https://github.com/Hearst-DD/ObjectMapper/issues/110)
+
+- Help Wanted: Mapping Arrays of Mappables? [\#106](https://github.com/Hearst-DD/ObjectMapper/issues/106)
+
+- loss order when deserializing json string [\#105](https://github.com/Hearst-DD/ObjectMapper/issues/105)
+
+**Merged pull requests:**
+
+- Add array and dictionary support for mapping with transform [\#117](https://github.com/Hearst-DD/ObjectMapper/pull/117) ([ikesyo](https://github.com/ikesyo))
+
+- Do not use force unwrapping for RawRepresentable mapping [\#116](https://github.com/Hearst-DD/ObjectMapper/pull/116) ([ikesyo](https://github.com/ikesyo))
+
+- Added support for NSString input [\#115](https://github.com/Hearst-DD/ObjectMapper/pull/115) ([tiemevanveen](https://github.com/tiemevanveen))
+
+- Enum \(RawRepresentable\)  objects mapping [\#112](https://github.com/Hearst-DD/ObjectMapper/pull/112) ([RyomaKawajiri](https://github.com/RyomaKawajiri))
+
+- Use @autoclosure for a default value which may not be used [\#109](https://github.com/Hearst-DD/ObjectMapper/pull/109) ([ikesyo](https://github.com/ikesyo))
+
+- Fix method parameter of sample code in README [\#108](https://github.com/Hearst-DD/ObjectMapper/pull/108) ([kishikawakatsumi](https://github.com/kishikawakatsumi))
+
+- Fix typo in README [\#107](https://github.com/Hearst-DD/ObjectMapper/pull/107) ([kishikawakatsumi](https://github.com/kishikawakatsumi))
+
+- Improve immutable mapping [\#104](https://github.com/Hearst-DD/ObjectMapper/pull/104) ([ikesyo](https://github.com/ikesyo))
+
+## [0.10](https://github.com/Hearst-DD/ObjectMapper/tree/0.10) (2015-04-08)
+
+[Full Changelog](https://github.com/Hearst-DD/ObjectMapper/compare/0.9...0.10)
+
+**Closed issues:**
+
+- Can't map json string into my class! [\#95](https://github.com/Hearst-DD/ObjectMapper/issues/95)
+
+- Can't map array from root node of json [\#93](https://github.com/Hearst-DD/ObjectMapper/issues/93)
+
+- Add an external parameter name to Map.map\(JSON: AnyObject?\) [\#74](https://github.com/Hearst-DD/ObjectMapper/issues/74)
+
+- Library not loaded: @rpath/ObjectMapper.framework [\#64](https://github.com/Hearst-DD/ObjectMapper/issues/64)
+
+**Merged pull requests:**
+
+- Capitalized the MappingType enum values [\#103](https://github.com/Hearst-DD/ObjectMapper/pull/103) ([tristanhimmelman](https://github.com/tristanhimmelman))
+
+- Specify Release configuration for testing build [\#102](https://github.com/Hearst-DD/ObjectMapper/pull/102) ([ikesyo](https://github.com/ikesyo))
+
+- Remove AnyObject variants of `basicType` in `FromJSON` [\#101](https://github.com/Hearst-DD/ObjectMapper/pull/101) ([ikesyo](https://github.com/ikesyo))
+
+- Workaround swift crash with nested mappings [\#100](https://github.com/Hearst-DD/ObjectMapper/pull/100) ([barnybug](https://github.com/barnybug))
+
+- Change functions of `FromJSON` and `ToJSON` to `class func`, make the classes final [\#99](https://github.com/Hearst-DD/ObjectMapper/pull/99) ([ikesyo](https://github.com/ikesyo))
+
+- Exclude README from iOS build target [\#98](https://github.com/Hearst-DD/ObjectMapper/pull/98) ([ikesyo](https://github.com/ikesyo))
+
+- Remove `basicArray` and `basicDictionary`, implement that at `basicType` in `ToJSON` [\#97](https://github.com/Hearst-DD/ObjectMapper/pull/97) ([ikesyo](https://github.com/ikesyo))
+
+- Simplification of Mapper interface [\#96](https://github.com/Hearst-DD/ObjectMapper/pull/96) ([tristanhimmelman](https://github.com/tristanhimmelman))
+
+- \[WIP\] Change the return type of `map\(JSON:\)` to optional, not IUO, for better type safety [\#94](https://github.com/Hearst-DD/ObjectMapper/pull/94) ([ikesyo](https://github.com/ikesyo))
+
+- Introduce Nimble for better assertion [\#89](https://github.com/Hearst-DD/ObjectMapper/pull/89) ([ikesyo](https://github.com/ikesyo))
+
+## [0.9](https://github.com/Hearst-DD/ObjectMapper/tree/0.9) (2015-03-23)
+
+[Full Changelog](https://github.com/Hearst-DD/ObjectMapper/compare/0.8...0.9)
+
+**Closed issues:**
+
+- Add OSX target to project [\#90](https://github.com/Hearst-DD/ObjectMapper/issues/90)
+
+- Mapping \[String\] [\#86](https://github.com/Hearst-DD/ObjectMapper/issues/86)
 
 - Set up CI environment [\#79](https://github.com/Hearst-DD/ObjectMapper/issues/79)
 
@@ -17,6 +125,12 @@
 - Non-optional mapping [\#26](https://github.com/Hearst-DD/ObjectMapper/issues/26)
 
 **Merged pull requests:**
+
+- Add OS X target [\#91](https://github.com/Hearst-DD/ObjectMapper/pull/91) ([ikesyo](https://github.com/ikesyo))
+
+- Create EnumTransform to transform into RawRepresentable Enums [\#88](https://github.com/Hearst-DD/ObjectMapper/pull/88) ([kaandedeoglu](https://github.com/kaandedeoglu))
+
+- Allow ObjectMapper be used within an app extension [\#87](https://github.com/Hearst-DD/ObjectMapper/pull/87) ([pizthewiz](https://github.com/pizthewiz))
 
 - \[ToJSON\] Improve nested keys support [\#84](https://github.com/Hearst-DD/ObjectMapper/pull/84) ([ikesyo](https://github.com/ikesyo))
 
@@ -107,8 +221,6 @@
 - Removal of toType affects subclassing [\#47](https://github.com/Hearst-DD/ObjectMapper/issues/47)
 
 - DateTransform crashing [\#46](https://github.com/Hearst-DD/ObjectMapper/issues/46)
-
-- Calling Mapper\(\).toJSON\(object\) modifies the underlying object properties [\#31](https://github.com/Hearst-DD/ObjectMapper/issues/31)
 
 **Merged pull requests:**
 
@@ -240,13 +352,9 @@
 
 - Fix Small copy & paste error in the installation instructions [\#6](https://github.com/Hearst-DD/ObjectMapper/pull/6) ([jacksonh](https://github.com/jacksonh))
 
-- Fix error in installation docs [\#5](https://github.com/Hearst-DD/ObjectMapper/pull/5) ([jacksonh](https://github.com/jacksonh))
-
 - Declare MapperTransform.init to be public. [\#4](https://github.com/Hearst-DD/ObjectMapper/pull/4) ([asmallteapot](https://github.com/asmallteapot))
 
 - a couple additional tests for unexpected behaviors [\#2](https://github.com/Hearst-DD/ObjectMapper/pull/2) ([neocortical](https://github.com/neocortical))
-
-- Custom transform class outside the framework [\#1](https://github.com/Hearst-DD/ObjectMapper/pull/1) ([safx](https://github.com/safx))
 
 
 
