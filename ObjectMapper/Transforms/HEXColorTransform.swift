@@ -1,5 +1,5 @@
 //
-//  HEXColorTrasform.swift
+//  HEXColorTransform.swift
 //  ObjectMapper
 //
 //  Created by Vitaliy Kuzmenko on 26/05/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class HEXColorTrasform: TransformType {
+public class HEXColorTransform: TransformType {
 	public typealias Object = UIColor
 	public typealias JSON = String
 	
