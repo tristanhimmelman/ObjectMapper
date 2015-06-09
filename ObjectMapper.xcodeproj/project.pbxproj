@@ -7,6 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		015845BC1B27378E00076F3B /* CustomDateFormatTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AFD9B81AAD191C00AB59B5 /* CustomDateFormatTransform.swift */; };
+		015845BD1B27378E00076F3B /* TransformType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD50B6FC1A82518300744312 /* TransformType.swift */; };
+		015845BE1B27378E00076F3B /* DateTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FCB19F048FE00E7A677 /* DateTransform.swift */; };
+		015845BF1B27378E00076F3B /* EnumTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1E7F361ABC44C000F9B1CF /* EnumTransform.swift */; };
+		015845C01B27378E00076F3B /* ISO8601DateTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86BDEA31A51E5AC00120819 /* ISO8601DateTransform.swift */; };
+		015845C11B27378E00076F3B /* TransformOf.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD71C8C01A7218AD009D4161 /* TransformOf.swift */; };
+		015845C21B27378E00076F3B /* URLTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6C54CF19FE8DB600239454 /* URLTransform.swift */; };
+		015845C31B27378E00076F3B /* DateFormaterTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A51372B1AADDE2700B82516 /* DateFormaterTransform.swift */; };
+		015845C41B27378E00076F3B /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC419F048FE00E7A677 /* Mapper.swift */; };
+		015845C51B27378E00076F3B /* FromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC319F048FE00E7A677 /* FromJSON.swift */; };
+		015845C61B27378E00076F3B /* ToJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC719F048FE00E7A677 /* ToJSON.swift */; };
+		015845C71B27378E00076F3B /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC519F048FE00E7A677 /* Operators.swift */; };
+		015845CA1B27378E00076F3B /* ObjectMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AAC8F7B19F03C2900E7A677 /* ObjectMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		015845D51B2737A000076F3B /* BasicTypesTestsFromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6AEB951A93874F002573D3 /* BasicTypesTestsFromJSON.swift */; };
+		015845D61B2737A000076F3B /* NestedKeysTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD44374C1AAE9C1100A271BA /* NestedKeysTests.swift */; };
+		015845D71B2737A000076F3B /* BasicTypesTestsToJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3774331A31427F00CC0AB5 /* BasicTypesTestsToJSON.swift */; };
+		015845D81B2737A000076F3B /* CustomTransformTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A51372E1AADE12C00B82516 /* CustomTransformTests.swift */; };
+		015845D91B2737A000076F3B /* BasicTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6AEB971A9387D0002573D3 /* BasicTypes.swift */; };
+		015845DA1B2737A000076F3B /* ObjectMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8F8519F03C2900E7A677 /* ObjectMapperTests.swift */; };
+		015845DC1B2737A000076F3B /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAC8F7619F03C2900E7A677 /* ObjectMapper.framework */; };
+		015845DD1B2737A000076F3B /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD208C981AC10D2B00E21781 /* Nimble.framework */; };
+		015845E01B2737A000076F3B /* ObjectMapper.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAC8F7619F03C2900E7A677 /* ObjectMapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		015845E11B2737A000076F3B /* Nimble.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = CD208C981AC10D2B00E21781 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		37AFD9B91AAD191C00AB59B5 /* CustomDateFormatTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AFD9B81AAD191C00AB59B5 /* CustomDateFormatTransform.swift */; };
 		6A3774341A31427F00CC0AB5 /* BasicTypesTestsToJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3774331A31427F00CC0AB5 /* BasicTypesTestsToJSON.swift */; };
 		6A51372C1AADDE2700B82516 /* DateFormaterTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A51372B1AADDE2700B82516 /* DateFormaterTransform.swift */; };
@@ -56,6 +79,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		015845D31B2737A000076F3B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6AAC8F6D19F03C2900E7A677 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6AAC8F7519F03C2900E7A677;
+			remoteInfo = ObjectMapper;
+		};
 		6AAC8FD519F04A5600E7A677 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6AAC8F6D19F03C2900E7A677 /* Project object */;
@@ -73,6 +103,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		015845DF1B2737A000076F3B /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				015845E01B2737A000076F3B /* ObjectMapper.framework in Copy Frameworks */,
+				015845E11B2737A000076F3B /* Nimble.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6AAE6A421ACED92700FBC899 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -99,6 +141,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		015845CF1B27378E00076F3B /* ObjectMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ObjectMapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		015845E51B2737A000076F3B /* ObjectMapper-watchOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ObjectMapper-watchOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		37AFD9B81AAD191C00AB59B5 /* CustomDateFormatTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDateFormatTransform.swift; sourceTree = "<group>"; };
 		6A3774331A31427F00CC0AB5 /* BasicTypesTestsToJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = BasicTypesTestsToJSON.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		6A51372B1AADDE2700B82516 /* DateFormaterTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFormaterTransform.swift; sourceTree = "<group>"; };
@@ -129,6 +173,22 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		015845C81B27378E00076F3B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		015845DB1B2737A000076F3B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				015845DC1B2737A000076F3B /* ObjectMapper.framework in Frameworks */,
+				015845DD1B2737A000076F3B /* Nimble.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6AAC8F7219F03C2900E7A677 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -193,6 +253,8 @@
 				6AAC8F8119F03C2900E7A677 /* ObjectMapper-iOSTests.xctest */,
 				CD1602FF1AC023D5000CD69A /* ObjectMapper.framework */,
 				CD1603091AC023D6000CD69A /* ObjectMapper-MacTests.xctest */,
+				015845CF1B27378E00076F3B /* ObjectMapper.framework */,
+				015845E51B2737A000076F3B /* ObjectMapper-watchOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -265,6 +327,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		015845C91B27378E00076F3B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				015845CA1B27378E00076F3B /* ObjectMapper.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6AAC8F7319F03C2900E7A677 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -284,6 +354,43 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		015845BA1B27378E00076F3B /* ObjectMapper-watchOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 015845CC1B27378E00076F3B /* Build configuration list for PBXNativeTarget "ObjectMapper-watchOS" */;
+			buildPhases = (
+				015845BB1B27378E00076F3B /* Sources */,
+				015845C81B27378E00076F3B /* Frameworks */,
+				015845C91B27378E00076F3B /* Headers */,
+				015845CB1B27378E00076F3B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ObjectMapper-watchOS";
+			productName = ObjectMapper;
+			productReference = 015845CF1B27378E00076F3B /* ObjectMapper.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		015845D11B2737A000076F3B /* ObjectMapper-watchOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 015845E21B2737A000076F3B /* Build configuration list for PBXNativeTarget "ObjectMapper-watchOSTests" */;
+			buildPhases = (
+				015845D41B2737A000076F3B /* Sources */,
+				015845DB1B2737A000076F3B /* Frameworks */,
+				015845DE1B2737A000076F3B /* Resources */,
+				015845DF1B2737A000076F3B /* Copy Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				015845D21B2737A000076F3B /* PBXTargetDependency */,
+			);
+			name = "ObjectMapper-watchOSTests";
+			productName = ObjectMapperTests;
+			productReference = 015845E51B2737A000076F3B /* ObjectMapper-watchOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		6AAC8F7519F03C2900E7A677 /* ObjectMapper-iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6AAC8F8919F03C2900E7A677 /* Build configuration list for PBXNativeTarget "ObjectMapper-iOS" */;
@@ -364,7 +471,8 @@
 		6AAC8F6D19F03C2900E7A677 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0600;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = hearst;
 				TargetAttributes = {
 					6AAC8F7519F03C2900E7A677 = {
@@ -393,6 +501,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				015845BA1B27378E00076F3B /* ObjectMapper-watchOS */,
+				015845D11B2737A000076F3B /* ObjectMapper-watchOSTests */,
 				6AAC8F7519F03C2900E7A677 /* ObjectMapper-iOS */,
 				6AAC8F8019F03C2900E7A677 /* ObjectMapper-iOSTests */,
 				CD1602FE1AC023D5000CD69A /* ObjectMapper-Mac */,
@@ -402,6 +512,20 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		015845CB1B27378E00076F3B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		015845DE1B2737A000076F3B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6AAC8F7419F03C2900E7A677 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -433,6 +557,38 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		015845BB1B27378E00076F3B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				015845BC1B27378E00076F3B /* CustomDateFormatTransform.swift in Sources */,
+				015845BD1B27378E00076F3B /* TransformType.swift in Sources */,
+				015845BE1B27378E00076F3B /* DateTransform.swift in Sources */,
+				015845BF1B27378E00076F3B /* EnumTransform.swift in Sources */,
+				015845C01B27378E00076F3B /* ISO8601DateTransform.swift in Sources */,
+				015845C11B27378E00076F3B /* TransformOf.swift in Sources */,
+				015845C21B27378E00076F3B /* URLTransform.swift in Sources */,
+				015845C31B27378E00076F3B /* DateFormaterTransform.swift in Sources */,
+				015845C41B27378E00076F3B /* Mapper.swift in Sources */,
+				015845C51B27378E00076F3B /* FromJSON.swift in Sources */,
+				015845C61B27378E00076F3B /* ToJSON.swift in Sources */,
+				015845C71B27378E00076F3B /* Operators.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		015845D41B2737A000076F3B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				015845D51B2737A000076F3B /* BasicTypesTestsFromJSON.swift in Sources */,
+				015845D61B2737A000076F3B /* NestedKeysTests.swift in Sources */,
+				015845D71B2737A000076F3B /* BasicTypesTestsToJSON.swift in Sources */,
+				015845D81B2737A000076F3B /* CustomTransformTests.swift in Sources */,
+				015845D91B2737A000076F3B /* BasicTypes.swift in Sources */,
+				015845DA1B2737A000076F3B /* ObjectMapperTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6AAC8F7119F03C2900E7A677 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -500,6 +656,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		015845D21B2737A000076F3B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6AAC8F7519F03C2900E7A677 /* ObjectMapper-iOS */;
+			targetProxy = 015845D31B2737A000076F3B /* PBXContainerItemProxy */;
+		};
 		6AAC8FD619F04A5600E7A677 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 6AAC8F7519F03C2900E7A677 /* ObjectMapper-iOS */;
@@ -513,6 +674,80 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		015845CD1B27378E00076F3B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = ObjectMapper/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hearst.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(PROJECT_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "watchsimulator watchos";
+			};
+			name = Debug;
+		};
+		015845CE1B27378E00076F3B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = ObjectMapper/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hearst.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(PROJECT_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "watchsimulator watchos";
+			};
+			name = Release;
+		};
+		015845E31B2737A000076F3B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ObjectMapperTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.heart.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SUPPORTED_PLATFORMS = "watchsimulator watchos";
+			};
+			name = Debug;
+		};
+		015845E41B2737A000076F3B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ObjectMapperTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.heart.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SUPPORTED_PLATFORMS = "watchsimulator watchos";
+			};
+			name = Release;
+		};
 		6AAC8F8719F03C2900E7A677 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -534,6 +769,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -611,6 +847,7 @@
 				INFOPLIST_FILE = ObjectMapper/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hearst.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -627,6 +864,7 @@
 				INFOPLIST_FILE = ObjectMapper/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hearst.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -645,6 +883,7 @@
 				);
 				INFOPLIST_FILE = ObjectMapperTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.heart.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -658,6 +897,7 @@
 				);
 				INFOPLIST_FILE = ObjectMapperTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.heart.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -679,6 +919,7 @@
 				INFOPLIST_FILE = ObjectMapper/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hearst.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -700,6 +941,7 @@
 				INFOPLIST_FILE = ObjectMapper/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hearst.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -721,6 +963,7 @@
 				INFOPLIST_FILE = ObjectMapperTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.heart.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 			};
@@ -739,6 +982,7 @@
 				INFOPLIST_FILE = ObjectMapperTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.heart.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 			};
@@ -747,6 +991,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		015845CC1B27378E00076F3B /* Build configuration list for PBXNativeTarget "ObjectMapper-watchOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				015845CD1B27378E00076F3B /* Debug */,
+				015845CE1B27378E00076F3B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		015845E21B2737A000076F3B /* Build configuration list for PBXNativeTarget "ObjectMapper-watchOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				015845E31B2737A000076F3B /* Debug */,
+				015845E41B2737A000076F3B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		6AAC8F7019F03C2900E7A677 /* Build configuration list for PBXProject "ObjectMapper" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

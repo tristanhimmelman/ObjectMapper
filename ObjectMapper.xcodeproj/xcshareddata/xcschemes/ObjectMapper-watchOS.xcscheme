@@ -14,23 +14,23 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CD1602FE1AC023D5000CD69A"
+               BlueprintIdentifier = "015845BA1B27378E00076F3B"
                BuildableName = "ObjectMapper.framework"
-               BlueprintName = "ObjectMapper-Mac"
+               BlueprintName = "ObjectMapper-watchOS"
                ReferencedContainer = "container:ObjectMapper.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
             buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CD1603081AC023D6000CD69A"
-               BuildableName = "ObjectMapper-MacTests.xctest"
-               BlueprintName = "ObjectMapper-MacTests"
+               BlueprintIdentifier = "015845D11B2737A000076F3B"
+               BuildableName = "ObjectMapper-watchOSTests.xctest"
+               BlueprintName = "ObjectMapper-watchOSTests"
                ReferencedContainer = "container:ObjectMapper.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,22 +46,13 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CD1603081AC023D6000CD69A"
-               BuildableName = "ObjectMapper-MacTests.xctest"
-               BlueprintName = "ObjectMapper-MacTests"
+               BlueprintIdentifier = "015845D11B2737A000076F3B"
+               BuildableName = "ObjectMapper-watchOSTests.xctest"
+               BlueprintName = "ObjectMapper-watchOSTests"
                ReferencedContainer = "container:ObjectMapper.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CD1602FE1AC023D5000CD69A"
-            BuildableName = "ObjectMapper.framework"
-            BlueprintName = "ObjectMapper-Mac"
-            ReferencedContainer = "container:ObjectMapper.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -78,9 +69,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CD1602FE1AC023D5000CD69A"
+            BlueprintIdentifier = "015845BA1B27378E00076F3B"
             BuildableName = "ObjectMapper.framework"
-            BlueprintName = "ObjectMapper-Mac"
+            BlueprintName = "ObjectMapper-watchOS"
             ReferencedContainer = "container:ObjectMapper.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -96,9 +87,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CD1602FE1AC023D5000CD69A"
+            BlueprintIdentifier = "015845BA1B27378E00076F3B"
             BuildableName = "ObjectMapper.framework"
-            BlueprintName = "ObjectMapper-Mac"
+            BlueprintName = "ObjectMapper-watchOS"
             ReferencedContainer = "container:ObjectMapper.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

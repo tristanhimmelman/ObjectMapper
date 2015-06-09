@@ -78,7 +78,7 @@ class ObjectMapperTests: XCTestCase {
 		expect(smoker).to(equal(user.smoker))
 		expect(sex).to(equal(user.sex))
 
-		//println(Mapper().toJSONString(user, prettyPrint: true))
+		//print(Mapper().toJSONString(user, prettyPrint: true))
     }
 
     func testInstanceParsing() {
@@ -113,7 +113,7 @@ class ObjectMapperTests: XCTestCase {
 		expect(drinker).to(equal(user.drinker))
 		expect(smoker).to(equal(user.smoker))
 		expect(sex).to(equal(user.sex))
-        //println(Mapper().toJSONString(user, prettyPrint: true))
+        //print(Mapper().toJSONString(user, prettyPrint: true))
     }
     
     func testDictionaryParsing() {
@@ -204,7 +204,7 @@ class ObjectMapperTests: XCTestCase {
         user.arr = ["cheese", 11234]
         
         let JSONString = Mapper().toJSONString(user, prettyPrint: true)
-        //println(JSONString)
+        //print(JSONString)
 
 		let parsedUser = userMapper.map(JSONString!)!
 		expect(parsedUser).notTo(beNil())
@@ -289,7 +289,7 @@ class ObjectMapperTests: XCTestCase {
 		expect(dictionaryOfTasks?["mondayTasks"]?[1].percentage).to(equal(percentage2))
 		
 		let planToJSON = Mapper().toJSONString(plan!, prettyPrint: false)
-		//println(planToJSON)
+		//print(planToJSON)
 		let planFromJSON = Mapper<Plan>().map(planToJSON!)
 
 		let dictionaryOfTasks2 = planFromJSON?.dictionaryOfTasks
