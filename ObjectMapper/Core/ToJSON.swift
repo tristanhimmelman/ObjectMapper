@@ -8,11 +8,11 @@
 
 import class Foundation.NSNumber
 
-private func setValue(value: AnyObject, forKey key: String, inout #dictionary: [String : AnyObject]) {
-	return setValue(value, forKeyPathComponents: ArraySlice(split(key) { $0 == "." }), dictionary: &dictionary)
+private func setValue(value: AnyObject, forKey key: String, inout dictionary: [String : AnyObject]) {
+	return setValue(value, forKeyPathComponents: ArraySlice(key.componentsSeparatedByString(".")), dictionary: &dictionary)
 }
 
-private func setValue(value: AnyObject, forKeyPathComponents components: ArraySlice<String>, inout #dictionary: [String : AnyObject]) {
+private func setValue(value: AnyObject, forKeyPathComponents components: ArraySlice<String>, inout dictionary: [String : AnyObject]) {
 	if components.isEmpty {
 		return
 	}
@@ -88,7 +88,7 @@ internal final class ToJSON {
 		case let x as Dictionary<String, AnyObject>:
 			_setValue(x)
 		default:
-			//println("Default")
+			//print("Default")
 			return
 		}
 	}
