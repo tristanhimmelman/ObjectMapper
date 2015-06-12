@@ -42,7 +42,8 @@ public final class Map {
 		// save key and value associated to it
 		currentKey = key
 		// break down the components of the key
-		currentValue = valueFor(ArraySlice(split(key.characters) { $0 == "." }.map { String($0) }), dictionary: JSONDictionary)
+
+		currentValue = valueFor(ArraySlice(key.componentsSeparatedByString(".")), dictionary: JSONDictionary)
 		
 		return self
 	}
@@ -268,7 +269,6 @@ public final class Mapper<N: Mappable> {
 	/// Maps an Object to a JSON string
 	public func toJSONString(object: N, prettyPrint: Bool) -> String? {
 		let JSONDict = toJSON(object)
-
 
 		if NSJSONSerialization.isValidJSONObject(JSONDict) {
 			let options: NSJSONWritingOptions = prettyPrint ? .PrettyPrinted : []

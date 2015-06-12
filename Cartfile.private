@@ -1,1 +1,1 @@
-github "Quick/Nimble" "swift-2.0"
+github "Quick/Nimble" ~> 2.0.0

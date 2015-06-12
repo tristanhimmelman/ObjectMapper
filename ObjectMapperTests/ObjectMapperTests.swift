@@ -29,7 +29,7 @@ class ObjectMapperTests: XCTestCase {
 		let mapper = Mapper<Immutable>()
 		let JSON = [ "prop1": "Immutable!", "prop2": 255, "prop3": true ]
 
-		let immutable: Immutable? = mapper.map(JSON)
+		let immutable = mapper.map(JSON)
 		expect(immutable).notTo(beNil())
 		expect(immutable?.prop1).to(equal("Immutable!"))
 		expect(immutable?.prop2).to(equal(255))
@@ -54,7 +54,7 @@ class ObjectMapperTests: XCTestCase {
         let drinker = true
         let smoker = false
 		let sex: Sex = .Female
-		
+        
         let subUserJSON = "{\"identifier\" : \"user8723\", \"drinker\" : true, \"age\": 17, \"username\" : \"sub user\" }"
         
         let userJSONString = "{\"username\":\"\(username)\",\"identifier\":\"\(identifier)\",\"photoCount\":\(photoCount),\"age\":\(age),\"drinker\":\(drinker),\"smoker\":\(smoker), \"sex\":\"\(sex.rawValue)\", \"arr\":[ \"bla\", true, 42 ], \"dict\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"arrOpt\":[ \"bla\", true, 42 ], \"dictOpt\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"weight\": \(weight), \"float\": \(float), \"friend\": \(subUserJSON), \"friendDictionary\":{ \"bestFriend\": \(subUserJSON)}}"
@@ -71,8 +71,8 @@ class ObjectMapperTests: XCTestCase {
 		expect(drinker).to(equal(user.drinker))
 		expect(smoker).to(equal(user.smoker))
 		expect(sex).to(equal(user.sex))
-
-		//println(Mapper().toJSONString(user, prettyPrint: true))
+		
+		//print(Mapper().toJSONString(user, prettyPrint: true))
     }
 
     func testInstanceParsing() {
@@ -84,8 +84,7 @@ class ObjectMapperTests: XCTestCase {
         let float: Float = 123.231
         let drinker = true
         let smoker = false
-		  let sex: Sex = .Female
-		
+		let sex: Sex = .Female
         let subUserJSON = "{\"identifier\" : \"user8723\", \"drinker\" : true, \"age\": 17, \"username\" : \"sub user\" }"
         
         let userJSONString = "{\"username\":\"\(username)\",\"identifier\":\"\(identifier)\",\"photoCount\":\(photoCount),\"age\":\(age),\"drinker\":\(drinker),\"smoker\":\(smoker), \"sex\":\"\(sex.rawValue)\", \"arr\":[ \"bla\", true, 42 ], \"dict\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"arrOpt\":[ \"bla\", true, 42 ], \"dictOpt\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 },\"weight\": \(weight), \"float\": \(float), \"friend\": \(subUserJSON), \"friendDictionary\":{ \"bestFriend\": \(subUserJSON)}}"
@@ -101,7 +100,7 @@ class ObjectMapperTests: XCTestCase {
 		expect(drinker).to(equal(user.drinker))
 		expect(smoker).to(equal(user.smoker))
 		expect(sex).to(equal(user.sex))
-        //println(Mapper().toJSONString(user, prettyPrint: true))
+        //print(Mapper().toJSONString(user, prettyPrint: true))
     }
     
     func testDictionaryParsing() {
@@ -192,7 +191,7 @@ class ObjectMapperTests: XCTestCase {
         user.arr = ["cheese", 11234]
         
         let JSONString = Mapper().toJSONString(user, prettyPrint: true)
-        //println(JSONString)
+        //print(JSONString)
 
 		let parsedUser = userMapper.map(JSONString!)!
 		expect(parsedUser).notTo(beNil())
@@ -277,7 +276,7 @@ class ObjectMapperTests: XCTestCase {
 		expect(dictionaryOfTasks?["mondayTasks"]?[1].percentage).to(equal(percentage2))
 		
 		let planToJSON = Mapper().toJSONString(plan!, prettyPrint: false)
-		//println(planToJSON)
+		//print(planToJSON)
 		let planFromJSON = Mapper<Plan>().map(planToJSON!)
 
 		let dictionaryOfTasks2 = planFromJSON?.dictionaryOfTasks
