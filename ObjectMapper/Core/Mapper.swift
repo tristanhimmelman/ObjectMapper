@@ -149,10 +149,7 @@ public final class Mapper<N: Mappable> {
 	
 	/// Map a JSON NSString to an object that conforms to Mappable
 	public func map(JSONString: NSString) -> N? {
-		if let string = JSONString as? String {
-			return map(string)
-		}
-		return nil
+		return map(JSONString as String)
 	}
 	
 	/// Maps a JSON object to a Mappable object if it is a JSON dictionary or NSString, or returns nil.
@@ -272,18 +269,15 @@ public final class Mapper<N: Mappable> {
 	public func toJSONString(object: N, prettyPrint: Bool) -> String? {
 		let JSONDict = toJSON(object)
 
-		var err: NSError?
+
 		if NSJSONSerialization.isValidJSONObject(JSONDict) {
 			let options: NSJSONWritingOptions = prettyPrint ? .PrettyPrinted : []
 			let JSONData: NSData?
 			do {
 				JSONData = try NSJSONSerialization.dataWithJSONObject(JSONDict, options: options)
-			} catch var error as NSError {
-				err = error
-				JSONData = nil
-			}
-			if let error = err {
+			} catch let error {
 				print(error)
+				JSONData = nil
 			}
 
 			if let JSON = JSONData {
@@ -315,12 +309,11 @@ public final class Mapper<N: Mappable> {
 	private func parseJSONString(JSON: String) -> AnyObject? {
 		let data = JSON.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
 		if let data = data {
-			var error: NSError?
 			let parsedJSON: AnyObject?
 			do {
 				parsedJSON = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments)
-			} catch var error1 as NSError {
-				error = error1
+			} catch let error {
+				print(error)
 				parsedJSON = nil
 			}
 			return parsedJSON
