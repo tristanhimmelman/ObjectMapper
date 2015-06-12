@@ -29,7 +29,7 @@ class ObjectMapperTests: XCTestCase {
 		let mapper = Mapper<Immutable>()
 		let JSON = [ "prop1": "Immutable!", "prop2": 255, "prop3": true ]
 
-		let immutable: Immutable! = mapper.map(JSON)
+		let immutable: Immutable? = mapper.map(JSON)
 		expect(immutable).notTo(beNil())
 		expect(immutable?.prop1).to(equal("Immutable!"))
 		expect(immutable?.prop2).to(equal(255))
@@ -40,8 +40,8 @@ class ObjectMapperTests: XCTestCase {
 		let immutable2 = mapper.map(JSON2)
 		expect(immutable2).to(beNil())
 
-//		let JSONFromObject = mapper.toJSON(immutable)
-//		expect(mapper.map(JSONFromObject)).to(equal(immutable))
+		let JSONFromObject = mapper.toJSON(immutable!)
+		expect(mapper.map(JSONFromObject)).to(equal(immutable))
 	}
 
     func testBasicParsing() {
