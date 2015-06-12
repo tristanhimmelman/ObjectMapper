@@ -1,1 +1,1 @@
-github "Quick/Nimble" == 0.4.1
+github "Quick/Nimble" "swift-2.0"
