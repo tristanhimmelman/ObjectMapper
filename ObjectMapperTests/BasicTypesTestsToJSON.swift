@@ -125,6 +125,21 @@ class BasicTypesTestsToJSON: XCTestCase {
 	
 	// MARK: Test mapping Arrays to JSON and back (with basic types in them Bool, Int, Double, Float, String)
 	
+	func testMappingEmptyArrayToJSON(){
+		var object = BasicTypes()
+		object.arrayBool = []
+		object.arrayBoolOptional = []
+		object.arrayBoolImplicityUnwrapped = []
+		
+		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+		var mappedObject = mapper.map(JSONString!)
+
+		expect(mappedObject).notTo(beNil())
+		expect(mappedObject?.arrayBool).to(equal([]))
+		expect(mappedObject?.arrayBoolOptional!).to(equal([]))
+		expect(mappedObject?.arrayBoolImplicityUnwrapped).to(equal([]))
+	}
+	
 	func testMappingBoolArrayToJSON(){
 		let value: Bool = true
 		let object = BasicTypes()
@@ -222,6 +237,21 @@ class BasicTypesTestsToJSON: XCTestCase {
 	}
 	
 	// MARK: Test mapping Dictionaries to JSON and back (with basic types in them Bool, Int, Double, Float, String)
+	
+	func testMappingEmptyDictionaryToJSON(){
+		var object = BasicTypes()
+		object.dictBool = [:]
+		object.dictBoolOptional = [:]
+		object.dictBoolImplicityUnwrapped = [:]
+		
+		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+		var mappedObject = mapper.map(JSONString!)
+		
+		expect(mappedObject).notTo(beNil())
+		expect(mappedObject?.dictBool).to(equal([:]))
+		expect(mappedObject?.dictBoolOptional!).to(equal([:]))
+		expect(mappedObject?.dictBoolImplicityUnwrapped).to(equal([:]))
+	}
 	
 	func testMappingBoolDictionaryToJSON(){
 		let key = "key"
