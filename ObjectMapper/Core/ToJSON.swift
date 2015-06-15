@@ -9,10 +9,11 @@
 import class Foundation.NSNumber
 
 private func setValue(value: AnyObject, forKey key: String, inout dictionary: [String : AnyObject]) {
-	return setValue(value, forKeyPathComponents: ArraySlice(key.componentsSeparatedByString(".")), dictionary: &dictionary)
+	let keyComponents = ArraySlice(split(key.characters) { $0 == "." })
+	return setValue(value, forKeyPathComponents: keyComponents, dictionary: &dictionary)
 }
 
-private func setValue(value: AnyObject, forKeyPathComponents components: ArraySlice<String>, inout dictionary: [String : AnyObject]) {
+private func setValue(value: AnyObject, forKeyPathComponents components: ArraySlice<String.CharacterView.SubSlice>, inout dictionary: [String : AnyObject]) {
 	if components.isEmpty {
 		return
 	}
@@ -20,9 +21,9 @@ private func setValue(value: AnyObject, forKeyPathComponents components: ArraySl
 	let head = components.first!
 
 	if components.count == 1 {
-		return dictionary[head] = value
+		return dictionary[String(head)] = value
 	} else {
-		var child = dictionary[head] as? [String : AnyObject]
+		var child = dictionary[String(head)] as? [String : AnyObject]
 		if child == nil {
 			child = [:]
 		}
@@ -30,7 +31,7 @@ private func setValue(value: AnyObject, forKeyPathComponents components: ArraySl
 		let tail = dropFirst(components)
 		setValue(value, forKeyPathComponents: tail, dictionary: &child!)
 
-		return dictionary[head] = child
+		return dictionary[String(head)] = child
 	}
 }
 
