@@ -112,9 +112,7 @@ internal final class ToJSON {
 	class func objectArray<N: Mappable>(field: Array<N>, key: String, inout dictionary: [String : AnyObject]) {
 		let JSONObjects = Mapper().toJSONArray(field)
 
-		if !JSONObjects.isEmpty {
-			setValue(JSONObjects, forKey: key, dictionary: &dictionary)
-		}
+		setValue(JSONObjects, forKey: key, dictionary: &dictionary)
 	}
 
     class func optionalObjectArray<N: Mappable>(field: Array<N>?, key: String, inout dictionary: [String : AnyObject]) {
@@ -126,9 +124,7 @@ internal final class ToJSON {
 	class func objectDictionary<N: Mappable>(field: Dictionary<String, N>, key: String, inout dictionary: [String : AnyObject]) {
 		let JSONObjects = Mapper().toJSONDictionary(field)
 
-		if !JSONObjects.isEmpty {
-			setValue(JSONObjects, forKey: key, dictionary: &dictionary)
-		}
+		setValue(JSONObjects, forKey: key, dictionary: &dictionary)
 	}
 
     class func optionalObjectDictionary<N: Mappable>(field: Dictionary<String, N>?, key: String, inout dictionary: [String : AnyObject]) {
@@ -140,9 +136,7 @@ internal final class ToJSON {
 	class func objectDictionaryOfArrays<N: Mappable>(field: Dictionary<String, [N]>, key: String, inout dictionary: [String : AnyObject]) {
 		let JSONObjects = Mapper().toJSONDictionaryOfArrays(field)
 
-		if !JSONObjects.isEmpty {
-			setValue(JSONObjects, forKey: key, dictionary: &dictionary)
-		}
+		setValue(JSONObjects, forKey: key, dictionary: &dictionary)
 	}
 	
 	class func optionalObjectDictionaryOfArrays<N: Mappable>(field: Dictionary<String, [N]>?, key: String, inout dictionary: [String : AnyObject]) {

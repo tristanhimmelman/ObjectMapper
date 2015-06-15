@@ -360,8 +360,9 @@ extension Dictionary {
 		var mapped = [Key : U]()
 
 		for (key, value) in self {
-			let newValue = f(value)
-			mapped[key] = newValue
+			if let newValue = f(value){
+				mapped[key] = newValue
+			}
 		}
 
 		return mapped
