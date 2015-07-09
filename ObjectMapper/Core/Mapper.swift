@@ -324,7 +324,7 @@ public final class Mapper<N: Mappable> {
 }
 
 extension Array {
-	internal func filterMap<U>(@noescape f: T -> U?) -> [U] {
+	internal func filterMap<U>(@noescape f: Element -> U?) -> [U] {
 		var mapped = [U]()
 
 		for value in self {
