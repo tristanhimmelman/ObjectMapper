@@ -200,7 +200,7 @@ public final class Mapper<N: Mappable> {
 	/// Maps an array of JSON dictionary to an array of Mappable objects
 	public func mapArray(JSONArray: [[String : AnyObject]]) -> [N] {
 		// map every element in JSON array to type N
-		return JSONArray.filterMap(map)
+		return JSONArray.flatMap(map)
 	}
 
 	/// Maps a JSON object to a dictionary of Mappable objects if it is a JSON dictionary of dictionaries, or returns nil.
@@ -320,20 +320,6 @@ public final class Mapper<N: Mappable> {
 		}
 
 		return nil
-	}
-}
-
-extension Array {
-	internal func filterMap<U>(@noescape f: Element -> U?) -> [U] {
-		var mapped = [U]()
-
-		for value in self {
-			if let newValue = f(value) {
-				mapped.append(newValue)
-			}
-		}
-
-		return mapped
 	}
 }
 

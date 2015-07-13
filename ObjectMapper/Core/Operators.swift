@@ -203,7 +203,7 @@ public func <- <T: TransformType>(inout left: [String: T.Object]!, right: (Map, 
 
 private func fromJSONArrayWithTransform<T: TransformType>(input: AnyObject?, transform: T) -> [T.Object] {
 	if let values = input as? [AnyObject] {
-		return values.filterMap { value in
+		return values.flatMap { value in
 			return transform.transformFromJSON(value)
 		}
 	} else {
@@ -222,7 +222,7 @@ private func fromJSONDictionaryWithTransform<T: TransformType>(input: AnyObject?
 }
 
 private func toJSONArrayWithTransform<T: TransformType>(input: [T.Object]?, transform: T) -> [T.JSON]? {
-	return input?.filterMap { value in
+	return input?.flatMap { value in
 		return transform.transformToJSON(value)
 	}
 }
