@@ -331,17 +331,17 @@ public final class Mapper<N: Mappable> {
 }
 
 extension Array {
-	internal func filterMap<U>(@noescape f: T -> U?) -> [U] {
-		var mapped = [U]()
-
-		for value in self {
-			if let newValue = f(value) {
-				mapped.append(newValue)
-			}
-		}
-
-		return mapped
-	}
+    internal func filterMap<U>(@noescape f: Element -> (U)?) -> [U] {
+        var mapped = [U]()
+        
+        for value in self {
+            if let newValue = f(value) {
+                mapped.append(newValue)
+            }
+        }
+        
+        return mapped
+    }
 }
 
 extension Dictionary {
