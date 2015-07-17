@@ -113,7 +113,7 @@
 
 /* Begin PBXFileReference section */
 		37AFD9B81AAD191C00AB59B5 /* CustomDateFormatTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDateFormatTransform.swift; sourceTree = "<group>"; };
-		6A2AD03D1B2C78540097E150 /* ObjectMapperWatchOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ObjectMapperWatchOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A2AD03D1B2C78540097E150 /* ObjectMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ObjectMapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A2AD03F1B2C78540097E150 /* ObjectMapper-watchOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ObjectMapper-watchOS.h"; sourceTree = "<group>"; };
 		6A2AD0411B2C78540097E150 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6A3774331A31427F00CC0AB5 /* BasicTypesTestsToJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = BasicTypesTestsToJSON.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -226,7 +226,7 @@
 				6AAC8F8119F03C2900E7A677 /* ObjectMapper-iOSTests.xctest */,
 				CD1602FF1AC023D5000CD69A /* ObjectMapper.framework */,
 				CD1603091AC023D6000CD69A /* ObjectMapper-MacTests.xctest */,
-				6A2AD03D1B2C78540097E150 /* ObjectMapperWatchOS.framework */,
+				6A2AD03D1B2C78540097E150 /* ObjectMapper.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -341,7 +341,7 @@
 			);
 			name = ObjectMapperWatchOS;
 			productName = "ObjectMapper-watchOS";
-			productReference = 6A2AD03D1B2C78540097E150 /* ObjectMapperWatchOS.framework */;
+			productReference = 6A2AD03D1B2C78540097E150 /* ObjectMapper.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		6AAC8F7519F03C2900E7A677 /* ObjectMapper-iOS */ = {
@@ -619,7 +619,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tristanhimmelman.ObjectMapper-watchOS";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ObjectMapper;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -642,7 +642,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tristanhimmelman.ObjectMapper-watchOS";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ObjectMapper;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
