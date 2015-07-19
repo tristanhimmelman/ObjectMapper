@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name = 'ObjectMapper'
+  s.name = 'ObjectMapperTestChart'
   s.version = '0.12'
   s.license = 'MIT'
   s.summary = 'JSON Object mapping written in Swift'
