@@ -13,7 +13,7 @@ private func setValue(value: AnyObject, forKey key: String, inout dictionary: [S
 	return setValue(value, forKeyPathComponents: keyComponents, dictionary: &dictionary)
 }
 
-private func setValue(value: AnyObject, forKeyPathComponents components: ArraySlice<String.CharacterView.SubSlice>, inout dictionary: [String : AnyObject]) {
+private func setValue(value: AnyObject, forKeyPathComponents components: ArraySlice<String.CharacterView>, inout dictionary: [String : AnyObject]) {
 	if components.isEmpty {
 		return
 	}
@@ -121,7 +121,20 @@ internal final class ToJSON {
             objectArray(field, key: key, dictionary: &dictionary)
         }
     }
-    
+	
+	
+	class func objectSet<N: Mappable>(field: Set<N>, key: String, inout dictionary: [String : AnyObject]) {
+		let JSONObjects = Mapper().toJSONSet(field)
+		
+		setValue(JSONObjects, forKey: key, dictionary: &dictionary)
+	}
+	
+	class func optionalObjectSet<N: Mappable>(field: Set<N>?, key: String, inout dictionary: [String : AnyObject]) {
+		if let field = field {
+			objectSet(field, key: key, dictionary: &dictionary)
+		}
+	}
+	
 	class func objectDictionary<N: Mappable>(field: Dictionary<String, N>, key: String, inout dictionary: [String : AnyObject]) {
 		let JSONObjects = Mapper().toJSONDictionary(field)
 

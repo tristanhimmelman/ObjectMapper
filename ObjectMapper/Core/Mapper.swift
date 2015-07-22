@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol Mappable {
+public protocol Mappable:Hashable {
 	init?(_ map: Map)
 	mutating func mapping(map: Map)
 }
@@ -187,6 +187,26 @@ public final class Mapper<N: Mappable> {
 
 		return []
 	}
+	
+	
+	/// Maps a JSON array to an object that conforms to Mappable
+	public func mapSet(JSONString: String) -> Set<N> {
+		let parsedJSON: AnyObject? = parseJSONString(JSONString)
+		
+		if let objectArray = mapArray(parsedJSON){
+			return Set(objectArray)
+		}
+		
+		// failed to parse JSON into array form
+		// try to parse it into a dictionary and then wrap it in an array
+		if let object = map(parsedJSON) {
+			return Set([object])
+		}
+		
+		return Set()
+	}
+	
+	
 
 	/// Maps a JSON object to an array of Mappable objects if it is an array of JSON dictionary, or returns nil.
 	public func mapArray(JSON: AnyObject?) -> [N]? {
@@ -197,10 +217,25 @@ public final class Mapper<N: Mappable> {
 		return nil
 	}
 	
+	/// Maps a JSON object to an Set of Mappable objects if it is an array of JSON dictionary, or returns nil.
+	public func mapSet(JSON: AnyObject?) -> Set<N>? {
+		if let JSONArray = JSON as? [[String : AnyObject]] {
+			return mapSet(JSONArray)
+		}
+		
+		return nil
+	}
+	
 	/// Maps an array of JSON dictionary to an array of Mappable objects
 	public func mapArray(JSONArray: [[String : AnyObject]]) -> [N] {
 		// map every element in JSON array to type N
 		return JSONArray.flatMap(map)
+	}
+	
+	/// Maps an Set of JSON dictionary to an array of Mappable objects
+	public func mapSet(JSONArray: [[String : AnyObject]]) -> Set<N> {
+		// map every element in JSON array to type N
+		return Set(JSONArray.flatMap(map))
 	}
 
 	/// Maps a JSON object to a dictionary of Mappable objects if it is a JSON dictionary of dictionaries, or returns nil.
@@ -246,6 +281,14 @@ public final class Mapper<N: Mappable> {
 	public func toJSONArray(array: [N]) -> [[String : AnyObject]] {
 		return array.map {
 			// convert every element in array to JSON dictionary equivalent
+			self.toJSON($0)
+		}
+	}
+	
+	///Maps a Set of Objects to a Set of JSON dictionaries [[String : AnyObject]]
+	public func toJSONSet(set: Set<N>) -> [[String : AnyObject]] {
+		return set.map {
+			// convert every element in set to JSON dictionary equivalent
 			self.toJSON($0)
 		}
 	}
