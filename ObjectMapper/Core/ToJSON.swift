@@ -13,7 +13,7 @@ private func setValue(value: AnyObject, forKey key: String, inout dictionary: [S
 	return setValue(value, forKeyPathComponents: keyComponents, dictionary: &dictionary)
 }
 
-private func setValue(value: AnyObject, forKeyPathComponents components: ArraySlice<String.CharacterView.SubSlice>, inout dictionary: [String : AnyObject]) {
+private func setValue(value: AnyObject, forKeyPathComponents components: ArraySlice<String.CharacterView.SubSequence>, inout dictionary: [String : AnyObject]) {
 	if components.isEmpty {
 		return
 	}
