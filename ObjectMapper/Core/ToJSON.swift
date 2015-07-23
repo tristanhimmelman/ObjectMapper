@@ -123,13 +123,13 @@ internal final class ToJSON {
     }
 	
 	
-	class func objectSet<N: Mappable>(field: Set<N>, key: String, inout dictionary: [String : AnyObject]) {
+	class func objectSet<N: Mappable where N: Hashable>(field: Set<N>, key: String, inout dictionary: [String : AnyObject]) {
 		let JSONObjects = Mapper().toJSONSet(field)
 		
 		setValue(JSONObjects, forKey: key, dictionary: &dictionary)
 	}
 	
-	class func optionalObjectSet<N: Mappable>(field: Set<N>?, key: String, inout dictionary: [String : AnyObject]) {
+	class func optionalObjectSet<N: Mappable where N: Hashable>(field: Set<N>?, key: String, inout dictionary: [String : AnyObject]) {
 		if let field = field {
 			objectSet(field, key: key, dictionary: &dictionary)
 		}
