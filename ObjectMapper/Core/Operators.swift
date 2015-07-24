@@ -346,3 +346,34 @@ public func <- <T: Mappable>(inout left: Array<T>!, right: Map) {
 		ToJSON.optionalObjectArray(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
 	}
 }
+
+
+// MARK:- Set of Mappable objects - Set<T: Mappable where T: Hashable>
+
+/// Array of Mappable objects
+public func <- <T: Mappable where T: Hashable>(inout left: Set<T>, right: Map) {
+	if right.mappingType == MappingType.FromJSON {
+		FromJSON.objectSet(&left, object: right.currentValue)
+	} else {
+		ToJSON.objectSet(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
+	}
+}
+
+
+/// Optional array of Mappable objects
+public func <- <T: Mappable where T: Hashable>(inout left: Set<T>?, right: Map) {
+	if right.mappingType == MappingType.FromJSON {
+		FromJSON.optionalObjectSet(&left, object: right.currentValue)
+	} else {
+		ToJSON.optionalObjectSet(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
+	}
+}
+
+/// Implicitly unwrapped Optional array of Mappable objects
+public func <- <T: Mappable where T: Hashable>(inout left: Set<T>!, right: Map) {
+	if right.mappingType == MappingType.FromJSON {
+		FromJSON.optionalObjectSet(&left, object: right.currentValue)
+	} else {
+		ToJSON.optionalObjectSet(left, key: right.currentKey!, dictionary: &right.JSONDictionary)
+	}
+}

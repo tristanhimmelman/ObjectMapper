@@ -187,7 +187,7 @@ public final class Mapper<N: Mappable> {
 
 		return []
 	}
-
+	
 	/// Maps a JSON object to an array of Mappable objects if it is an array of JSON dictionary, or returns nil.
 	public func mapArray(JSON: AnyObject?) -> [N]? {
 		if let JSONArray = JSON as? [[String : AnyObject]] {
@@ -202,7 +202,7 @@ public final class Mapper<N: Mappable> {
 		// map every element in JSON array to type N
 		return JSONArray.flatMap(map)
 	}
-
+	
 	/// Maps a JSON object to a dictionary of Mappable objects if it is a JSON dictionary of dictionaries, or returns nil.
 	public func mapDictionary(JSON: AnyObject?) -> [String : N]? {
 		if let JSONDictionary = JSON as? [String : [String : AnyObject]] {
@@ -321,6 +321,51 @@ public final class Mapper<N: Mappable> {
 
 		return nil
 	}
+}
+
+
+extension Mapper where N: Hashable{
+	
+	/// Maps a JSON array to an object that conforms to Mappable
+	public func mapSet(JSONString: String) -> Set<N> {
+		let parsedJSON: AnyObject? = parseJSONString(JSONString)
+		
+		if let objectArray = mapArray(parsedJSON){
+			return Set(objectArray)
+		}
+		
+		// failed to parse JSON into array form
+		// try to parse it into a dictionary and then wrap it in an array
+		if let object = map(parsedJSON) {
+			return Set([object])
+		}
+		
+		return Set()
+	}
+	
+	/// Maps a JSON object to an Set of Mappable objects if it is an array of JSON dictionary, or returns nil.
+	public func mapSet(JSON: AnyObject?) -> Set<N>? {
+		if let JSONArray = JSON as? [[String : AnyObject]] {
+			return mapSet(JSONArray)
+		}
+		
+		return nil
+	}
+	
+	/// Maps an Set of JSON dictionary to an array of Mappable objects
+	public func mapSet(JSONArray: [[String : AnyObject]]) -> Set<N> {
+		// map every element in JSON array to type N
+		return Set(JSONArray.flatMap(map))
+	}
+
+	///Maps a Set of Objects to a Set of JSON dictionaries [[String : AnyObject]]
+	public func toJSONSet(set: Set<N>) -> [[String : AnyObject]] {
+		return set.map {
+			// convert every element in set to JSON dictionary equivalent
+			self.toJSON($0)
+		}
+	}
+	
 }
 
 extension Dictionary {
