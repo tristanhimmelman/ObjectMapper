@@ -25,25 +25,6 @@ class ObjectMapperTests: XCTestCase {
         super.tearDown()
     }
 
-//	func testImmutableMappable() {
-//		let mapper = Mapper<Immutable>()
-//		let JSON = [ "prop1": "Immutable!", "prop2": 255, "prop3": true ]
-//
-//		let immutable: Immutable! = mapper.map(JSON)
-//		expect(immutable).notTo(beNil())
-//		expect(immutable?.prop1).to(equal("Immutable!"))
-//		expect(immutable?.prop2).to(equal(255))
-//		expect(immutable?.prop3).to(equal(true))
-//		expect(immutable?.prop4).to(equal(DBL_MAX))
-//
-//		let JSON2 = [ "prop1": "prop1", "prop2": NSNull() ]
-//		let immutable2 = mapper.map(JSON2)
-//		expect(immutable2).to(beNil())
-//
-//		let JSONFromObject = mapper.toJSON(immutable)
-//		expect(mapper.map(JSONFromObject)).to(equal(immutable))
-//	}
-
     func testBasicParsing() {
         let username = "John Doe"
         let identifier = "user8723"
@@ -53,7 +34,7 @@ class ObjectMapperTests: XCTestCase {
         let float: Float = 123.231
         let drinker = true
         let smoker = false
-  			let sex: Sex = .Female
+		let sex: Sex = .Female
         let arr = [ "bla", true, 42 ]
         let directory = [
             "key1" : "value1",
