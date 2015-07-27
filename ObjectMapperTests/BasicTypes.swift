@@ -107,10 +107,8 @@ class BasicTypes: Mappable {
 	var dictEnumIntOptional: [String: EnumInt]?
 	var dictEnumIntImplicitlyUnwrapped: [String: EnumInt]!
 
-	init() {}
-
-	required init?(_ map: Map) {
-		mapping(map)
+	static func newInstance() -> Mappable {
+		return BasicTypes()
 	}
 	
 	func mapping(map: Map) {
@@ -207,10 +205,8 @@ class TestCollectionOfPrimitives : Mappable {
 	var arrayDouble: [Double] = []
 	var arrayFloat: [Float] = []
 	
-	init() {}
-	
-	required init?(_ map: Map) {
-		mapping(map)
+	static func newInstance() -> Mappable {
+		return TestCollectionOfPrimitives()
 	}
 	
 	func mapping(map: Map) {

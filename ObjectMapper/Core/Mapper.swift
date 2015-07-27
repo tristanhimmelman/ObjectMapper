@@ -9,7 +9,7 @@
 import Foundation
 
 public protocol Mappable {
-	init?(_ map: Map)
+	static func newInstance() -> Mappable
 	mutating func mapping(map: Map)
 }
 
@@ -17,7 +17,6 @@ public enum MappingType {
 	case FromJSON
 	case ToJSON
 }
-
 
 /// A class used for holding mapping data
 public final class Map {
@@ -166,9 +165,12 @@ public final class Mapper<N: Mappable> {
 
 	/// Maps a JSON dictionary to an object that conforms to Mappable
 	public func map(JSONDictionary: [String : AnyObject]) -> N? {
-		let map = Map(mappingType: .FromJSON, JSONDictionary: JSONDictionary)
-		let object = N(map)
-		return object
+		if var object = N.newInstance() as? N {
+			let map = Map(mappingType: .FromJSON, JSONDictionary: JSONDictionary)
+			object.mapping(map)
+			return object
+		}
+		return nil
 	}
 
 	//MARK: Mapping functions for Arrays and Dictionaries
