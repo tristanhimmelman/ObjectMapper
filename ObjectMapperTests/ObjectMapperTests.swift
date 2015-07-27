@@ -25,25 +25,6 @@ class ObjectMapperTests: XCTestCase {
         super.tearDown()
     }
 
-	func testImmutableMappable() {
-		let mapper = Mapper<Immutable>()
-		let JSON = [ "prop1": "Immutable!", "prop2": 255, "prop3": true ]
-
-		let immutable = mapper.map(JSON)
-		expect(immutable).notTo(beNil())
-		expect(immutable?.prop1).to(equal("Immutable!"))
-		expect(immutable?.prop2).to(equal(255))
-		expect(immutable?.prop3).to(equal(true))
-		expect(immutable?.prop4).to(equal(DBL_MAX))
-
-		let JSON2 = [ "prop1": "prop1", "prop2": NSNull() ]
-		let immutable2 = mapper.map(JSON2)
-		expect(immutable2).to(beNil())
-
-		let JSONFromObject = mapper.toJSON(immutable!)
-		expect(mapper.map(JSONFromObject)).to(equal(immutable))
-	}
-
     func testBasicParsing() {
         let username = "John Doe"
         let identifier = "user8723"
@@ -54,7 +35,6 @@ class ObjectMapperTests: XCTestCase {
         let drinker = true
         let smoker = false
 		let sex: Sex = .Female
-        
         let subUserJSON = "{\"identifier\" : \"user8723\", \"drinker\" : true, \"age\": 17, \"username\" : \"sub user\" }"
         
         let userJSONString = "{\"username\":\"\(username)\",\"identifier\":\"\(identifier)\",\"photoCount\":\(photoCount),\"age\":\(age),\"drinker\":\(drinker),\"smoker\":\(smoker), \"sex\":\"\(sex.rawValue)\", \"arr\":[ \"bla\", true, 42 ], \"dict\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"arrOpt\":[ \"bla\", true, 42 ], \"dictOpt\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"weight\": \(weight), \"float\": \(float), \"friend\": \(subUserJSON), \"friendDictionary\":{ \"bestFriend\": \(subUserJSON)}}"
@@ -419,60 +399,13 @@ class ObjectMapperTests: XCTestCase {
 	}
 }
 
-struct Immutable: Equatable {
-	let prop1: String
-	let prop2: Int
-	let prop3: Bool
-	let prop4: Double
-}
-
-extension Immutable: Mappable {
-	init?(_ map: Map) {
-		prop1 = map["prop1"].valueOrFail()
-		prop2 = map["prop2"].valueOrFail()
-		prop3 = map["prop3"].valueOrFail()
-		prop4 = map["prop4"].valueOr(DBL_MAX)
-
-		if !map.isValid {
-			return nil
-		}
-	}
-
-	mutating func mapping(map: Map) {
-		switch map.mappingType {
-		case .FromJSON:
-			if let x = Immutable(map) {
-				self = x
-			}
-
-		case .ToJSON:
-			var prop1 = self.prop1
-			var prop2 = self.prop2
-			var prop3 = self.prop3
-			var prop4 = self.prop4
-
-			prop1 <- map["prop1"]
-			prop2 <- map["prop2"]
-			prop3 <- map["prop3"]
-			prop4 <- map["prop4"]
-		}
-	}
-}
-
-func ==(lhs: Immutable, rhs: Immutable) -> Bool {
-	return lhs.prop1 == rhs.prop1
-		&& lhs.prop2 == rhs.prop2
-		&& lhs.prop3 == rhs.prop3
-		&& lhs.prop4 == rhs.prop4
-}
-
 class Response<T: Mappable>: Mappable {
 	var result: T?
 	
-	required init?(_ map: Map) {
-		mapping(map)
+	class func newInstance() -> Mappable {
+		return Response()
 	}
-
+	
 	func mapping(map: Map) {
 		result <- map["result"]
 	}
@@ -481,8 +414,8 @@ class Response<T: Mappable>: Mappable {
 class Status: Mappable {
 	var status: Int?
 	
-	required init?(_ map: Map) {
-		mapping(map)
+	class func newInstance() -> Mappable {
+		return Status()
 	}
 
 	func mapping(map: Map) {
@@ -494,9 +427,10 @@ class Plan: Mappable {
 	var tasks: [Task]?
 	var dictionaryOfTasks: [String: [Task]]?
 	
-	required init?(_ map: Map) {
-		mapping(map)
+	class func newInstance() -> Mappable {
+		return Plan()
 	}
+
 
 	func mapping(map: Map) {
 		tasks <- map["tasks"]
@@ -507,11 +441,9 @@ class Plan: Mappable {
 class Task: Mappable {
 	var taskId: Int?
 	var percentage: Double?
-
-	init() {}
 	
-	required init?(_ map: Map) {
-		mapping(map)
+	class func newInstance() -> Mappable {
+		return Task()
 	}
 
 	func mapping(map: Map) {
@@ -524,10 +456,10 @@ class TaskDictionary: Mappable {
 	var test: String?
 	var tasks: [String : Task]?
 	
-	required init?(_ map: Map) {
-		mapping(map)
+	class func newInstance() -> Mappable {
+		return TaskDictionary()
 	}
-
+	
 	func mapping(map: Map) {
 		test <- map["test"]
 		tasks <- map["tasks"]
@@ -541,11 +473,9 @@ struct Student: Mappable {
 	var UUID: String?
 	var major: Int?
 	var minor: Int?
-
-	init() {}
 	
-	init?(_ map: Map) {
-		mapping(map)
+	static func newInstance() -> Mappable {
+		return Student()
 	}
 
 	mutating func mapping(map: Map) {
@@ -580,12 +510,9 @@ class User: Mappable {
     var friendDictionary: [String : User]?
     var friend: User?
     var friends: [User]? = []
-	
 
-	init() {}
-
-	required init?(_ map: Map) {
-		mapping(map)
+	class func newInstance() -> Mappable {
+		return User()
 	}
 
 	func mapping(map: Map) {
@@ -612,13 +539,11 @@ class User: Mappable {
 class Base: Mappable {
 	
 	var base: String?
-
-	init() {}
 	
-	required init?(_ map: Map) {
-		mapping(map)
+	class func newInstance() -> Mappable {
+		return Base()
 	}
-
+	
 	func mapping(map: Map) {
 		base <- map["base"]
 	}
@@ -627,13 +552,9 @@ class Base: Mappable {
 class Subclass: Base {
 	
 	var sub: String?
-
-	override init() {
-		super.init()
-	}
 	
-	required init?(_ map: Map) {
-		super.init(map)
+	override class func newInstance() -> Mappable {
+		return Subclass()
 	}
 
 	override func mapping(map: Map) {
@@ -648,12 +569,8 @@ class GenericSubclass<T>: Base {
 	
 	var sub: String?
 
-	override init() {
-		super.init()
-	}
-
-	required init?(_ map: Map) {
-		super.init(map)
+	override class func newInstance() -> Mappable {
+		return GenericSubclass<T>()
 	}
 
 	override func mapping(map: Map) {
@@ -666,8 +583,8 @@ class GenericSubclass<T>: Base {
 class WithGenericArray<T: Mappable>: Mappable {
 	var genericItems: [T]?
 
-	required init?(_ map: Map) {
-		mapping(map)
+	class func newInstance() -> Mappable {
+		return WithGenericArray<T>()
 	}
 
 	func mapping(map: Map) {
@@ -678,18 +595,17 @@ class WithGenericArray<T: Mappable>: Mappable {
 class ConcreteItem: Mappable {
 	var value: String?
 
-	required init?(_ map: Map) {
-		mapping(map)
+	class func newInstance() -> Mappable {
+		return ConcreteItem()
 	}
-
 	func mapping(map: Map) {
 		value <- map["value"]
 	}
 }
 
 class SubclassWithGenericArrayInSuperclass<Unused>: WithGenericArray<ConcreteItem> {
-	required init?(_ map: Map) {
-		super.init(map)
+	override class func newInstance() -> Mappable {
+		return SubclassWithGenericArrayInSuperclass<Unused>()
 	}
 }
 
@@ -702,8 +618,8 @@ enum ExampleEnum: Int {
 class ExampleEnumArray: Mappable {
 	var enums: [ExampleEnum] = []
 
-	required init? (_ map: Map) {
-		mapping(map)
+	class func newInstance() -> Mappable {
+		return ExampleEnumArray()
 	}
 
 	func mapping(map: Map) {
@@ -714,8 +630,8 @@ class ExampleEnumArray: Mappable {
 class ExampleEnumDictionary: Mappable {
 	var enums: [String: ExampleEnum] = [:]
 
-	required init? (_ map: Map) {
-		mapping(map)
+	class func newInstance() -> Mappable {
+		return ExampleEnumDictionary()
 	}
 
 	func mapping(map: Map) {

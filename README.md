@@ -26,7 +26,7 @@ ObjectMapper is a framework written in Swift that makes it easy for you to conve
 To support mapping, a Class or Struct just needs to implement the ```Mappable``` protocol.
 ```swift
 public protocol Mappable {
-    init?(_ map: Map)
+    static func newInstance() -> Mappable
     mutating func mapping(map: Map)
 }
 ```
@@ -43,8 +43,8 @@ class User: Mappable {
     var friends: [User]?                        // Array of Users
     var birthday: NSDate?
 
-    required init?(_ map: Map) {
-        mapping(map)
+    class func newInstance() -> Mappable {
+        return User()
     }
 
     // Mappable
@@ -64,10 +64,8 @@ struct Temperature: Mappable {
     var celcius: Double?
     var fahrenheit: Double?
 
-    init(){}
-
-    init?(_ map: Map) {
-        mapping(map)
+    static func newInstance() -> Mappable {
+        return Temperature()
     }
 
 	mutating func mapping(map: Map) {
@@ -167,9 +165,9 @@ Classes that implement the Mappable protocol can easily be subclassed. When subc
 class Base: Mappable {
 	var base: String?
 	
-	required init?(_ map: Map) {
-		mapping(map)
-	}
+	class func newInstance() -> Mappable {
+        return Base()
+    }
 
 	func mapping(map: Map) {
 		base <- map["base"]
@@ -179,9 +177,9 @@ class Base: Mappable {
 class Subclass: Base {
 	var sub: String?
 
-	required init?(_ map: Map) {
-		super.init(map)
-	}
+	override class func newInstance() -> Mappable {
+        return Subclass()
+    }
 
 	override func mapping(map: Map) {
 		super.mapping(map)
@@ -212,12 +210,12 @@ From this point on, you should open the project using ObjectMapper.xcworkspace a
 #Installation
 ObjectMapper can be added to your project using [Cocoapods 0.36 (beta)](http://blog.cocoapods.org/Pod-Authors-Guide-to-CocoaPods-Frameworks/) by adding the following line to your Podfile:
 ```
-pod 'ObjectMapper', '~> 0.12'
+pod 'ObjectMapper', '~> 0.14'
 ```
 
 If your using [Carthage](https://github.com/Carthage/Carthage) you can add a dependency on ObjectMapper by adding it to your Cartfile:
 ```
-github "Hearst-DD/ObjectMapper" ~> 0.12
+github "Hearst-DD/ObjectMapper" ~> 0.14
 ```
 
 Otherwise, ObjectMapper can be added as a submodule:
