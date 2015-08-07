@@ -158,7 +158,7 @@ class Transforms: Mappable {
 		URL					<- (map["URL"], URLTransform())
 		URLOpt				<- (map["URLOpt"], URLTransform())
 		
-		intWithString		<- (map["intWithString"], TransformOf<Int, String>(fromJSON: { $0?.toInt() }, toJSON: { $0.map { String($0) } }))
+		intWithString		<- (map["intWithString"], TransformOf<Int, String>(fromJSON: { Int($0?) }, toJSON: { $0.map { String($0) } }))
 		int64Value			<- (map["int64Value"], TransformOf<Int64, NSNumber>(fromJSON: { $0?.longLongValue }, toJSON: { $0.map { NSNumber(longLong: $0) } }))
 		
 		firstImageType		<- (map["firstImageType"], EnumTransform<ImageType>())
