@@ -326,9 +326,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		6A2AD03C1B2C78540097E150 /* ObjectMapperWatchOS */ = {
+		6A2AD03C1B2C78540097E150 /* ObjectMapper-watchOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6A2AD0441B2C78540097E150 /* Build configuration list for PBXNativeTarget "ObjectMapperWatchOS" */;
+			buildConfigurationList = 6A2AD0441B2C78540097E150 /* Build configuration list for PBXNativeTarget "ObjectMapper-watchOS" */;
 			buildPhases = (
 				6A2AD0381B2C78540097E150 /* Sources */,
 				6A2AD0391B2C78540097E150 /* Frameworks */,
@@ -339,7 +339,7 @@
 			);
 			dependencies = (
 			);
-			name = ObjectMapperWatchOS;
+			name = "ObjectMapper-watchOS";
 			productName = "ObjectMapper-watchOS";
 			productReference = 6A2AD03D1B2C78540097E150 /* ObjectMapper.framework */;
 			productType = "com.apple.product-type.framework";
@@ -461,7 +461,7 @@
 				6AAC8F8019F03C2900E7A677 /* ObjectMapper-iOSTests */,
 				CD1602FE1AC023D5000CD69A /* ObjectMapper-Mac */,
 				CD1603081AC023D6000CD69A /* ObjectMapper-MacTests */,
-				6A2AD03C1B2C78540097E150 /* ObjectMapperWatchOS */,
+				6A2AD03C1B2C78540097E150 /* ObjectMapper-watchOS */,
 			);
 		};
 /* End PBXProject section */
@@ -894,7 +894,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6A2AD0441B2C78540097E150 /* Build configuration list for PBXNativeTarget "ObjectMapperWatchOS" */ = {
+		6A2AD0441B2C78540097E150 /* Build configuration list for PBXNativeTarget "ObjectMapper-watchOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6A2AD0421B2C78540097E150 /* Debug */,
