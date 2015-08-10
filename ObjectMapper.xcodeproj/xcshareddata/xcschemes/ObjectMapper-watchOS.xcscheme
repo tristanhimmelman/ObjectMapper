@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6A2AD03C1B2C78540097E150"
                BuildableName = "ObjectMapper.framework"
-               BlueprintName = "ObjectMapperWatchOS"
+               BlueprintName = "ObjectMapper-watchOS"
                ReferencedContainer = "container:ObjectMapper.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,7 +47,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6A2AD03C1B2C78540097E150"
             BuildableName = "ObjectMapper.framework"
-            BlueprintName = "ObjectMapperWatchOS"
+            BlueprintName = "ObjectMapper-watchOS"
             ReferencedContainer = "container:ObjectMapper.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -65,7 +65,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6A2AD03C1B2C78540097E150"
             BuildableName = "ObjectMapper.framework"
-            BlueprintName = "ObjectMapperWatchOS"
+            BlueprintName = "ObjectMapper-watchOS"
             ReferencedContainer = "container:ObjectMapper.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
