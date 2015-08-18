@@ -397,12 +397,31 @@ class ObjectMapperTests: XCTestCase {
 		expect(genericItems?[0].value).to(equal("value0"))
 		expect(genericItems?[1].value).to(equal("value1"))
 	}
+	
+	func testImmutableMappable() {
+		let mapper = Mapper<Immutable>()
+		let JSON = [ "prop1": "Immutable!", "prop2": 255, "prop3": true ]
+
+		let immutable: Immutable! = mapper.map(JSON)
+		expect(immutable).notTo(beNil())
+		expect(immutable?.prop1).to(equal("Immutable!"))
+		expect(immutable?.prop2).to(equal(255))
+		expect(immutable?.prop3).to(equal(true))
+		expect(immutable?.prop4).to(equal(DBL_MAX))
+
+		let JSON2 = [ "prop1": "prop1", "prop2": NSNull() ]
+		let immutable2 = mapper.map(JSON2)
+		expect(immutable2).to(beNil())
+
+		let JSONFromObject = mapper.toJSON(immutable)
+		expect(mapper.map(JSONFromObject)).to(equal(immutable))
+	}
 }
 
 class Response<T: Mappable>: Mappable {
 	var result: T?
 	
-	class func newInstance() -> Mappable {
+	class func newInstance(map: Map) -> Mappable? {
 		return Response()
 	}
 	
@@ -414,7 +433,7 @@ class Response<T: Mappable>: Mappable {
 class Status: Mappable {
 	var status: Int?
 	
-	class func newInstance() -> Mappable {
+	class func newInstance(map: Map) -> Mappable? {
 		return Status()
 	}
 
@@ -427,7 +446,7 @@ class Plan: Mappable {
 	var tasks: [Task]?
 	var dictionaryOfTasks: [String: [Task]]?
 	
-	class func newInstance() -> Mappable {
+	class func newInstance(map: Map) -> Mappable? {
 		return Plan()
 	}
 
@@ -442,7 +461,7 @@ class Task: Mappable {
 	var taskId: Int?
 	var percentage: Double?
 	
-	class func newInstance() -> Mappable {
+	class func newInstance(map: Map) -> Mappable? {
 		return Task()
 	}
 
@@ -456,7 +475,7 @@ class TaskDictionary: Mappable {
 	var test: String?
 	var tasks: [String : Task]?
 	
-	class func newInstance() -> Mappable {
+	class func newInstance(map: Map) -> Mappable? {
 		return TaskDictionary()
 	}
 	
@@ -474,7 +493,7 @@ struct Student: Mappable {
 	var major: Int?
 	var minor: Int?
 	
-	static func newInstance() -> Mappable {
+	static func newInstance(map: Map) -> Mappable? {
 		return Student()
 	}
 
@@ -511,7 +530,7 @@ class User: Mappable {
     var friend: User?
     var friends: [User]? = []
 
-	class func newInstance() -> Mappable {
+	class func newInstance(map: Map) -> Mappable? {
 		return User()
 	}
 
@@ -540,7 +559,7 @@ class Base: Mappable {
 	
 	var base: String?
 	
-	class func newInstance() -> Mappable {
+	class func newInstance(map: Map) -> Mappable? {
 		return Base()
 	}
 	
@@ -553,7 +572,7 @@ class Subclass: Base {
 	
 	var sub: String?
 	
-	override class func newInstance() -> Mappable {
+	override class func newInstance(map: Map) -> Mappable? {
 		return Subclass()
 	}
 
@@ -569,7 +588,7 @@ class GenericSubclass<T>: Base {
 	
 	var sub: String?
 
-	override class func newInstance() -> Mappable {
+	override class func newInstance(map: Map) -> Mappable? {
 		return GenericSubclass<T>()
 	}
 
@@ -583,7 +602,7 @@ class GenericSubclass<T>: Base {
 class WithGenericArray<T: Mappable>: Mappable {
 	var genericItems: [T]?
 
-	class func newInstance() -> Mappable {
+	class func newInstance(map: Map) -> Mappable? {
 		return WithGenericArray<T>()
 	}
 
@@ -595,7 +614,7 @@ class WithGenericArray<T: Mappable>: Mappable {
 class ConcreteItem: Mappable {
 	var value: String?
 
-	class func newInstance() -> Mappable {
+	class func newInstance(map: Map) -> Mappable? {
 		return ConcreteItem()
 	}
 	func mapping(map: Map) {
@@ -604,7 +623,7 @@ class ConcreteItem: Mappable {
 }
 
 class SubclassWithGenericArrayInSuperclass<Unused>: WithGenericArray<ConcreteItem> {
-	override class func newInstance() -> Mappable {
+	override class func newInstance(map: Map) -> Mappable? {
 		return SubclassWithGenericArrayInSuperclass<Unused>()
 	}
 }
@@ -618,7 +637,7 @@ enum ExampleEnum: Int {
 class ExampleEnumArray: Mappable {
 	var enums: [ExampleEnum] = []
 
-	class func newInstance() -> Mappable {
+	class func newInstance(map: Map) -> Mappable? {
 		return ExampleEnumArray()
 	}
 
@@ -630,11 +649,62 @@ class ExampleEnumArray: Mappable {
 class ExampleEnumDictionary: Mappable {
 	var enums: [String: ExampleEnum] = [:]
 
-	class func newInstance() -> Mappable {
+	class func newInstance(map: Map) -> Mappable? {
 		return ExampleEnumDictionary()
 	}
 
 	func mapping(map: Map) {
 		enums <- map["enums"]
 	}
+}
+
+struct Immutable: Equatable {
+	let prop1: String
+	let prop2: Int
+	let prop3: Bool
+	let prop4: Double
+}
+
+extension Immutable: Mappable {
+	init?(_ map: Map) {
+		prop1 = map["prop1"].valueOrFail()
+		prop2 = map["prop2"].valueOrFail()
+		prop3 = map["prop3"].valueOrFail()
+		prop4 = map["prop4"].valueOr(DBL_MAX)
+		
+		if !map.isValid {
+			return nil
+		}
+	}
+	
+	static func newInstance(map: Map) -> Mappable? {
+		return Immutable(map)
+	}
+	
+	mutating func mapping(map: Map) {
+		switch map.mappingType {
+		case .FromJSON:
+			if let x = Immutable(map) {
+				self = x
+			}
+			
+		case .ToJSON:
+			var prop1 = self.prop1
+			var prop2 = self.prop2
+			var prop3 = self.prop3
+			var prop4 = self.prop4
+			
+			prop1 <- map["prop1"]
+			prop2 <- map["prop2"]
+			prop3 <- map["prop3"]
+			prop4 <- map["prop4"]
+		}
+	}
+}
+
+func ==(lhs: Immutable, rhs: Immutable) -> Bool {
+	return lhs.prop1 == rhs.prop1
+		&& lhs.prop2 == rhs.prop2
+		&& lhs.prop3 == rhs.prop3
+		&& lhs.prop4 == rhs.prop4
 }
