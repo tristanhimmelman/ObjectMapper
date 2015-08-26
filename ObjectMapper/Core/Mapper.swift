@@ -9,7 +9,7 @@
 import Foundation
 
 public protocol Mappable {
-	static func newInstance() -> Mappable
+	static func newInstance(map: Map) -> Mappable?
 	mutating func mapping(map: Map)
 }
 
@@ -53,6 +53,26 @@ public final class Map {
 		return currentValue as? T
 	}
 
+	public func valueOr<T>(@autoclosure defaultValue: () -> T) -> T {
+		return value() ?? defaultValue()
+	}
+	
+	/// Returns current JSON value of type `T` if it is existing, or returns a
+	/// unusable proxy value for `T` and collects failed count.
+	public func valueOrFail<T>() -> T {
+		if let value: T = value() {
+			return value
+		} else {
+			// Collects failed count
+			failedCount++
+			
+			// Returns dummy memory as a proxy for type `T`
+			let pointer = UnsafeMutablePointer<T>.alloc(0)
+			pointer.dealloc(0)
+			return pointer.memory
+		}
+	}
+	
 	/// Returns whether the receiver is success or failure.
 	public var isValid: Bool {
 		return failedCount == 0
@@ -143,8 +163,8 @@ public final class Mapper<N: Mappable> {
 
 	/// Maps a JSON dictionary to an object that conforms to Mappable
 	public func map(JSONDictionary: [String : AnyObject]) -> N? {
-		if var object = N.newInstance() as? N {
-			let map = Map(mappingType: .FromJSON, JSONDictionary: JSONDictionary)
+		let map = Map(mappingType: .FromJSON, JSONDictionary: JSONDictionary)
+		if var object = N.newInstance(map) as? N {
 			object.mapping(map)
 			return object
 		}
