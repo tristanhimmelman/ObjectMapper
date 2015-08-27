@@ -435,8 +435,8 @@ class ObjectMapperTests: XCTestCase {
 class Response<T: Mappable>: Mappable {
 	var result: T?
 	
-	class func newInstance(map: Map) -> Mappable? {
-		return Response()
+	required init?(_ map: Map){
+		
 	}
 	
 	func mapping(map: Map) {
@@ -447,8 +447,8 @@ class Response<T: Mappable>: Mappable {
 class Status: Mappable {
 	var status: Int?
 	
-	class func newInstance(map: Map) -> Mappable? {
-		return Status()
+	required init?(_ map: Map){
+		
 	}
 
 	func mapping(map: Map) {
@@ -460,11 +460,10 @@ class Plan: Mappable {
 	var tasks: [Task]?
 	var dictionaryOfTasks: [String: [Task]]?
 	
-	class func newInstance(map: Map) -> Mappable? {
-		return Plan()
+	required init?(_ map: Map){
+		
 	}
-
-
+	
 	func mapping(map: Map) {
 		tasks <- map["tasks"]
 		dictionaryOfTasks <- map["dictionaryOfTasks"]
@@ -475,8 +474,12 @@ class Task: Mappable {
 	var taskId: Int?
 	var percentage: Double?
 	
-	class func newInstance(map: Map) -> Mappable? {
-		return Task()
+	init(){
+		
+	}
+	
+	required init?(_ map: Map){
+		
 	}
 
 	func mapping(map: Map) {
@@ -489,8 +492,8 @@ class TaskDictionary: Mappable {
 	var test: String?
 	var tasks: [String : Task]?
 	
-	class func newInstance(map: Map) -> Mappable? {
-		return TaskDictionary()
+	required init?(_ map: Map){
+		
 	}
 	
 	func mapping(map: Map) {
@@ -507,8 +510,12 @@ struct Student: Mappable {
 	var major: Int?
 	var minor: Int?
 	
-	static func newInstance(map: Map) -> Mappable? {
-		return Student()
+	init(){
+		
+	}
+	
+	init?(_ map: Map){
+		
 	}
 
 	mutating func mapping(map: Map) {
@@ -544,10 +551,14 @@ class User: Mappable {
     var friend: User?
     var friends: [User]? = []
 
-	class func newInstance(map: Map) -> Mappable? {
-		return User()
+	init(){
+		
 	}
-
+	
+	required init?(_ map: Map){
+		
+	}
+	
 	func mapping(map: Map) {
 		username         <- map["username"]
 		identifier       <- map["identifier"]
@@ -573,8 +584,12 @@ class Base: Mappable {
 	
 	var base: String?
 	
-	class func newInstance(map: Map) -> Mappable? {
-		return Base()
+	init(){
+		
+	}
+	
+	required init?(_ map: Map){
+		
 	}
 	
 	func mapping(map: Map) {
@@ -586,8 +601,12 @@ class Subclass: Base {
 	
 	var sub: String?
 	
-	override class func newInstance(map: Map) -> Mappable? {
-		return Subclass()
+	override init(){
+		super.init()
+	}
+	
+	required init?(_ map: Map){
+		super.init(map)
 	}
 
 	override func mapping(map: Map) {
@@ -602,8 +621,12 @@ class GenericSubclass<T>: Base {
 	
 	var sub: String?
 
-	override class func newInstance(map: Map) -> Mappable? {
-		return GenericSubclass<T>()
+	override init(){
+		super.init()
+	}
+	
+	required init?(_ map: Map){
+		super.init(map)
 	}
 
 	override func mapping(map: Map) {
@@ -616,8 +639,8 @@ class GenericSubclass<T>: Base {
 class WithGenericArray<T: Mappable>: Mappable {
 	var genericItems: [T]?
 
-	class func newInstance(map: Map) -> Mappable? {
-		return WithGenericArray<T>()
+	required init?(_ map: Map){
+		
 	}
 
 	func mapping(map: Map) {
@@ -628,17 +651,18 @@ class WithGenericArray<T: Mappable>: Mappable {
 class ConcreteItem: Mappable {
 	var value: String?
 
-	class func newInstance(map: Map) -> Mappable? {
-		return ConcreteItem()
+	required init?(_ map: Map){
+		
 	}
+	
 	func mapping(map: Map) {
 		value <- map["value"]
 	}
 }
 
 class SubclassWithGenericArrayInSuperclass<Unused>: WithGenericArray<ConcreteItem> {
-	override class func newInstance(map: Map) -> Mappable? {
-		return SubclassWithGenericArrayInSuperclass<Unused>()
+	required init?(_ map: Map){
+		super.init(map)
 	}
 }
 
@@ -651,8 +675,8 @@ enum ExampleEnum: Int {
 class ExampleEnumArray: Mappable {
 	var enums: [ExampleEnum] = []
 
-	class func newInstance(map: Map) -> Mappable? {
-		return ExampleEnumArray()
+	required init?(_ map: Map){
+		
 	}
 
 	func mapping(map: Map) {
@@ -663,8 +687,8 @@ class ExampleEnumArray: Mappable {
 class ExampleEnumDictionary: Mappable {
 	var enums: [String: ExampleEnum] = [:]
 
-	class func newInstance(map: Map) -> Mappable? {
-		return ExampleEnumDictionary()
+	required init?(_ map: Map){
+		
 	}
 
 	func mapping(map: Map) {
@@ -690,11 +714,7 @@ extension Immutable: Mappable {
 			return nil
 		}
 	}
-	
-	static func newInstance(map: Map) -> Mappable? {
-		return Immutable(map)
-	}
-	
+		
 	mutating func mapping(map: Map) {
 		switch map.mappingType {
 		case .FromJSON:

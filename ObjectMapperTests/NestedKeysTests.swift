@@ -137,9 +137,9 @@ class NestedKeys: Mappable {
 	var object: Object?
 	var objectArray: [Object] = []
 	var objectDict: [String: Object] = [:]
-	
-	static func newInstance(map: Map) -> Mappable? {
-		return NestedKeys()
+
+	required init?(_ map: Map){
+		
 	}
 
 	func mapping(map: Map) {
@@ -179,8 +179,8 @@ class NestedKeys: Mappable {
 class Object: Mappable, Equatable {
 	var value: Int = Int.min
 	
-	static func newInstance(map: Map) -> Mappable? {
-		return Object()
+	required init?(_ map: Map){
+		
 	}
 	
 	func mapping(map: Map) {

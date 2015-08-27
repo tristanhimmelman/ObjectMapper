@@ -141,8 +141,12 @@ class Transforms: Mappable {
 	var firstImageType: ImageType?
 	var secondImageType: ImageType?
 
-	static func newInstance(map: Map) -> Mappable? {
-		return Transforms()
+	init(){
+		
+	}
+	
+	required init?(_ map: Map){
+		
 	}
 	
 	func mapping(map: Map) {
