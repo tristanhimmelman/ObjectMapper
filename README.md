@@ -12,7 +12,7 @@ ObjectMapper is a framework written in Swift that makes it easy for you to conve
 - [Custom Transformations](#custom-transfoms)
 - [Subclassing](#subclasses)
 - [ObjectMapper + Alamofire](#objectmapper--alamofire) 
-- [ObjectMapper + Realm](#realm-support)
+- [ObjectMapper + Realm](#objectmapper--realm)
 - [Contributing](#contributing)
 - [Installation](#installation)
 
