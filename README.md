@@ -26,7 +26,7 @@ ObjectMapper is a framework written in Swift that makes it easy for you to conve
 To support mapping, a Class or Struct just needs to implement the ```Mappable``` protocol.
 ```swift
 public protocol Mappable {
-    static func newInstance(map: Map) -> Mappable?
+	init?(_ map: Map)
     mutating func mapping(map: Map)
 }
 ```
@@ -43,9 +43,9 @@ class User: Mappable {
     var friends: [User]?                        // Array of Users
     var birthday: NSDate?
 
-    class func newInstance(map: Map) -> Mappable? {
-        return User()
-    }
+	required init?(_ map: Map){
+
+	}
 
     // Mappable
     func mapping(map: Map) {
@@ -64,9 +64,9 @@ struct Temperature: Mappable {
     var celcius: Double?
     var fahrenheit: Double?
 
-    static func newInstance(map: Map) -> Mappable? {
-        return Temperature()
-    }
+	required init?(_ map: Map){
+
+	}
 
 	mutating func mapping(map: Map) {
 		celcius 	<- map["celcius"]
@@ -165,9 +165,9 @@ Classes that implement the Mappable protocol can easily be subclassed. When subc
 class Base: Mappable {
 	var base: String?
 	
-	class func newInstance(map: Map) -> Mappable? {
-        return Base()
-    }
+	required init?(_ map: Map){
+
+	}
 
 	func mapping(map: Map) {
 		base <- map["base"]
@@ -177,9 +177,9 @@ class Base: Mappable {
 class Subclass: Base {
 	var sub: String?
 
-	override class func newInstance(map: Map) -> Mappable? {
-        return Subclass()
-    }
+	required init?(_ map: Map){
+		super.init(map)
+	}
 
 	override func mapping(map: Map) {
 		super.mapping(map)
