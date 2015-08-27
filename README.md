@@ -12,6 +12,7 @@ ObjectMapper is a framework written in Swift that makes it easy for you to conve
 - [Custom Transformations](#custom-transfoms)
 - [Subclassing](#subclasses)
 - [ObjectMapper + Alamofire](#objectmapper--alamofire) 
+- [ObjectMapper + Realm](#realm-support)
 - [Contributing](#contributing)
 - [Installation](#installation)
 
@@ -185,6 +186,24 @@ class Subclass: Base {
 		super.mapping(map)
 		
 		sub <- map["sub"]
+	}
+}
+```
+
+#Realm Support
+
+ObjectMapper and Realm can be used together. Simply follow the Class structure below:
+
+```swift
+class Model: Object, Mappable {
+	dynamic var name = ""
+
+	required convenience init?(_ map: Map) {
+		self.init()
+	}
+
+	func mapping(map: Map) {
+		name <- map["name"]
 	}
 }
 ```
