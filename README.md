@@ -197,7 +197,7 @@ If you are using [Alamofire](https://github.com/Alamofire/Alamofire) for network
 
 #ObjectMapper + Realm
 
-ObjectMapper and Realm can be used together. Simply follow the Class structure below:
+ObjectMapper and Realm can be used together. Simply follow the Class structure below and you will be able to use ObjectMapper to generate your Realm models:
 
 ```swift
 class Model: Object, Mappable {
@@ -211,6 +211,8 @@ class Model: Object, Mappable {
 		name <- map["name"]
 	}
 }
+
+Note: Generating a JSON string of a Realm Object using ObjectMappers' `toJSON` function only works within a Realm write transaction. This is caused because ObjectMapper uses the `inout` flag in its mapping functions (`<-`) which are used both for serializing and deserializing. Realm detects the flag and forces the `toJSON` function to be called within a write block even though the objects are not being modified.
 ```
 
 <!-- ##To Do -->
