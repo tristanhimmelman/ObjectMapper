@@ -195,7 +195,7 @@ class Subclass: Base {
 If you are using [Alamofire](https://github.com/Alamofire/Alamofire) for networking and you want to convert your responses to swift objects, you can use [AlamofireObjectMapper](https://github.com/tristanhimmelman/AlamofireObjectMapper). It is a simple Alamofire extension that uses ObjectMapper to automatically map JSON response data to swift objects.
 
 
-#Realm Support
+#ObjectMapper + Realm
 
 ObjectMapper and Realm can be used together. Simply follow the Class structure below:
 
