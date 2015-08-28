@@ -9,26 +9,6 @@
 import class Foundation.NSNumber
 
 
-private extension String {
-	
-	func match(pattern: String) -> [String] {
-		let regex = NSRegularExpression(pattern: pattern, options: .allZeros, error: nil)
-		let range = NSMakeRange(0, count(self))
-		let matches = regex?.matchesInString(self, options: .allZeros, range: range) as! [NSTextCheckingResult]
-		
-		var groupMatches = [String]()
-		for match in matches {
-			let rangeCount = match.numberOfRanges
-			
-			for group in 0..<rangeCount {
-				groupMatches.append((self as NSString).substringWithRange(match.rangeAtIndex(group)))
-			}
-		}
-		
-		return groupMatches
-	}
-}
-
 private func setValue(value: AnyObject, forKey key: String, inout #dictionary: [String : AnyObject]) {
 	return setValue(value, forKeyPathComponents: key.componentsSeparatedByString("."), dictionary: &dictionary)
 }
@@ -46,7 +26,7 @@ private func setValue(value: AnyObject, forKeyPathComponents components: [String
 		// TODO: has array key here
 		
 		var child: [String: AnyObject]?
-		let matches = head.match("(.*)\\[(\\d*)\\]$")
+		let matches = head.matchesFor(pattern: "(.*)\\[(\\d*)\\]$")
 		
 		if matches.count > 2 {
 			
@@ -75,7 +55,7 @@ private func setValue(value: AnyObject, forKeyPathComponents components: [String
 	} else {
 		
 		var child: [String: AnyObject]?
-		let matches = head.match("(.*)\\[(\\d*)\\]$")
+		let matches = head.matchesFor(pattern: "(.*)\\[(\\d*)\\]$")
 		
 		if matches.count > 2 {
 			

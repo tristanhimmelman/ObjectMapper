@@ -8,27 +8,6 @@
 
 import Foundation
 
-
-private extension String {
-	
-	func match(pattern: String) -> [String] {
-		let regex = NSRegularExpression(pattern: pattern, options: .allZeros, error: nil)
-		let range = NSMakeRange(0, count(self))
-		let matches = regex?.matchesInString(self, options: .allZeros, range: range) as! [NSTextCheckingResult]
-		
-		var groupMatches = [String]()
-		for match in matches {
-			let rangeCount = match.numberOfRanges
-			
-			for group in 0..<rangeCount {
-				groupMatches.append((self as NSString).substringWithRange(match.rangeAtIndex(group)))
-			}
-		}
-		
-		return groupMatches
-	}
-}
-
 public protocol Mappable {
 	init?(_ map: Map)
 	mutating func mapping(map: Map)
@@ -108,7 +87,7 @@ private func valueFor(keyPathComponents: [String], dictionary: [String : AnyObje
 	}
 	
 	let pattern = "([^\\[\\]]*)\\[(\\d*)\\]$"
-	let matches = keyPathComponents.first!.match(pattern)
+	let matches = keyPathComponents.first!.matchesFor(pattern: pattern)
 	var subDict = dictionary
 	var key = keyPathComponents.first!
 	var count = 1
@@ -138,7 +117,7 @@ private func valueFor(keyPathComponents: [String], dictionary: [String : AnyObje
 		}
 	}
 	
-	let stillMatches = key.match(pattern)
+	let stillMatches = key.matchesFor(pattern: pattern)
 	
 	if stillMatches.count > 2 {
 		let tail = Array(keyPathComponents[1..<keyPathComponents.count])
@@ -422,5 +401,25 @@ extension Dictionary {
 		}
 		
 		return mapped
+	}
+}
+
+extension String {
+	
+	func matchesFor(#pattern: String) -> [String] {
+		let regex = NSRegularExpression(pattern: pattern, options: .allZeros, error: nil)
+		let range = NSMakeRange(0, count(self))
+		let matches = regex?.matchesInString(self, options: .allZeros, range: range) as! [NSTextCheckingResult]
+		
+		var groupMatches = [String]()
+		for match in matches {
+			let rangeCount = match.numberOfRanges
+			
+			for group in 0..<rangeCount {
+				groupMatches.append((self as NSString).substringWithRange(match.rangeAtIndex(group)))
+			}
+		}
+		
+		return groupMatches
 	}
 }
