@@ -9,7 +9,7 @@
 import class Foundation.NSNumber
 
 private func setValue(value: AnyObject, forKey key: String, inout dictionary: [String : AnyObject]) {
-	let keyComponents = ArraySlice(split(key.characters) { $0 == "." })
+	let keyComponents = ArraySlice(key.characters.split() { $0 == "." })
 	return setValue(value, forKeyPathComponents: keyComponents, dictionary: &dictionary)
 }
 
@@ -28,7 +28,7 @@ private func setValue(value: AnyObject, forKeyPathComponents components: ArraySl
 			child = [:]
 		}
 
-		let tail = dropFirst(components)
+		let tail = components.dropFirst()
 		setValue(value, forKeyPathComponents: tail, dictionary: &child!)
 
 		return dictionary[String(head)] = child
