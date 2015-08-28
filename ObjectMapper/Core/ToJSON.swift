@@ -8,29 +8,111 @@
 
 import class Foundation.NSNumber
 
-private func setValue(value: AnyObject, forKey key: String, inout #dictionary: [String : AnyObject]) {
-	return setValue(value, forKeyPathComponents: ArraySlice(split(key) { $0 == "." }), dictionary: &dictionary)
+
+private extension String {
+	
+	func match(pattern: String) -> [String] {
+		let regex = NSRegularExpression(pattern: pattern, options: .allZeros, error: nil)
+		let range = NSMakeRange(0, count(self))
+		let matches = regex?.matchesInString(self, options: .allZeros, range: range) as! [NSTextCheckingResult]
+		
+		var groupMatches = [String]()
+		for match in matches {
+			let rangeCount = match.numberOfRanges
+			
+			for group in 0..<rangeCount {
+				groupMatches.append((self as NSString).substringWithRange(match.rangeAtIndex(group)))
+			}
+		}
+		
+		return groupMatches
+	}
 }
 
-private func setValue(value: AnyObject, forKeyPathComponents components: ArraySlice<String>, inout #dictionary: [String : AnyObject]) {
+private func setValue(value: AnyObject, forKey key: String, inout #dictionary: [String : AnyObject]) {
+	return setValue(value, forKeyPathComponents: key.componentsSeparatedByString("."), dictionary: &dictionary)
+}
+
+private func setValue(value: AnyObject, forKeyPathComponents components: [String], inout #dictionary: [String : AnyObject]) {
 	if components.isEmpty {
 		return
 	}
-
-	let head = components.first!
-
+	
+	var head = components.first!
+	
+	
 	if components.count == 1 {
-		return dictionary[head] = value
-	} else {
-		var child = dictionary[head] as? [String : AnyObject]
-		if child == nil {
-			child = [:]
+		
+		// TODO: has array key here
+		
+		var child: [String: AnyObject]?
+		let matches = head.match("(.*)\\[(\\d*)\\]$")
+		
+		if matches.count > 2 {
+			
+			var array = dictionary[matches[1]] as? [AnyObject]
+			
+			if let index = matches[2].toInt() {
+				if array == nil {
+					array = [AnyObject]()
+				} else {
+					child = array![index] as? [String : AnyObject]
+				}
+				
+				while array!.count < index + 1 {
+					array?.append([:])
+				}
+				
+				array![index] = value
+			}
+			
+			dictionary[matches[1]] = array
+			
+		} else {
+			return dictionary[head] = value
 		}
-
-		let tail = dropFirst(components)
-		setValue(value, forKeyPathComponents: tail, dictionary: &child!)
-
-		return dictionary[head] = child
+		
+	} else {
+		
+		var child: [String: AnyObject]?
+		let matches = head.match("(.*)\\[(\\d*)\\]$")
+		
+		if matches.count > 2 {
+			
+			var array = dictionary[matches[1]] as? [AnyObject]
+			
+			if let index = matches[2].toInt() {
+				if array == nil {
+					array = [AnyObject]()
+					child = [:]
+				} else {
+					child = array![index] as? [String : AnyObject]
+				}
+				
+				let tail = Array(components[1..<components.count])
+				setValue(value, forKeyPathComponents: tail, dictionary: &child!)
+				
+				while array!.count < index + 1 {
+					array?.append([:])
+				}
+				
+				array![index] = child!
+			}
+			
+			dictionary[matches[1]] = array
+			
+		} else {
+			
+			child = dictionary[head] as? [String : AnyObject]
+			if child == nil {
+				child = [:]
+			}
+			
+			let tail = Array(components[1..<components.count])
+			setValue(value, forKeyPathComponents: tail, dictionary: &child!)
+			
+			return dictionary[head] = child
+		}
 	}
 }
 
@@ -40,9 +122,9 @@ internal final class ToJSON {
 		func _setValue(value: AnyObject) {
 			setValue(value, forKey: key, dictionary: &dictionary)
 		}
-
+		
 		switch field {
-		// basic Types
+			// basic Types
 		case let x as NSNumber:
 			_setValue(x)
 		case let x as Bool:
@@ -55,8 +137,8 @@ internal final class ToJSON {
 			_setValue(x)
 		case let x as String:
 			_setValue(x)
-
-		// Arrays with basic types
+			
+			// Arrays with basic types
 		case let x as Array<NSNumber>:
 			_setValue(x)
 		case let x as Array<Bool>:
@@ -71,8 +153,8 @@ internal final class ToJSON {
 			_setValue(x)
 		case let x as Array<AnyObject>:
 			_setValue(x)
-
-		// Dictionaries with basic types
+			
+			// Dictionaries with basic types
 		case let x as Dictionary<String, NSNumber>:
 			_setValue(x)
 		case let x as Dictionary<String, Bool>:
@@ -92,51 +174,57 @@ internal final class ToJSON {
 			return
 		}
 	}
-
-    class func optionalBasicType<N>(field: N?, key: String, inout dictionary: [String : AnyObject]) {
-        if let field = field {
-            basicType(field, key: key, dictionary: &dictionary)
-        }
-    }
-
+	
+	class func optionalBasicType<N>(field: N?, key: String, inout dictionary: [String : AnyObject]) {
+		if let field = field {
+			basicType(field, key: key, dictionary: &dictionary)
+		}
+	}
+	
 	class func object<N: Mappable>(field: N, key: String, inout dictionary: [String : AnyObject]) {
 		setValue(Mapper().toJSON(field), forKey: key, dictionary: &dictionary)
 	}
-
-    class func optionalObject<N: Mappable>(field: N?, key: String, inout dictionary: [String : AnyObject]) {
-        if let field = field {
-            object(field, key: key, dictionary: &dictionary)
-        }
-    }
-    
+	
+	class func optionalObject<N: Mappable>(field: N?, key: String, inout dictionary: [String : AnyObject]) {
+		if let field = field {
+			object(field, key: key, dictionary: &dictionary)
+		}
+	}
+	
 	class func objectArray<N: Mappable>(field: Array<N>, key: String, inout dictionary: [String : AnyObject]) {
 		let JSONObjects = Mapper().toJSONArray(field)
-
-		setValue(JSONObjects, forKey: key, dictionary: &dictionary)
+		
+		if !JSONObjects.isEmpty {
+			setValue(JSONObjects, forKey: key, dictionary: &dictionary)
+		}
 	}
-
-    class func optionalObjectArray<N: Mappable>(field: Array<N>?, key: String, inout dictionary: [String : AnyObject]) {
-        if let field = field {
-            objectArray(field, key: key, dictionary: &dictionary)
-        }
-    }
-    
+	
+	class func optionalObjectArray<N: Mappable>(field: Array<N>?, key: String, inout dictionary: [String : AnyObject]) {
+		if let field = field {
+			objectArray(field, key: key, dictionary: &dictionary)
+		}
+	}
+	
 	class func objectDictionary<N: Mappable>(field: Dictionary<String, N>, key: String, inout dictionary: [String : AnyObject]) {
 		let JSONObjects = Mapper().toJSONDictionary(field)
-
-		setValue(JSONObjects, forKey: key, dictionary: &dictionary)
+		
+		if !JSONObjects.isEmpty {
+			setValue(JSONObjects, forKey: key, dictionary: &dictionary)
+		}
 	}
-
-    class func optionalObjectDictionary<N: Mappable>(field: Dictionary<String, N>?, key: String, inout dictionary: [String : AnyObject]) {
-        if let field = field {
-            objectDictionary(field, key: key, dictionary: &dictionary)
-        }
-    }
+	
+	class func optionalObjectDictionary<N: Mappable>(field: Dictionary<String, N>?, key: String, inout dictionary: [String : AnyObject]) {
+		if let field = field {
+			objectDictionary(field, key: key, dictionary: &dictionary)
+		}
+	}
 	
 	class func objectDictionaryOfArrays<N: Mappable>(field: Dictionary<String, [N]>, key: String, inout dictionary: [String : AnyObject]) {
 		let JSONObjects = Mapper().toJSONDictionaryOfArrays(field)
-
-		setValue(JSONObjects, forKey: key, dictionary: &dictionary)
+		
+		if !JSONObjects.isEmpty {
+			setValue(JSONObjects, forKey: key, dictionary: &dictionary)
+		}
 	}
 	
 	class func optionalObjectDictionaryOfArrays<N: Mappable>(field: Dictionary<String, [N]>?, key: String, inout dictionary: [String : AnyObject]) {
