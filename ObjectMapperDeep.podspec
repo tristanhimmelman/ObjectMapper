@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'ObjectMapperDeep'
-  s.version = '0.14.2'
+  s.version = '0.14.3'
   s.license = 'MIT'
   s.summary = 'JSON Object mapping written in Swift, support deep array mapping'
   s.homepage = 'https://github.com/tonyli508/ObjectMapperDeep'
