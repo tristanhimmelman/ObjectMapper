@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Carma. All rights reserved.
 //
 
-import UIKit
 
 /**
 *  Safely make sure value will be string, like userId you are not sure it's Int or String
