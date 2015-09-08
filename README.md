@@ -99,6 +99,7 @@ Object mapper can map classes composed of the following types:
 - Dictionary\<String, AnyObject\>
 - Object\<T: Mappable\>
 - Array\<T: Mappable\>
+- Set\<T: Mappable\> 
 - Dictionary\<String, T: Mappable\>
 - Dictionary\<String, Array\<T: Mappable\>\>
 - Optionals of all the above
@@ -113,9 +114,15 @@ ObjectMapper supports dot notation within keys for easy mapping of nested object
 }
 ```
 You can access the nested objects as follows:
-```
+```swift
 func mapping(map: Map){
     distance <- map["distance.value"]
+}
+```
+If you have a key that contains `.`, you can disable the above feature as follows:
+```swift
+func mapping(map: Map){
+    identifier <- map["app.inditifier", nested: false]
 }
 ```
 
