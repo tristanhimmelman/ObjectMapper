@@ -25,25 +25,35 @@ public final class Map {
 	var JSONDictionary: [String : AnyObject] = [:]
 	var currentValue: AnyObject?
 	var currentKey: String?
+	var keyIsNested = false
 
 	/// Counter for failing cases of deserializing values to `let` properties.
 	private var failedCount: Int = 0
 
-	private init(mappingType: MappingType, JSONDictionary: [String : AnyObject]) {
 	public init(mappingType: MappingType, JSONDictionary: [String : AnyObject]) {
 		self.mappingType = mappingType
 		self.JSONDictionary = JSONDictionary
 	}
 	
-	
 	/// Sets the current mapper value and key.
 	/// The Key paramater can be a period separated string (ex. "distance.value") to access sub objects.
 	public subscript(key: String) -> Map {
 		// save key and value associated to it
+		return self[key, nested: true]
+	}
+	
+	public subscript(key: String, nested nested: Bool) -> Map {
+		// save key and value associated to it
 		currentKey = key
-		// break down the components of the key
-
-		currentValue = valueFor(ArraySlice(key.componentsSeparatedByString(".")), dictionary: JSONDictionary)
+		keyIsNested = nested
+		
+		// check if a value exists for the current key
+		if nested == false {
+			currentValue = JSONDictionary[key]
+		} else {
+			// break down the components of the key that are separated by .
+			currentValue = valueFor(ArraySlice(key.componentsSeparatedByString(".")), dictionary: JSONDictionary)
+		}
 		
 		return self
 	}

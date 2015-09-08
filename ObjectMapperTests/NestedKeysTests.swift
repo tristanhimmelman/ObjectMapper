@@ -25,6 +25,7 @@ class NestedKeysTests: XCTestCase {
 
 	func testNestedKeys() {
 		let JSON: [String: AnyObject] = [
+			"non.nested.key": "string",
 			"nested": [
 				"int64": NSNumber(longLong: INT64_MAX),
 				"bool": true,
@@ -67,11 +68,13 @@ class NestedKeysTests: XCTestCase {
 
 		let value: NestedKeys! = mapper.map(JSON)
 		expect(value).notTo(beNil())
-
+		
 		let JSONFromValue = mapper.toJSON(value)
 		let valueFromParsedJSON: NestedKeys! = mapper.map(JSONFromValue)
 		expect(valueFromParsedJSON).notTo(beNil())
 
+		expect(value.nonNestedString!).to(equal(valueFromParsedJSON.nonNestedString))
+		
 		expect(value.int64).to(equal(valueFromParsedJSON.int64))
 		expect(value.bool).to(equal(valueFromParsedJSON.bool))
 		expect(value.int).to(equal(valueFromParsedJSON.int))
@@ -107,6 +110,9 @@ class NestedKeysTests: XCTestCase {
 }
 
 class NestedKeys: Mappable {
+	
+	var nonNestedString: String?
+	
 	var int64: NSNumber?
 	var bool: Bool?
 	var int: Int?
@@ -143,6 +149,8 @@ class NestedKeys: Mappable {
 	}
 
 	func mapping(map: Map) {
+		nonNestedString <- map["non.nested.key", nested: false]
+		
 		int64	<- map["nested.int64"]
 		bool	<- map["nested.bool"]
 		int		<- map["nested.int"]
