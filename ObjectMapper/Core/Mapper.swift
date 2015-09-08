@@ -30,6 +30,7 @@ public final class Map {
 	private var failedCount: Int = 0
 
 	private init(mappingType: MappingType, JSONDictionary: [String : AnyObject]) {
+	public init(mappingType: MappingType, JSONDictionary: [String : AnyObject]) {
 		self.mappingType = mappingType
 		self.JSONDictionary = JSONDictionary
 	}
