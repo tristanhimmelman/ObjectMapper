@@ -7,8 +7,10 @@ env:
     - LC_ALL=en_US.UTF-8
     - XCODE_WORKSPACE=ObjectMapper.xcworkspace
   matrix:
-    - SCRIPT="xctool -workspace $XCODE_WORKSPACE -scheme ObjectMapper-iOS -sdk iphonesimulator test"
-    - SCRIPT="xctool -workspace $XCODE_WORKSPACE -scheme ObjectMapper-Mac test"
+    - SCRIPT="xcodebuild -workspace $XCODE_WORKSPACE -scheme ObjectMapper-iOS -sdk iphonesimulator test"
+    - SCRIPT="xcodebuild -workspace $XCODE_WORKSPACE -scheme ObjectMapper-Mac test"
+    # - SCRIPT="xctool -workspace $XCODE_WORKSPACE -scheme ObjectMapper-iOS -sdk iphonesimulator test"
+    # - SCRIPT="xctool -workspace $XCODE_WORKSPACE -scheme ObjectMapper-Mac test"
 
 before_install:
   - brew update
