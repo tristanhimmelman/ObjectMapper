@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		37AFD9B91AAD191C00AB59B5 /* CustomDateFormatTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AFD9B81AAD191C00AB59B5 /* CustomDateFormatTransform.swift */; };
-		6A2AD0401B2C78540097E150 /* ObjectMapper-watchOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A2AD03F1B2C78540097E150 /* ObjectMapper-watchOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6A2AD0451B2C786C0097E150 /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC419F048FE00E7A677 /* Mapper.swift */; };
 		6A2AD0461B2C786C0097E150 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC519F048FE00E7A677 /* Operators.swift */; };
 		6A2AD0471B2C786C0097E150 /* FromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC319F048FE00E7A677 /* FromJSON.swift */; };
@@ -36,6 +35,7 @@
 		6AAC8FD319F048FE00E7A677 /* DateTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FCB19F048FE00E7A677 /* DateTransform.swift */; };
 		6AAE6A431ACED93500FBC899 /* ObjectMapper.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = CD1602FF1AC023D5000CD69A /* ObjectMapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6AAE6A441ACED93B00FBC899 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = CD208C981AC10D2B00E21781 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6AC458191BA350CF00054758 /* ObjectMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AAC8F7B19F03C2900E7A677 /* ObjectMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BC1E7F371ABC44C000F9B1CF /* EnumTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1E7F361ABC44C000F9B1CF /* EnumTransform.swift */; };
 		CD16030A1AC023D6000CD69A /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD1602FF1AC023D5000CD69A /* ObjectMapper.framework */; };
 		CD1603181AC02437000CD69A /* ObjectMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AAC8F7B19F03C2900E7A677 /* ObjectMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -114,8 +114,6 @@
 /* Begin PBXFileReference section */
 		37AFD9B81AAD191C00AB59B5 /* CustomDateFormatTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDateFormatTransform.swift; sourceTree = "<group>"; };
 		6A2AD03D1B2C78540097E150 /* ObjectMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ObjectMapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6A2AD03F1B2C78540097E150 /* ObjectMapper-watchOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ObjectMapper-watchOS.h"; sourceTree = "<group>"; };
-		6A2AD0411B2C78540097E150 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6A3774331A31427F00CC0AB5 /* BasicTypesTestsToJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = BasicTypesTestsToJSON.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		6A51372B1AADDE2700B82516 /* DateFormaterTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFormaterTransform.swift; sourceTree = "<group>"; };
 		6A51372E1AADE12C00B82516 /* CustomTransformTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CustomTransformTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -187,15 +185,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6A2AD03E1B2C78540097E150 /* ObjectMapper-watchOS */ = {
-			isa = PBXGroup;
-			children = (
-				6A2AD03F1B2C78540097E150 /* ObjectMapper-watchOS.h */,
-				6A2AD0411B2C78540097E150 /* Info.plist */,
-			);
-			path = "ObjectMapper-watchOS";
-			sourceTree = "<group>";
-		};
 		6A51372D1AADDEE400B82516 /* Date */ = {
 			isa = PBXGroup;
 			children = (
@@ -213,7 +202,6 @@
 				6A9EEBD41AC5BFA30011F22C /* README.md */,
 				6AAC8F7819F03C2900E7A677 /* ObjectMapper */,
 				6AAC8F8219F03C2900E7A677 /* ObjectMapperTests */,
-				6A2AD03E1B2C78540097E150 /* ObjectMapper-watchOS */,
 				6AAC8F7719F03C2900E7A677 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -303,7 +291,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6A2AD0401B2C78540097E150 /* ObjectMapper-watchOS.h in Headers */,
+				6AC458191BA350CF00054758 /* ObjectMapper.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,10 +446,10 @@
 			projectRoot = "";
 			targets = (
 				6AAC8F7519F03C2900E7A677 /* ObjectMapper-iOS */,
-				6AAC8F8019F03C2900E7A677 /* ObjectMapper-iOSTests */,
 				CD1602FE1AC023D5000CD69A /* ObjectMapper-Mac */,
-				CD1603081AC023D6000CD69A /* ObjectMapper-MacTests */,
 				6A2AD03C1B2C78540097E150 /* ObjectMapper-watchOS */,
+				6AAC8F8019F03C2900E7A677 /* ObjectMapper-iOSTests */,
+				CD1603081AC023D6000CD69A /* ObjectMapper-MacTests */,
 			);
 		};
 /* End PBXProject section */
@@ -615,10 +603,10 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "ObjectMapper-watchOS/Info.plist";
+				INFOPLIST_FILE = ObjectMapper/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tristanhimmelman.ObjectMapper-watchOS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tristanhimmelman.ObjectMapper;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -638,10 +626,10 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "ObjectMapper-watchOS/Info.plist";
+				INFOPLIST_FILE = ObjectMapper/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tristanhimmelman.ObjectMapper-watchOS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tristanhimmelman.ObjectMapper;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
