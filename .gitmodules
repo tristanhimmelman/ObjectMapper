@@ -1,0 +1,2 @@
+[submodule "Carthage/Checkouts/Nimble"]
+	url = https://github.com/Quick/Nimble.git
