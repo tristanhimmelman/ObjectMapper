@@ -19,7 +19,7 @@ before_install:
 script: 
   - set -o pipefail
   - xcodebuild -version
-  - xcodebuild -workspace ObjectMapper.xcworkspace -scheme "$SCHEME" -sdk "$SDK" -configuration Release ONLY_ACTIVE_ARCH=NO test | xcpretty -c
+  - xcodebuild -workspace ObjectMapper.xcworkspace -scheme "$SCHEME" -sdk "$SDK" -configuration Debug ONLY_ACTIVE_ARCH=NO test | xcpretty -c
   - xcodebuild -workspace ObjectMapper.xcworkspace -scheme "$SCHEME" -sdk "$SDK" -configuration Release ONLY_ACTIVE_ARCH=NO test | xcpretty -c
 
 notifications:
