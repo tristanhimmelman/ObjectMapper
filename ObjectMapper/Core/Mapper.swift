@@ -99,15 +99,12 @@ private func valueFor(keyPathComponents: ArraySlice<String>, dictionary: [String
 	}
 
 	if let object: AnyObject = dictionary[keyPathComponents.first!] {
-		switch object {
-		case is NSNull:
+		if object is NSNull {
 			return nil
-
-		case let dict as [String : AnyObject] where keyPathComponents.count > 1:
+		} else if let dict = object as? [String : AnyObject] where keyPathComponents.count > 1 {
 			let tail = keyPathComponents.dropFirst()
 			return valueFor(tail, dictionary: dict)
-
-		default:
+		} else {
 			return object
 		}
 	}

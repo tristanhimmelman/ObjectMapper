@@ -50,55 +50,46 @@ internal final class ToJSON {
 			setValue(value, map: map)
 		}
 
-		switch field {
-		// basic Types
-		case let x as NSNumber:
+		if let x = field as? NSNumber { // basic types
 			_setValue(x)
-		case let x as Bool:
+		} else if let x = field as? Bool {
 			_setValue(x)
-		case let x as Int:
+		} else if let x = field as? Int {
 			_setValue(x)
-		case let x as Double:
+		} else if let x = field as? Double {
 			_setValue(x)
-		case let x as Float:
+		} else if let x = field as? Float {
 			_setValue(x)
-		case let x as String:
+		} else if let x = field as? String {
 			_setValue(x)
-
-		// Arrays with basic types
-		case let x as Array<NSNumber>:
+		} else if let x = field as? Array<NSNumber> { // Arrays
 			_setValue(x)
-		case let x as Array<Bool>:
+		} else if let x = field as? Array<Bool> {
 			_setValue(x)
-		case let x as Array<Int>:
+		} else if let x = field as? Array<Int> {
 			_setValue(x)
-		case let x as Array<Double>:
+		} else if let x = field as? Array<Double> {
 			_setValue(x)
-		case let x as Array<Float>:
+		} else if let x = field as? Array<Float> {
 			_setValue(x)
-		case let x as Array<String>:
+		} else if let x = field as? Array<String> {
 			_setValue(x)
-		case let x as Array<AnyObject>:
+		} else if let x = field as? Array<AnyObject> {
 			_setValue(x)
-
-		// Dictionaries with basic types
-		case let x as Dictionary<String, NSNumber>:
+		} else if let x = field as? Dictionary<String, NSNumber> { // Dictionaries
 			_setValue(x)
-		case let x as Dictionary<String, Bool>:
+		} else if let x = field as? Dictionary<String, Bool> {
 			_setValue(x)
-		case let x as Dictionary<String, Int>:
+		} else if let x = field as? Dictionary<String, Int> {
 			_setValue(x)
-		case let x as Dictionary<String, Double>:
+		} else if let x = field as? Dictionary<String, Double> {
 			_setValue(x)
-		case let x as Dictionary<String, Float>:
+		} else if let x = field as? Dictionary<String, Float> {
 			_setValue(x)
-		case let x as Dictionary<String, String>:
+		} else if let x = field as? Dictionary<String, String> {
 			_setValue(x)
-		case let x as Dictionary<String, AnyObject>:
+		} else if let x = field as? Dictionary<String, AnyObject> {
 			_setValue(x)
-		default:
-			//print("Default")
-			return
 		}
 	}
 
