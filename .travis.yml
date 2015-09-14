@@ -1,20 +1,26 @@
 language: objective-c
-osx_image: xcode6.4
+osx_image: xcode7
 
 env:
   global:
     - LANG=en_US.UTF-8
     - LC_ALL=en_US.UTF-8
-    - XCODE_WORKSPACE=ObjectMapper.xcworkspace
   matrix:
-    - SCRIPT="xctool -workspace $XCODE_WORKSPACE -scheme ObjectMapper-iOS -sdk iphonesimulator test"
-    - SCRIPT="xctool -workspace $XCODE_WORKSPACE -scheme ObjectMapper-Mac test"
+    - DESTINATION="OS=8.1,name=iPhone 4S"     SCHEME="ObjectMapper-iOS" SDK=iphonesimulator9.0 
+    - DESTINATION="OS=8.2,name=iPhone 5"      SCHEME="ObjectMapper-iOS" SDK=iphonesimulator9.0
+    - DESTINATION="OS=8.3,name=iPhone 5S"     SCHEME="ObjectMapper-iOS" SDK=iphonesimulator9.0
+    - DESTINATION="OS=8.4,name=iPhone 6"      SCHEME="ObjectMapper-iOS" SDK=iphonesimulator9.0
+    - DESTINATION="OS=9.0,name=iPhone 6 Plus" SCHEME="ObjectMapper-iOS" SDK=iphonesimulator9.0
+    - DESTINATION="arch=x86_64"               SCHEME="ObjectMapper-Mac" SDK=macosx10.11
 
 before_install:
-  - brew update
-  - brew outdated xctool || brew upgrade xctool
+  - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
 
-script: $SCRIPT
+script: 
+  - set -o pipefail
+  - xcodebuild -version
+  - xcodebuild -workspace ObjectMapper.xcworkspace -scheme "$SCHEME" -sdk "$SDK" -configuration Debug ONLY_ACTIVE_ARCH=NO test | xcpretty -c
+  - xcodebuild -workspace ObjectMapper.xcworkspace -scheme "$SCHEME" -sdk "$SDK" -configuration Release ONLY_ACTIVE_ARCH=NO test | xcpretty -c
 
 notifications:
   email: false
