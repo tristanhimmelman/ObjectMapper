@@ -347,6 +347,35 @@ public func <- <T: Mappable>(inout left: Array<T>!, right: Map) {
 	}
 }
 
+// MARK:- Array of Array of Mappable objects - Array<Array<T: Mappable>>
+
+/// Array of Array Mappable objects
+public func <- <T: Mappable>(inout left: Array<Array<T>>, right: Map) {
+	if right.mappingType == MappingType.FromJSON {
+		FromJSON.twoDimensionalObjectArray(&left, object: right.currentValue)
+	} else {
+		ToJSON.twoDimensionalObjectArray(left, map: right)
+	}
+}
+
+/// Optional array of Mappable objects
+public func <- <T: Mappable>(inout left:Array<Array<T>>?, right: Map) {
+	if right.mappingType == MappingType.FromJSON {
+		FromJSON.optionalTwoDimensionalObjectArray(&left, object: right.currentValue)
+	} else {
+		ToJSON.optionalTwoDimensionalObjectArray(left, map: right)
+	}
+}
+
+/// Implicitly unwrapped Optional array of Mappable objects
+public func <- <T: Mappable>(inout left: Array<Array<T>>!, right: Map) {
+	if right.mappingType == MappingType.FromJSON {
+		FromJSON.optionalTwoDimensionalObjectArray(&left, object: right.currentValue)
+	} else {
+		ToJSON.optionalTwoDimensionalObjectArray(left, map: right)
+	}
+}
+
 // MARK:- Set of Mappable objects - Set<T: Mappable where T: Hashable>
 
 /// Array of Mappable objects

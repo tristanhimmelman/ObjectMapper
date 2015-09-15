@@ -213,6 +213,20 @@ public final class Mapper<N: Mappable> {
 		return JSONArray.flatMap(map)
 	}
 	
+	/// Maps an 2 dimentional array of JSON dictionaries to a 2 dimentional array of Mappable objects
+	public func mapArrayOfArrays(JSON: AnyObject?) -> [[N]]? {
+		if let JSONArray = JSON as? [[[String : AnyObject]]] {
+			var objectArray = [[N]]()
+			
+			for innerJSONArray in JSONArray {
+				objectArray.append(mapArray(innerJSONArray))
+			}
+			return objectArray
+		}
+		
+		return nil
+	}
+	
 	/// Maps a JSON object to a dictionary of Mappable objects if it is a JSON dictionary of dictionaries, or returns nil.
 	public func mapDictionary(JSON: AnyObject?) -> [String : N]? {
 		if let JSONDictionary = JSON as? [String : [String : AnyObject]] {
