@@ -400,7 +400,7 @@ class ObjectMapperTests: XCTestCase {
 	
 	func testImmutableMappable() {
 		let mapper = Mapper<Immutable>()
-		let JSON = [ "prop1": "Immutable!", "prop2": 255, "prop3": true ]
+		let JSON = ["prop1": "Immutable!", "prop2": 255, "prop3": true ]
 
 		let immutable: Immutable! = mapper.map(JSON)
 		expect(immutable).notTo(beNil())
@@ -415,6 +415,35 @@ class ObjectMapperTests: XCTestCase {
 
 		let JSONFromObject = mapper.toJSON(immutable)
 		expect(mapper.map(JSONFromObject)).to(equal(immutable))
+	}
+	
+	func testArrayOfArrayOfMappable() {
+		let base1 = "1"
+		let base2 = "2"
+		let base3 = "3"
+		let base4 = "4"
+		
+		let array1 = [["base": base1], ["base": base2], ["base": base3]]
+		let array2 = [["base": base4]]
+		let JSON = ["twoDimensionalArray":[array1, array2]]
+		
+		let arrayTest = Mapper<ArrayTest>().map(JSON)
+		expect(arrayTest).notTo(beNil())
+		expect(arrayTest?.twoDimensionalArray?[0][0].base).to(equal(base1))
+		expect(arrayTest?.twoDimensionalArray?[0][1].base).to(equal(base2))
+		expect(arrayTest?.twoDimensionalArray?[0][2].base).to(equal(base3))
+		expect(arrayTest?.twoDimensionalArray?[1][0].base).to(equal(base4))
+		
+		expect(arrayTest?.twoDimensionalArray?[0].count).to(equal(array1.count))
+		expect(arrayTest?.twoDimensionalArray?[1].count).to(equal(array2.count))
+		
+		let backToJSON = Mapper<ArrayTest>().toJSON(arrayTest!)
+		expect(backToJSON).notTo(beNil())
+		
+		let arrayTest2 = Mapper<ArrayTest>().map(backToJSON)
+		expect(arrayTest2).notTo(beNil())
+		expect(arrayTest2?.twoDimensionalArray?[0][0].base).to(equal(arrayTest?.twoDimensionalArray?[0][0].base))
+		expect(arrayTest2?.twoDimensionalArray?[0][1].base).to(equal(arrayTest?.twoDimensionalArray?[0][1].base))
 	}
 }
 
@@ -679,6 +708,17 @@ class ExampleEnumDictionary: Mappable {
 
 	func mapping(map: Map) {
 		enums <- map["enums"]
+	}
+}
+
+class ArrayTest: Mappable {
+	
+	var twoDimensionalArray: Array<Array<Base>>?
+	
+	required init?(_ map: Map){}
+	
+	func mapping(map: Map) {
+		twoDimensionalArray <- map["twoDimensionalArray"]
 	}
 }
 

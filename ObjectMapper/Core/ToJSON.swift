@@ -121,6 +121,21 @@ internal final class ToJSON {
 		}
 	}
 	
+	class func twoDimensionalObjectArray<N: Mappable>(field: Array<Array<N>>, map: Map) {
+		var array = [[[String : AnyObject]]]()
+		for innerArray in field {
+			let JSONObjects = Mapper().toJSONArray(innerArray)
+			array.append(JSONObjects)
+		}
+		setValue(array, map: map)
+	}
+	
+	class func optionalTwoDimensionalObjectArray<N: Mappable>(field: Array<Array<N>>?, map: Map) {
+		if let field = field {
+			twoDimensionalObjectArray(field, map: map)
+		}
+	}
+	
 	class func objectSet<N: Mappable where N: Hashable>(field: Set<N>, map: Map) {
 		let JSONObjects = Mapper().toJSONSet(field)
 		
