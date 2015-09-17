@@ -9,7 +9,7 @@
 import Foundation
 
 public protocol Mappable {
-	init?(_ map: Map)
+	static func newInstance(map: Map) -> Mappable?
 	mutating func mapping(map: Map)
 }
 
@@ -172,7 +172,7 @@ public final class Mapper<N: Mappable> {
 	/// Maps a JSON dictionary to an object that conforms to Mappable
 	public func map(JSONDictionary: [String : AnyObject]) -> N? {
 		let map = Map(mappingType: .FromJSON, JSONDictionary: JSONDictionary)
-		if var object = N(map) {
+		if var object = N.newInstance(map) as? N {
 			object.mapping(map)
 			return object
 		}

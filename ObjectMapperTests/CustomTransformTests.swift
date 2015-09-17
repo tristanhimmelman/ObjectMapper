@@ -145,8 +145,8 @@ class Transforms: Mappable {
 		
 	}
 	
-	required init?(_ map: Map){
-		
+	static func newInstance(map: Map) -> Mappable? {
+		return Transforms()
 	}
 	
 	func mapping(map: Map) {
