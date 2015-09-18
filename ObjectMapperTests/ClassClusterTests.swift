@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Nimble
 import ObjectMapper
 
 class ClassClusterTests: XCTestCase {
@@ -22,19 +23,26 @@ class ClassClusterTests: XCTestCase {
     }
 	
     func testClassClusters() {
-		let JSON = ["name": "Honda", "type": "car"]
+		let carName = "Honda"
+		let JSON = ["name": carName, "type": "car"]
 		
 		if let vehicle = Mapper<Vehicle>().map(JSON){
-			print(vehicle)
-			print((vehicle as! Car).name)
-		}
+			expect(vehicle).notTo(beNil())
+			expect(vehicle as? Car).notTo(beNil())
+			expect((vehicle as? Car)?.name).to(equal(carName))		}
     }
 	
 	func testClassClusterArray() {
-		let JSON = [["name": "Honda", "type": "car"], ["type": "bus"]]
+		let carName = "Honda"
+		let JSON = [["name": carName, "type": "car"], ["type": "bus"], ["type": "vehicle"]]
 		
-		if let vehicle = Mapper<Vehicle>().mapArray(JSON){
-			print(vehicle)
+		if let vehicles = Mapper<Vehicle>().mapArray(JSON){
+			expect(vehicles).notTo(beNil())
+			expect(vehicles.count).to(equal(3))
+			expect(vehicles[0] as? Car).notTo(beNil())
+			expect(vehicles[1] as? Bus).notTo(beNil())
+			expect(vehicles[2]).notTo(beNil())
+			expect((vehicles[0] as? Car)?.name).to(equal(carName))
 		}
 	}
 }
@@ -51,7 +59,7 @@ class Vehicle: MappableCluster {
 		if let type = map["type"].currentValue as? String {
 			if type == "car" {
 				return Car(map)
-			} else {
+			} else if type == "bus" {
 				return Bus(map)
 			}
 		}
