@@ -13,6 +13,10 @@ public protocol Mappable {
 	mutating func mapping(map: Map)
 }
 
+public protocol MappableCluster: Mappable {
+	func newInstance(map: Map) -> Mappable?
+}
+
 public enum MappingType {
 	case FromJSON
 	case ToJSON
@@ -23,7 +27,7 @@ public final class Map {
 	public let mappingType: MappingType
 
 	var JSONDictionary: [String : AnyObject] = [:]
-	var currentValue: AnyObject?
+	public var currentValue: AnyObject?
 	var currentKey: String?
 	var keyIsNested = false
 
@@ -172,7 +176,11 @@ public final class Mapper<N: Mappable> {
 	/// Maps a JSON dictionary to an object that conforms to Mappable
 	public func map(JSONDictionary: [String : AnyObject]) -> N? {
 		let map = Map(mappingType: .FromJSON, JSONDictionary: JSONDictionary)
+
 		if var object = N(map) {
+			if let cluster = (object as? MappableCluster)?.newInstance(map) as? N {
+				object = cluster
+			}
 			object.mapping(map)
 			return object
 		}
