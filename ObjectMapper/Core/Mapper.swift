@@ -14,7 +14,7 @@ public protocol Mappable {
 }
 
 public protocol MappableCluster: Mappable {
-	func newInstance(map: Map) -> Mappable?
+	static func newInstance(map: Map) -> Mappable?
 }
 
 public enum MappingType {
@@ -176,17 +176,21 @@ public final class Mapper<N: Mappable> {
 	/// Maps a JSON dictionary to an object that conforms to Mappable
 	public func map(JSONDictionary: [String : AnyObject]) -> N? {
 		let map = Map(mappingType: .FromJSON, JSONDictionary: JSONDictionary)
-
-		if var object = N(map) {
-			if let cluster = (object as? MappableCluster)?.newInstance(map) as? N {
-				object = cluster
+		
+		if let klass = N.self as? MappableCluster.Type {
+			if var object = klass.newInstance(map) as? N {
+				object.mapping(map)
+				return object
 			}
+		}
+		
+		if var object = N(map) {
 			object.mapping(map)
 			return object
 		}
 		return nil
 	}
-
+	
 	//MARK: Mapping functions for Arrays and Dictionaries
 	
 	/// Maps a JSON array to an object that conforms to Mappable
@@ -355,8 +359,7 @@ public final class Mapper<N: Mappable> {
 	}
 }
 
-
-extension Mapper where N: Hashable{
+extension Mapper where N: Hashable {
 	
 	/// Maps a JSON array to an object that conforms to Mappable
 	public func mapSet(JSONString: String) -> Set<N> {

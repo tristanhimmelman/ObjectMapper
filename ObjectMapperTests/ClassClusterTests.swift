@@ -32,6 +32,16 @@ class ClassClusterTests: XCTestCase {
 			expect((vehicle as? Car)?.name).to(equal(carName))		}
     }
 	
+	func testClassClustersFromJSONString() {
+		let carName = "Honda"
+		let JSON = "{\"name\": \"\(carName)\", \"type\": \"car\"}"
+		
+		if let vehicle = Mapper<Vehicle>().map(JSON){
+			expect(vehicle).notTo(beNil())
+			expect(vehicle as? Car).notTo(beNil())
+			expect((vehicle as? Car)?.name).to(equal(carName))		}
+	}
+	
 	func testClassClusterArray() {
 		let carName = "Honda"
 		let JSON = [["name": carName, "type": "car"], ["type": "bus"], ["type": "vehicle"]]
@@ -55,7 +65,7 @@ class Vehicle: MappableCluster {
 
 	}
 	
-	func newInstance(map: Map) -> Mappable? {
+	static func newInstance(map: Map) -> Mappable? {
 		if let type = map["type"].currentValue as? String {
 			if type == "car" {
 				return Car(map)
@@ -67,7 +77,6 @@ class Vehicle: MappableCluster {
 	}
 	
 	func mapping(map: Map) {
-		
 		type <- map["type"]
 		print("mapping vehicle")
 	}
