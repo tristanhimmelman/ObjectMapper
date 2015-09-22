@@ -1,5 +1,5 @@
 //
-//  DateFormaterTransform.swift
+//  DateFormatterTransform.swift
 //  ObjectMapper
 //
 //  Created by Tristan Himmelman on 2015-03-09.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class DateFormaterTransform: TransformType {
+public class DateFormatterTransform: TransformType {
 	public typealias Object = NSDate
 	public typealias JSON = String
 	
