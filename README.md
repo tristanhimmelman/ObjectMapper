@@ -9,9 +9,9 @@ ObjectMapper is a framework written in Swift that makes it easy for you to conve
 - [Features](#features)
 - [The Basics](#the-basics)
 - [Mapping Nested Objects](#easy-mapping-of-nested-objects)
-- [Mapping Non-Optional Member](#mapping-non-optional-member)
 - [Custom Transformations](#custom-transfoms)
 - [Subclassing](#subclasses)
+- [Mapping Immutable Properties](#mapping-immutable-properties)
 - [ObjectMapper + Alamofire](#objectmapper--alamofire) 
 - [ObjectMapper + Realm](#objectmapper--realm)
 - [Contributing](#contributing)
@@ -100,6 +100,7 @@ Object mapper can map classes composed of the following types:
 - Dictionary\<String, AnyObject\>
 - Object\<T: Mappable\>
 - Array\<T: Mappable\>
+- Array\<Array\<T: Mappable\>\>
 - Set\<T: Mappable\> 
 - Dictionary\<String, T: Mappable\>
 - Dictionary\<String, Array\<T: Mappable\>\>
@@ -124,34 +125,6 @@ If you have a key that contains `.`, you can disable the above feature as follow
 ```swift
 func mapping(map: Map){
     identifier <- map["app.inditifier", nested: false]
-}
-```
-
-# Mapping Non-Optional Member
-If you have a model whose members are non-optional and want to map some JSON to that model, you can use the following construct.
-
-In the failable initializer, use ```map``` to map a property and ```valueOrFail``` to get the value. Then, use ```isValid``` to check if there is nothing wrong about mapping. If ```isValid``` returns false, you must ```return nil``` to indicate that the initialization is failed.
-
-```swift
-class Model: Mappable {
-    let name: String // Non-optional member
-
-    required init?(_ map: Map) {
-        name = map["name"].valueOrFail()
-
-        if !map.isValid {
-            return nil
-        }
-    }
-
-    func mapping(map: Map) {
-    }
-}
-
-if let model = Mapper<Model>().map(JSONString) {
-    // Now we have valid model.
-} else {
-    // Something wrong...
 }
 ```
 
@@ -223,6 +196,34 @@ class Subclass: Base {
 		
 		sub <- map["sub"]
 	}
+}
+```
+
+# Mapping Immutable Properties
+If you have a class or struct whose properties are immutable (`let`) and want to map it using ObjectMapper, you can use the following approach.
+
+In the failable initializer, assign values to your proteries using the `valueOrFail()` function on the `map` object. Once all propeties are set, check `isValid` to determine if mapping succeed for all the properties. If `isValid` returns false, return `nil` to indicate that initialization failed.
+
+```swift
+class Model: Mappable {
+    let name: String // Non-optional property
+
+    required init?(_ map: Map) {
+        name = map["name"].valueOrFail()
+
+        if !map.isValid {
+            return nil
+        }
+    }
+
+    func mapping(map: Map) {
+    }
+}
+
+if let model = Mapper<Model>().map(JSONString) {
+    // Now we have valid model.
+} else {
+    // Something wrong...
 }
 ```
 
