@@ -52,6 +52,10 @@ class ObjectMapperTests: XCTestCase {
 		expect(smoker).to(equal(user.smoker))
 		expect(sex).to(equal(user.sex))
 		
+		measureBlock {
+			Mapper<User>().map(userJSONString)
+		}
+		
 		//print(Mapper().toJSONString(user, prettyPrint: true))
     }
 

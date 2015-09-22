@@ -177,6 +177,7 @@ public final class Mapper<N: Mappable> {
 	public func map(JSONDictionary: [String : AnyObject]) -> N? {
 		let map = Map(mappingType: .FromJSON, JSONDictionary: JSONDictionary)
 		
+		// check if N is of type MappableCluster
 		if let klass = N.self as? MappableCluster.Type {
 			if var object = klass.newInstance(map) as? N {
 				object.mapping(map)

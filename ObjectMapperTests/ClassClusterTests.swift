@@ -78,7 +78,6 @@ class Vehicle: MappableCluster {
 	
 	func mapping(map: Map) {
 		type <- map["type"]
-		print("mapping vehicle")
 	}
 }
 
@@ -94,7 +93,6 @@ class Car: Vehicle {
 		super.mapping(map)
 		
 		name <- map["name"]
-		print("mapping car")
 	}
 }
 
@@ -105,6 +103,5 @@ class Bus: Vehicle {
 	
 	override func mapping(map: Map) {
 		super.mapping(map)
-		print("mapping bus")
 	}
 }
