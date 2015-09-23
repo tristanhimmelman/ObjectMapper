@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class CustomDateFormatTransform: DateFormaterTransform {
+public class CustomDateFormatTransform: DateFormatterTransform {
 	
     public init(formatString: String) {
 		let formatter = NSDateFormatter()
