@@ -200,6 +200,9 @@ class Subclass: Base {
 ```
 
 # Mapping Immutable Properties
+
+Note: This is an expiremental feature. Not all ObjectMapper functionilaty is guaranteed to work for immutable mappings.
+
 If you have a class or struct whose properties are immutable (`let`) and want to map it using ObjectMapper, you can use the following approach.
 
 In the failable initializer, assign values to your properties using the `valueOrFail()` function on the `map` object. Once all propeties are set, check `isValid` to determine if the mapping succeeded for all properties. If `isValid` returns false, return `nil` to indicate that initialization failed.
