@@ -174,10 +174,14 @@ public final class Mapper<N: Mappable> {
 	///Maps a JSON dictionary of arrays to a dictionary of arrays of Mappable objects
 	public func mapDictionaryOfArrays(JSONDictionary: [String : [[String : AnyObject]]]) -> [String : [N]]? {
 		// map every value in dictionary to type N
-		let result = JSONDictionary.filterMap({ mapArray($0) })
+		let result = JSONDictionary.filterMap {
+            mapArray($0)
+        }
+        
 		if result.isEmpty == false {
 			return result
 		}
+        
 		return nil
 	}
 	
@@ -235,6 +239,7 @@ public final class Mapper<N: Mappable> {
 }
 
 extension Mapper {
+    
 	// MARK: Functions that create JSON from objects	
 	
 	///Maps an object that conforms to Mappable to a JSON dictionary <String : AnyObject>
