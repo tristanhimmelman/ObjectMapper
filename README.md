@@ -70,10 +70,10 @@ struct Temperature: Mappable {
 
 	}
 
-	mutating func mapping(map: Map) {
-		celcius 	<- map["celcius"]
-		fahrenheit 	<- map["fahrenheit"]
-	}
+    mutating func mapping(map: Map) {
+        celcius 	<- map["celcius"]
+        fahrenheit 	<- map["fahrenheit"]
+    }
 }
 ```
 
@@ -109,7 +109,7 @@ Object mapper can map classes composed of the following types:
 
 #Easy Mapping of Nested Objects
 ObjectMapper supports dot notation within keys for easy mapping of nested objects. Given the following JSON String:
-```
+```json
 "distance" : {
      "text" : "102 ft",
      "value" : 31
@@ -150,7 +150,7 @@ public protocol TransformType {
 In a lot of situations you can use the built in transform class ```TransformOf``` to quickly perform a desired transformation. ```TransformOf``` is initialized with two types and two closures. The types define what the transform is converting to and from and the closures perform the actual transformation. 
 
 For example, if you want to transform a JSON String value to an Int you could use ```TransformOf``` as follows:
-```
+```swift
 let transform = TransformOf<Int, String>(fromJSON: { (value: String?) -> Int? in 
     // transform value from String? to Int?
     return value?.toInt()
@@ -165,13 +165,15 @@ let transform = TransformOf<Int, String>(fromJSON: { (value: String?) -> Int? in
 id <- (map["id"], transform)
 ```
 Here is a more condensed version of the above:
-```
+```swift
 id <- (map["id"], TransformOf<Int, String>(fromJSON: { $0?.toInt() }, toJSON: { $0.map { String($0) } }))
 ```
 
 #Subclasses
+
 Classes that implement the Mappable protocol can easily be subclassed. When subclassing Mappable classes, follow the structure below:
-```
+
+```swift
 class Base: Mappable {
 	var base: String?
 	
@@ -264,14 +266,15 @@ Contributions are very welcomed 👍😃.
 Before submitting any Pull Request, please ensure you have run the included tests and that they have passed. If you are including new functionality, please write test cases for it as well. 
 
 ObjectMapper uses [Nimble](https://github.com/Quick/Nimble) to ensure test success. It is included using [Carthage](https://github.com/Carthage/Carthage). Run the following command in the ObjectMapper root directory to fetch the Nimble depency and get the environment ready for running tests:
-```
+```shell
 carthage checkout
 ```
 From this point on, you should open the project using ObjectMapper.xcworkspace and NOT ObjectMapper.xcodeproj
 
 #Installation
 ObjectMapper can be added to your project using [Cocoapods 0.36 (beta)](http://blog.cocoapods.org/Pod-Authors-Guide-to-CocoaPods-Frameworks/) by adding the following line to your Podfile:
-```
+
+```ruby
 pod 'ObjectMapper', '~> 0.18'
 ```
 
