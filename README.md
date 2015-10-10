@@ -200,6 +200,9 @@ class Subclass: Base {
 ```
 
 # Mapping Immutable Properties
+
+Note: This is an expiremental feature. Not all ObjectMapper functionilaty is guaranteed to work for immutable mappings.
+
 If you have a class or struct whose properties are immutable (`let`) and want to map it using ObjectMapper, you can use the following approach.
 
 In the failable initializer, assign values to your properties using the `valueOrFail()` function on the `map` object. Once all propeties are set, check `isValid` to determine if the mapping succeeded for all properties. If `isValid` returns false, return `nil` to indicate that initialization failed.
@@ -269,12 +272,12 @@ From this point on, you should open the project using ObjectMapper.xcworkspace a
 #Installation
 ObjectMapper can be added to your project using [Cocoapods 0.36 (beta)](http://blog.cocoapods.org/Pod-Authors-Guide-to-CocoaPods-Frameworks/) by adding the following line to your Podfile:
 ```
-pod 'ObjectMapper', '~> 0.17'
+pod 'ObjectMapper', '~> 0.18'
 ```
 
 If your using [Carthage](https://github.com/Carthage/Carthage) you can add a dependency on ObjectMapper by adding it to your Cartfile:
 ```
-github "Hearst-DD/ObjectMapper" ~> 0.17
+github "Hearst-DD/ObjectMapper" ~> 0.18
 ```
 
 Otherwise, ObjectMapper can be added as a submodule:

@@ -54,6 +54,34 @@ class ObjectMapperTests: XCTestCase {
 		
 		//print(Mapper().toJSONString(user, prettyPrint: true))
     }
+	
+	func testOptionalStringParsing() {
+		let username = "John Doe"
+		let identifier = "user8723"
+		let photoCount = 13
+		let age = 1227
+		let weight = 123.23
+		let float: Float = 123.231
+		let drinker = true
+		let smoker = false
+		let sex: Sex = .Female
+		let subUserJSON = "{\"identifier\" : \"user8723\", \"drinker\" : true, \"age\": 17, \"username\" : \"sub user\" }"
+		
+		let userJSONString: String? = "{\"username\":\"\(username)\",\"identifier\":\"\(identifier)\",\"photoCount\":\(photoCount),\"age\":\(age),\"drinker\":\(drinker),\"smoker\":\(smoker), \"sex\":\"\(sex.rawValue)\", \"arr\":[ \"bla\", true, 42 ], \"dict\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"arrOpt\":[ \"bla\", true, 42 ], \"dictOpt\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"weight\": \(weight), \"float\": \(float), \"friend\": \(subUserJSON), \"friendDictionary\":{ \"bestFriend\": \(subUserJSON)}}"
+		
+		let user = userMapper.map(userJSONString)!
+		
+		expect(user).notTo(beNil())
+		expect(username).to(equal(user.username))
+		expect(identifier).to(equal(user.identifier))
+		expect(photoCount).to(equal(user.photoCount))
+		expect(age).to(equal(user.age))
+		expect(weight).to(equal(user.weight))
+		expect(float).to(equal(user.float))
+		expect(drinker).to(equal(user.drinker))
+		expect(smoker).to(equal(user.smoker))
+		expect(sex).to(equal(user.sex))
+	}
 
     func testInstanceParsing() {
         let username = "John Doe"
@@ -209,9 +237,9 @@ class ObjectMapperTests: XCTestCase {
 		let students = Mapper<Student>().mapArray(JSONString)
 
 		expect(students).notTo(beEmpty())
-		expect(students.count).to(equal(2))
-		expect(students[0].name).to(equal(name1))
-		expect(students[1].name).to(equal(name2))
+		expect(students?.count).to(equal(2))
+		expect(students?[0].name).to(equal(name1))
+		expect(students?[1].name).to(equal(name2))
 	}
 
 	// test mapArray() with JSON string that is not an array form
@@ -224,8 +252,8 @@ class ObjectMapperTests: XCTestCase {
 		let students = Mapper<Student>().mapArray(JSONString)
 
 		expect(students).notTo(beEmpty())
-		expect(students.count).to(equal(1))
-		expect(students[0].name).to(equal(name1))
+		expect(students?.count).to(equal(1))
+		expect(students?[0].name).to(equal(name1))
 	}
 
 	func testArrayOfCustomObjects(){
