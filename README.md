@@ -275,12 +275,12 @@ From this point on, you should open the project using ObjectMapper.xcworkspace a
 ObjectMapper can be added to your project using [Cocoapods 0.36 (beta)](http://blog.cocoapods.org/Pod-Authors-Guide-to-CocoaPods-Frameworks/) by adding the following line to your Podfile:
 
 ```ruby
-pod 'ObjectMapper', '~> 0.18'
+pod 'ObjectMapper', '~> 0.19'
 ```
 
 If your using [Carthage](https://github.com/Carthage/Carthage) you can add a dependency on ObjectMapper by adding it to your Cartfile:
 ```
-github "Hearst-DD/ObjectMapper" ~> 0.18
+github "Hearst-DD/ObjectMapper" ~> 0.19
 ```
 
 Otherwise, ObjectMapper can be added as a submodule:
