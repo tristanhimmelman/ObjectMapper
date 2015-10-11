@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class ISO8601DateTransform: DateFormaterTransform {
+public class ISO8601DateTransform: DateFormatterTransform {
 
 	public init() {
 		let formatter = NSDateFormatter()
