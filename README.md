@@ -124,7 +124,7 @@ func mapping(map: Map){
 If you have a key that contains `.`, you can disable the above feature as follows:
 ```swift
 func mapping(map: Map){
-    identifier <- map["app.inditifier", nested: false]
+    identifier <- map["app.identifier", nested: false]
 }
 ```
 
