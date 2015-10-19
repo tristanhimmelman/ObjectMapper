@@ -203,7 +203,7 @@ class Subclass: Base {
 
 # Mapping Immutable Properties
 
-Note: This is an expiremental feature. Not all ObjectMapper functionilaty is guaranteed to work for immutable mappings.
+Note: This is an expiremental feature. Not all ObjectMapper functionality is guaranteed to work for immutable mappings.
 
 If you have a class or struct whose properties are immutable (`let`) and want to map it using ObjectMapper, you can use the following approach.
 
