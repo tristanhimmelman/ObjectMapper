@@ -42,7 +42,7 @@ public final class Map {
 			currentValue = JSONDictionary[key]
 		} else {
 			// break down the components of the key that are separated by .
-			currentValue = valueFor(ArraySlice(key.componentsSeparatedByString(".")), dictionary: JSONDictionary)
+			currentValue = valueFor(ArraySlice(key.componentsSeparatedByString(".")), collection: JSONDictionary)
 		}
 		
 		return self
@@ -81,19 +81,34 @@ public final class Map {
 }
 
 /// Fetch value from JSON dictionary, loop through them until we reach the desired object.
-private func valueFor(keyPathComponents: ArraySlice<String>, dictionary: [String : AnyObject]) -> AnyObject? {
+private func valueFor(keyPathComponents: ArraySlice<String>, collection: AnyObject?) -> AnyObject? {
 	// Implement it as a tail recursive function.
 	
 	if keyPathComponents.isEmpty {
 		return nil
 	}
 	
-	if let object: AnyObject = dictionary[keyPathComponents.first!] {
+	//optional object to keep optional retreived from collection
+	var optionalObject: AnyObject?
+	
+	//check if collection is dictionary or array (if it's array, also try to convert keypath to Int as index)
+	if let dictionary = collection as? [String : AnyObject] {
+		//keep retreved optional
+		optionalObject = dictionary[keyPathComponents.first!]
+	} else if let array = collection as? [AnyObject], index = Int(String(keyPathComponents.first!.characters.dropFirst())) {
+		//keep retreved optional
+		optionalObject = array[index]
+	}
+	
+	if let object: AnyObject = optionalObject {
 		if object is NSNull {
 			return nil
 		} else if let dict = object as? [String : AnyObject] where keyPathComponents.count > 1 {
 			let tail = keyPathComponents.dropFirst()
-			return valueFor(tail, dictionary: dict)
+			return valueFor(tail, collection: dict)
+		} else if let dict = object as? [AnyObject] where keyPathComponents.count > 1 {
+			let tail = keyPathComponents.dropFirst()
+			return valueFor(tail, collection: dict)
 		} else {
 			return object
 		}
