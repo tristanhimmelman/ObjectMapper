@@ -95,7 +95,7 @@ private func valueFor(keyPathComponents: ArraySlice<String>, collection: AnyObje
 	if let dictionary = collection as? [String : AnyObject] {
 		//keep retreved optional
 		optionalObject = dictionary[keyPathComponents.first!]
-	} else if let array = collection as? [AnyObject], index = Int(String(keyPathComponents.first!.characters.dropFirst())) {
+	} else if let array = collection as? [AnyObject], index = Int(String(keyPathComponents.first!)) {
 		//keep retreved optional
 		optionalObject = array[index]
 	}
