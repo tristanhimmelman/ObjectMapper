@@ -48,9 +48,7 @@ internal final class FromJSON {
 
 	/// mappable object array
 	class func objectArray<N: Mappable>(inout field: Array<N>, object: AnyObject?) {
-		let parsedObjects = Mapper<N>().mapArray(object)
-
-		if let objects = parsedObjects {
+		if let objects = Mapper<N>().mapArray(object) {
 			field = objects
 		}
 	}
@@ -63,6 +61,23 @@ internal final class FromJSON {
 	/// Implicitly unwrapped optional mappable object array
 	class func optionalObjectArray<N: Mappable>(inout field: Array<N>!, object: AnyObject?) {
 		field = Mapper().mapArray(object)
+	}
+	
+	/// mappable object array
+	class func twoDimensionalObjectArray<N: Mappable>(inout field: Array<Array<N>>, object: AnyObject?) {
+		if let objects = Mapper<N>().mapArrayOfArrays(object) {
+			field = objects
+		}
+	}
+	
+	/// optional mappable 2 dimentional object array
+	class func optionalTwoDimensionalObjectArray<N: Mappable>(inout field: Array<Array<N>>?, object: AnyObject?) {
+		field = Mapper().mapArrayOfArrays(object)
+	}
+	
+	/// Implicitly unwrapped optional 2 dimentional mappable object array
+	class func optionalTwoDimensionalObjectArray<N: Mappable>(inout field: Array<Array<N>>!, object: AnyObject?) {
+		field = Mapper().mapArrayOfArrays(object)
 	}
 	
 	/// Dctionary containing Mappable objects
@@ -102,4 +117,25 @@ internal final class FromJSON {
 	class func optionalObjectDictionaryOfArrays<N: Mappable>(inout field: Dictionary<String, [N]>!, object: AnyObject?) {
 		field = Mapper<N>().mapDictionaryOfArrays(object)
 	}
+
+	
+	/// mappable object Set
+	class func objectSet<N: Mappable>(inout field: Set<N>, object: AnyObject?) {
+		let parsedObjects = Mapper<N>().mapSet(object)
+		
+		if let objects = parsedObjects {
+			field = objects
+		}
+	}
+	
+	/// optional mappable object array
+	class func optionalObjectSet<N: Mappable>(inout field: Set<N>?, object: AnyObject?) {
+		field = Mapper().mapSet(object)
+	}
+	
+	/// Implicitly unwrapped optional mappable object array
+	class func optionalObjectSet<N: Mappable>(inout field: Set<N>!, object: AnyObject?) {
+		field = Mapper().mapSet(object)
+	}
+	
 }

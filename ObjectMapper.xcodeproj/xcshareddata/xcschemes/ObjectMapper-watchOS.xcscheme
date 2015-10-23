@@ -14,63 +14,30 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CD1602FE1AC023D5000CD69A"
+               BlueprintIdentifier = "6A2AD03C1B2C78540097E150"
                BuildableName = "ObjectMapper.framework"
-               BlueprintName = "ObjectMapper-Mac"
-               ReferencedContainer = "container:ObjectMapper.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CD1603081AC023D6000CD69A"
-               BuildableName = "ObjectMapper-MacTests.xctest"
-               BlueprintName = "ObjectMapper-MacTests"
+               BlueprintName = "ObjectMapper-watchOS"
                ReferencedContainer = "container:ObjectMapper.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      buildConfiguration = "Release">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CD1603081AC023D6000CD69A"
-               BuildableName = "ObjectMapper-MacTests.xctest"
-               BlueprintName = "ObjectMapper-MacTests"
-               ReferencedContainer = "container:ObjectMapper.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CD1602FE1AC023D5000CD69A"
-            BuildableName = "ObjectMapper.framework"
-            BlueprintName = "ObjectMapper-Mac"
-            ReferencedContainer = "container:ObjectMapper.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
    <LaunchAction
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
@@ -78,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CD1602FE1AC023D5000CD69A"
+            BlueprintIdentifier = "6A2AD03C1B2C78540097E150"
             BuildableName = "ObjectMapper.framework"
-            BlueprintName = "ObjectMapper-Mac"
+            BlueprintName = "ObjectMapper-watchOS"
             ReferencedContainer = "container:ObjectMapper.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -88,17 +55,17 @@
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
+      buildConfiguration = "Release"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CD1602FE1AC023D5000CD69A"
+            BlueprintIdentifier = "6A2AD03C1B2C78540097E150"
             BuildableName = "ObjectMapper.framework"
-            BlueprintName = "ObjectMapper-Mac"
+            BlueprintName = "ObjectMapper-watchOS"
             ReferencedContainer = "container:ObjectMapper.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

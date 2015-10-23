@@ -26,7 +26,7 @@ class CustomTransformTests: XCTestCase {
     }
 
 	func testDateTransform() {
-		var transforms = Transforms()
+		let transforms = Transforms()
 		transforms.date = NSDate(timeIntervalSince1970: 946684800)
 		transforms.dateOpt = NSDate(timeIntervalSince1970: 946684912)
 		
@@ -38,7 +38,7 @@ class CustomTransformTests: XCTestCase {
 	}
 	
 	func testISO8601DateTransform() {
-		var transforms = Transforms()
+		let transforms = Transforms()
 		transforms.ISO8601Date = NSDate(timeIntervalSince1970: 1398956159)
 		transforms.ISO8601DateOpt = NSDate(timeIntervalSince1970: 1398956159)
 		let JSON = mapper.toJSON(transforms)
@@ -64,7 +64,7 @@ class CustomTransformTests: XCTestCase {
 	
 	func testCustomFormatDateTransform(){
 		let dateString = "2015-03-03T02:36:44"
-		var JSON: [String: AnyObject] = ["customFormateDate": dateString]
+		let JSON: [String: AnyObject] = ["customFormateDate": dateString]
 		let transform: Transforms! = mapper.map(JSON)
 		expect(transform).notTo(beNil())
 		
@@ -75,7 +75,7 @@ class CustomTransformTests: XCTestCase {
 	
 	func testIntToStringTransformOf() {
 		let intValue = 12345
-		var JSON: [String: AnyObject] = ["intWithString": "\(intValue)"]
+		let JSON: [String: AnyObject] = ["intWithString": "\(intValue)"]
 		let transforms = mapper.map(JSON)
 
 		expect(transforms?.intWithString).to(equal(intValue))
@@ -106,7 +106,7 @@ class CustomTransformTests: XCTestCase {
 	}
 	
 	func testEnumTransform() {
-		var JSON: [String: AnyObject] = ["firstImageType" : "cover", "secondImageType" : "thumbnail"]
+		let JSON: [String: AnyObject] = ["firstImageType" : "cover", "secondImageType" : "thumbnail"]
 		let transforms = mapper.map(JSON)
 
 		let imageType = Transforms.ImageType.self
@@ -141,8 +141,12 @@ class Transforms: Mappable {
 	var firstImageType: ImageType?
 	var secondImageType: ImageType?
 
-	static func newInstance(map: Map) -> Mappable? {
-		return Transforms()
+	init(){
+		
+	}
+	
+	required init?(_ map: Map){
+		
 	}
 	
 	func mapping(map: Map) {
@@ -158,7 +162,7 @@ class Transforms: Mappable {
 		URL					<- (map["URL"], URLTransform())
 		URLOpt				<- (map["URLOpt"], URLTransform())
 		
-		intWithString		<- (map["intWithString"], TransformOf<Int, String>(fromJSON: { $0?.toInt() }, toJSON: { $0.map { String($0) } }))
+		intWithString		<- (map["intWithString"], TransformOf<Int, String>(fromJSON: { $0 == nil ? nil : Int($0!) }, toJSON: { $0.map { String($0) } }))
 		int64Value			<- (map["int64Value"], TransformOf<Int64, NSNumber>(fromJSON: { $0?.longLongValue }, toJSON: { $0.map { NSNumber(longLong: $0) } }))
 		
 		firstImageType		<- (map["firstImageType"], EnumTransform<ImageType>())

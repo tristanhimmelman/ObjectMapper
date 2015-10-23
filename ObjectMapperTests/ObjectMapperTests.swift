@@ -35,13 +35,6 @@ class ObjectMapperTests: XCTestCase {
         let drinker = true
         let smoker = false
 		let sex: Sex = .Female
-        let arr = [ "bla", true, 42 ]
-        let directory = [
-            "key1" : "value1",
-            "key2" : false,
-            "key3" : 142
-        ]
-        
         let subUserJSON = "{\"identifier\" : \"user8723\", \"drinker\" : true, \"age\": 17, \"username\" : \"sub user\" }"
         
         let userJSONString = "{\"username\":\"\(username)\",\"identifier\":\"\(identifier)\",\"photoCount\":\(photoCount),\"age\":\(age),\"drinker\":\(drinker),\"smoker\":\(smoker), \"sex\":\"\(sex.rawValue)\", \"arr\":[ \"bla\", true, 42 ], \"dict\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"arrOpt\":[ \"bla\", true, 42 ], \"dictOpt\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"weight\": \(weight), \"float\": \(float), \"friend\": \(subUserJSON), \"friendDictionary\":{ \"bestFriend\": \(subUserJSON)}}"
@@ -58,9 +51,37 @@ class ObjectMapperTests: XCTestCase {
 		expect(drinker).to(equal(user.drinker))
 		expect(smoker).to(equal(user.smoker))
 		expect(sex).to(equal(user.sex))
-
-		//println(Mapper().toJSONString(user, prettyPrint: true))
+		
+		//print(Mapper().toJSONString(user, prettyPrint: true))
     }
+	
+	func testOptionalStringParsing() {
+		let username = "John Doe"
+		let identifier = "user8723"
+		let photoCount = 13
+		let age = 1227
+		let weight = 123.23
+		let float: Float = 123.231
+		let drinker = true
+		let smoker = false
+		let sex: Sex = .Female
+		let subUserJSON = "{\"identifier\" : \"user8723\", \"drinker\" : true, \"age\": 17, \"username\" : \"sub user\" }"
+		
+		let userJSONString: String? = "{\"username\":\"\(username)\",\"identifier\":\"\(identifier)\",\"photoCount\":\(photoCount),\"age\":\(age),\"drinker\":\(drinker),\"smoker\":\(smoker), \"sex\":\"\(sex.rawValue)\", \"arr\":[ \"bla\", true, 42 ], \"dict\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"arrOpt\":[ \"bla\", true, 42 ], \"dictOpt\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"weight\": \(weight), \"float\": \(float), \"friend\": \(subUserJSON), \"friendDictionary\":{ \"bestFriend\": \(subUserJSON)}}"
+		
+		let user = userMapper.map(userJSONString)!
+		
+		expect(user).notTo(beNil())
+		expect(username).to(equal(user.username))
+		expect(identifier).to(equal(user.identifier))
+		expect(photoCount).to(equal(user.photoCount))
+		expect(age).to(equal(user.age))
+		expect(weight).to(equal(user.weight))
+		expect(float).to(equal(user.float))
+		expect(drinker).to(equal(user.drinker))
+		expect(smoker).to(equal(user.smoker))
+		expect(sex).to(equal(user.sex))
+	}
 
     func testInstanceParsing() {
         let username = "John Doe"
@@ -71,14 +92,7 @@ class ObjectMapperTests: XCTestCase {
         let float: Float = 123.231
         let drinker = true
         let smoker = false
-			  let sex: Sex = .Female
-        let arr = [ "bla", true, 42 ]
-        let directory = [
-            "key1" : "value1",
-            "key2" : false,
-            "key3" : 142
-        ]
-        
+		let sex: Sex = .Female
         let subUserJSON = "{\"identifier\" : \"user8723\", \"drinker\" : true, \"age\": 17, \"username\" : \"sub user\" }"
         
         let userJSONString = "{\"username\":\"\(username)\",\"identifier\":\"\(identifier)\",\"photoCount\":\(photoCount),\"age\":\(age),\"drinker\":\(drinker),\"smoker\":\(smoker), \"sex\":\"\(sex.rawValue)\", \"arr\":[ \"bla\", true, 42 ], \"dict\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"arrOpt\":[ \"bla\", true, 42 ], \"dictOpt\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 },\"weight\": \(weight), \"float\": \(float), \"friend\": \(subUserJSON), \"friendDictionary\":{ \"bestFriend\": \(subUserJSON)}}"
@@ -94,14 +108,14 @@ class ObjectMapperTests: XCTestCase {
 		expect(drinker).to(equal(user.drinker))
 		expect(smoker).to(equal(user.smoker))
 		expect(sex).to(equal(user.sex))
-        //println(Mapper().toJSONString(user, prettyPrint: true))
+        //print(Mapper().toJSONString(user, prettyPrint: true))
     }
     
     func testDictionaryParsing() {
-        var name: String = "Genghis khan"
-        var UUID: String = "12345"
-        var major: Int = 99
-        var minor: Int = 1
+        let name: String = "Genghis khan"
+        let UUID: String = "12345"
+        let major: Int = 99
+        let minor: Int = 1
         let json: [String: AnyObject] = ["name": name, "UUID": UUID, "major": major]
         
         //test that the sematics of value types works as expected.  the resulting maped student
@@ -116,9 +130,9 @@ class ObjectMapperTests: XCTestCase {
 		expect(student.minor).to(equal(minor))
 
         //Test that mapping a reference type works as expected while not relying on the return value
-        var username: String = "Barack Obama"
-        var identifier: String = "Political"
-        var photoCount: Int = 1000000000
+        let username: String = "Barack Obama"
+        let identifier: String = "Political"
+        let photoCount: Int = 1000000000
         
         let json2: [String: AnyObject] = ["username": username, "identifier": identifier, "photoCount": photoCount]
         let user = User()
@@ -140,7 +154,7 @@ class ObjectMapperTests: XCTestCase {
 		let username = "bob"
 		let JSONString = "{\"username\":\"\(username)\"}"
 		
-		var user = User()
+		let user = User()
 		user.username = "Tristan"
 		
 		Mapper().map(JSONString, toObject: user)
@@ -152,7 +166,7 @@ class ObjectMapperTests: XCTestCase {
 		let username = "bob"
 		let JSON = ["username": username]
 		
-		var user = User()
+		let user = User()
 		user.username = "Tristan"
 		
 		Mapper().map(JSON, toObject: user)
@@ -164,7 +178,7 @@ class ObjectMapperTests: XCTestCase {
 		let username = "bob"
 		let userJSON = ["username": username]
 		
-		var user = User()
+		let user = User()
 		user.username = "Tristan"
 		
 		Mapper().map(userJSON as AnyObject?, toObject: user)
@@ -173,7 +187,7 @@ class ObjectMapperTests: XCTestCase {
 	}
 	
     func testToJSONAndBack(){
-        var user = User()
+        let user = User()
         user.username = "tristan_him"
         user.identifier = "tristan_him_identifier"
         user.photoCount = 0
@@ -185,7 +199,7 @@ class ObjectMapperTests: XCTestCase {
         user.arr = ["cheese", 11234]
         
         let JSONString = Mapper().toJSONString(user, prettyPrint: true)
-        //println(JSONString)
+        //print(JSONString)
 
 		let parsedUser = userMapper.map(JSONString!)!
 		expect(parsedUser).notTo(beNil())
@@ -223,9 +237,9 @@ class ObjectMapperTests: XCTestCase {
 		let students = Mapper<Student>().mapArray(JSONString)
 
 		expect(students).notTo(beEmpty())
-		expect(students.count).to(equal(2))
-		expect(students[0].name).to(equal(name1))
-		expect(students[1].name).to(equal(name2))
+		expect(students?.count).to(equal(2))
+		expect(students?[0].name).to(equal(name1))
+		expect(students?[1].name).to(equal(name2))
 	}
 
 	// test mapArray() with JSON string that is not an array form
@@ -238,8 +252,8 @@ class ObjectMapperTests: XCTestCase {
 		let students = Mapper<Student>().mapArray(JSONString)
 
 		expect(students).notTo(beEmpty())
-		expect(students.count).to(equal(1))
-		expect(students[0].name).to(equal(name1))
+		expect(students?.count).to(equal(1))
+		expect(students?[0].name).to(equal(name1))
 	}
 
 	func testArrayOfCustomObjects(){
@@ -270,7 +284,7 @@ class ObjectMapperTests: XCTestCase {
 		expect(dictionaryOfTasks?["mondayTasks"]?[1].percentage).to(equal(percentage2))
 		
 		let planToJSON = Mapper().toJSONString(plan!, prettyPrint: false)
-		//println(planToJSON)
+		//print(planToJSON)
 		let planFromJSON = Mapper<Plan>().map(planToJSON!)
 
 		let dictionaryOfTasks2 = planFromJSON?.dictionaryOfTasks
@@ -344,17 +358,17 @@ class ObjectMapperTests: XCTestCase {
 	}
 
 	func testToJSONArray(){
-		var task1 = Task()
+		let task1 = Task()
 		task1.taskId = 1
 		task1.percentage = 11.1
-		var task2 = Task()
+		let task2 = Task()
 		task2.taskId = 2
 		task2.percentage = 22.2
-		var task3 = Task()
+		let task3 = Task()
 		task3.taskId = 3
 		task3.percentage = 33.3
 		
-		var taskArray = [task1, task2, task3]
+		let taskArray = [task1, task2, task3]
 		
 		let JSONArray = Mapper().toJSONArray(taskArray)
 		
@@ -378,7 +392,7 @@ class ObjectMapperTests: XCTestCase {
 	}
 	
 	func testSubclass() {
-		var object = Subclass()
+		let object = Subclass()
 		object.base = "base var"
 		object.sub = "sub var"
 		
@@ -390,7 +404,7 @@ class ObjectMapperTests: XCTestCase {
 	}
 
 	func testGenericSubclass() {
-		var object = GenericSubclass<String>()
+		let object = GenericSubclass<String>()
 		object.base = "base var"
 		object.sub = "sub var"
 		
@@ -414,7 +428,7 @@ class ObjectMapperTests: XCTestCase {
 	
 	func testImmutableMappable() {
 		let mapper = Mapper<Immutable>()
-		let JSON = [ "prop1": "Immutable!", "prop2": 255, "prop3": true ]
+		let JSON = ["prop1": "Immutable!", "prop2": 255, "prop3": true ]
 
 		let immutable: Immutable! = mapper.map(JSON)
 		expect(immutable).notTo(beNil())
@@ -430,13 +444,42 @@ class ObjectMapperTests: XCTestCase {
 		let JSONFromObject = mapper.toJSON(immutable)
 		expect(mapper.map(JSONFromObject)).to(equal(immutable))
 	}
+	
+	func testArrayOfArrayOfMappable() {
+		let base1 = "1"
+		let base2 = "2"
+		let base3 = "3"
+		let base4 = "4"
+		
+		let array1 = [["base": base1], ["base": base2], ["base": base3]]
+		let array2 = [["base": base4]]
+		let JSON = ["twoDimensionalArray":[array1, array2]]
+		
+		let arrayTest = Mapper<ArrayTest>().map(JSON)
+		expect(arrayTest).notTo(beNil())
+		expect(arrayTest?.twoDimensionalArray?[0][0].base).to(equal(base1))
+		expect(arrayTest?.twoDimensionalArray?[0][1].base).to(equal(base2))
+		expect(arrayTest?.twoDimensionalArray?[0][2].base).to(equal(base3))
+		expect(arrayTest?.twoDimensionalArray?[1][0].base).to(equal(base4))
+		
+		expect(arrayTest?.twoDimensionalArray?[0].count).to(equal(array1.count))
+		expect(arrayTest?.twoDimensionalArray?[1].count).to(equal(array2.count))
+		
+		let backToJSON = Mapper<ArrayTest>().toJSON(arrayTest!)
+		expect(backToJSON).notTo(beNil())
+		
+		let arrayTest2 = Mapper<ArrayTest>().map(backToJSON)
+		expect(arrayTest2).notTo(beNil())
+		expect(arrayTest2?.twoDimensionalArray?[0][0].base).to(equal(arrayTest?.twoDimensionalArray?[0][0].base))
+		expect(arrayTest2?.twoDimensionalArray?[0][1].base).to(equal(arrayTest?.twoDimensionalArray?[0][1].base))
+	}
 }
 
 class Response<T: Mappable>: Mappable {
 	var result: T?
 	
-	class func newInstance(map: Map) -> Mappable? {
-		return Response()
+	required init?(_ map: Map){
+		
 	}
 	
 	func mapping(map: Map) {
@@ -447,8 +490,8 @@ class Response<T: Mappable>: Mappable {
 class Status: Mappable {
 	var status: Int?
 	
-	class func newInstance(map: Map) -> Mappable? {
-		return Status()
+	required init?(_ map: Map){
+		
 	}
 
 	func mapping(map: Map) {
@@ -460,11 +503,10 @@ class Plan: Mappable {
 	var tasks: [Task]?
 	var dictionaryOfTasks: [String: [Task]]?
 	
-	class func newInstance(map: Map) -> Mappable? {
-		return Plan()
+	required init?(_ map: Map){
+		
 	}
-
-
+	
 	func mapping(map: Map) {
 		tasks <- map["tasks"]
 		dictionaryOfTasks <- map["dictionaryOfTasks"]
@@ -475,8 +517,12 @@ class Task: Mappable {
 	var taskId: Int?
 	var percentage: Double?
 	
-	class func newInstance(map: Map) -> Mappable? {
-		return Task()
+	init(){
+		
+	}
+	
+	required init?(_ map: Map){
+		
 	}
 
 	func mapping(map: Map) {
@@ -489,8 +535,8 @@ class TaskDictionary: Mappable {
 	var test: String?
 	var tasks: [String : Task]?
 	
-	class func newInstance(map: Map) -> Mappable? {
-		return TaskDictionary()
+	required init?(_ map: Map){
+		
 	}
 	
 	func mapping(map: Map) {
@@ -507,8 +553,12 @@ struct Student: Mappable {
 	var major: Int?
 	var minor: Int?
 	
-	static func newInstance(map: Map) -> Mappable? {
-		return Student()
+	init(){
+		
+	}
+	
+	init?(_ map: Map){
+		
 	}
 
 	mutating func mapping(map: Map) {
@@ -544,10 +594,14 @@ class User: Mappable {
     var friend: User?
     var friends: [User]? = []
 
-	class func newInstance(map: Map) -> Mappable? {
-		return User()
+	init(){
+		
 	}
-
+	
+	required init?(_ map: Map){
+		
+	}
+	
 	func mapping(map: Map) {
 		username         <- map["username"]
 		identifier       <- map["identifier"]
@@ -573,8 +627,12 @@ class Base: Mappable {
 	
 	var base: String?
 	
-	class func newInstance(map: Map) -> Mappable? {
-		return Base()
+	init(){
+		
+	}
+	
+	required init?(_ map: Map){
+		
 	}
 	
 	func mapping(map: Map) {
@@ -586,8 +644,12 @@ class Subclass: Base {
 	
 	var sub: String?
 	
-	override class func newInstance(map: Map) -> Mappable? {
-		return Subclass()
+	override init(){
+		super.init()
+	}
+	
+	required init?(_ map: Map){
+		super.init(map)
 	}
 
 	override func mapping(map: Map) {
@@ -602,8 +664,12 @@ class GenericSubclass<T>: Base {
 	
 	var sub: String?
 
-	override class func newInstance(map: Map) -> Mappable? {
-		return GenericSubclass<T>()
+	override init(){
+		super.init()
+	}
+	
+	required init?(_ map: Map){
+		super.init(map)
 	}
 
 	override func mapping(map: Map) {
@@ -616,8 +682,8 @@ class GenericSubclass<T>: Base {
 class WithGenericArray<T: Mappable>: Mappable {
 	var genericItems: [T]?
 
-	class func newInstance(map: Map) -> Mappable? {
-		return WithGenericArray<T>()
+	required init?(_ map: Map){
+		
 	}
 
 	func mapping(map: Map) {
@@ -628,17 +694,18 @@ class WithGenericArray<T: Mappable>: Mappable {
 class ConcreteItem: Mappable {
 	var value: String?
 
-	class func newInstance(map: Map) -> Mappable? {
-		return ConcreteItem()
+	required init?(_ map: Map){
+		
 	}
+	
 	func mapping(map: Map) {
 		value <- map["value"]
 	}
 }
 
 class SubclassWithGenericArrayInSuperclass<Unused>: WithGenericArray<ConcreteItem> {
-	override class func newInstance(map: Map) -> Mappable? {
-		return SubclassWithGenericArrayInSuperclass<Unused>()
+	required init?(_ map: Map){
+		super.init(map)
 	}
 }
 
@@ -651,8 +718,8 @@ enum ExampleEnum: Int {
 class ExampleEnumArray: Mappable {
 	var enums: [ExampleEnum] = []
 
-	class func newInstance(map: Map) -> Mappable? {
-		return ExampleEnumArray()
+	required init?(_ map: Map){
+		
 	}
 
 	func mapping(map: Map) {
@@ -663,12 +730,23 @@ class ExampleEnumArray: Mappable {
 class ExampleEnumDictionary: Mappable {
 	var enums: [String: ExampleEnum] = [:]
 
-	class func newInstance(map: Map) -> Mappable? {
-		return ExampleEnumDictionary()
+	required init?(_ map: Map){
+		
 	}
 
 	func mapping(map: Map) {
 		enums <- map["enums"]
+	}
+}
+
+class ArrayTest: Mappable {
+	
+	var twoDimensionalArray: Array<Array<Base>>?
+	
+	required init?(_ map: Map){}
+	
+	func mapping(map: Map) {
+		twoDimensionalArray <- map["twoDimensionalArray"]
 	}
 }
 
@@ -690,11 +768,7 @@ extension Immutable: Mappable {
 			return nil
 		}
 	}
-	
-	static func newInstance(map: Map) -> Mappable? {
-		return Immutable(map)
-	}
-	
+		
 	mutating func mapping(map: Map) {
 		switch map.mappingType {
 		case .FromJSON:
