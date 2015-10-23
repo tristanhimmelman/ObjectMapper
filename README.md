@@ -121,10 +121,26 @@ func mapping(map: Map){
     distance <- map["distance.value"]
 }
 ```
+You can also map deep array object into your flat properties:
+```swift
+func mapping(map: Map){
+	currentEmployerName <- map["employments.0.employer.name"]
+}
+```
 If you have a key that contains `.`, you can disable the above feature as follows:
 ```swift
 func mapping(map: Map){
     identifier <- map["app.identifier", nested: false]
+}
+```
+
+#Required Fields
+
+To verify the server response, you can put required parameter in mapping rule spec. The verification uses system `assert` function which will not impact your performance for release.
+
+```swift
+func mapping(map: Map){
+    identifier <- map["employment.Carma", required: true]
 }
 ```
 

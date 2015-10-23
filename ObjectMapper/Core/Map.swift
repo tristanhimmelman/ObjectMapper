@@ -12,10 +12,13 @@ import Foundation
 public final class Map {
 	public let mappingType: MappingType
 	
+	// TODO: change this type to CollectionType, so we can map root array object
 	var JSONDictionary: [String : AnyObject] = [:]
 	var currentValue: AnyObject?
 	var currentKey: String?
 	var keyIsNested = false
+	// use this to mark is a required field to verify server response
+	var isRequiredField = false
 	
 	/// Counter for failing cases of deserializing values to `let` properties.
 	private var failedCount: Int = 0
@@ -32,6 +35,22 @@ public final class Map {
 		return self[key, nested: true]
 	}
 	
+	/// Mark property is a required field
+	public subscript(key: String, required isRequired: Bool) -> Map {
+		
+		isRequiredField = isRequired
+		let map = self[key, nested: true]
+		
+		// when is required, only verify server response for now
+		// could be useful for POST as well, ehnnn....
+		if isRequiredField && mappingType == MappingType.FromJSON {
+			// FIXME: somehow this doesn't work in unit test, so only ui test will trigger this which sucks
+			assert(currentValue != nil, "\(key) is a required field, should not be nil")
+		}
+		
+		return map
+	}
+	
 	public subscript(key: String, nested nested: Bool) -> Map {
 		// save key and value associated to it
 		currentKey = key
@@ -42,7 +61,7 @@ public final class Map {
 			currentValue = JSONDictionary[key]
 		} else {
 			// break down the components of the key that are separated by .
-			currentValue = valueFor(ArraySlice(key.componentsSeparatedByString(".")), dictionary: JSONDictionary)
+			currentValue = valueFor(ArraySlice(key.componentsSeparatedByString(".")), collection: JSONDictionary)
 		}
 		
 		return self
@@ -81,19 +100,36 @@ public final class Map {
 }
 
 /// Fetch value from JSON dictionary, loop through them until we reach the desired object.
-private func valueFor(keyPathComponents: ArraySlice<String>, dictionary: [String : AnyObject]) -> AnyObject? {
+private func valueFor(keyPathComponents: ArraySlice<String>, collection: AnyObject?) -> AnyObject? {
 	// Implement it as a tail recursive function.
 	
 	if keyPathComponents.isEmpty {
 		return nil
 	}
 	
-	if let object: AnyObject = dictionary[keyPathComponents.first!] {
+	//optional object to keep optional retreived from collection
+	var optionalObject: AnyObject?
+	
+	//check if collection is dictionary or array (if it's array, also try to convert keypath to Int as index)
+	if let dictionary = collection as? [String : AnyObject] {
+		//keep retreved optional
+		optionalObject = dictionary[keyPathComponents.first!]
+	} else if let array = collection as? [AnyObject], index = Int(String(keyPathComponents.first!)) {
+		// ignore index out of range
+		if array.count > index {
+			optionalObject = array[index]
+		}
+	}
+	
+	if let object: AnyObject = optionalObject {
 		if object is NSNull {
 			return nil
 		} else if let dict = object as? [String : AnyObject] where keyPathComponents.count > 1 {
 			let tail = keyPathComponents.dropFirst()
-			return valueFor(tail, dictionary: dict)
+			return valueFor(tail, collection: dict)
+		} else if let array = object as? [AnyObject] where keyPathComponents.count > 1 {
+			let tail = keyPathComponents.dropFirst()
+			return valueFor(tail, collection: array)
 		} else {
 			return object
 		}

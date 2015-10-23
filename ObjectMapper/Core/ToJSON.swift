@@ -15,31 +15,117 @@ private func setValue(value: AnyObject, map: Map) {
 private func setValue(value: AnyObject, key: String, checkForNestedKeys: Bool, inout dictionary: [String : AnyObject]) {
 	if checkForNestedKeys {
 		let keyComponents = ArraySlice(key.characters.split { $0 == "." })
-		setValue(value, forKeyPathComponents: keyComponents, dictionary: &dictionary)
+		
+		var collection = dictionary as AnyObject
+		// because JSONDictionary is a dictionary so root array object won't map properly
+		// for now we assume root object is dictionary
+		if let newDictionary = setValue(value, forKeyPathComponents: keyComponents, collection: &collection) as? [String: AnyObject] {
+			dictionary = newDictionary
+		}
 	} else {
 		dictionary[key] = value
 	}
 }
 
-private func setValue(value: AnyObject, forKeyPathComponents components: ArraySlice<String.CharacterView.SubSequence>, inout dictionary: [String : AnyObject]) {
+/**
+Set value for collection
+
+because casted value doesn't work for inout parameters (address changed), so we need to return the collection
+
+- parameter value:      value AnyObject
+- parameter components: key components
+- parameter collection: Dictionary or Array
+
+- returns: Collection with value set
+*/
+private func setValue(value: AnyObject, forKeyPathComponents components: ArraySlice<String.CharacterView.SubSequence>, inout collection: AnyObject) -> AnyObject? {
 	if components.isEmpty {
-		return
+		return nil
 	}
 
 	let head = components.first!
 
 	if components.count == 1 {
-		dictionary[String(head)] = value
+		
+		addValue(value, forKey: String(head), toCollection: &collection)
+		
 	} else {
-		var child = dictionary[String(head)] as? [String : AnyObject]
-		if child == nil {
-			child = [:]
-		}
-
+		
+		var child = getValue(forKey: String(head), fromCollection: collection)
+		
 		let tail = components.dropFirst()
-		setValue(value, forKeyPathComponents: tail, dictionary: &child!)
+		
+		if child == nil {
+			
+			let firstChildComponentKey = String(tail.first!)
+			
+			// Check the first child component key, if it's unsigned integer then child is array type
+			if UInt(firstChildComponentKey) != nil {
+				// empty array
+				child = []
+			} else {
+				// empty dictionary
+				child = [:]
+			}
+		}
+		
+		child = setValue(value, forKeyPathComponents: tail, collection: &child!)
+		
+		// add child to collection
+		addValue(child!, forKey: String(head), toCollection: &collection)
+	}
+	
+	// return collection value, inout not works for casted type (as Dictionary and Array are structures)
+	return collection
+}
 
-		dictionary[String(head)] = child
+/**
+Get value from Dictionary or Array
+
+- parameter key:		key String
+- parameter collection: Dictionary or Array
+
+- returns: child value or nil
+*/
+private func getValue(forKey key: String, fromCollection collection: AnyObject) -> AnyObject? {
+	
+	if let dictionary = collection as? [String: AnyObject] {
+		
+		return dictionary[key]
+	} else if let array = collection as? [AnyObject], index = Int(key) {
+		
+		if array.count > index {
+			return array[index]
+		}
+	}
+	
+	return nil
+}
+
+/**
+Add child value key pair to Dictionary or append value to Array
+
+- parameter value:      child value AnyObject
+- parameter key:        key String
+- parameter collection: Dictionary or Array
+*/
+private func addValue(value: AnyObject, forKey key: String, inout toCollection collection: AnyObject) {
+	
+	if var dictionary = collection as? [String: AnyObject] {
+		// add key value pair
+		dictionary[key] = value
+		collection = dictionary
+	} else if var array = collection as? [AnyObject] {
+		
+		if let index = Int(key) where index < array.count {
+			array[index] = value
+		} else {
+			// Here just simple append value to Array
+			// could depend on the key(index actually) append some nil values, so the index mapping will be exactlly same with json
+			// but I really don't see a usage yet, if we want to post to server we don't care the index, and we don't want to append nil values
+			array.append(value)
+		}
+		collection = array
 	}
 }
 
