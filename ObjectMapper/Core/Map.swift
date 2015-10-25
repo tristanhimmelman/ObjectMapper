@@ -92,15 +92,20 @@ private func valueFor(keyPathComponents: ArraySlice<String>, collection: AnyObje
 	var optionalObject: AnyObject?
 	
 	//check if collection is dictionary or array (if it's array, also try to convert keypath to Int as index)
-	if let dictionary = collection as? [String : AnyObject] {
+	if let dictionary = collection as? [String : AnyObject],
+		let keyPath = keyPathComponents.first {
+
 		//keep retreved optional
-		optionalObject = dictionary[keyPathComponents.first!]
-	} else if let array = collection as? [AnyObject], index = Int(String(keyPathComponents.first!)) {
+		optionalObject = dictionary[keyPath]
+	} else if let array = collection as? [AnyObject],
+		let keyPath = keyPathComponents.first,
+		index = Int(keyPath) {
+		
 		//keep retreved optional
 		optionalObject = array[index]
 	}
 	
-	if let object: AnyObject = optionalObject {
+	if let object = optionalObject {
 		if object is NSNull {
 			return nil
 		} else if let dict = object as? [String : AnyObject] where keyPathComponents.count > 1 {
