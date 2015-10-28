@@ -136,7 +136,7 @@ public final class Mapper<N: Mappable> {
 		// map every element in JSON array to type N
 		let result = JSONArray.flatMap(map)
 		if result.isEmpty {
-			return nil
+			return []
 		}
 		
 		return result
