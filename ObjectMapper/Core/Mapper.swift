@@ -284,7 +284,7 @@ extension Mapper {
 			}
 			
 			if let JSON = JSONData {
-				return NSString(data: JSON, encoding: NSUTF8StringEncoding) as? String
+				return String(data: JSON, encoding: NSUTF8StringEncoding)
 			}
 		}
 		

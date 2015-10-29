@@ -292,8 +292,8 @@ class ObjectMapperTests: XCTestCase {
 		expect(dictionaryOfTasks?["mondayTasks"]?[0].percentage).to(equal(percentage1))
 		expect(dictionaryOfTasks?["mondayTasks"]?[1].percentage).to(equal(percentage2))
 		
-		let planToJSON = Mapper().toJSONString(plan!, prettyPrint: false)
-		//print(planToJSON)
+		let planToJSON = Mapper().toJSONString(plan!, prettyPrint: true)
+		//print(planToJSON!)
 		let planFromJSON = Mapper<Plan>().map(planToJSON!)
 
 		let dictionaryOfTasks2 = planFromJSON?.dictionaryOfTasks
