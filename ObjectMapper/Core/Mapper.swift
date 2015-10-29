@@ -135,10 +135,6 @@ public final class Mapper<N: Mappable> {
 	public func mapArray(JSONArray: [[String : AnyObject]]) -> [N]? {
 		// map every element in JSON array to type N
 		let result = JSONArray.flatMap(map)
-		if result.isEmpty {
-			return []
-		}
-		
 		return result
 	}
 	
