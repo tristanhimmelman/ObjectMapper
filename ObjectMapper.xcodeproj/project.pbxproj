@@ -10,7 +10,7 @@
 		37AFD9B91AAD191C00AB59B5 /* CustomDateFormatTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AFD9B81AAD191C00AB59B5 /* CustomDateFormatTransform.swift */; };
 		6100B1C01BD76A030011114A /* NestedArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6100B1BF1BD76A020011114A /* NestedArrayTests.swift */; };
 		6A05B7B01BE274BE00F19B53 /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A05B7A61BE274BE00F19B53 /* ObjectMapper.framework */; };
-		6A05B7BD1BE274E800F19B53 /* ObjectMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AAC8F7B19F03C2900E7A677 /* ObjectMapper.h */; };
+		6A05B7BD1BE274E800F19B53 /* ObjectMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AAC8F7B19F03C2900E7A677 /* ObjectMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6A2AD0451B2C786C0097E150 /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC419F048FE00E7A677 /* Mapper.swift */; };
 		6A2AD0461B2C786C0097E150 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC519F048FE00E7A677 /* Operators.swift */; };
 		6A2AD0471B2C786C0097E150 /* FromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC319F048FE00E7A677 /* FromJSON.swift */; };
@@ -1074,6 +1074,7 @@
 				6A05B7B81BE274BE00F19B53 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6A05B7BC1BE274BE00F19B53 /* Build configuration list for PBXNativeTarget "ObjectMapper-tvOSTests" */ = {
 			isa = XCConfigurationList;
@@ -1082,6 +1083,7 @@
 				6A05B7BA1BE274BE00F19B53 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6A2AD0441B2C78540097E150 /* Build configuration list for PBXNativeTarget "ObjectMapper-watchOS" */ = {
 			isa = XCConfigurationList;
