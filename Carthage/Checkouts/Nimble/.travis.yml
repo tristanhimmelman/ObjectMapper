@@ -1,9 +1,0 @@
-osx_image: xcode7
-language: objective-c
-
-env:
-  matrix:
-    - NIMBLE_RUNTIME_IOS_SDK_VERSION=9.0 TYPE=ios
-    - NIMBLE_RUNTIME_OSX_SDK_VERSION=10.10 TYPE=osx
-
-script: ./test $TYPE

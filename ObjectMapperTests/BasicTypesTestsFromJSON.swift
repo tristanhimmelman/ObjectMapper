@@ -3,13 +3,32 @@
 //  ObjectMapper
 //
 //  Created by Tristan Himmelman on 2015-02-17.
-//  Copyright (c) 2015 hearst. All rights reserved.
 //
+//  The MIT License (MIT)
+//
+//  Copyright (c) 2014-2015 Hearst
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
 
 import Foundation
 import XCTest
 import ObjectMapper
-import Nimble
 
 class BasicTypesTestsFromJSON: XCTestCase {
 
@@ -33,10 +52,10 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		
 		let mappedObject = mapper.map(JSONString)
 
-		expect(mappedObject).notTo(beNil())
-		expect(mappedObject?.bool).to(equal(value))
-		expect(mappedObject?.boolOptional).to(equal(value))
-		expect(mappedObject?.boolImplicityUnwrapped).to(equal(value))
+		XCTAssertNotNil(mappedObject)
+		XCTAssertEqual(mappedObject?.bool, value)
+		XCTAssertEqual(mappedObject?.boolOptional, value)
+		XCTAssertEqual(mappedObject?.boolImplicityUnwrapped, value)
 	}
 	
 	func testMappingIntFromJSON(){
@@ -45,10 +64,10 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		
 		let mappedObject = mapper.map(JSONString)
 
-		expect(mappedObject).notTo(beNil())
-		expect(mappedObject?.int).to(equal(value))
-		expect(mappedObject?.intOptional).to(equal(value))
-		expect(mappedObject?.intImplicityUnwrapped).to(equal(value))
+		XCTAssertNotNil(mappedObject)
+		XCTAssertEqual(mappedObject?.int, value)
+		XCTAssertEqual(mappedObject?.intOptional, value)
+		XCTAssertEqual(mappedObject?.intImplicityUnwrapped, value)
 	}
 	
 	func testMappingDoubleFromJSON(){
@@ -57,10 +76,10 @@ class BasicTypesTestsFromJSON: XCTestCase {
 
 		let mappedObject = mapper.map(JSONString)
 
-		expect(mappedObject).notTo(beNil())
-		expect(mappedObject?.double).to(equal(value))
-		expect(mappedObject?.doubleOptional).to(equal(value))
-		expect(mappedObject?.doubleImplicityUnwrapped).to(equal(value))
+		XCTAssertNotNil(mappedObject)
+		XCTAssertEqual(mappedObject?.double, value)
+		XCTAssertEqual(mappedObject?.doubleOptional, value)
+		XCTAssertEqual(mappedObject?.doubleImplicityUnwrapped, value)
 	}
 	
 	func testMappingFloatFromJSON(){
@@ -69,10 +88,10 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		
 		let mappedObject = mapper.map(JSONString)
 
-		expect(mappedObject).notTo(beNil())
-		expect(mappedObject?.float).to(equal(value))
-		expect(mappedObject?.floatOptional).to(equal(value))
-		expect(mappedObject?.floatImplicityUnwrapped).to(equal(value))
+		XCTAssertNotNil(mappedObject)
+		XCTAssertEqual(mappedObject?.float, value)
+		XCTAssertEqual(mappedObject?.floatOptional, value)
+		XCTAssertEqual(mappedObject?.floatImplicityUnwrapped, value)
 	}
 	
 	func testMappingStringFromJSON(){
@@ -81,10 +100,10 @@ class BasicTypesTestsFromJSON: XCTestCase {
 
 		let mappedObject = mapper.map(JSONString)
 
-		expect(mappedObject).notTo(beNil())
-		expect(mappedObject?.string).to(equal(value))
-		expect(mappedObject?.stringOptional).to(equal(value))
-		expect(mappedObject?.stringImplicityUnwrapped).to(equal(value))
+		XCTAssertNotNil(mappedObject)
+		XCTAssertEqual(mappedObject?.string, value)
+		XCTAssertEqual(mappedObject?.stringOptional, value)
+		XCTAssertEqual(mappedObject?.stringImplicityUnwrapped, value)
 	}
 	
 	func testMappingAnyObjectFromJSON(){
@@ -95,10 +114,10 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		
 		let mappedObject = mapper.map(JSONString)
 
-		expect(mappedObject).notTo(beNil())
-		expect(mappedObject?.anyObject as? String).to(equal(value1))
-		expect(mappedObject?.anyObjectOptional as? Int).to(equal(value2))
-		expect(mappedObject?.anyObjectImplicitlyUnwrapped as? Double).to(equal(value3))
+		XCTAssertNotNil(mappedObject)
+		XCTAssertEqual(mappedObject?.anyObject as? String, value1)
+		XCTAssertEqual(mappedObject?.anyObjectOptional as? Int, value2)
+		XCTAssertEqual(mappedObject?.anyObjectImplicitlyUnwrapped as? Double, value3)
 	}
 
 	func testMappingStringFromNSStringJSON(){
@@ -106,11 +125,11 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let JSONNSString : NSString = "{\"string\" : \"\(value)\", \"stringOpt\" : \"\(value)\", \"stringImp\" : \"\(value)\"}"
 		
 		let mappedObject = mapper.map(JSONNSString)
-		
-		expect(mappedObject).notTo(beNil())
-		expect(mappedObject?.string).to(equal(value))
-		expect(mappedObject?.stringOptional).to(equal(value))
-		expect(mappedObject?.stringImplicityUnwrapped).to(equal(value))
+
+		XCTAssertNotNil(mappedObject)
+		XCTAssertEqual(mappedObject?.string, value)
+		XCTAssertEqual(mappedObject?.stringOptional, value)
+		XCTAssertEqual(mappedObject?.stringImplicityUnwrapped, value)
 	}
 
 	// MARK: Test mapping Arrays to JSON and back (with basic types in them Bool, Int, Double, Float, String)
@@ -121,10 +140,10 @@ class BasicTypesTestsFromJSON: XCTestCase {
 
 		let mappedObject = mapper.map(JSONString)
 
-		expect(mappedObject).notTo(beNil())
-		expect(mappedObject?.arrayBool.first).to(equal(value))
-		expect(mappedObject?.arrayBoolImplicityUnwrapped.first).to(equal(value))
-		expect(mappedObject?.arrayBoolOptional?.first).to(equal(value))
+		XCTAssertNotNil(mappedObject)
+		XCTAssertEqual(mappedObject?.arrayBool.first, value)
+		XCTAssertEqual(mappedObject?.arrayBoolOptional?.first, value)
+		XCTAssertEqual(mappedObject?.arrayBoolImplicityUnwrapped.first, value)
 	}
 	
 	func testMappingIntArrayFromJSON(){
@@ -133,10 +152,10 @@ class BasicTypesTestsFromJSON: XCTestCase {
 
 		let mappedObject = mapper.map(JSONString)
 
-		expect(mappedObject).notTo(beNil())
-		expect(mappedObject?.arrayInt.first).to(equal(value))
-		expect(mappedObject?.arrayIntImplicityUnwrapped.first).to(equal(value))
-		expect(mappedObject?.arrayIntOptional?.first).to(equal(value))
+		XCTAssertNotNil(mappedObject)
+		XCTAssertEqual(mappedObject?.arrayInt.first, value)
+		XCTAssertEqual(mappedObject?.arrayIntOptional?.first, value)
+		XCTAssertEqual(mappedObject?.arrayIntImplicityUnwrapped.first, value)
 	}
 	
 	func testMappingDoubleArrayFromJSON(){
@@ -145,10 +164,10 @@ class BasicTypesTestsFromJSON: XCTestCase {
 
 		let mappedObject = mapper.map(JSONString)
 
-		expect(mappedObject).notTo(beNil())
-		expect(mappedObject?.arrayDouble.first).to(equal(value))
-		expect(mappedObject?.arrayDoubleImplicityUnwrapped.first).to(equal(value))
-		expect(mappedObject?.arrayDoubleOptional?.first).to(equal(value))
+		XCTAssertNotNil(mappedObject)
+		XCTAssertEqual(mappedObject?.arrayDouble.first, value)
+		XCTAssertEqual(mappedObject?.arrayDoubleOptional?.first, value)
+		XCTAssertEqual(mappedObject?.arrayDoubleImplicityUnwrapped.first, value)
 	}
 	
 	func testMappingFloatArrayFromJSON(){
@@ -157,10 +176,10 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		
 		let mappedObject = mapper.map(JSONString)
 
-		expect(mappedObject).notTo(beNil())
-		expect(mappedObject?.arrayFloat.first).to(equal(value))
-		expect(mappedObject?.arrayFloatImplicityUnwrapped.first).to(equal(value))
-		expect(mappedObject?.arrayFloatOptional?.first).to(equal(value))
+		XCTAssertNotNil(mappedObject)
+		XCTAssertEqual(mappedObject?.arrayFloat.first, value)
+		XCTAssertEqual(mappedObject?.arrayFloatOptional?.first, value)
+		XCTAssertEqual(mappedObject?.arrayFloatImplicityUnwrapped.first, value)
 	}
 	
 	func testMappingStringArrayFromJSON(){
@@ -169,10 +188,10 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		
 		let mappedObject = mapper.map(JSONString)
 
-		expect(mappedObject).notTo(beNil())
-		expect(mappedObject?.arrayString.first).to(equal(value))
-		expect(mappedObject?.arrayStringImplicityUnwrapped.first).to(equal(value))
-		expect(mappedObject?.arrayStringOptional?.first).to(equal(value))
+		XCTAssertNotNil(mappedObject)
+		XCTAssertEqual(mappedObject?.arrayString.first, value)
+		XCTAssertEqual(mappedObject?.arrayStringOptional?.first, value)
+		XCTAssertEqual(mappedObject?.arrayStringImplicityUnwrapped.first, value)
 	}
 	
 	func testMappingAnyObjectArrayFromJSON(){
@@ -183,10 +202,10 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		
 		let mappedObject = mapper.map(JSONString)
 
-		expect(mappedObject).notTo(beNil())
-		expect(mappedObject?.arrayAnyObject.first as? String).to(equal(value1))
-		expect(mappedObject?.arrayAnyObjectOptional?.first as? Int).to(equal(value2))
-		expect(mappedObject?.arrayAnyObjectImplicitlyUnwrapped.first as? Double).to(equal(value3))
+		XCTAssertNotNil(mappedObject)
+		XCTAssertEqual(mappedObject?.arrayAnyObject.first as? String, value1)
+		XCTAssertEqual(mappedObject?.arrayAnyObjectOptional?.first as? Int, value2)
+		XCTAssertEqual(mappedObject?.arrayAnyObjectImplicitlyUnwrapped.first as? Double, value3)
 	}
 	
 	// MARK: Test mapping Dictionaries to JSON and back (with basic types in them Bool, Int, Double, Float, String)
@@ -198,10 +217,10 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		
 		let mappedObject = mapper.map(JSONString)
 
-		expect(mappedObject).notTo(beNil())
-		expect(mappedObject?.dictBoolOptional?[key]).to(equal(value))
-		expect(mappedObject?.dictBoolImplicityUnwrapped[key]).to(equal(value))
-		expect(mappedObject?.dictBool[key]).to(equal(value))
+		XCTAssertNotNil(mappedObject)
+		XCTAssertEqual(mappedObject?.dictBool[key], value)
+		XCTAssertEqual(mappedObject?.dictBoolOptional?[key], value)
+		XCTAssertEqual(mappedObject?.dictBoolImplicityUnwrapped[key], value)
 	}
 	
 	func testMappingIntDictionaryFromJSON(){
@@ -211,10 +230,10 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		
 		let mappedObject = mapper.map(JSONString)
 
-		expect(mappedObject).notTo(beNil())
-		expect(mappedObject?.dictIntOptional?[key]).to(equal(value))
-		expect(mappedObject?.dictIntImplicityUnwrapped[key]).to(equal(value))
-		expect(mappedObject?.dictInt[key]).to(equal(value))
+		XCTAssertNotNil(mappedObject)
+		XCTAssertEqual(mappedObject?.dictInt[key], value)
+		XCTAssertEqual(mappedObject?.dictIntOptional?[key], value)
+		XCTAssertEqual(mappedObject?.dictIntImplicityUnwrapped[key], value)
 	}
 	
 	func testMappingDoubleDictionaryFromJSON(){
@@ -224,10 +243,10 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		
 		let mappedObject = mapper.map(JSONString)
 
-		expect(mappedObject).notTo(beNil())
-		expect(mappedObject?.dictDoubleOptional?[key]).to(equal(value))
-		expect(mappedObject?.dictDoubleImplicityUnwrapped[key]).to(equal(value))
-		expect(mappedObject?.dictDouble[key]).to(equal(value))
+		XCTAssertNotNil(mappedObject)
+		XCTAssertEqual(mappedObject?.dictDouble[key], value)
+		XCTAssertEqual(mappedObject?.dictDoubleOptional?[key], value)
+		XCTAssertEqual(mappedObject?.dictDoubleImplicityUnwrapped[key], value)
 	}
 	
 	func testMappingFloatDictionaryFromJSON(){
@@ -237,10 +256,10 @@ class BasicTypesTestsFromJSON: XCTestCase {
 
 		let mappedObject = mapper.map(JSONString)
 
-		expect(mappedObject).notTo(beNil())
-		expect(mappedObject?.dictFloat[key]).to(equal(value))
-		expect(mappedObject?.dictFloatOptional?[key]).to(equal(value))
-		expect(mappedObject?.dictFloatImplicityUnwrapped[key]).to(equal(value))
+		XCTAssertNotNil(mappedObject)
+		XCTAssertEqual(mappedObject?.dictFloat[key], value)
+		XCTAssertEqual(mappedObject?.dictFloatOptional?[key], value)
+		XCTAssertEqual(mappedObject?.dictFloatImplicityUnwrapped[key], value)
 	}
 	
 	func testMappingStringDictionaryFromJSON(){
@@ -250,10 +269,10 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		
 		let mappedObject = mapper.map(JSONString)
 
-		expect(mappedObject).notTo(beNil())
-		expect(mappedObject?.dictString[key]).to(equal(value))
-		expect(mappedObject?.dictStringOptional?[key]).to(equal(value))
-		expect(mappedObject?.dictStringImplicityUnwrapped[key]).to(equal(value))
+		XCTAssertNotNil(mappedObject)
+		XCTAssertEqual(mappedObject?.dictString[key], value)
+		XCTAssertEqual(mappedObject?.dictStringOptional?[key], value)
+		XCTAssertEqual(mappedObject?.dictStringImplicityUnwrapped[key], value)
 	}
 	
 	func testMappingAnyObjectDictionaryFromJSON(){
@@ -265,10 +284,10 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		
 		let mappedObject = mapper.map(JSONString)
 
-		expect(mappedObject).notTo(beNil())
-		expect(mappedObject?.dictAnyObject[key] as? String).to(equal(value1))
-		expect(mappedObject?.dictAnyObjectOptional?[key] as? Int).to(equal(value2))
-		expect(mappedObject?.dictAnyObjectImplicitlyUnwrapped[key] as? Double).to(equal(value3))
+		XCTAssertNotNil(mappedObject)
+		XCTAssertEqual(mappedObject?.dictAnyObject[key] as? String, value1)
+		XCTAssertEqual(mappedObject?.dictAnyObjectOptional?[key] as? Int, value2)
+		XCTAssertEqual(mappedObject?.dictAnyObjectImplicitlyUnwrapped[key] as? Double, value3)
 	}
 
 	func testMappingIntEnumFromJSON(){
@@ -276,10 +295,11 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let JSONString = "{\"enumInt\" : \(value.rawValue), \"enumIntOpt\" : \(value.rawValue), \"enumIntImp\" : \(value.rawValue) }"
 
 		let mappedObject = mapper.map(JSONString)
-		expect(mappedObject).notTo(beNil())
-		expect(mappedObject?.enumInt).to(equal(value))
-		expect(mappedObject?.enumIntOptional).to(equal(value))
-		expect(mappedObject?.enumIntImplicitlyUnwrapped).to(equal(value))
+
+		XCTAssertNotNil(mappedObject)
+		XCTAssertEqual(mappedObject?.enumInt, value)
+		XCTAssertEqual(mappedObject?.enumIntOptional, value)
+		XCTAssertEqual(mappedObject?.enumIntImplicitlyUnwrapped, value)
 	}
 
 	func testMappingIntEnumFromJSONShouldNotCrashWithNonDefinedvalue() {
@@ -287,10 +307,11 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let JSONString = "{\"enumInt\" : \(value), \"enumIntOpt\" : \(value), \"enumIntImp\" : \(value) }"
 
 		let mappedObject = mapper.map(JSONString)
-		expect(mappedObject).notTo(beNil())
-		expect(mappedObject?.enumInt).to(equal(BasicTypes.EnumInt.Default))
-		expect(mappedObject?.enumIntOptional).to(beNil())
-		expect(mappedObject?.enumIntImplicitlyUnwrapped).to(beNil())
+		
+		XCTAssertNotNil(mappedObject)
+		XCTAssertEqual(mappedObject?.enumInt, BasicTypes.EnumInt.Default)
+		XCTAssertNil(mappedObject?.enumIntOptional)
+		XCTAssertNil(mappedObject?.enumIntImplicitlyUnwrapped)
 	}
 
 	func testMappingDoubleEnumFromJSON(){
@@ -298,10 +319,11 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let JSONString = "{\"enumDouble\" : \(value.rawValue), \"enumDoubleOpt\" : \(value.rawValue), \"enumDoubleImp\" : \(value.rawValue) }"
 
 		let mappedObject = mapper.map(JSONString)
-		expect(mappedObject).notTo(beNil())
-		expect(mappedObject?.enumDouble).to(equal(value))
-		expect(mappedObject?.enumDoubleOptional).to(equal(value))
-		expect(mappedObject?.enumDoubleImplicitlyUnwrapped).to(equal(value))
+		
+		XCTAssertNotNil(mappedObject)
+		XCTAssertEqual(mappedObject?.enumDouble, value)
+		XCTAssertEqual(mappedObject?.enumDoubleOptional, value)
+		XCTAssertEqual(mappedObject?.enumDoubleImplicitlyUnwrapped, value)
 	}
 
 	func testMappingFloatEnumFromJSON(){
@@ -309,10 +331,11 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let JSONString = "{\"enumFloat\" : \(value.rawValue), \"enumFloatOpt\" : \(value.rawValue), \"enumFloatImp\" : \(value.rawValue) }"
 
 		let mappedObject = mapper.map(JSONString)
-		expect(mappedObject).notTo(beNil())
-		expect(mappedObject?.enumFloat).to(equal(value))
-		expect(mappedObject?.enumFloatOptional).to(equal(value))
-		expect(mappedObject?.enumFloatImplicitlyUnwrapped).to(equal(value))
+		
+		XCTAssertNotNil(mappedObject)
+		XCTAssertEqual(mappedObject?.enumFloat, value)
+		XCTAssertEqual(mappedObject?.enumFloatOptional, value)
+		XCTAssertEqual(mappedObject?.enumFloatImplicitlyUnwrapped, value)
 	}
 
 	func testMappingStringEnumFromJSON(){
@@ -320,10 +343,11 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let JSONString = "{\"enumString\" : \"\(value.rawValue)\", \"enumStringOpt\" : \"\(value.rawValue)\", \"enumStringImp\" : \"\(value.rawValue)\" }"
 
 		let mappedObject = mapper.map(JSONString)
-		expect(mappedObject).notTo(beNil())
-		expect(mappedObject?.enumString).to(equal(value))
-		expect(mappedObject?.enumStringOptional).to(equal(value))
-		expect(mappedObject?.enumStringImplicitlyUnwrapped).to(equal(value))
+		
+		XCTAssertNotNil(mappedObject)
+		XCTAssertEqual(mappedObject?.enumString, value)
+		XCTAssertEqual(mappedObject?.enumStringOptional, value)
+		XCTAssertEqual(mappedObject?.enumStringImplicitlyUnwrapped, value)
 	}
 
 	func testMappingEnumIntArrayFromJSON(){
@@ -331,10 +355,11 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let JSONString = "{ \"arrayEnumInt\" : [\(value.rawValue)], \"arrayEnumIntOpt\" : [\(value.rawValue)], \"arrayEnumIntImp\" : [\(value.rawValue)] }"
 
 		let mappedObject = mapper.map(JSONString)
-		expect(mappedObject).notTo(beNil())
-		expect(mappedObject?.arrayEnumInt.first).to(equal(value))
-		expect(mappedObject?.arrayEnumIntOptional?.first).to(equal(value))
-		expect(mappedObject?.arrayEnumIntImplicitlyUnwrapped?.first).to(equal(value))
+		
+		XCTAssertNotNil(mappedObject)
+		XCTAssertEqual(mappedObject?.arrayEnumInt.first, value)
+		XCTAssertEqual(mappedObject?.arrayEnumIntOptional?.first, value)
+		XCTAssertEqual(mappedObject?.arrayEnumIntImplicitlyUnwrapped.first, value)
 	}
 
 	func testMappingEnumIntArrayFromJSONShouldNotCrashWithNonDefinedvalue() {
@@ -342,10 +367,11 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let JSONString = "{ \"arrayEnumInt\" : [\(value)], \"arrayEnumIntOpt\" : [\(value)], \"arrayEnumIntImp\" : [\(value)] }"
 
 		let mappedObject = mapper.map(JSONString)
-		expect(mappedObject).notTo(beNil())
-		expect(mappedObject?.arrayEnumInt.first).to(beNil())
-		expect(mappedObject?.arrayEnumIntOptional?.first).to(beNil())
-		expect(mappedObject?.arrayEnumIntImplicitlyUnwrapped?.first).to(beNil())
+		
+		XCTAssertNotNil(mappedObject)
+		XCTAssertNil(mappedObject?.arrayEnumInt.first)
+		XCTAssertNil(mappedObject?.arrayEnumIntOptional?.first)
+		XCTAssertNil(mappedObject?.arrayEnumIntImplicitlyUnwrapped.first)
 	}
 
 	func testMappingEnumIntDictionaryFromJSON(){
@@ -354,10 +380,11 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let JSONString = "{ \"dictEnumInt\" : { \"\(key)\" : \(value.rawValue) }, \"dictEnumIntOpt\" : { \"\(key)\" : \(value.rawValue) }, \"dictEnumIntImp\" : { \"\(key)\" : \(value.rawValue) } }"
 
 		let mappedObject = mapper.map(JSONString)
-		expect(mappedObject).notTo(beNil())
-		expect(mappedObject?.dictEnumInt[key]).to(equal(value))
-		expect(mappedObject?.dictEnumIntOptional?[key]).to(equal(value))
-		expect(mappedObject?.dictEnumIntImplicitlyUnwrapped?[key]).to(equal(value))
+		
+		XCTAssertNotNil(mappedObject)
+		XCTAssertEqual(mappedObject?.dictEnumInt[key], value)
+		XCTAssertEqual(mappedObject?.dictEnumIntOptional?[key], value)
+		XCTAssertEqual(mappedObject?.dictEnumIntImplicitlyUnwrapped[key], value)
 	}
 
 	func testMappingEnumIntDictionaryFromJSONShouldNotCrashWithNonDefinedvalue() {
@@ -366,10 +393,11 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let JSONString = "{ \"dictEnumInt\" : { \"\(key)\" : \(value) }, \"dictEnumIntOpt\" : { \"\(key)\" : \(value) }, \"dictEnumIntImp\" : { \"\(key)\" : \(value) } }"
 
 		let mappedObject = mapper.map(JSONString)
-		expect(mappedObject).notTo(beNil())
-		expect(mappedObject?.arrayEnumInt.first).to(beNil())
-		expect(mappedObject?.dictEnumIntOptional?[key]).to(beNil())
-		expect(mappedObject?.dictEnumIntImplicitlyUnwrapped?[key]).to(beNil())
+		
+		XCTAssertNotNil(mappedObject)
+		XCTAssertNil(mappedObject?.dictEnumInt[key])
+		XCTAssertNil(mappedObject?.dictEnumIntOptional?[key])
+		XCTAssertNil(mappedObject?.dictEnumIntImplicitlyUnwrapped[key])
 	}
 
 	func testObjectModelOptionalDictionnaryOfPrimitives() {
@@ -377,12 +405,13 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		
 		let mapper = Mapper<TestCollectionOfPrimitives>()
 		let testSet: TestCollectionOfPrimitives! = mapper.map(JSON)
-		expect(testSet).notTo(beNil())
 
-		expect(testSet.dictStringString).notTo(beEmpty())
-		expect(testSet.dictStringInt).notTo(beEmpty())
-		expect(testSet.dictStringBool).notTo(beEmpty())
-		expect(testSet.dictStringDouble).notTo(beEmpty())
-		expect(testSet.dictStringFloat).notTo(beEmpty())
+		XCTAssertNotNil(testSet)
+
+		XCTAssertTrue(testSet.dictStringString.count > 0)
+		XCTAssertTrue(testSet.dictStringInt.count > 0)
+		XCTAssertTrue(testSet.dictStringBool.count > 0)
+		XCTAssertTrue(testSet.dictStringDouble.count > 0)
+		XCTAssertTrue(testSet.dictStringFloat.count > 0)
 	}
 }

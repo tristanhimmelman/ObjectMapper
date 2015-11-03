@@ -1,8 +1,8 @@
 //
-//  URLTransform.swift
+//  NestedArrayTests.swift
 //  ObjectMapper
 //
-//  Created by Tristan Himmelman on 2014-10-27.
+//  Created by Ruben Samsonyan on 10/21/15.
 //
 //  The MIT License (MIT)
 //
@@ -27,24 +27,49 @@
 //  THE SOFTWARE.
 
 import Foundation
+import XCTest
+import ObjectMapper
 
-public class URLTransform: TransformType {
-	public typealias Object = NSURL
-	public typealias JSON = String
+class NestedArrayTests: XCTestCase {
 
-	public init() {}
-
-	public func transformFromJSON(value: AnyObject?) -> NSURL? {
-		if let URLString = value as? String {
-			return NSURL(string: URLString)
-		}
-		return nil
+    override func setUp() {
+        super.setUp()
+        // Put setup code here. This method is called before the invocation of each test method in the class.
+    }
+    
+    override func tearDown() {
+        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        super.tearDown()
+    }
+	
+	func testNestedArray() {
+		let JSON: [String: AnyObject] = [ "nested": [ ["value": 123], ["value": 456] ] ]
+		
+		let mapper = Mapper<NestedArray>()
+		
+		let value: NestedArray! = mapper.map(JSON)
+		XCTAssertNotNil(value)
+		
+		let JSONFromValue = mapper.toJSON(value)
+		let valueFromParsedJSON: NestedArray! = mapper.map(JSONFromValue)
+		XCTAssertNotNil(valueFromParsedJSON)
+		
+		XCTAssertEqual(value.value_0, valueFromParsedJSON.value_0)
+		XCTAssertEqual(value.value_1, valueFromParsedJSON.value_1)
 	}
+}
 
-	public func transformToJSON(value: NSURL?) -> String? {
-		if let URL = value {
-			return URL.absoluteString
-		}
-		return nil
+class NestedArray: Mappable {
+	
+	var value_0: Int?
+	var value_1: Int?
+	
+	required init?(_ map: Map){
+		
+	}
+	
+	func mapping(map: Map) {
+		value_0	<- map["nested.0.value"]
+		value_1	<- map["nested.1.value"]
 	}
 }

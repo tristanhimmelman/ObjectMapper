@@ -3,8 +3,29 @@
 //  ObjectMapper
 //
 //  Created by Tristan Himmelman on 2015-10-09.
-//  Copyright © 2015 hearst. All rights reserved.
 //
+//  The MIT License (MIT)
+//
+//  Copyright (c) 2014-2015 Hearst
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+
 
 import Foundation
 
@@ -42,7 +63,7 @@ public final class Map {
 			currentValue = JSONDictionary[key]
 		} else {
 			// break down the components of the key that are separated by .
-			currentValue = valueFor(ArraySlice(key.componentsSeparatedByString(".")), dictionary: JSONDictionary)
+			currentValue = valueFor(ArraySlice(key.componentsSeparatedByString(".")), collection: JSONDictionary)
 		}
 		
 		return self
@@ -81,19 +102,39 @@ public final class Map {
 }
 
 /// Fetch value from JSON dictionary, loop through them until we reach the desired object.
-private func valueFor(keyPathComponents: ArraySlice<String>, dictionary: [String : AnyObject]) -> AnyObject? {
+private func valueFor(keyPathComponents: ArraySlice<String>, collection: AnyObject?) -> AnyObject? {
 	// Implement it as a tail recursive function.
 	
 	if keyPathComponents.isEmpty {
 		return nil
 	}
 	
-	if let object: AnyObject = dictionary[keyPathComponents.first!] {
+	//optional object to keep optional retreived from collection
+	var optionalObject: AnyObject?
+	
+	//check if collection is dictionary or array (if it's array, also try to convert keypath to Int as index)
+	if let dictionary = collection as? [String : AnyObject],
+		let keyPath = keyPathComponents.first {
+
+		//keep retreved optional
+		optionalObject = dictionary[keyPath]
+	} else if let array = collection as? [AnyObject],
+		let keyPath = keyPathComponents.first,
+		index = Int(keyPath) {
+		
+		//keep retreved optional
+		optionalObject = array[index]
+	}
+	
+	if let object = optionalObject {
 		if object is NSNull {
 			return nil
 		} else if let dict = object as? [String : AnyObject] where keyPathComponents.count > 1 {
 			let tail = keyPathComponents.dropFirst()
-			return valueFor(tail, dictionary: dict)
+			return valueFor(tail, collection: dict)
+		} else if let dict = object as? [AnyObject] where keyPathComponents.count > 1 {
+			let tail = keyPathComponents.dropFirst()
+			return valueFor(tail, collection: dict)
 		} else {
 			return object
 		}

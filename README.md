@@ -45,7 +45,7 @@ class User: Mappable {
     var friends: [User]?                        // Array of Users
     var birthday: NSDate?
 
-	required init?(_ map: Map){
+	required init?(_ map: Map) {
 
 	}
 
@@ -66,9 +66,9 @@ struct Temperature: Mappable {
     var celcius: Double?
     var fahrenheit: Double?
 
-	required init?(_ map: Map){
+    init?(_ map: Map) {
 
-	}
+    }
 
     mutating func mapping(map: Map) {
         celcius 	<- map["celcius"]
@@ -89,7 +89,7 @@ Convert a model object to a JSON string:
 let JSONString = Mapper().toJSONString(user, prettyPrint: true)
 ```
 
-Object mapper can map classes composed of the following types:
+ObjectMapper can map classes composed of the following types:
 - Int
 - Bool
 - Double
@@ -117,18 +117,18 @@ ObjectMapper supports dot notation within keys for easy mapping of nested object
 ```
 You can access the nested objects as follows:
 ```swift
-func mapping(map: Map){
+func mapping(map: Map) {
     distance <- map["distance.value"]
 }
 ```
 If you have a key that contains `.`, you can disable the above feature as follows:
 ```swift
-func mapping(map: Map){
-    identifier <- map["app.inditifier", nested: false]
+func mapping(map: Map) {
+    identifier <- map["app.identifier", nested: false]
 }
 ```
 
-#Custom Transfoms
+#Custom Transforms
 ObjectMapper also supports custom Transforms that convert values during the mapping process. To use a transform, simply create a tuple with ```map["field_name"]``` and the transform of choice on the right side of the ```<-``` operator:
 ```swift
 birthday <- (map["birthday"], DateTransform())
@@ -177,7 +177,7 @@ Classes that implement the Mappable protocol can easily be subclassed. When subc
 class Base: Mappable {
 	var base: String?
 	
-	required init?(_ map: Map){
+	required init?(_ map: Map) {
 
 	}
 
@@ -189,7 +189,7 @@ class Base: Mappable {
 class Subclass: Base {
 	var sub: String?
 
-	required init?(_ map: Map){
+	required init?(_ map: Map) {
 		super.init(map)
 	}
 
@@ -201,13 +201,13 @@ class Subclass: Base {
 }
 ```
 
-# Mapping Immutable Properties
+<!-- # Mapping Immutable Properties
 
-Note: This is an expiremental feature. Not all ObjectMapper functionilaty is guaranteed to work for immutable mappings.
+Note: This is an experimental feature. Not all ObjectMapper functionality is guaranteed to work for immutable mappings.
 
 If you have a class or struct whose properties are immutable (`let`) and want to map it using ObjectMapper, you can use the following approach.
 
-In the failable initializer, assign values to your properties using the `valueOrFail()` function on the `map` object. Once all propeties are set, check `isValid` to determine if the mapping succeeded for all properties. If `isValid` returns false, return `nil` to indicate that initialization failed.
+In the failable initializer, assign values to your properties using the `valueOrFail()` function on the `map` object. Once all properties are set, check `isValid` to determine if the mapping succeeded for all properties. If `isValid` returns false, return `nil` to indicate that initialization failed.
 
 ```swift
 class Model: Mappable {
@@ -230,7 +230,7 @@ if let model = Mapper<Model>().map(JSONString) {
 } else {
     // Something wrong...
 }
-```
+``` -->
 
 #ObjectMapper + Alamofire
 
@@ -265,22 +265,16 @@ Contributions are very welcomed 👍😃.
 
 Before submitting any Pull Request, please ensure you have run the included tests and that they have passed. If you are including new functionality, please write test cases for it as well. 
 
-ObjectMapper uses [Nimble](https://github.com/Quick/Nimble) to ensure test success. It is included using [Carthage](https://github.com/Carthage/Carthage). Run the following command in the ObjectMapper root directory to fetch the Nimble depency and get the environment ready for running tests:
-```shell
-carthage checkout
-```
-From this point on, you should open the project using ObjectMapper.xcworkspace and NOT ObjectMapper.xcodeproj
-
 #Installation
-ObjectMapper can be added to your project using [Cocoapods 0.36 (beta)](http://blog.cocoapods.org/Pod-Authors-Guide-to-CocoaPods-Frameworks/) by adding the following line to your Podfile:
+ObjectMapper can be added to your project using [CocoaPods 0.36 or later](http://blog.cocoapods.org/Pod-Authors-Guide-to-CocoaPods-Frameworks/) by adding the following line to your Podfile:
 
 ```ruby
-pod 'ObjectMapper', '~> 0.19'
+pod 'ObjectMapper', '~> 1.0'
 ```
 
 If your using [Carthage](https://github.com/Carthage/Carthage) you can add a dependency on ObjectMapper by adding it to your Cartfile:
 ```
-github "Hearst-DD/ObjectMapper" ~> 0.19
+github "Hearst-DD/ObjectMapper" ~> 1.0
 ```
 
 Otherwise, ObjectMapper can be added as a submodule:

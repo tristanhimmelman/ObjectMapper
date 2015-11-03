@@ -6,8 +6,8 @@
 //  Copyright © 2015 hearst. All rights reserved.
 //
 
+import Foundation
 import XCTest
-import Nimble
 import ObjectMapper
 
 class ClassClusterTests: XCTestCase {
@@ -27,9 +27,10 @@ class ClassClusterTests: XCTestCase {
 		let JSON = ["name": carName, "type": "car"]
 		
 		if let vehicle = Mapper<Vehicle>().map(JSON){
-			expect(vehicle).notTo(beNil())
-			expect(vehicle as? Car).notTo(beNil())
-			expect((vehicle as? Car)?.name).to(equal(carName))		}
+			XCTAssertNotNil(vehicle)
+			XCTAssertNotNil(vehicle as? Car)
+			XCTAssertEqual((vehicle as? Car)?.name, carName)
+		}
     }
 	
 	func testClassClustersFromJSONString() {
@@ -37,9 +38,10 @@ class ClassClusterTests: XCTestCase {
 		let JSON = "{\"name\": \"\(carName)\", \"type\": \"car\"}"
 		
 		if let vehicle = Mapper<Vehicle>().map(JSON){
-			expect(vehicle).notTo(beNil())
-			expect(vehicle as? Car).notTo(beNil())
-			expect((vehicle as? Car)?.name).to(equal(carName))		}
+			XCTAssertNotNil(vehicle)
+			XCTAssertNotNil(vehicle as? Car)
+			XCTAssertEqual((vehicle as? Car)?.name, carName)
+		}
 	}
 	
 	func testClassClusterArray() {
@@ -47,12 +49,12 @@ class ClassClusterTests: XCTestCase {
 		let JSON = [["name": carName, "type": "car"], ["type": "bus"], ["type": "vehicle"]]
 		
 		if let vehicles = Mapper<Vehicle>().mapArray(JSON){
-			expect(vehicles).notTo(beNil())
-			expect(vehicles.count).to(equal(3))
-			expect(vehicles[0] as? Car).notTo(beNil())
-			expect(vehicles[1] as? Bus).notTo(beNil())
-			expect(vehicles[2]).notTo(beNil())
-			expect((vehicles[0] as? Car)?.name).to(equal(carName))
+			XCTAssertNotNil(vehicles)
+			XCTAssertTrue(vehicles.count == 3)
+			XCTAssertNotNil(vehicles[0] as? Car)
+			XCTAssertNotNil(vehicles[1] as? Bus)
+			XCTAssertNotNil(vehicles[2])
+			XCTAssertEqual((vehicles[0] as? Car)?.name, carName)
 		}
 	}
 }
