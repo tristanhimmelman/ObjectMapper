@@ -37,7 +37,6 @@
 		6AAC8FD119F048FE00E7A677 /* ToJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC719F048FE00E7A677 /* ToJSON.swift */; };
 		6AAC8FD319F048FE00E7A677 /* DateTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FCB19F048FE00E7A677 /* DateTransform.swift */; };
 		6AAE6A431ACED93500FBC899 /* ObjectMapper.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = CD1602FF1AC023D5000CD69A /* ObjectMapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6AAE6A441ACED93B00FBC899 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = CD208C981AC10D2B00E21781 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6AC458191BA350CF00054758 /* ObjectMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AAC8F7B19F03C2900E7A677 /* ObjectMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6AC692341BE3FD3A004C119A /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACB15D11BC7F1D0006C029C /* Map.swift */; };
 		6AC692351BE3FD3A004C119A /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC419F048FE00E7A677 /* Mapper.swift */; };
@@ -83,9 +82,6 @@
 		CD1603281AC02480000CD69A /* CustomTransformTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A51372E1AADE12C00B82516 /* CustomTransformTests.swift */; };
 		CD1603291AC02480000CD69A /* NestedKeysTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD44374C1AAE9C1100A271BA /* NestedKeysTests.swift */; };
 		CD16032A1AC02480000CD69A /* ObjectMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8F8519F03C2900E7A677 /* ObjectMapperTests.swift */; };
-		CD208C991AC10D2B00E21781 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD208C981AC10D2B00E21781 /* Nimble.framework */; };
-		CD208C9A1AC10D2B00E21781 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD208C981AC10D2B00E21781 /* Nimble.framework */; };
-		CD208C9B1AC10D6D00E21781 /* Nimble.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = CD208C981AC10D2B00E21781 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CD4437491AAD692B00A271BA /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAC8F7619F03C2900E7A677 /* ObjectMapper.framework */; };
 		CD44374B1AAD698400A271BA /* ObjectMapper.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAC8F7619F03C2900E7A677 /* ObjectMapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CD44374D1AAE9C1100A271BA /* NestedKeysTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD44374C1AAE9C1100A271BA /* NestedKeysTests.swift */; };
@@ -125,7 +121,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				6AAE6A441ACED93B00FBC899 /* Nimble.framework in CopyFiles */,
 				6AAE6A431ACED93500FBC899 /* ObjectMapper.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -137,7 +132,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				CD44374B1AAD698400A271BA /* ObjectMapper.framework in Copy Frameworks */,
-				CD208C9B1AC10D6D00E21781 /* Nimble.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -172,7 +166,6 @@
 		BC1E7F361ABC44C000F9B1CF /* EnumTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnumTransform.swift; sourceTree = "<group>"; };
 		CD1602FF1AC023D5000CD69A /* ObjectMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ObjectMapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD1603091AC023D6000CD69A /* ObjectMapper-MacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ObjectMapper-MacTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CD208C981AC10D2B00E21781 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Nimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD44374C1AAE9C1100A271BA /* NestedKeysTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NestedKeysTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		CD50B6FC1A82518300744312 /* TransformType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformType.swift; sourceTree = "<group>"; };
 		CD71C8C01A7218AD009D4161 /* TransformOf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TransformOf.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -214,7 +207,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD4437491AAD692B00A271BA /* ObjectMapper.framework in Frameworks */,
-				CD208C991AC10D2B00E21781 /* Nimble.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,7 +222,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD16030A1AC023D6000CD69A /* ObjectMapper.framework in Frameworks */,
-				CD208C9A1AC10D2B00E21781 /* Nimble.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,7 +301,6 @@
 		6AAC8F8319F03C2900E7A677 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				CD208C981AC10D2B00E21781 /* Nimble.framework */,
 				6AAC8F8419F03C2900E7A677 /* Info.plist */,
 			);
 			name = "Supporting Files";

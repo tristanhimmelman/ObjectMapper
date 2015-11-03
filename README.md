@@ -201,7 +201,7 @@ class Subclass: Base {
 }
 ```
 
-# Mapping Immutable Properties
+<!-- # Mapping Immutable Properties
 
 Note: This is an experimental feature. Not all ObjectMapper functionality is guaranteed to work for immutable mappings.
 
@@ -230,7 +230,7 @@ if let model = Mapper<Model>().map(JSONString) {
 } else {
     // Something wrong...
 }
-```
+``` -->
 
 #ObjectMapper + Alamofire
 
@@ -265,22 +265,16 @@ Contributions are very welcomed 👍😃.
 
 Before submitting any Pull Request, please ensure you have run the included tests and that they have passed. If you are including new functionality, please write test cases for it as well. 
 
-ObjectMapper uses [Nimble](https://github.com/Quick/Nimble) to ensure test success. It is included using [Carthage](https://github.com/Carthage/Carthage). Run the following command in the ObjectMapper root directory to fetch the Nimble depency and get the environment ready for running tests:
-```shell
-carthage checkout
-```
-From this point on, you should open the project using ObjectMapper.xcworkspace and NOT ObjectMapper.xcodeproj
-
 #Installation
 ObjectMapper can be added to your project using [CocoaPods 0.36 or later](http://blog.cocoapods.org/Pod-Authors-Guide-to-CocoaPods-Frameworks/) by adding the following line to your Podfile:
 
 ```ruby
-pod 'ObjectMapper', '~> 0.19'
+pod 'ObjectMapper', '~> 1.0'
 ```
 
 If your using [Carthage](https://github.com/Carthage/Carthage) you can add a dependency on ObjectMapper by adding it to your Cartfile:
 ```
-github "Hearst-DD/ObjectMapper" ~> 0.19
+github "Hearst-DD/ObjectMapper" ~> 1.0
 ```
 
 Otherwise, ObjectMapper can be added as a submodule:

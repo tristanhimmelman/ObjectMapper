@@ -1,17 +1,25 @@
 language: objective-c
-osx_image: xcode7
+osx_image: xcode7.1
 
 env:
   global:
     - LANG=en_US.UTF-8
     - LC_ALL=en_US.UTF-8
+    - IOS_FRAMEWORK_SCHEME="ObjectMapper-iOS"
+    - OSX_FRAMEWORK_SCHEME="ObjectMapper-Mac"
+    - TVOS_FRAMEWORK_SCHEME="ObjectMapper-tvOS"
+    - IOS_SDK=iphonesimulator9.1
+    - OSX_SDK=macosx10.11
+    - TVOS_SDK=appletvsimulator9.0    
   matrix:
-    - DESTINATION="OS=8.1,name=iPhone 4S"     SCHEME="ObjectMapper-iOS" SDK=iphonesimulator9.0 
-    - DESTINATION="OS=8.2,name=iPhone 5"      SCHEME="ObjectMapper-iOS" SDK=iphonesimulator9.0
-    - DESTINATION="OS=8.3,name=iPhone 5S"     SCHEME="ObjectMapper-iOS" SDK=iphonesimulator9.0
-    - DESTINATION="OS=8.4,name=iPhone 6"      SCHEME="ObjectMapper-iOS" SDK=iphonesimulator9.0
-    - DESTINATION="OS=9.0,name=iPhone 6 Plus" SCHEME="ObjectMapper-iOS" SDK=iphonesimulator9.0
-    - DESTINATION="arch=x86_64"               SCHEME="ObjectMapper-Mac" SDK=macosx10.11
+    - DESTINATION="OS=8.1,name=iPhone 4S"       SCHEME="$IOS_FRAMEWORK_SCHEME" SDK="$IOS_SDK" 
+    - DESTINATION="OS=8.2,name=iPhone 5"        SCHEME="$IOS_FRAMEWORK_SCHEME" SDK="$IOS_SDK"
+    - DESTINATION="OS=8.3,name=iPhone 5S"       SCHEME="$IOS_FRAMEWORK_SCHEME" SDK="$IOS_SDK"
+    - DESTINATION="OS=8.4,name=iPhone 6"        SCHEME="$IOS_FRAMEWORK_SCHEME" SDK="$IOS_SDK"
+    - DESTINATION="OS=9.0,name=iPhone 6 Plus"   SCHEME="$IOS_FRAMEWORK_SCHEME" SDK="$IOS_SDK"
+    - DESTINATION="OS=9.1,name=iPhone 6 Plus"   SCHEME="$IOS_FRAMEWORK_SCHEME" SDK="$IOS_SDK"    
+    - DESTINATION="arch=x86_64"                 SCHEME="$OSX_FRAMEWORK_SCHEME" SDK="$OSX_SDK"
+    - DESTINATION="OS=9.0,name=Apple TV 1080p"  SCHEME="$TVOS_FRAMEWORK_SCHEME" SDK="$TVOS_SDK"
 
 before_install:
   - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
