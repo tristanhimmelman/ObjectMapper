@@ -269,12 +269,12 @@ Before submitting any Pull Request, please ensure you have run the included test
 ObjectMapper can be added to your project using [CocoaPods 0.36 or later](http://blog.cocoapods.org/Pod-Authors-Guide-to-CocoaPods-Frameworks/) by adding the following line to your Podfile:
 
 ```ruby
-pod 'ObjectMapper', '~> 0.19'
+pod 'ObjectMapper', '~> 1.0'
 ```
 
 If your using [Carthage](https://github.com/Carthage/Carthage) you can add a dependency on ObjectMapper by adding it to your Cartfile:
 ```
-github "Hearst-DD/ObjectMapper" ~> 0.19
+github "Hearst-DD/ObjectMapper" ~> 1.0
 ```
 
 Otherwise, ObjectMapper can be added as a submodule:
