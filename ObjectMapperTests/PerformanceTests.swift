@@ -37,10 +37,9 @@ class PerformanceTests: XCTestCase {
 		
         self.measureBlock {
             // Put the code you want to measure the time of here.
-			Mapper<Person>().map(JSONString)
+			Mapper<Person>().mapArray(JSONString)
         }
     }
-    
 }
 
 class Person: Mappable {
