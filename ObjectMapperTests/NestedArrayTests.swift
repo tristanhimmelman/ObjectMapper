@@ -9,7 +9,6 @@
 import Foundation
 import XCTest
 import ObjectMapper
-import Nimble
 
 class NestedArrayTests: XCTestCase {
 
@@ -29,17 +28,15 @@ class NestedArrayTests: XCTestCase {
 		let mapper = Mapper<NestedArray>()
 		
 		let value: NestedArray! = mapper.map(JSON)
-		expect(value).notTo(beNil())
+		XCTAssertNotNil(value)
 		
 		let JSONFromValue = mapper.toJSON(value)
 		let valueFromParsedJSON: NestedArray! = mapper.map(JSONFromValue)
-		expect(valueFromParsedJSON).notTo(beNil())
+		XCTAssertNotNil(valueFromParsedJSON)
 		
-		expect(value.value_0).to(equal(valueFromParsedJSON.value_0))
-		expect(value.value_1).to(equal(valueFromParsedJSON.value_1))
-		
+		XCTAssertEqual(value.value_0, valueFromParsedJSON.value_0)
+		XCTAssertEqual(value.value_1, valueFromParsedJSON.value_1)
 	}
-
 }
 
 class NestedArray: Mappable {
@@ -52,9 +49,7 @@ class NestedArray: Mappable {
 	}
 	
 	func mapping(map: Map) {
-		
 		value_0	<- map["nested.0.value"]
 		value_1	<- map["nested.1.value"]
-		
 	}
 }

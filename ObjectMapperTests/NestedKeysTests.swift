@@ -9,7 +9,6 @@
 import Foundation
 import XCTest
 import ObjectMapper
-import Nimble
 
 class NestedKeysTests: XCTestCase {
 
@@ -67,44 +66,44 @@ class NestedKeysTests: XCTestCase {
 		let mapper = Mapper<NestedKeys>()
 
 		let value: NestedKeys! = mapper.map(JSON)
-		expect(value).notTo(beNil())
+		XCTAssertNotNil(value)
 		
 		let JSONFromValue = mapper.toJSON(value)
 		let valueFromParsedJSON: NestedKeys! = mapper.map(JSONFromValue)
-		expect(valueFromParsedJSON).notTo(beNil())
+		XCTAssertNotNil(valueFromParsedJSON)
 
-		expect(value.nonNestedString!).to(equal(valueFromParsedJSON.nonNestedString))
+		XCTAssertEqual(value.nonNestedString, valueFromParsedJSON.nonNestedString)
 		
-		expect(value.int64).to(equal(valueFromParsedJSON.int64))
-		expect(value.bool).to(equal(valueFromParsedJSON.bool))
-		expect(value.int).to(equal(valueFromParsedJSON.int))
-		expect(value.double).to(equal(valueFromParsedJSON.double))
-		expect(value.float).to(equal(valueFromParsedJSON.float))
-		expect(value.string).to(equal(valueFromParsedJSON.string))
+		XCTAssertEqual(value.int64, valueFromParsedJSON.int64)
+		XCTAssertEqual(value.bool, valueFromParsedJSON.bool)
+		XCTAssertEqual(value.int, valueFromParsedJSON.int)
+		XCTAssertEqual(value.double, valueFromParsedJSON.double)
+		XCTAssertEqual(value.float, valueFromParsedJSON.float)
+		XCTAssertEqual(value.string, valueFromParsedJSON.string)
 
-		expect(value.int64Array).to(equal(valueFromParsedJSON.int64Array))
-		expect(value.boolArray).to(equal(valueFromParsedJSON.boolArray))
-		expect(value.intArray).to(equal(valueFromParsedJSON.intArray))
-		expect(value.doubleArray).to(equal(valueFromParsedJSON.doubleArray))
-		expect(value.floatArray).to(equal(valueFromParsedJSON.floatArray))
-		expect(value.stringArray).to(equal(valueFromParsedJSON.stringArray))
+		XCTAssertEqual(value.int64Array, valueFromParsedJSON.int64Array)
+		XCTAssertEqual(value.boolArray, valueFromParsedJSON.boolArray)
+		XCTAssertEqual(value.intArray, valueFromParsedJSON.intArray)
+		XCTAssertEqual(value.doubleArray, valueFromParsedJSON.doubleArray)
+		XCTAssertEqual(value.floatArray, valueFromParsedJSON.floatArray)
+		XCTAssertEqual(value.stringArray, valueFromParsedJSON.stringArray)
 
-		expect(value.int64Dict).to(equal(valueFromParsedJSON.int64Dict))
-		expect(value.boolDict).to(equal(valueFromParsedJSON.boolDict))
-		expect(value.intDict).to(equal(valueFromParsedJSON.intDict))
-		expect(value.doubleDict).to(equal(valueFromParsedJSON.doubleDict))
-		expect(value.floatDict).to(equal(valueFromParsedJSON.floatDict))
-		expect(value.stringDict).to(equal(valueFromParsedJSON.stringDict))
+		XCTAssertEqual(value.int64Dict, valueFromParsedJSON.int64Dict)
+		XCTAssertEqual(value.boolDict, valueFromParsedJSON.boolDict)
+		XCTAssertEqual(value.intDict, valueFromParsedJSON.intDict)
+		XCTAssertEqual(value.doubleDict, valueFromParsedJSON.doubleDict)
+		XCTAssertEqual(value.floatDict, valueFromParsedJSON.floatDict)
+		XCTAssertEqual(value.stringDict, valueFromParsedJSON.stringDict)
 
-		expect(value.int64Enum).to(equal(valueFromParsedJSON.int64Enum))
-		expect(value.intEnum).to(equal(valueFromParsedJSON.intEnum))
-		expect(value.doubleEnum).to(equal(valueFromParsedJSON.doubleEnum))
-		expect(value.floatEnum).to(equal(valueFromParsedJSON.floatEnum))
-		expect(value.stringEnum).to(equal(valueFromParsedJSON.stringEnum))
+		XCTAssertEqual(value.int64Enum, valueFromParsedJSON.int64Enum)
+		XCTAssertEqual(value.intEnum, valueFromParsedJSON.intEnum)
+		XCTAssertEqual(value.doubleEnum, valueFromParsedJSON.doubleEnum)
+		XCTAssertEqual(value.floatEnum, valueFromParsedJSON.floatEnum)
+		XCTAssertEqual(value.stringEnum, valueFromParsedJSON.stringEnum)
 
-		expect(value.object).to(equal(valueFromParsedJSON.object))
-		expect(value.objectArray).to(equal(valueFromParsedJSON.objectArray))
-		expect(value.objectDict).to(equal(valueFromParsedJSON.objectDict))
+		XCTAssertEqual(value.object, valueFromParsedJSON.object)
+		XCTAssertEqual(value.objectArray, valueFromParsedJSON.objectArray)
+		XCTAssertEqual(value.objectDict, valueFromParsedJSON.objectDict)
 	}
 
 }

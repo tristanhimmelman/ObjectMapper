@@ -9,7 +9,6 @@
 import Foundation
 import XCTest
 import ObjectMapper
-import Nimble
 
 class ObjectMapperTests: XCTestCase {
 
@@ -41,17 +40,17 @@ class ObjectMapperTests: XCTestCase {
 
 		let user = userMapper.map(userJSONString)!
 		
-		expect(user).notTo(beNil())
-		expect(username).to(equal(user.username))
-		expect(identifier).to(equal(user.identifier))
-		expect(photoCount).to(equal(user.photoCount))
-		expect(age).to(equal(user.age))
-		expect(weight).to(equal(user.weight))
-		expect(float).to(equal(user.float))
-		expect(drinker).to(equal(user.drinker))
-		expect(smoker).to(equal(user.smoker))
-		expect(sex).to(equal(user.sex))
-		
+		XCTAssertNotNil(user)
+		XCTAssertEqual(username, user.username)
+		XCTAssertEqual(identifier, user.identifier)
+		XCTAssertEqual(photoCount, user.photoCount)
+		XCTAssertEqual(age, user.age)
+		XCTAssertEqual(weight, user.weight)
+		XCTAssertEqual(float, user.float)
+		XCTAssertEqual(drinker, user.drinker)
+		XCTAssertEqual(smoker, user.smoker)
+		XCTAssertEqual(sex, user.sex)
+
 		//print(Mapper().toJSONString(user, prettyPrint: true))
     }
 	
@@ -71,16 +70,16 @@ class ObjectMapperTests: XCTestCase {
 		
 		let user = userMapper.map(userJSONString)!
 		
-		expect(user).notTo(beNil())
-		expect(username).to(equal(user.username))
-		expect(identifier).to(equal(user.identifier))
-		expect(photoCount).to(equal(user.photoCount))
-		expect(age).to(equal(user.age))
-		expect(weight).to(equal(user.weight))
-		expect(float).to(equal(user.float))
-		expect(drinker).to(equal(user.drinker))
-		expect(smoker).to(equal(user.smoker))
-		expect(sex).to(equal(user.sex))
+		XCTAssertNotNil(user)
+		XCTAssertEqual(username, user.username)
+		XCTAssertEqual(identifier, user.identifier)
+		XCTAssertEqual(photoCount, user.photoCount)
+		XCTAssertEqual(age, user.age)
+		XCTAssertEqual(weight, user.weight)
+		XCTAssertEqual(float, user.float)
+		XCTAssertEqual(drinker, user.drinker)
+		XCTAssertEqual(smoker, user.smoker)
+		XCTAssertEqual(sex, user.sex)
 	}
 
     func testInstanceParsing() {
@@ -99,15 +98,15 @@ class ObjectMapperTests: XCTestCase {
         
         let user = Mapper().map(userJSONString, toObject: User())
 
-		expect(username).to(equal(user.username))
-		expect(identifier).to(equal(user.identifier))
-		expect(photoCount).to(equal(user.photoCount))
-		expect(age).to(equal(user.age))
-		expect(weight).to(equal(user.weight))
-		expect(float).to(equal(user.float))
-		expect(drinker).to(equal(user.drinker))
-		expect(smoker).to(equal(user.smoker))
-		expect(sex).to(equal(user.sex))
+		XCTAssertEqual(username, user.username)
+		XCTAssertEqual(identifier, user.identifier)
+		XCTAssertEqual(photoCount, user.photoCount)
+		XCTAssertEqual(age, user.age)
+		XCTAssertEqual(weight, user.weight)
+		XCTAssertEqual(float, user.float)
+		XCTAssertEqual(drinker, user.drinker)
+		XCTAssertEqual(smoker, user.smoker)
+		XCTAssertEqual(sex, user.sex)
         //print(Mapper().toJSONString(user, prettyPrint: true))
     }
     
@@ -124,10 +123,10 @@ class ObjectMapperTests: XCTestCase {
         s.minor = minor
         let student = Mapper().map(json, toObject: s)
 
-		expect(student.name).to(equal(name))
-		expect(student.UUID).to(equal(UUID))
-		expect(student.major).to(equal(major))
-		expect(student.minor).to(equal(minor))
+		XCTAssertEqual(name, student.name)
+		XCTAssertEqual(UUID, student.UUID)
+		XCTAssertEqual(major, student.major)
+		XCTAssertEqual(minor, student.minor)
 
         //Test that mapping a reference type works as expected while not relying on the return value
         let username: String = "Barack Obama"
@@ -137,17 +136,19 @@ class ObjectMapperTests: XCTestCase {
         let json2: [String: AnyObject] = ["username": username, "identifier": identifier, "photoCount": photoCount]
         let user = User()
         Mapper().map(json2, toObject: user)
-		expect(user.username).to(equal(username))
-		expect(user.identifier).to(equal(identifier))
-		expect(user.photoCount).to(equal(photoCount))
+		
+		XCTAssertEqual(username, user.username)
+		XCTAssertEqual(identifier, user.identifier)
+		XCTAssertEqual(photoCount, user.photoCount)
     }
     
 	func testNullObject() {
 		let JSONString = "{\"username\":\"bob\"}"
 
 		let user = userMapper.map(JSONString)
-		expect(user).notTo(beNil())
-		expect(user?.age).to(beNil())
+		
+		XCTAssertNotNil(user)
+		XCTAssertNil(user?.age)
 	}
 	
 	func testToObjectFromString() {
@@ -159,7 +160,7 @@ class ObjectMapperTests: XCTestCase {
 		
 		Mapper().map(JSONString, toObject: user)
 
-		expect(user.username).to(equal(username))
+		XCTAssertEqual(user.username, username)
 	}
 	
 	func testToObjectFromJSON() {
@@ -171,7 +172,7 @@ class ObjectMapperTests: XCTestCase {
 		
 		Mapper().map(JSON, toObject: user)
 
-		expect(user.username).to(equal(username))
+		XCTAssertEqual(username, user.username)
 	}
 	
 	func testToObjectFromAnyObject() {
@@ -183,7 +184,7 @@ class ObjectMapperTests: XCTestCase {
 		
 		Mapper().map(userJSON as AnyObject?, toObject: user)
 
-		expect(user.username).to(equal(username))
+		XCTAssertEqual(user.username, username)
 	}
 	
     func testToJSONAndBack(){
@@ -202,14 +203,15 @@ class ObjectMapperTests: XCTestCase {
         //print(JSONString)
 
 		let parsedUser = userMapper.map(JSONString!)!
-		expect(parsedUser).notTo(beNil())
-		expect(user.identifier).to(equal(parsedUser.identifier))
-		expect(user.photoCount).to(equal(parsedUser.photoCount))
-		expect(user.age).to(equal(parsedUser.age))
-		expect(user.weight).to(equal(parsedUser.weight))
-		expect(user.drinker).to(equal(parsedUser.drinker))
-		expect(user.smoker).to(equal(parsedUser.smoker))
-		expect(user.sex).to(equal(parsedUser.sex))
+		
+		XCTAssertNotNil(parsedUser)
+		XCTAssertEqual(user.identifier, parsedUser.identifier)
+		XCTAssertEqual(user.photoCount, parsedUser.photoCount)
+		XCTAssertEqual(user.age, parsedUser.age)
+		XCTAssertEqual(user.weight, parsedUser.weight)
+		XCTAssertEqual(user.drinker, parsedUser.drinker)
+		XCTAssertEqual(user.smoker, parsedUser.smoker)
+		XCTAssertEqual(user.sex, parsedUser.sex)
     }
 
     func testUnknownPropertiesIgnored() {
@@ -217,7 +219,7 @@ class ObjectMapperTests: XCTestCase {
 
 		let user = userMapper.map(JSONString)
 
-		expect(user).notTo(beNil())
+		XCTAssertNotNil(user)
     }
     
     func testInvalidJsonResultsInNilObject() {
@@ -225,7 +227,7 @@ class ObjectMapperTests: XCTestCase {
 
         let user = userMapper.map(JSONString)
 
-		expect(user).to(beNil())
+		XCTAssertNil(user)
     }
 	
 	func testMapArrayJSON(){
@@ -236,10 +238,10 @@ class ObjectMapperTests: XCTestCase {
 	
 		let students = Mapper<Student>().mapArray(JSONString)
 
-		expect(students).notTo(beEmpty())
-		expect(students?.count).to(equal(2))
-		expect(students?[0].name).to(equal(name1))
-		expect(students?[1].name).to(equal(name2))
+		XCTAssertTrue(students?.count > 0)
+		XCTAssertTrue(students?.count == 2)
+		XCTAssertEqual(students?[0].name, name1)
+		XCTAssertEqual(students?[1].name, name2)
 	}
 
 	// test mapArray() with JSON string that is not an array form
@@ -251,9 +253,9 @@ class ObjectMapperTests: XCTestCase {
 		
 		let students = Mapper<Student>().mapArray(JSONString)
 
-		expect(students).notTo(beEmpty())
-		expect(students?.count).to(equal(1))
-		expect(students?[0].name).to(equal(name1))
+		XCTAssertTrue(students?.count > 0)
+		XCTAssertTrue(students?.count == 1)
+		XCTAssertEqual(students?[0].name, name1)
 	}
 
 	func testMapArrayJSONWithEmptyArray() {
@@ -261,8 +263,8 @@ class ObjectMapperTests: XCTestCase {
 
 		let students = Mapper<Student>().mapArray(JSONString)
 
-		expect(students).to(beEmpty())
-		expect(students?.count).to(equal(0))
+		XCTAssertNotNil(students)
+		XCTAssertTrue(students?.count == 0)
 	}
 
 	func testArrayOfCustomObjects(){
@@ -274,9 +276,10 @@ class ObjectMapperTests: XCTestCase {
 		let plan = Mapper<Plan>().map(JSONString)
 
 		let tasks = plan?.tasks
-		expect(tasks).notTo(beNil())
-		expect(tasks?[0].percentage).to(equal(percentage1))
-		expect(tasks?[1].percentage).to(equal(percentage2))
+		
+		XCTAssertNotNil(tasks)
+		XCTAssertEqual(tasks?[0].percentage, percentage1)
+		XCTAssertEqual(tasks?[1].percentage, percentage2)
 	}
 
 	func testDictionaryOfArrayOfCustomObjects(){
@@ -288,18 +291,18 @@ class ObjectMapperTests: XCTestCase {
 		let plan = Mapper<Plan>().map(JSONString)
 		
 		let dictionaryOfTasks = plan?.dictionaryOfTasks
-		expect(dictionaryOfTasks).notTo(beNil())
-		expect(dictionaryOfTasks?["mondayTasks"]?[0].percentage).to(equal(percentage1))
-		expect(dictionaryOfTasks?["mondayTasks"]?[1].percentage).to(equal(percentage2))
+		XCTAssertNotNil(dictionaryOfTasks)
+		XCTAssertEqual(dictionaryOfTasks?["mondayTasks"]?[0].percentage, percentage1)
+		XCTAssertEqual(dictionaryOfTasks?["mondayTasks"]?[1].percentage, percentage2)
 		
 		let planToJSON = Mapper().toJSONString(plan!, prettyPrint: true)
 		//print(planToJSON!)
 		let planFromJSON = Mapper<Plan>().map(planToJSON!)
 
 		let dictionaryOfTasks2 = planFromJSON?.dictionaryOfTasks
-		expect(dictionaryOfTasks2).notTo(beNil())
-		expect(dictionaryOfTasks2?["mondayTasks"]?[0].percentage).to(equal(percentage1))
-		expect(dictionaryOfTasks2?["mondayTasks"]?[1].percentage).to(equal(percentage2))
+		XCTAssertNotNil(dictionaryOfTasks2)
+		XCTAssertEqual(dictionaryOfTasks2?["mondayTasks"]?[0].percentage, percentage1)
+		XCTAssertEqual(dictionaryOfTasks2?["mondayTasks"]?[1].percentage, percentage2)
 	}
 	
 	func testArrayOfEnumObjects(){
@@ -311,11 +314,12 @@ class ObjectMapperTests: XCTestCase {
 
 		let enumArray = Mapper<ExampleEnumArray>().map(JSONString)
 		let enums = enumArray?.enums
-		expect(enums).notTo(beNil())
-		expect(enums?.count).to(equal(3))
-		expect(enums?[0]).to(equal(a))
-		expect(enums?[1]).to(equal(b))
-		expect(enums?[2]).to(equal(c))
+		
+		XCTAssertNotNil(enums)
+		XCTAssertTrue(enums?.count == 3)
+		XCTAssertEqual(enums?[0], a)
+		XCTAssertEqual(enums?[1], b)
+		XCTAssertEqual(enums?[2], c)
 	}
 
 	func testDictionaryOfCustomObjects(){
@@ -327,8 +331,8 @@ class ObjectMapperTests: XCTestCase {
 		let taskDict = Mapper<TaskDictionary>().map(JSONString)
 		
 		let task = taskDict?.tasks?["task1"]
-		expect(task).notTo(beNil())
-		expect(task?.percentage).to(equal(percentage1))
+		XCTAssertNotNil(task)
+		XCTAssertEqual(task?.percentage, percentage1)
 	}
 
 	func testDictionryOfEnumObjects(){
@@ -340,8 +344,9 @@ class ObjectMapperTests: XCTestCase {
 
 		let enumDict = Mapper<ExampleEnumDictionary>().map(JSONString)
 		let enums = enumDict?.enums
-		expect(enums).notTo(beNil())
-		expect(enums?.count).to(equal(3))
+		
+		XCTAssertNotNil(enums)
+		XCTAssertTrue(enums?.count == 3)
 	}
 
 	func testDoubleParsing(){
@@ -351,8 +356,8 @@ class ObjectMapperTests: XCTestCase {
 		
 		let task = Mapper<Task>().map(JSONString)
 
-		expect(task).notTo(beNil())
-		expect(task?.percentage).to(equal(percentage1))
+		XCTAssertNotNil(task)
+		XCTAssertEqual(task?.percentage, percentage1)
 	}
 	
 	func testMappingAGenericObject(){
@@ -362,8 +367,9 @@ class ObjectMapperTests: XCTestCase {
 		let response = Mapper<Response<Status>>().map(JSONString)
 
 		let status = response?.result?.status
-		expect(status).notTo(beNil())
-		expect(status).to(equal(code))
+		
+		XCTAssertNotNil(status)
+		XCTAssertEqual(status, code)
 	}
 
 	func testToJSONArray(){
@@ -384,20 +390,20 @@ class ObjectMapperTests: XCTestCase {
 		let taskId1 = JSONArray[0]["taskId"] as? Int
 		let percentage1 = JSONArray[0]["percentage"] as? Double
 
-		expect(taskId1).to(equal(task1.taskId))
-		expect(percentage1).to(equal(task1.percentage))
+		XCTAssertEqual(taskId1, task1.taskId)
+		XCTAssertEqual(percentage1, task1.percentage)
 
 		let taskId2 = JSONArray[1]["taskId"] as? Int
 		let percentage2 = JSONArray[1]["percentage"] as? Double
 		
-		expect(taskId2).to(equal(task2.taskId))
-		expect(percentage2).to(equal(task2.percentage))
+		XCTAssertEqual(taskId2, task2.taskId)
+		XCTAssertEqual(percentage2, task2.percentage)
 
 		let taskId3 = JSONArray[2]["taskId"] as? Int
 		let percentage3 = JSONArray[2]["percentage"] as? Double
 		
-		expect(taskId3).to(equal(task3.taskId))
-		expect(percentage3).to(equal(task3.percentage))
+		XCTAssertEqual(taskId3, task3.taskId)
+		XCTAssertEqual(percentage3, task3.percentage)
 	}
 	
 	func testSubclass() {
@@ -408,8 +414,8 @@ class ObjectMapperTests: XCTestCase {
 		let json = Mapper().toJSON(object)
 		let parsedObject = Mapper<Subclass>().map(json)
 
-		expect(object.base).to(equal(parsedObject?.base))
-		expect(object.sub).to(equal(parsedObject?.sub))
+		XCTAssertEqual(object.base, parsedObject?.base)
+		XCTAssertEqual(object.sub, parsedObject?.sub)
 	}
 
 	func testGenericSubclass() {
@@ -420,8 +426,8 @@ class ObjectMapperTests: XCTestCase {
 		let json = Mapper().toJSON(object)
 		let parsedObject = Mapper<GenericSubclass<String>>().map(json)
 
-		expect(object.base).to(equal(parsedObject?.base))
-		expect(object.sub).to(equal(parsedObject?.sub))
+		XCTAssertEqual(object.base, parsedObject?.base)
+		XCTAssertEqual(object.sub, parsedObject?.sub)
 	}
 	
 	func testSubclassWithGenericArrayInSuperclass() {
@@ -430,9 +436,10 @@ class ObjectMapperTests: XCTestCase {
 		let parsedObject = Mapper<SubclassWithGenericArrayInSuperclass<AnyObject>>().map(JSONString)
 
 		let genericItems = parsedObject?.genericItems
-		expect(genericItems).notTo(beNil())
-		expect(genericItems?[0].value).to(equal("value0"))
-		expect(genericItems?[1].value).to(equal("value1"))
+		
+		XCTAssertNotNil(genericItems)
+		XCTAssertEqual(genericItems?[0].value, "value0")
+		XCTAssertEqual(genericItems?[1].value, "value1")
 	}
 	
 	func testImmutableMappable() {
@@ -440,18 +447,18 @@ class ObjectMapperTests: XCTestCase {
 		let JSON = ["prop1": "Immutable!", "prop2": 255, "prop3": true ]
 
 		let immutable: Immutable! = mapper.map(JSON)
-		expect(immutable).notTo(beNil())
-		expect(immutable?.prop1).to(equal("Immutable!"))
-		expect(immutable?.prop2).to(equal(255))
-		expect(immutable?.prop3).to(equal(true))
-		expect(immutable?.prop4).to(equal(DBL_MAX))
+		XCTAssertNotNil(immutable)
+		XCTAssertEqual(immutable.prop1, "Immutable!")
+		XCTAssertEqual(immutable.prop2, 255)
+		XCTAssertEqual(immutable.prop3, true)
+		XCTAssertEqual(immutable.prop4, DBL_MAX)
 
 		let JSON2 = [ "prop1": "prop1", "prop2": NSNull() ]
 		let immutable2 = mapper.map(JSON2)
-		expect(immutable2).to(beNil())
+		XCTAssertNil(immutable2)
 
 		let JSONFromObject = mapper.toJSON(immutable)
-		expect(mapper.map(JSONFromObject)).to(equal(immutable))
+		XCTAssertEqual(mapper.map(JSONFromObject), immutable)
 	}
 	
 	func testArrayOfArrayOfMappable() {
@@ -465,22 +472,23 @@ class ObjectMapperTests: XCTestCase {
 		let JSON = ["twoDimensionalArray":[array1, array2]]
 		
 		let arrayTest = Mapper<ArrayTest>().map(JSON)
-		expect(arrayTest).notTo(beNil())
-		expect(arrayTest?.twoDimensionalArray?[0][0].base).to(equal(base1))
-		expect(arrayTest?.twoDimensionalArray?[0][1].base).to(equal(base2))
-		expect(arrayTest?.twoDimensionalArray?[0][2].base).to(equal(base3))
-		expect(arrayTest?.twoDimensionalArray?[1][0].base).to(equal(base4))
 		
-		expect(arrayTest?.twoDimensionalArray?[0].count).to(equal(array1.count))
-		expect(arrayTest?.twoDimensionalArray?[1].count).to(equal(array2.count))
+		XCTAssertNotNil(arrayTest)
+		XCTAssertEqual(arrayTest?.twoDimensionalArray?[0][0].base, base1)
+		XCTAssertEqual(arrayTest?.twoDimensionalArray?[0][1].base, base2)
+		XCTAssertEqual(arrayTest?.twoDimensionalArray?[0][2].base, base3)
+		XCTAssertEqual(arrayTest?.twoDimensionalArray?[1][0].base, base4)
+		
+		XCTAssertEqual(arrayTest?.twoDimensionalArray?[0].count, array1.count)
+		XCTAssertEqual(arrayTest?.twoDimensionalArray?[1].count, array2.count)
 		
 		let backToJSON = Mapper<ArrayTest>().toJSON(arrayTest!)
-		expect(backToJSON).notTo(beNil())
+		XCTAssertNotNil(backToJSON)
 		
 		let arrayTest2 = Mapper<ArrayTest>().map(backToJSON)
-		expect(arrayTest2).notTo(beNil())
-		expect(arrayTest2?.twoDimensionalArray?[0][0].base).to(equal(arrayTest?.twoDimensionalArray?[0][0].base))
-		expect(arrayTest2?.twoDimensionalArray?[0][1].base).to(equal(arrayTest?.twoDimensionalArray?[0][1].base))
+		XCTAssertNotNil(arrayTest2)
+		XCTAssertEqual(arrayTest2?.twoDimensionalArray?[0][0].base, arrayTest?.twoDimensionalArray?[0][0].base)
+		XCTAssertEqual(arrayTest2?.twoDimensionalArray?[0][1].base, arrayTest?.twoDimensionalArray?[0][1].base)
 	}
 }
 
