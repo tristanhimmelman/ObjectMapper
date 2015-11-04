@@ -67,14 +67,14 @@ public final class Mapper<N: Mappable> {
 
 	//MARK: Mapping functions that create an object
 	
-	/// Map an optional JSON string to an object that conforms to Mappable
-	public func map(JSONString: String?) -> N? {
-		if let JSONString = JSONString {
-			return map(JSONString)
-		}
-		
-		return nil
-	}
+//	/// Map an optional JSON string to an object that conforms to Mappable
+//	public func map(JSONString: String?) -> N? {
+//		if let JSONString = JSONString {
+//			return map(JSONString)
+//		}
+//		
+//		return nil
+//	}
 	
 	/// Map a JSON string to an object that conforms to Mappable
 	public func map(JSONString: String) -> N? {
@@ -151,6 +151,12 @@ public final class Mapper<N: Mappable> {
 		// map every element in JSON array to type N
 		let result = JSONArray.flatMap(map)
 		return result
+	}
+	
+	/// Maps a JSON object to a dictionary of Mappable objects if it is a JSON dictionary of dictionaries, or returns nil.
+	public func mapDictionary(JSONString: String) -> [String : N]? {
+		let parsedJSON: AnyObject? = parseJSONString(JSONString)
+		return mapDictionary(parsedJSON)
 	}
 	
 	/// Maps a JSON object to a dictionary of Mappable objects if it is a JSON dictionary of dictionaries, or returns nil.
@@ -284,30 +290,20 @@ extension Mapper {
 		}
 	}
 	
-	/// Maps an Object to a JSON string
-	public func toJSONString(object: N) -> String? {
-		return toJSONString(object, prettyPrint: false)
-	}
-	
 	/// Maps an Object to a JSON string with option of pretty formatting
-	public func toJSONString(object: N, prettyPrint: Bool) -> String? {
+	public func toJSONString(object: N, prettyPrint: Bool = false) -> String? {
 		let JSONDict = toJSON(object)
 		
         return toJSONString(JSONDict, prettyPrint: prettyPrint)
 	}
-	
-	/// Maps an array of Objects to a JSON string
-	public func toJSONString(array: [N]) -> String? {
-		return toJSONString(array, prettyPrint: false)
-	}
-	
+
     /// Maps an array of Objects to a JSON string with option of pretty formatting	
-    public func toJSONString(array: [N], prettyPrint: Bool) -> String? {
+    public func toJSONString(array: [N], prettyPrint: Bool = false) -> String? {
         let JSONDict = toJSONArray(array)
         
         return toJSONString(JSONDict, prettyPrint: prettyPrint)
     }
-    
+	
     private func toJSONString(object: AnyObject, prettyPrint: Bool) -> String? {
         if NSJSONSerialization.isValidJSONObject(object) {
             let options: NSJSONWritingOptions = prettyPrint ? .PrettyPrinted : []
@@ -369,6 +365,12 @@ extension Mapper where N: Hashable {
 		}
 	}
 	
+	/// Maps a set of Objects to a JSON string with option of pretty formatting
+	public func toJSONString(set: Set<N>, prettyPrint: Bool = false) -> String? {
+		let JSONDict = toJSONSet(set)
+		
+		return toJSONString(JSONDict, prettyPrint: prettyPrint)
+	}
 }
 
 extension Dictionary {

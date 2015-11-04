@@ -9,7 +9,6 @@
 import Foundation
 import XCTest
 import ObjectMapper
-import Nimble
 
 struct TestMappable : Mappable, Equatable, Hashable {
 	static let valueForString = "This string should work"
@@ -48,59 +47,39 @@ class MappableExtensionsTests: XCTestCase {
 		testMappable.value = TestMappable.valueForString
 	}
 	
-	func testInitFailsWithNilString() {
-		expect(TestMappable(JSONString: nil)).to(beNil())
-	}
-	
-	func testInitFailsWithNilJSON() {
-		expect(TestMappable(JSON: nil)).to(beNil())
-	}
-	
 	func testInitFromString() {
 		let mapped = TestMappable(JSONString: TestMappable.workingJSONString)
-		expect(mapped).toNot(beNil())
-		expect(mapped?.value).to(equal(TestMappable.valueForString))
+		
+		XCTAssertNotNil(mapped)
+		XCTAssertEqual(mapped?.value, TestMappable.valueForString)
 	}
 	
 	func testToJSONAndBack() {
-		let mapped = TestMappable(JSON: testMappable.toJSON())
-		expect(mapped).to(equal(testMappable))
-	}
-	
-	func testArrayInitFailsWithNilString() {
-		expect([TestMappable](JSONString: nil)).to(beNil())
-	}
-	
-	func testArrayInitFailsWithNilArray() {
-		expect([TestMappable](JSONArray: nil)).to(beNil())
+		let mapped = TestMappable(JSON: testMappable.toJSON()!)
+		XCTAssertEqual(mapped, testMappable)
 	}
 	
 	func testArrayFromString() {
 		let mapped = [TestMappable](JSONString: TestMappable.workingJSONArrayString)!
-		expect(mapped).to(equal([testMappable]))
+		XCTAssertEqual(mapped, [testMappable])
 	}
 	
 	func testArrayToJSONAndBack() {
-		let mapped = [TestMappable](JSONArray: [testMappable].toJSON())
-		expect(mapped).to(equal([testMappable]))
+		let mapped = [TestMappable](JSONArray: [testMappable].toJSON()!)
+		XCTAssertEqual(mapped!, [testMappable])
 	}
 	
 	func testSetInitFailsWithEmptyString() {
-		expect(Set<TestMappable>(JSONString: "")).to(beNil())
-	}
-	
-	func testSetInitFailsWithNilArray() {
-		expect(Set<TestMappable>(JSONArray: nil)).to(beNil())
+		XCTAssertNil(Set<TestMappable>(JSONString: ""))
 	}
 	
 	func testSetFromString() {
 		let mapped = Set<TestMappable>(JSONString: TestMappable.workingJSONArrayString)!
-		expect(mapped).to(equal(Set<TestMappable>([testMappable])))
+		XCTAssertEqual(mapped, Set<TestMappable>([testMappable]))
 	}
 	
 	func testSetToJSONAndBack() {
-		let mapped = Set<TestMappable>(JSONArray: Set([testMappable]).toJSON())
-		expect(mapped).to(equal([testMappable]))
+		let mapped = Set<TestMappable>(JSONArray: Set([testMappable]).toJSON()!)
+		XCTAssertEqual(mapped, [testMappable])
 	}
-
 }
