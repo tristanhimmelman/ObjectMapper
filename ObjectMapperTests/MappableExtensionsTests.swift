@@ -55,7 +55,7 @@ class MappableExtensionsTests: XCTestCase {
 	}
 	
 	func testToJSONAndBack() {
-		let mapped = TestMappable(JSON: testMappable.toJSON()!)
+		let mapped = TestMappable(JSON: testMappable.toJSON())
 		XCTAssertEqual(mapped, testMappable)
 	}
 	
@@ -65,7 +65,7 @@ class MappableExtensionsTests: XCTestCase {
 	}
 	
 	func testArrayToJSONAndBack() {
-		let mapped = [TestMappable](JSONArray: [testMappable].toJSON()!)
+		let mapped = [TestMappable](JSONArray: [testMappable].toJSON())
 		XCTAssertEqual(mapped!, [testMappable])
 	}
 	
@@ -79,7 +79,7 @@ class MappableExtensionsTests: XCTestCase {
 	}
 	
 	func testSetToJSONAndBack() {
-		let mapped = Set<TestMappable>(JSONArray: Set([testMappable]).toJSON()!)
+		let mapped = Set<TestMappable>(JSONArray: Set([testMappable]).toJSON())
 		XCTAssertEqual(mapped, [testMappable])
 	}
 }

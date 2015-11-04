@@ -67,14 +67,14 @@ public final class Mapper<N: Mappable> {
 
 	//MARK: Mapping functions that create an object
 	
-//	/// Map an optional JSON string to an object that conforms to Mappable
-//	public func map(JSONString: String?) -> N? {
-//		if let JSONString = JSONString {
-//			return map(JSONString)
-//		}
-//		
-//		return nil
-//	}
+	/// Map an optional JSON string to an object that conforms to Mappable
+	public func map(JSONString: String?) -> N? {
+		if let JSONString = JSONString {
+			return map(JSONString)
+		}
+		
+		return nil
+	}
 	
 	/// Map a JSON string to an object that conforms to Mappable
 	public func map(JSONString: String) -> N? {

@@ -34,7 +34,7 @@ public extension Mappable {
 	}
 	
 	/// Returns the JSON Dictionary for the object
-	public func toJSON() -> [String: AnyObject]? {
+	public func toJSON() -> [String: AnyObject] {
 		return Mapper().toJSON(self)
 	}
 	
@@ -65,7 +65,7 @@ public extension Array where Element: Mappable {
 	}
 	
 	/// Returns the JSON Array
-	public func toJSON() -> [[String : AnyObject]]? {
+	public func toJSON() -> [[String : AnyObject]] {
 		return Mapper().toJSONArray(self)
 	}
 	
@@ -96,7 +96,7 @@ public extension Set where Element: Mappable {
 	}
 	
 	/// Returns the JSON Set
-	public func toJSON() -> [[String : AnyObject]]? {
+	public func toJSON() -> [[String : AnyObject]] {
 		return Mapper().toJSONSet(self)
 	}
 	
