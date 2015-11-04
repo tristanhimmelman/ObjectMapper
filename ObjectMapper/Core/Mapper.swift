@@ -28,11 +28,6 @@
 
 import Foundation
 
-public protocol Mappable {
-	init?(_ map: Map)
-	mutating func mapping(map: Map)
-}
-
 public enum MappingType {
 	case FromJSON
 	case ToJSON
