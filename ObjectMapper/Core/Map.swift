@@ -8,6 +8,24 @@
 
 import Foundation
 
+
+/// Required field assertion
+public class MapRequiredField {
+	
+	/** change this to achive different verification purpose, 
+	 *	like in test setUp function you may want to do this to turn on 'required field verification':
+	
+		MapRequiredField.assume = { (condition: Bool, message: String) in
+			XCTAssert(condition, message)
+		}
+	 *
+	 */
+	public static var assume = { (condition: Bool, message: String) in
+		assert(condition, message)
+	}
+}
+
+
 /// A class used for holding mapping data
 public final class Map {
 	public let mappingType: MappingType
@@ -45,7 +63,7 @@ public final class Map {
 		// could be useful for POST as well, ehnnn....
 		if isRequiredField && mappingType == MappingType.FromJSON {
 			// FIXME: somehow this doesn't work in unit test, so only ui test will trigger this which sucks
-			assert(currentValue != nil, "\(key) is a required field, should not be nil")
+			MapRequiredField.assume(currentValue != nil, "\(key) is a required field, should not be nil")
 		}
 		
 		return map

@@ -10,11 +10,16 @@ import XCTest
 import ObjectMapper
 import Nimble
 
+
 class NestedArrayTests: XCTestCase {
 	
 	override func setUp() {
 		super.setUp()
 		// Put setup code here. This method is called before the invocation of each test method in the class.
+		
+		MapRequiredField.assume = { (condition: Bool, message: String) in
+			XCTAssert(condition, message)
+		}
 	}
 	
 	override func tearDown() {
@@ -36,15 +41,18 @@ class NestedArrayTests: XCTestCase {
 				
 				switch map.mappingType {
 				case .FromJSON:
-					currentEmployerName <- map["employments.0.employer.name", required: true]
+					currentEmployerName <- map["employments.0.employer.name"]
 					currentJobTitle <- map["employments.0.position"]
-					previousEmplyerName <- map["employments.1.employer.name", required: true]
+					previousEmplyerName <- map["employments.1.employer.name"]
 					previousJobTitle <- map["employments.1.position"]
 					age <- map["age", required: true]
 				case .ToJSON:
-					// server only cares current emplyments
+					// server only cares current employments
 					currentEmployerName <- map["currentEmployments.0.employer.name"]
 					currentJobTitle <- map["currentEmployments.0.position"]
+					
+					// this is a required field
+					age <- map["age"]
 				}
 			}
 		}
@@ -63,7 +71,8 @@ class NestedArrayTests: XCTestCase {
 						"name": "Linkedin"
 					]
 				]
-			]
+			],
+			"age": 30 // comment out this line to see the requirement assert error
 		]
 		
 		let mapper = Mapper<Employments>()

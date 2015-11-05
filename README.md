@@ -143,6 +143,13 @@ func mapping(map: Map){
     identifier <- map["employment.Carma", required: true]
 }
 ```
+In tests, put following codes in your test `setUp` function to verify requred fields:
+
+```swift
+MapRequiredField.assume = { (condition: Bool, message: String) in
+	XCTAssert(condition, message)
+}
+```
 
 #Custom Transfoms
 ObjectMapper also supports custom Transforms that convert values during the mapping process. To use a transform, simply create a tuple with ```map["field_name"]``` and the transform of choice on the right side of the ```<-``` operator:
