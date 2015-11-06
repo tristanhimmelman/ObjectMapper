@@ -11,6 +11,7 @@ ObjectMapper is a framework written in Swift that makes it easy for you to conve
 - [Mapping Nested Objects](#easy-mapping-of-nested-objects)
 - [Custom Transformations](#custom-transfoms)
 - [Subclassing](#subclasses)
+- [Generic Objects](#generic-objects)
 - [ObjectMapper + Alamofire](#objectmapper--alamofire) 
 - [ObjectMapper + Realm](#objectmapper--realm)
 - [Contributing](#contributing)
@@ -199,7 +200,24 @@ class Subclass: Base {
 	}
 }
 ```
+#Generic Objects
 
+ObjectMapper can handle classes with generic types as long as the generic type also conforms to `Mappable`. See the following example:
+```swift
+class Result<T: Mappable>: Mappable {
+    var result: T?
+
+    required init?(_ map: Map){
+
+    }
+
+    func mapping(map: Map) {
+        result <- map["result"]
+    }
+}
+
+let result = Mapper<Result<User>>().map(JSON)
+```
 <!-- # Mapping Immutable Properties
 
 Note: This is an experimental feature. Not all ObjectMapper functionality is guaranteed to work for immutable mappings.
