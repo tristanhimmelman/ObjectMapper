@@ -221,23 +221,23 @@ public func <- <T: TransformType>(inout left: [String: T.Object]!, right: (Map, 
 	}
 }
 
-private func fromJSONArrayWithTransform<T: TransformType>(input: AnyObject?, transform: T) -> [T.Object] {
+private func fromJSONArrayWithTransform<T: TransformType>(input: AnyObject?, transform: T) -> [T.Object]? {
 	if let values = input as? [AnyObject] {
 		return values.flatMap { value in
 			return transform.transformFromJSON(value)
 		}
 	} else {
-		return []
+		return nil
 	}
 }
 
-private func fromJSONDictionaryWithTransform<T: TransformType>(input: AnyObject?, transform: T) -> [String: T.Object] {
+private func fromJSONDictionaryWithTransform<T: TransformType>(input: AnyObject?, transform: T) -> [String: T.Object]? {
 	if let values = input as? [String: AnyObject] {
 		return values.filterMap { value in
 			return transform.transformFromJSON(value)
 		}
 	} else {
-		return [:]
+		return nil
 	}
 }
 
