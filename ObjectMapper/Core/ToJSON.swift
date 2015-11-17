@@ -176,6 +176,8 @@ internal final class ToJSON {
 			_setValue(x)
 		} else if let x = field as? Dictionary<String, AnyObject> {
 			_setValue(x)
+		} else if let x = field as? AnyObject {
+			_setValue(x)
 		}
 	}
 

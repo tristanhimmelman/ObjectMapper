@@ -27,6 +27,39 @@ class NestedArrayTests: XCTestCase {
 		super.tearDown()
 	}
 	
+	func testGenericArrayMapping() {
+		
+		class ArrayArray: MappableModel, CustomDebugStringConvertible {
+			
+			var type: String!
+			var coordinates:Array<Array<Array<Double>>>!
+			
+			override func mapping(map: Map) {
+				type			<- map["type"]
+				coordinates     <- map["coordinates"]
+			}
+			
+			var debugDescription: String {
+				get {
+					return "type: \(type), coordinates: \(coordinates)"
+				}
+			}
+		}
+		
+		let json = [
+			"type": "string",
+			"coordinates": [[[1.0,1.0], [2.0,2], [3.0,3]], [[1.0,1.0], [2.0,2.0], [3.0,3.0]]]
+		]
+		
+		let mapper = Mapper<ArrayArray>()
+		
+		let arrayObject = mapper.map(json)
+		
+		let jsonString = mapper.toJSON(arrayObject!)
+		
+		XCTAssertNotNil(jsonString["coordinates"])
+	}
+	
 	func testArrayDoubleWayMapping() {
 		
 		class Employments: MappableModel {
