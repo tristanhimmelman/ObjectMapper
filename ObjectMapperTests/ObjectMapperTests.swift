@@ -233,6 +233,34 @@ class ObjectMapperTests: XCTestCase {
 		XCTAssertEqual(user.smoker, parsedUser.smoker)
 		XCTAssertEqual(user.sex, parsedUser.sex)
     }
+	
+	func testToJSONArrayAndBack(){
+		let user = User()
+		user.username = "tristan_him"
+		user.identifier = "tristan_him_identifier"
+		user.photoCount = 0
+		user.age = 28
+		user.weight = 150
+		user.drinker = true
+		user.smoker = false
+		user.sex = .Female
+		user.arr = ["cheese", 11234]
+		let users = [user, user, user]
+		
+		//print(JSONString)
+		let JSONString = Mapper().toJSONString(users)
+		let parsedUsers = userMapper.mapArray(JSONString)
+
+		XCTAssertNotNil(parsedUsers)
+		XCTAssertTrue(parsedUsers?.count == 3)
+		XCTAssertEqual(user.identifier, parsedUsers?[0].identifier)
+		XCTAssertEqual(user.photoCount, parsedUsers?[0].photoCount)
+		XCTAssertEqual(user.age, parsedUsers?[0].age)
+		XCTAssertEqual(user.weight, parsedUsers?[0].weight)
+		XCTAssertEqual(user.drinker, parsedUsers?[0].drinker)
+		XCTAssertEqual(user.smoker, parsedUsers?[0].smoker)
+		XCTAssertEqual(user.sex, parsedUsers?[0].sex)
+	}
 
     func testUnknownPropertiesIgnored() {
         let JSONString = "{\"username\":\"bob\",\"identifier\":\"bob1987\", \"foo\" : \"bar\", \"fooArr\" : [ 1, 2, 3], \"fooObj\" : { \"baz\" : \"qux\" } }"

@@ -303,26 +303,46 @@ extension Mapper {
 	}
 	
 	/// Maps an Object to a JSON string
+	public func toJSONString(object: N) -> String? {
+		return toJSONString(object, prettyPrint: false)
+	}
+	
+	/// Maps an Object to a JSON string with option of pretty formatting
 	public func toJSONString(object: N, prettyPrint: Bool) -> String? {
 		let JSONDict = toJSON(object)
 		
-		if NSJSONSerialization.isValidJSONObject(JSONDict) {
-			let options: NSJSONWritingOptions = prettyPrint ? .PrettyPrinted : []
-			let JSONData: NSData?
-			do {
-				JSONData = try NSJSONSerialization.dataWithJSONObject(JSONDict, options: options)
-			} catch let error {
-				print(error)
-				JSONData = nil
-			}
-			
-			if let JSON = JSONData {
-				return String(data: JSON, encoding: NSUTF8StringEncoding)
-			}
-		}
-		
-		return nil
+        return toJSONString(JSONDict, prettyPrint: prettyPrint)
 	}
+	
+	/// Maps an array of Objects to a JSON string
+	public func toJSONString(array: [N]) -> String? {
+		return toJSONString(array, prettyPrint: false)
+	}
+	
+    /// Maps an array of Objects to a JSON string with option of pretty formatting	
+    public func toJSONString(array: [N], prettyPrint: Bool) -> String? {
+        let JSONDict = toJSONArray(array)
+        
+        return toJSONString(JSONDict, prettyPrint: prettyPrint)
+    }
+    
+    private func toJSONString(object: AnyObject, prettyPrint: Bool) -> String? {
+        if NSJSONSerialization.isValidJSONObject(object) {
+            let options: NSJSONWritingOptions = prettyPrint ? .PrettyPrinted : []
+            let JSONData: NSData?
+            do {
+                JSONData = try NSJSONSerialization.dataWithJSONObject(object, options: options)
+            } catch let error {
+                print(error)
+                JSONData = nil
+            }
+            
+            if let JSON = JSONData {
+                return String(data: JSON, encoding: NSUTF8StringEncoding)
+            }
+        }
+        return nil
+    }
 }
 
 extension Mapper where N: Hashable {
