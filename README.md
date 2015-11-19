@@ -121,6 +121,10 @@ func mapping(map: Map) {
     distance <- map["distance.value"]
 }
 ```
+Nested keys also support accesssing values from an array. Given a JSON response with an array of distances, the value could be accessed as follows:
+```
+distance <- map["distances.0.value"]
+```
 If you have a key that contains `.`, you can disable the above feature as follows:
 ```swift
 func mapping(map: Map) {
