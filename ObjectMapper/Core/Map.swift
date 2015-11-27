@@ -44,7 +44,7 @@ public final class Map {
 	public init(mappingType: MappingType, JSONDictionary: [String : AnyObject]) {
 		self.mappingType = mappingType
 		self.JSONDictionary = JSONDictionary
-		currentValue = self.JSONDictionary
+		self.currentValue = JSONDictionary
 	}
 	
 	/// Sets the current mapper value and key.
