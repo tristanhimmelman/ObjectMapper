@@ -63,19 +63,22 @@ class Vehicle: MappableCluster {
 	
 	var type: String?
 	
-	required init?(_ map: Map){
-
-	}
-	
-	static func newInstance(map: Map) -> Mappable? {
-		if let type = map["type"].currentValue as? String {
-			if type == "car" {
-				return Car(map)
-			} else if type == "bus" {
-				return Bus(map)
+	static func objectForMapping(map: Map) -> Mappable? {
+		if let type: String = map["type"].value() {
+			switch type {
+				case "car":
+					return Car(map)
+				case "bus":
+					return Bus(map)
+				default:
+					return nil
 			}
 		}
 		return nil
+	}
+
+	required init?(_ map: Map){
+		
 	}
 	
 	func mapping(map: Map) {
@@ -87,10 +90,6 @@ class Car: Vehicle {
 	
 	var name: String?
 	
-	required init?(_ map: Map){
-		super.init(map)
-	}
-	
 	override func mapping(map: Map) {
 		super.mapping(map)
 		
@@ -99,10 +98,7 @@ class Car: Vehicle {
 }
 
 class Bus: Vehicle {
-	required init?(_ map: Map){
-		super.init(map)
-	}
-	
+
 	override func mapping(map: Map) {
 		super.mapping(map)
 	}

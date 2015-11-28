@@ -34,7 +34,7 @@ public protocol Mappable {
 }
 
 public protocol MappableCluster: Mappable {
-	static func newInstance(map: Map) -> Mappable?
+	static func objectForMapping(map: Map) -> Mappable?
 }
 
 public enum MappingType {
@@ -114,7 +114,7 @@ public final class Mapper<N: Mappable> {
 		
 		// check if N is of type MappableCluster
 		if let klass = N.self as? MappableCluster.Type {
-			if var object = klass.newInstance(map) as? N {
+			if var object = klass.objectForMapping(map) as? N {
 				object.mapping(map)
 				return object
 			}
