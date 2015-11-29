@@ -50,20 +50,30 @@ internal final class FromJSON {
 	}
 
 	/// Mappable object
-	class func object<N: Mappable>(inout field: N, object: AnyObject?) {
-		if let value: N = Mapper().map(object) {
+	class func object<N: Mappable>(inout field: N, object: Map) {
+		if object.toObject {
+			Mapper().map(object.currentValue, toObject: field)
+		} else if let value: N = Mapper().map(object.currentValue) {
 			field = value
 		}
 	}
 
 	/// Optional Mappable Object
-	class func optionalObject<N: Mappable>(inout field: N?, object: AnyObject?) {
-		field = Mapper().map(object)
+	class func optionalObject<N: Mappable>(inout field: N?, object: Map) {
+		if let field = field where object.toObject {
+			Mapper().map(object.currentValue, toObject: field)
+		} else {
+			field = Mapper().map(object.currentValue)
+		}
 	}
 
 	/// Implicitly unwrapped Optional Mappable Object
-	class func optionalObject<N: Mappable>(inout field: N!, object: AnyObject?) {
-		field = Mapper().map(object)
+	class func optionalObject<N: Mappable>(inout field: N!, object: Map) {
+		if let field = field where object.toObject {
+			Mapper().map(object.currentValue, toObject: field)
+		} else {
+			field = Mapper().map(object.currentValue)
+		}
 	}
 
 	/// mappable object array
