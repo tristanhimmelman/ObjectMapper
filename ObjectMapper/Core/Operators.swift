@@ -258,7 +258,7 @@ private func toJSONDictionaryWithTransform<T: TransformType>(input: [String: T.O
 /// Object conforming to Mappable
 public func <- <T: Mappable>(inout left: T, right: Map) {
     if right.mappingType == MappingType.FromJSON {
-        FromJSON.object(&left, object: right.currentValue)
+        FromJSON.object(&left, object: right)
     } else {
 		ToJSON.object(left, map: right)
     }
@@ -267,7 +267,7 @@ public func <- <T: Mappable>(inout left: T, right: Map) {
 /// Optional Mappable objects
 public func <- <T: Mappable>(inout left: T?, right: Map) {
     if right.mappingType == MappingType.FromJSON {
-        FromJSON.optionalObject(&left, object: right.currentValue)
+        FromJSON.optionalObject(&left, object: right)
     } else {
 		ToJSON.optionalObject(left, map: right)
     }
@@ -276,7 +276,7 @@ public func <- <T: Mappable>(inout left: T?, right: Map) {
 /// Implicitly unwrapped optional Mappable objects
 public func <- <T: Mappable>(inout left: T!, right: Map) {
 	if right.mappingType == MappingType.FromJSON {
-		FromJSON.optionalObject(&left, object: right.currentValue)
+		FromJSON.optionalObject(&left, object: right)
 	} else {
 		ToJSON.optionalObject(left, map: right)
 	}
