@@ -37,13 +37,16 @@ public final class Map {
 	public var currentValue: AnyObject?
 	var currentKey: String?
 	var keyIsNested = false
+
+	let toObject: Bool // indicates whether the mapping is being applied to an existing object
 	
 	/// Counter for failing cases of deserializing values to `let` properties.
 	private var failedCount: Int = 0
 	
-	public init(mappingType: MappingType, JSONDictionary: [String : AnyObject]) {
+	public init(mappingType: MappingType, JSONDictionary: [String : AnyObject], toObject: Bool = false) {
 		self.mappingType = mappingType
 		self.JSONDictionary = JSONDictionary
+		self.toObject = toObject
 	}
 	
 	/// Sets the current mapper value and key.
