@@ -285,6 +285,44 @@ public func <- <T: Mappable>(inout left: T!, right: Map) {
 	}
 }
 
+// MARK:- Transforms of Mappable Objects - <T: Mappable>
+
+/// Object conforming to Mappable that have transforms
+public func <- <T: Mappable, Transform: TransformType where Transform.Object == T>(inout left: T, right: (Map, Transform)) {
+	let (map, transform) = right
+	if map.mappingType == MappingType.FromJSON {
+		let value: T? = transform.transformFromJSON(map.currentValue)
+		FromJSON.basicType(&left, object: value)
+	} else {
+		let value: Transform.JSON? = transform.transformToJSON(left)
+		ToJSON.optionalBasicType(value, map: map)
+	}
+}
+
+/// Optional Mappable objects that have transforms
+public func <- <T: Mappable, Transform: TransformType where Transform.Object == T>(inout left: T?, right: (Map, Transform)) {
+	let (map, transform) = right
+	if map.mappingType == MappingType.FromJSON {
+		let value: T? = transform.transformFromJSON(map.currentValue)
+		FromJSON.optionalBasicType(&left, object: value)
+	} else {
+		let value: Transform.JSON? = transform.transformToJSON(left)
+		ToJSON.optionalBasicType(value, map: map)
+	}
+}
+
+/// Implicitly unwrapped optional Mappable objects that have transforms
+public func <- <T: Mappable, Transform: TransformType where Transform.Object == T>(inout left: T!, right: (Map, Transform)) {
+	let (map, transform) = right
+	if map.mappingType == MappingType.FromJSON {
+		let value: T? = transform.transformFromJSON(map.currentValue)
+		FromJSON.optionalBasicType(&left, object: value)
+	} else {
+		let value: Transform.JSON? = transform.transformToJSON(left)
+		ToJSON.optionalBasicType(value, map: map)
+	}
+}
+
 // MARK:- Dictionary of Mappable objects - Dictionary<String, T: Mappable>
 
 /// Dictionary of Mappable objects <String, T: Mappable>
