@@ -10,7 +10,7 @@ import Foundation
 import XCTest
 import ObjectMapper
 
-class ReferenceTypesTestsFromJSON: XCTestCase {
+class ToObjectTests: XCTestCase {
 	
 	override func setUp() {
 		super.setUp()
@@ -34,7 +34,7 @@ class ReferenceTypesTestsFromJSON: XCTestCase {
 		XCTAssertEqual(mappedObject?.spouse?.name, spouseName)
 	}
 	
-	func testUpdatingPersonFromJSON(){
+	func testUpdatingChildObject(){
 		let name = "ASDF"
 		let initialSpouseName = "HJKL"
 		let updatedSpouseName = "QWERTY"
@@ -52,18 +52,42 @@ class ReferenceTypesTestsFromJSON: XCTestCase {
 		XCTAssertEqual(updatedObject.spouse?.name, updatedSpouseName)
 		XCTAssertEqual(initialSpouse?.name,	updatedSpouseName)
 	}
+	
+	func testUpdatingChildDictionary(){
+		let childKey = "child_1"
+		let initialChildName = "HJKL"
+		let updatedChildName = "QWERTY"
+		let initialJSONString = "{\"children\" : {\"\(childKey)\" : {\"name\" : \"\(initialChildName)\"}}}"
+		let updatedJSONString = "{\"children\" : {\"\(childKey)\" : {\"name\" : \"\(updatedChildName)\"}}}"
+		
+		let mappedObject = Mapper<Person>().map(initialJSONString)
+		let initialChild = mappedObject?.children?[childKey]
+		
+		XCTAssertNotNil(mappedObject)
+		XCTAssertNotNil(initialChild)
+		XCTAssertEqual(initialChild?.name, initialChildName)
+		
+		Mapper<Person>().map(updatedJSONString, toObject: mappedObject!)
+		
+		let updatedChild = mappedObject?.children?[childKey]
+		XCTAssert(initialChild === updatedChild, "Expected mapping to update the existing object not create a new one")
+		XCTAssertEqual(updatedChild?.name, updatedChildName)
+		XCTAssertEqual(initialChild?.name, updatedChildName)
+	}
 }
 
 class Person: Mappable {
 	var name: String?
 	var spouse: Person?
+	var children: [String : Person]?
 	
 	required init?(_ map: Map) {
 		
 	}
 	
 	func mapping(map: Map) {
-		name	<- map["name"]
-		spouse	<- map["spouse"]
+		name		<- map["name"]
+		spouse		<- map["spouse"]
+		children	<- map["children"]
 	}
 }
