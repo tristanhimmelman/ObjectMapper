@@ -40,6 +40,25 @@ class PerformanceTests: XCTestCase {
 			Mapper<Person>().mapArray(JSONString)
         }
     }
+	
+	func testPerformanceCluster() {
+		// This is an example of a performance test case.
+		
+		let subPersonJSON = "{\"identifier\" : \"user8723\", \"drinker\" : true, \"age\": 17, \"username\" : \"sub user\" }"
+		
+		let personJSONString = "{\"username\":\"John Doe\",\"identifier\":\"identifier\",\"photoCount\":12,\"age\":1227,\"drinker\":true,\"smoker\":false, \"arr\":[ \"bla\", true, 42 ], \"dict\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"arrOpt\":[ \"bla\", true, 42 ], \"dictOpt\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"weight\": 122.22, \"float\": 123.331, \"friend\": \(subPersonJSON), \"friendDictionary\":{ \"bestFriend\": \(subPersonJSON)}}"
+		
+		var JSONString = "["
+		for _ in 0...1000 {
+			JSONString += "\(personJSONString),"
+		}
+		JSONString += "\(personJSONString)]"
+		
+		self.measureBlock {
+			// Put the code you want to measure the time of here.
+			Mapper<PersonCluster>().mapArray(JSONString)
+		}
+	}
 }
 
 class Person: Mappable {
@@ -67,6 +86,57 @@ class Person: Mappable {
 	
 	required init?(_ map: Map){
 		
+	}
+	
+	func mapping(map: Map) {
+		username         <- map["username"]
+		identifier       <- map["identifier"]
+		photoCount       <- map["photoCount"]
+		age              <- map["age"]
+		weight           <- map["weight"]
+		float            <- map["float"]
+		drinker          <- map["drinker"]
+		smoker           <- map["smoker"]
+		arr              <- map["arr"]
+		arrOptional      <- map["arrOpt"]
+		dict             <- map["dict"]
+		dictOptional     <- map["dictOpt"]
+		friend           <- map["friend"]
+		friends          <- map["friends"]
+		friendDictionary <- map["friendDictionary"]
+		dictString		 <- map["dictString"]
+	}
+}
+
+class PersonCluster: MappableCluster {
+	
+	var username: String = ""
+	var identifier: String?
+	var photoCount: Int = 0
+	var age: Int?
+	var weight: Double?
+	var float: Float?
+	var drinker: Bool = false
+	var smoker: Bool?
+	var arr: [AnyObject] = []
+	var arrOptional: [AnyObject]?
+	var dict: [String : AnyObject] = [:]
+	var dictOptional: [String : AnyObject]?
+	var dictString: [String : String]?
+	var friendDictionary: [String : Person]?
+	var friend: Person?
+	var friends: [Person]? = []
+	
+	init(){
+		
+	}
+	
+	required init?(_ map: Map){
+		
+	}
+	
+	static func objectForMapping(map: Map) -> Mappable? {
+		return PersonCluster()
 	}
 	
 	func mapping(map: Map) {
