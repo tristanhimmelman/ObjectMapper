@@ -74,20 +74,20 @@ class ToObjectTests: XCTestCase {
 		XCTAssertEqual(updatedChild?.name, updatedChildName)
 		XCTAssertEqual(initialChild?.name, updatedChildName)
 	}
-}
-
-class Person: Mappable {
-	var name: String?
-	var spouse: Person?
-	var children: [String : Person]?
 	
-	required init?(_ map: Map) {
+	class Person: Mappable {
+		var name: String?
+		var spouse: Person?
+		var children: [String : Person]?
 		
-	}
-	
-	func mapping(map: Map) {
-		name		<- map["name"]
-		spouse		<- map["spouse"]
-		children	<- map["children"]
+		required init?(_ map: Map) {
+			
+		}
+		
+		func mapping(map: Map) {
+			name		<- map["name"]
+			spouse		<- map["spouse"]
+			children	<- map["children"]
+		}
 	}
 }
