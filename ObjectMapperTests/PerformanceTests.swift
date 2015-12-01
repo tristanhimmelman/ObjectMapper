@@ -11,7 +11,7 @@ import XCTest
 import ObjectMapper
 
 class PerformanceTests: XCTestCase {
-    
+	
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -21,19 +21,22 @@ class PerformanceTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
-    func testPerformance() {
-        // This is an example of a performance test case.
-		
+	
+	func createJSONString(count: Int = 1000) -> String {
 		let subPersonJSON = "{\"identifier\" : \"user8723\", \"drinker\" : true, \"age\": 17, \"username\" : \"sub user\" }"
 		
 		let personJSONString = "{\"username\":\"John Doe\",\"identifier\":\"identifier\",\"photoCount\":12,\"age\":1227,\"drinker\":true,\"smoker\":false, \"arr\":[ \"bla\", true, 42 ], \"dict\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"arrOpt\":[ \"bla\", true, 42 ], \"dictOpt\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"weight\": 122.22, \"float\": 123.331, \"friend\": \(subPersonJSON), \"friendDictionary\":{ \"bestFriend\": \(subPersonJSON)}}"
 		
 		var JSONString = "["
-		for _ in 0...1000 {
+		for _ in 0...count {
 			JSONString += "\(personJSONString),"
 		}
 		JSONString += "\(personJSONString)]"
+		return JSONString
+	}
+    
+    func testPerformance() {
+        let JSONString = createJSONString()
 		
         self.measureBlock {
             // Put the code you want to measure the time of here.
@@ -42,17 +45,7 @@ class PerformanceTests: XCTestCase {
     }
 	
 	func testPerformanceCluster() {
-		// This is an example of a performance test case.
-		
-		let subPersonJSON = "{\"identifier\" : \"user8723\", \"drinker\" : true, \"age\": 17, \"username\" : \"sub user\" }"
-		
-		let personJSONString = "{\"username\":\"John Doe\",\"identifier\":\"identifier\",\"photoCount\":12,\"age\":1227,\"drinker\":true,\"smoker\":false, \"arr\":[ \"bla\", true, 42 ], \"dict\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"arrOpt\":[ \"bla\", true, 42 ], \"dictOpt\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"weight\": 122.22, \"float\": 123.331, \"friend\": \(subPersonJSON), \"friendDictionary\":{ \"bestFriend\": \(subPersonJSON)}}"
-		
-		var JSONString = "["
-		for _ in 0...1000 {
-			JSONString += "\(personJSONString),"
-		}
-		JSONString += "\(personJSONString)]"
+		let JSONString = createJSONString()
 		
 		self.measureBlock {
 			// Put the code you want to measure the time of here.

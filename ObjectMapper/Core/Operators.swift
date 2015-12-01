@@ -117,10 +117,10 @@ public func <- <T: RawRepresentable>(inout left: [String: T]!, right: Map) {
 // MARK:- Transforms
 
 /// Object of Basic type with Transform
-public func <- <T, Transform: TransformType where Transform.Object == T>(inout left: T, right: (Map, Transform)) {
+public func <- <Transform: TransformType>(inout left: Transform.Object, right: (Map, Transform)) {
 	let (map, transform) = right
     if map.mappingType == MappingType.FromJSON {
-        let value: T? = transform.transformFromJSON(map.currentValue)
+        let value = transform.transformFromJSON(map.currentValue)
         FromJSON.basicType(&left, object: value)
     } else {
         let value: Transform.JSON? = transform.transformToJSON(left)
@@ -129,10 +129,10 @@ public func <- <T, Transform: TransformType where Transform.Object == T>(inout l
 }
 
 /// Optional object of basic type with Transform
-public func <- <T, Transform: TransformType where Transform.Object == T>(inout left: T?, right: (Map, Transform)) {
+public func <- <Transform: TransformType>(inout left: Transform.Object?, right: (Map, Transform)) {
 	let (map, transform) = right
     if map.mappingType == MappingType.FromJSON {
-        let value: T? = transform.transformFromJSON(map.currentValue)
+        let value = transform.transformFromJSON(map.currentValue)
         FromJSON.optionalBasicType(&left, object: value)
     } else {
         let value: Transform.JSON? = transform.transformToJSON(left)
@@ -141,10 +141,10 @@ public func <- <T, Transform: TransformType where Transform.Object == T>(inout l
 }
 
 /// Implicitly unwrapped optional object of basic type with Transform
-public func <- <T, Transform: TransformType where Transform.Object == T>(inout left: T!, right: (Map, Transform)) {
+public func <- <Transform: TransformType>(inout left: Transform.Object!, right: (Map, Transform)) {
 	let (map, transform) = right
 	if map.mappingType == MappingType.FromJSON {
-		let value: T? = transform.transformFromJSON(map.currentValue)
+		let value = transform.transformFromJSON(map.currentValue)
 		FromJSON.optionalBasicType(&left, object: value)
 	} else {
 		let value: Transform.JSON? = transform.transformToJSON(left)
