@@ -379,6 +379,95 @@ public func <- <T: Mappable>(inout left: Dictionary<String, [T]>!, right: Map) {
 	}
 }
 
+// MARK:- Dictionary of Mappable objects with a transform - Dictionary<String, T: Mappable>
+
+/// Dictionary of Mappable objects <String, T: Mappable> with a transform
+public func <- <T: Mappable, Transform: TransformType where Transform.Object == T>(inout left: Dictionary<String, T>, right: (Map, Transform)) {
+	let (map, transform) = right
+	if let object = map.currentValue as? [String : AnyObject] where map.mappingType == MappingType.FromJSON {
+		let value = fromJSONDictionaryWithTransform(object, transform: transform) ?? left
+		FromJSON.basicType(&left, object: value)
+	} else if map.mappingType == MappingType.ToJSON {
+		let value = toJSONDictionaryWithTransform(left, transform: transform)
+		ToJSON.basicType(value, map: map)
+	}
+}
+
+/// Optional Dictionary of Mappable object <String, T: Mappable> with a transform
+public func <- <T: Mappable, Transform: TransformType where Transform.Object == T>(inout left: Dictionary<String, T>?, right: (Map, Transform)) {
+	let (map, transform) = right
+	if let object = map.currentValue as? [String : AnyObject] where map.mappingType == MappingType.FromJSON {
+		let value = fromJSONDictionaryWithTransform(object, transform: transform) ?? left
+		FromJSON.optionalBasicType(&left, object: value)
+	} else if map.mappingType == MappingType.ToJSON {
+		let value = toJSONDictionaryWithTransform(left, transform: transform)
+		ToJSON.optionalBasicType(value, map: map)
+	}
+}
+
+/// Implicitly unwrapped Optional Dictionary of Mappable object <String, T: Mappable> with a transform
+public func <- <T: Mappable, Transform: TransformType where Transform.Object == T>(inout left: Dictionary<String, T>!, right: (Map, Transform)) {
+	let (map, transform) = right
+	if let dictionary = map.currentValue as? [String : AnyObject] where map.mappingType == MappingType.FromJSON {
+		let transformedDictionary = fromJSONDictionaryWithTransform(dictionary, transform: transform) ?? left
+		FromJSON.optionalBasicType(&left, object: transformedDictionary)
+	} else if map.mappingType == MappingType.ToJSON {
+		let value = toJSONDictionaryWithTransform(left, transform: transform)
+		ToJSON.optionalBasicType(value, map: map)
+	}
+}
+
+/// Dictionary of Mappable objects <String, T: Mappable> with a transform
+public func <- <T: Mappable, Transform: TransformType where Transform.Object == T>(inout left: Dictionary<String, [T]>, right: (Map, Transform)) {
+	let (map, transform) = right
+	if let dictionary = map.currentValue as? [String : [AnyObject]] where map.mappingType == MappingType.FromJSON {
+		let transformedDictionary = dictionary.map { (key, values) in
+			return (key, fromJSONArrayWithTransform(values, transform: transform) ?? left[key] ?? [])
+		}
+		FromJSON.basicType(&left, object: transformedDictionary)
+	} else if map.mappingType == MappingType.ToJSON {
+		let transformedDictionary = left.map { (key, values) in
+			return (key, toJSONArrayWithTransform(values, transform: transform) ?? [])
+		}
+
+		ToJSON.basicType(transformedDictionary, map: map)
+	}
+}
+
+/// Optional Dictionary of Mappable object <String, T: Mappable> with a transform
+public func <- <T: Mappable, Transform: TransformType where Transform.Object == T>(inout left: Dictionary<String, [T]>?, right: (Map, Transform)) {
+	let (map, transform) = right
+	if let dictionary = map.currentValue as? [String : [AnyObject]] where map.mappingType == MappingType.FromJSON {
+		let transformedDictionary = dictionary.map { (key, values) in
+			return (key, fromJSONArrayWithTransform(values, transform: transform) ?? left?[key] ?? [])
+		}
+		FromJSON.optionalBasicType(&left, object: transformedDictionary)
+	} else if map.mappingType == MappingType.ToJSON {
+		let transformedDictionary = left?.map { (key, values) in
+			return (key, toJSONArrayWithTransform(values, transform: transform) ?? [])
+		}
+		
+		ToJSON.optionalBasicType(transformedDictionary, map: map)
+	}
+}
+
+/// Implicitly unwrapped Optional Dictionary of Mappable object <String, T: Mappable> with a transform
+public func <- <T: Mappable, Transform: TransformType where Transform.Object == T>(inout left: Dictionary<String, [T]>!, right: (Map, Transform)) {
+	let (map, transform) = right
+	if let dictionary = map.currentValue as? [String : [AnyObject]] where map.mappingType == MappingType.FromJSON {
+		let transformedDictionary = dictionary.map { (key, values) in
+			return (key, fromJSONArrayWithTransform(values, transform: transform) ?? left?[key] ?? [])
+		}
+		FromJSON.optionalBasicType(&left, object: transformedDictionary)
+	} else if map.mappingType == MappingType.ToJSON {
+		let transformedDictionary = left?.map { (key, values) in
+			return (key, toJSONArrayWithTransform(values, transform: transform) ?? [])
+		}
+		
+		ToJSON.optionalBasicType(transformedDictionary, map: map)
+	}
+}
+
 // MARK:- Array of Mappable objects - Array<T: Mappable>
 
 /// Array of Mappable objects
