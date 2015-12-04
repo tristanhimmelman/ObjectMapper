@@ -567,7 +567,7 @@ public func <- <T: Mappable>(inout left: Array<Array<T>>!, right: Map) {
 
 // MARK:- Set of Mappable objects - Set<T: Mappable where T: Hashable>
 
-/// Array of Mappable objects
+/// Set of Mappable objects
 public func <- <T: Mappable where T: Hashable>(inout left: Set<T>, right: Map) {
 	if right.mappingType == MappingType.FromJSON {
 		FromJSON.objectSet(&left, map: right)
@@ -577,7 +577,7 @@ public func <- <T: Mappable where T: Hashable>(inout left: Set<T>, right: Map) {
 }
 
 
-/// Optional array of Mappable objects
+/// Optional Set of Mappable objects
 public func <- <T: Mappable where T: Hashable>(inout left: Set<T>?, right: Map) {
 	if right.mappingType == MappingType.FromJSON {
 		FromJSON.optionalObjectSet(&left, map: right)
@@ -586,11 +586,54 @@ public func <- <T: Mappable where T: Hashable>(inout left: Set<T>?, right: Map) 
 	}
 }
 
-/// Implicitly unwrapped Optional array of Mappable objects
+/// Implicitly unwrapped Optional Set of Mappable objects
 public func <- <T: Mappable where T: Hashable>(inout left: Set<T>!, right: Map) {
 	if right.mappingType == MappingType.FromJSON {
 		FromJSON.optionalObjectSet(&left, map: right)
 	} else {
 		ToJSON.optionalObjectSet(left, map: right)
+	}
+}
+
+
+// MARK:- Set of Mappable objects with a transform - Set<T: Mappable where T: Hashable>
+
+/// Set of Mappable objects with transform
+public func <- <T: Mappable, Transform: TransformType where T: Hashable, Transform.Object == T>(inout left: Set<T>, right: (Map, Transform)) {
+	let (map, transform) = right
+	if map.mappingType == MappingType.FromJSON {
+		if let transformedValues = fromJSONArrayWithTransform(map.currentValue, transform: transform) {
+			FromJSON.basicType(&left, object: Set(transformedValues))
+		}
+	} else {
+		let transformedValues = toJSONArrayWithTransform(Array(left), transform: transform)
+		ToJSON.optionalBasicType(transformedValues, map: map)
+	}
+}
+
+
+/// Optional Set of Mappable objects with transform
+public func <- <T: Mappable, Transform: TransformType where T: Hashable, Transform.Object == T>(inout left: Set<T>?, right: (Map, Transform)) {
+	let (map, transform) = right
+	if map.mappingType == MappingType.FromJSON {
+		if let transformedValues = fromJSONArrayWithTransform(map.currentValue, transform: transform) {
+			FromJSON.basicType(&left, object: Set(transformedValues))
+		}
+	} else if let values = left {
+		let transformedValues = toJSONArrayWithTransform(Array(values), transform: transform)
+		ToJSON.optionalBasicType(transformedValues, map: map)
+	}
+}
+
+/// Implicitly unwrapped Optional set of Mappable objects with transform
+public func <- <T: Mappable, Transform: TransformType where T: Hashable, Transform.Object == T>(inout left: Set<T>!, right: (Map, Transform)) {
+	let (map, transform) = right
+	if map.mappingType == MappingType.FromJSON {
+		if let transformedValues = fromJSONArrayWithTransform(map.currentValue, transform: transform) {
+			FromJSON.basicType(&left, object: Set(transformedValues))
+		}
+	} else if let values = left {
+		let transformedValues = toJSONArrayWithTransform(Array(values), transform: transform)
+		ToJSON.optionalBasicType(transformedValues, map: map)
 	}
 }
