@@ -565,6 +565,56 @@ public func <- <T: Mappable>(inout left: Array<Array<T>>!, right: Map) {
 	}
 }
 
+// MARK:- Array of Array of Mappable objects - Array<Array<T: Mappable>> with transforms
+
+/// Array of Array Mappable objects with transform
+public func <- <T: Mappable, Transform: TransformType where Transform.Object == T>(inout left: Array<Array<T>>, right: (Map, Transform)) {
+	let (map, transform) = right
+	if let original2DArray = map.currentValue as? [[AnyObject]] where map.mappingType == MappingType.FromJSON {
+		let transformed2DArray = original2DArray.flatMap { values in
+			fromJSONArrayWithTransform(values, transform: transform)
+		}
+		FromJSON.basicType(&left, object: transformed2DArray)
+	} else if map.mappingType == MappingType.ToJSON {
+		let transformed2DArray = left.flatMap { values in
+			toJSONArrayWithTransform(values, transform: transform)
+		}
+		ToJSON.basicType(transformed2DArray, map: map)
+	}
+}
+
+/// Optional array of Mappable objects with transform
+public func <- <T: Mappable, Transform: TransformType where Transform.Object == T>(inout left:Array<Array<T>>?, right: (Map, Transform)) {
+	let (map, transform) = right
+	if let original2DArray = map.currentValue as? [[AnyObject]] where map.mappingType == MappingType.FromJSON {
+		let transformed2DArray = original2DArray.flatMap { values in
+			fromJSONArrayWithTransform(values, transform: transform)
+		}
+		FromJSON.optionalBasicType(&left, object: transformed2DArray)
+	} else if map.mappingType == MappingType.ToJSON {
+		let transformed2DArray = left?.flatMap { values in
+			toJSONArrayWithTransform(values, transform: transform)
+		}
+		ToJSON.optionalBasicType(transformed2DArray, map: map)
+	}
+}
+
+/// Implicitly unwrapped Optional array of Mappable objects with transform
+public func <- <T: Mappable, Transform: TransformType where Transform.Object == T>(inout left: Array<Array<T>>!, right: (Map, Transform)) {
+	let (map, transform) = right
+	if let original2DArray = map.currentValue as? [[AnyObject]] where map.mappingType == MappingType.FromJSON {
+		let transformed2DArray = original2DArray.flatMap { values in
+			fromJSONArrayWithTransform(values, transform: transform)
+		}
+		FromJSON.optionalBasicType(&left, object: transformed2DArray)
+	} else if map.mappingType == MappingType.ToJSON {
+		let transformed2DArray = left?.flatMap { values in
+			toJSONArrayWithTransform(values, transform: transform)
+		}
+		ToJSON.optionalBasicType(transformed2DArray, map: map)
+	}
+}
+
 // MARK:- Set of Mappable objects - Set<T: Mappable where T: Hashable>
 
 /// Set of Mappable objects
