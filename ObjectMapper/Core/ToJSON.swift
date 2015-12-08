@@ -29,15 +29,17 @@
 import class Foundation.NSNumber
 
 private func setValue(value: AnyObject, map: Map) {
-	setValue(value, key: map.currentKey!, checkForNestedKeys: map.keyIsNested, dictionary: &map.JSONDictionary)
+	setValue(value, key: map.currentKey, checkForNestedKeys: map.keyIsNested, dictionary: &map.JSONDictionary)
 }
 
-private func setValue(value: AnyObject, key: String, checkForNestedKeys: Bool, inout dictionary: [String : AnyObject]) {
-	if checkForNestedKeys {
-		let keyComponents = ArraySlice(key.characters.split { $0 == "." })
-		setValue(value, forKeyPathComponents: keyComponents, dictionary: &dictionary)
-	} else {
-		dictionary[key] = value
+private func setValue(value: AnyObject, key: String?, checkForNestedKeys: Bool, inout dictionary: [String : AnyObject]) {
+	if let key = key {
+		if checkForNestedKeys {
+			let keyComponents = ArraySlice(key.characters.split { $0 == "." })
+			setValue(value, forKeyPathComponents: keyComponents, dictionary: &dictionary)
+		} else {
+			dictionary[key] = value
+		}
 	}
 }
 
