@@ -25,76 +25,116 @@ class MappableTypesWithTransformsTests: XCTestCase {
 		}
 		
 		
-		let articles = Mapper<Article>().mapArray(jsonDictionary["data"])
+		let game = Mapper<Game>().map(jsonDictionary["game"])
+		let teams = Mapper<Team>().mapArray(jsonDictionary["teams"])
 		
-		XCTAssertNotNil(articles)
-		XCTAssertNotEqual(articles?.count, 0)
+		XCTAssertNotNil(game)
+
+		// 2D Array of Players
+		XCTAssertNotNil(game!.players)
+			XCTAssertNotEqual(game!.players!.count, 0)
+				XCTAssertNotEqual(game!.players!.first!.count, 0)
+				XCTAssertNotEqual(game!.players!.last!.count, 0)
 		
-		let article = articles!.first!
-		XCTAssertNotNil(article.id)
-		XCTAssertNotNil(article.title)
-		XCTAssertNotNil(article.author)
-		XCTAssertNotNil(article.comments)
-		XCTAssertNotEqual(article.comments!.count, 0)
+		// Dictionary of Players
+		XCTAssertNotNil(game!.team1Lineup)
+			XCTAssertNotEqual(game!.team1Lineup!.count, 0)
+		XCTAssertNotNil(game!.team2Lineup)
+			XCTAssertNotEqual(game!.team2Lineup!.count, 0)
+		
+		// Dictionary of [Players]
+		XCTAssertNotNil(game!.headToHead)
+		for (position, players) in game!.headToHead! {
+			XCTAssertNotEqual(players.count, 0, "No players were mapped for \(position)")
+		}
+		
+		// Set of Teams
+		XCTAssertNotNil(game!.teams)
+			XCTAssertNotEqual(game!.teams!.count, 0)
+		
+		// Single Instance
+		XCTAssertNotNil(game!.winner)
+		
+		XCTAssertNotNil(teams)
+		XCTAssertNotEqual(teams!.count, 0)
+		
+		// Array of players
+		XCTAssertNotNil(teams!.first!.players)
+			XCTAssertNotEqual(teams!.first!.players!.count, 0)
 	}
 	
 			
 	// MARK: - Internal classes for testing
-	class Person: Mappable {
-		var id: String?
-		var firstName: String?
-		var lastName: String?
-		var twitter: String?
-		
+	class Game: Mappable, URIInitiable {
+		var uri: String?
+		var time: String?
+		var players: [[Player]]?
+		var team1Lineup: [String : Player]?
+		var team2Lineup: [String : Player]?
+		var headToHead: [String : [Player]]?
+		var teams: Set<Team>?
+		var winner: Team?
+
+		required init(URI: String) {}
 		required init?(_ map: Map) {}
 		
 		func mapping(map: Map) {
-			id <- map["id"]
-			firstName <- map["attributes.first-name"]
-			lastName <- map["attributes.last-name"]
-			twitter <- map["attributes.twitter"]
+			uri <- map["api_uri"]
+			time <- map["game_time"]
+			
+			players <- (map["players"], RelationshipTransform<Player>())			// 2D Array with transform
+			team1Lineup <- (map["team1_lineup"], RelationshipTransform<Player>())	// Dictionary with transform
+			team2Lineup <- (map["team1_lineup"], RelationshipTransform<Player>())
+			headToHead <- (map["head_to_head"], RelationshipTransform<Player>())		// Dictionary of arrays with transform
+			teams <- (map["teams"], RelationshipTransform<Team>())					// Set with transform
+			winner <- (map["winning_team_url"], RelationshipTransform<Team>())		// Single instance with transform
 		}
 	}
 	
-	class Comment: Mappable {
-		var id: String?
-		var body: String?
-		var author: Person?
+	class Team: NSObject, Mappable, URIInitiable {
+		var uri: String?
+		var name: String?
+		var shortName: String?
+		var players: [Player]?
 		
+		required init(URI: String) {}
 		required init?(_ map: Map) {}
 		
 		func mapping(map: Map) {
-			id <- map["id"]
-			body <- map["attributes.body"]
-			author <- (map["relationships.author.data"], JSONAPITransform<Person>())
+			"api_uri"
+			"full_name"
+			"short_name"
+			"players"
+			
+			uri <- map["api_uri"]
+			name <- map["full_name"]
+			shortName <- map["short_name"]
+			players <- (map["players"], RelationshipTransform<Player>())
 		}
 	}
 	
-	class Article: Mappable {
-		var id: String?
-		var title: String?
-		var author: Person?
-		var comments: [Comment]?
+	class Player: Mappable, URIInitiable {
+		var uri: String?
 		
+		required init(URI: String) {}
 		required init?(_ map: Map) {}
 		
-		func mapping(map: Map) {
-			id <- map["id"]
-			title <- map["attributes.title"]
-			author <- (map["relationships.author.data"], JSONAPITransform<Person>())
-			comments <- (map["relationships.comments.data"], JSONAPITransform<Comment>())
-		}
+		func mapping(map: Map) {}
 	}
 }
 
+protocol URIInitiable {
+	init(URI: String)
+}
 
 // Yes, this is a little contrived
-class JSONAPITransform<ObjectType where ObjectType: Mappable>: TransformType {
+class RelationshipTransform<ObjectType where ObjectType: protocol<Mappable, URIInitiable>>: TransformType {
 	typealias Object = ObjectType
 	typealias JSON = [String: AnyObject]
 	
 	func transformFromJSON(value: AnyObject?) -> Object? {
-		let relation = Mapper<ObjectType>().map(value)
+		guard let URI = value as? String else { return nil }
+		let relation = ObjectType(URI: URI)
 
 		return relation
 	}
