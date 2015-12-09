@@ -59,11 +59,13 @@ class MappableTypesWithTransformsTests: XCTestCase {
 		]
 	}
 	
+	
+	// MARK: - Non-Optional Tests
 	func testParsingSingleInstanceWithTransform() {
 		let game = Mapper<Game>().map(JSONPayload()["game"])
 		
 		XCTAssertNotNil(game)
-		XCTAssertNotNil(game!.winner)
+		XCTAssertNotEqual(game!.winner.URI, "FAKE")
 	}
 	
 	func testParsingArrayOfObjectsWithTransform() {
@@ -72,36 +74,31 @@ class MappableTypesWithTransformsTests: XCTestCase {
 		XCTAssertNotNil(teams)
 		XCTAssertNotEqual(teams!.count, 0)
 		
-		XCTAssertNotNil(teams!.first!.players)
-		XCTAssertNotEqual(teams!.first!.players!.count, 0)
+		XCTAssertNotEqual(teams!.first!.players.count, 0)
 	}
 	
 	func testParsing2DimensionalArrayOfObjectsWithTransform() {
 		let game = Mapper<Game>().map(JSONPayload()["game"])
 
 		XCTAssertNotNil(game)
-		XCTAssertNotNil(game!.players)
-		XCTAssertNotEqual(game!.players!.count, 0)
-		XCTAssertNotEqual(game!.players!.first!.count, 0)
-		XCTAssertNotEqual(game!.players!.last!.count, 0)
+		XCTAssertNotEqual(game!.players.count, 0)
+		XCTAssertNotEqual(game!.players.first!.count, 0)
+		XCTAssertNotEqual(game!.players.last!.count, 0)
 	}
 	
 	func testParsingDictionaryOfObjectsWithTransform() {
 		let game = Mapper<Game>().map(JSONPayload()["game"])
 
 		XCTAssertNotNil(game)
-		XCTAssertNotNil(game!.team1Lineup)
-		XCTAssertNotEqual(game!.team1Lineup!.count, 0)
-		XCTAssertNotNil(game!.team2Lineup)
-		XCTAssertNotEqual(game!.team2Lineup!.count, 0)
+		XCTAssertNotEqual(game!.team1Lineup.count, 0)
+		XCTAssertNotEqual(game!.team2Lineup.count, 0)
 	}
 	
 	func testParsingDictionaryOfArrayOfObjectsWithTransform() {
 		let game = Mapper<Game>().map(JSONPayload()["game"])
 		
 		XCTAssertNotNil(game)
-		XCTAssertNotNil(game!.headToHead)
-		for (position, players) in game!.headToHead! {
+		for (position, players) in game!.headToHead {
 			XCTAssertNotEqual(players.count, 0, "No players were mapped for \(position)")
 		}
 	}
@@ -110,40 +107,190 @@ class MappableTypesWithTransformsTests: XCTestCase {
 		let game = Mapper<Game>().map(JSONPayload()["game"])
 		
 		XCTAssertNotNil(game)
-		XCTAssertNotNil(game!.teams)
-		XCTAssertNotEqual(game!.teams!.count, 0)
+		XCTAssertNotEqual(game!.teams.count, 0)
 	}
 	
+	
+	// MARK: - Optional Tests
+	func testParsingOptionalSingleInstanceWithTransform() {
+		let game = Mapper<Game>().map(JSONPayload()["game"])
+		
+		XCTAssertNotNil(game)
+		XCTAssertNotNil(game!.O_winner)
+	}
+	
+	func testParsingOptionalArrayOfObjectsWithTransform() {
+		let teams = Mapper<Team>().mapArray(JSONPayload()["teams"])
+		
+		XCTAssertNotNil(teams)
+		XCTAssertNotEqual(teams!.count, 0)
+		
+		XCTAssertNotNil(teams!.first!.O_players)
+		XCTAssertNotEqual(teams!.first!.O_players!.count, 0)
+	}
+	
+	func testParsingOptional2DimensionalArrayOfObjectsWithTransform() {
+		let game = Mapper<Game>().map(JSONPayload()["game"])
+		
+		XCTAssertNotNil(game)
+		XCTAssertNotNil(game!.O_players)
+		XCTAssertNotEqual(game!.O_players!.count, 0)
+		XCTAssertNotEqual(game!.O_players!.first!.count, 0)
+		XCTAssertNotEqual(game!.O_players!.last!.count, 0)
+	}
+	
+	func testParsingOptionalDictionaryOfObjectsWithTransform() {
+		let game = Mapper<Game>().map(JSONPayload()["game"])
+		
+		XCTAssertNotNil(game)
+		XCTAssertNotNil(game!.O_team1Lineup)
+		XCTAssertNotEqual(game!.O_team1Lineup!.count, 0)
+		XCTAssertNotNil(game!.O_team2Lineup)
+		XCTAssertNotEqual(game!.O_team2Lineup!.count, 0)
+	}
+	
+	func testParsingOptionalDictionaryOfArrayOfObjectsWithTransform() {
+		let game = Mapper<Game>().map(JSONPayload()["game"])
+		
+		XCTAssertNotNil(game)
+		XCTAssertNotNil(game!.O_headToHead)
+		for (position, players) in game!.O_headToHead! {
+			XCTAssertNotEqual(players.count, 0, "No players were mapped for \(position)")
+		}
+	}
+	
+	func testParsingOptionalSetOfObjectsWithTransform() {
+		let game = Mapper<Game>().map(JSONPayload()["game"])
+		
+		XCTAssertNotNil(game)
+		XCTAssertNotNil(game!.O_teams)
+		XCTAssertNotEqual(game!.O_teams!.count, 0)
+	}
+
+	// MARK: - Implicitly Unwrapped Optional Tests
+	func testParsingImplicitlyUnwrappedSingleInstanceWithTransform() {
+		let game = Mapper<Game>().map(JSONPayload()["game"])
+		
+		XCTAssertNotNil(game)
+		XCTAssertNotNil(game!.I_winner)
+	}
+	
+	func testParsingImplicitlyUnwrappedArrayOfObjectsWithTransform() {
+		let teams = Mapper<Team>().mapArray(JSONPayload()["teams"])
+		
+		XCTAssertNotNil(teams)
+		XCTAssertNotEqual(teams!.count, 0)
+		
+		XCTAssertNotNil(teams!.first!.I_players)
+		XCTAssertNotEqual(teams!.first!.I_players!.count, 0)
+	}
+	
+	func testParsingImplicitlyUnwrapped2DimensionalArrayOfObjectsWithTransform() {
+		let game = Mapper<Game>().map(JSONPayload()["game"])
+		
+		XCTAssertNotNil(game)
+		XCTAssertNotNil(game!.I_players)
+		XCTAssertNotEqual(game!.I_players!.count, 0)
+		XCTAssertNotEqual(game!.I_players!.first!.count, 0)
+		XCTAssertNotEqual(game!.I_players!.last!.count, 0)
+	}
+	
+	func testParsingImplicitlyUnwrappedDictionaryOfObjectsWithTransform() {
+		let game = Mapper<Game>().map(JSONPayload()["game"])
+		
+		XCTAssertNotNil(game)
+		XCTAssertNotNil(game!.I_team1Lineup)
+		XCTAssertNotEqual(game!.I_team1Lineup!.count, 0)
+		XCTAssertNotNil(game!.I_team2Lineup)
+		XCTAssertNotEqual(game!.I_team2Lineup!.count, 0)
+	}
+	
+	func testParsingImplicitlyUnwrappedDictionaryOfArrayOfObjectsWithTransform() {
+		let game = Mapper<Game>().map(JSONPayload()["game"])
+		
+		XCTAssertNotNil(game)
+		XCTAssertNotNil(game!.I_headToHead)
+		for (position, players) in game!.I_headToHead! {
+			XCTAssertNotEqual(players.count, 0, "No players were mapped for \(position)")
+		}
+	}
+	
+	func testParsingImplicitlyUnwrappedSetOfObjectsWithTransform() {
+		let game = Mapper<Game>().map(JSONPayload()["game"])
+		
+		XCTAssertNotNil(game)
+		XCTAssertNotNil(game!.I_teams)
+		XCTAssertNotEqual(game!.I_teams!.count, 0)
+	}
+
 	// MARK: - Internal classes for testing
 	class Game: Mappable, URIInitiable {
-		var players: [[Player]]?
-		var team1Lineup: [String : Player]?
-		var team2Lineup: [String : Player]?
-		var headToHead: [String : [Player]]?
-		var teams: Set<Team>?
-		var winner: Team?
+		var URI: String?
+		var players: [[Player]] = [[]]
+		var team1Lineup: [String : Player] = [:]
+		var team2Lineup: [String : Player] = [:]
+		var headToHead: [String : [Player]] = [:]
+		var teams: Set<Team> = []
+		var winner: Team = Team(URI: "FAKE")
+
+		// Optional
+		var O_players: [[Player]]?
+		var O_team1Lineup: [String : Player]?
+		var O_team2Lineup: [String : Player]?
+		var O_headToHead: [String : [Player]]?
+		var O_teams: Set<Team>?
+		var O_winner: Team?
 		
-		required init(URI: String) {}
+		// Implicitly Unwrapped
+		var I_players: [[Player]]!
+		var I_team1Lineup: [String : Player]!
+		var I_team2Lineup: [String : Player]!
+		var I_headToHead: [String : [Player]]!
+		var I_teams: Set<Team>!
+		var I_winner: Team!
+		
+		required init(URI: String) { self.URI = URI }
 		required init?(_ map: Map) {}
 		
 		func mapping(map: Map) {
-			players <- (map["players"], RelationshipTransform<Player>())			// 2D Array with transform
-			team1Lineup <- (map["team1_lineup"], RelationshipTransform<Player>())	// Dictionary with transform
-			team2Lineup <- (map["team1_lineup"], RelationshipTransform<Player>())
-			headToHead <- (map["head_to_head"], RelationshipTransform<Player>())		// Dictionary of arrays with transform
-			teams <- (map["teams"], RelationshipTransform<Team>())					// Set with transform
-			winner <- (map["winning_team_url"], RelationshipTransform<Team>())		// Single instance with transform
+			players		<- (map["players"], RelationshipTransform<Player>())		// 2D Array with transform
+			team1Lineup	<- (map["team1_lineup"], RelationshipTransform<Player>())	// Dictionary with transform
+			team2Lineup	<- (map["team1_lineup"], RelationshipTransform<Player>())
+			headToHead	<- (map["head_to_head"], RelationshipTransform<Player>())	// Dictionary of arrays with transform
+			teams		<- (map["teams"], RelationshipTransform<Team>())			// Set with transform
+			winner		<- (map["winning_team_url"], RelationshipTransform<Team>())	// Single instance with transform
+
+			// Optional
+			O_players		<- (map["players"], RelationshipTransform<Player>())
+			O_team1Lineup	<- (map["team1_lineup"], RelationshipTransform<Player>())
+			O_team2Lineup	<- (map["team1_lineup"], RelationshipTransform<Player>())
+			O_headToHead	<- (map["head_to_head"], RelationshipTransform<Player>())
+			O_teams			<- (map["teams"], RelationshipTransform<Team>())
+			O_winner		<- (map["winning_team_url"], RelationshipTransform<Team>())
+			
+			// Implicitly Unwrapped
+			I_players		<- (map["players"], RelationshipTransform<Player>())
+			I_team1Lineup	<- (map["team1_lineup"], RelationshipTransform<Player>())
+			I_team2Lineup	<- (map["team1_lineup"], RelationshipTransform<Player>())
+			I_headToHead	<- (map["head_to_head"], RelationshipTransform<Player>())
+			I_teams			<- (map["teams"], RelationshipTransform<Team>())
+			I_winner		<- (map["winning_team_url"], RelationshipTransform<Team>())
 		}
 	}
 	
 	class Team: NSObject, Mappable, URIInitiable {
-		var players: [Player]?
+		var URI: String?
+		var players: [Player] = []
+		var O_players: [Player]?
+		var I_players: [Player]?
 		
-		required init(URI: String) {}
+		required init(URI: String) { self.URI = URI }
 		required init?(_ map: Map) {}
 		
 		func mapping(map: Map) {
-			players <- (map["players"], RelationshipTransform<Player>())
+			players		<- (map["players"], RelationshipTransform<Player>())
+			O_players	<- (map["players"], RelationshipTransform<Player>())
+			I_players	<- (map["players"], RelationshipTransform<Player>())
 		}
 	}
 	
