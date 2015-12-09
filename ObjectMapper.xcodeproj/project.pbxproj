@@ -74,9 +74,6 @@
 		891804CD1C122AF000E5C3EE /* MappableTypesWithTransformsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891804CC1C122AF000E5C3EE /* MappableTypesWithTransformsTests.swift */; };
 		891804CE1C122AF000E5C3EE /* MappableTypesWithTransformsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891804CC1C122AF000E5C3EE /* MappableTypesWithTransformsTests.swift */; };
 		891804CF1C122AF000E5C3EE /* MappableTypesWithTransformsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891804CC1C122AF000E5C3EE /* MappableTypesWithTransformsTests.swift */; };
-		891804D11C17448500E5C3EE /* JSONAPI-Article-Example.json in Resources */ = {isa = PBXBuildFile; fileRef = 891804D01C17448500E5C3EE /* JSONAPI-Article-Example.json */; };
-		891804D21C17448500E5C3EE /* JSONAPI-Article-Example.json in Resources */ = {isa = PBXBuildFile; fileRef = 891804D01C17448500E5C3EE /* JSONAPI-Article-Example.json */; };
-		891804D31C17448500E5C3EE /* JSONAPI-Article-Example.json in Resources */ = {isa = PBXBuildFile; fileRef = 891804D01C17448500E5C3EE /* JSONAPI-Article-Example.json */; };
 		BC1E7F371ABC44C000F9B1CF /* EnumTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1E7F361ABC44C000F9B1CF /* EnumTransform.swift */; };
 		CD16030A1AC023D6000CD69A /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD1602FF1AC023D5000CD69A /* ObjectMapper.framework */; };
 		CD1603181AC02437000CD69A /* ObjectMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AAC8F7B19F03C2900E7A677 /* ObjectMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -183,7 +180,6 @@
 		6AAC8FCB19F048FE00E7A677 /* DateTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTransform.swift; sourceTree = "<group>"; };
 		6ACB15D11BC7F1D0006C029C /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		891804CC1C122AF000E5C3EE /* MappableTypesWithTransformsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MappableTypesWithTransformsTests.swift; sourceTree = "<group>"; };
-		891804D01C17448500E5C3EE /* JSONAPI-Article-Example.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "JSONAPI-Article-Example.json"; sourceTree = "<group>"; };
 		BC1E7F361ABC44C000F9B1CF /* EnumTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnumTransform.swift; sourceTree = "<group>"; };
 		CD1602FF1AC023D5000CD69A /* ObjectMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ObjectMapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD1603091AC023D6000CD69A /* ObjectMapper-MacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ObjectMapper-MacTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -327,7 +323,6 @@
 			isa = PBXGroup;
 			children = (
 				6AAC8F8419F03C2900E7A677 /* Info.plist */,
-				891804D01C17448500E5C3EE /* JSONAPI-Article-Example.json */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -590,7 +585,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				891804D31C17448500E5C3EE /* JSONAPI-Article-Example.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -612,7 +606,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				891804D11C17448500E5C3EE /* JSONAPI-Article-Example.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -627,7 +620,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				891804D21C17448500E5C3EE /* JSONAPI-Article-Example.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
