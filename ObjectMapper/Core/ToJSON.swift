@@ -40,6 +40,12 @@ private func setValue(value: AnyObject, key: String?, checkForNestedKeys: Bool, 
 		} else {
 			dictionary[key] = value
 		}
+	} else {
+		if let value = value as? [String : AnyObject] {
+			value.forEach {
+				dictionary[$0] = $1
+			}
+		}
 	}
 }
 
