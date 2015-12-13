@@ -13,6 +13,10 @@ public protocol Mappable {
 	mutating func mapping(map: Map)
 }
 
+public protocol MappableCluster: Mappable {
+	static func objectForMapping(map: Map) -> Mappable?
+}
+
 public extension Mappable {
 	
 	/// Initializes object from a JSON String

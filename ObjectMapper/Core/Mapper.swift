@@ -102,6 +102,15 @@ public final class Mapper<N: Mappable> {
 	/// Maps a JSON dictionary to an object that conforms to Mappable
 	public func map(JSONDictionary: [String : AnyObject]) -> N? {
 		let map = Map(mappingType: .FromJSON, JSONDictionary: JSONDictionary)
+		
+		// check if N is of type MappableCluster
+		if let klass = N.self as? MappableCluster.Type {
+			if var object = klass.objectForMapping(map) as? N {
+				object.mapping(map)
+				return object
+			}
+		}
+		
 		if var object = N(map) {
 			object.mapping(map)
 			return object

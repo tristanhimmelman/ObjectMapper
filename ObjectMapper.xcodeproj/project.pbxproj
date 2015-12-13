@@ -32,6 +32,10 @@
 		6A2AD04F1B2C786C0097E150 /* URLTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6C54CF19FE8DB600239454 /* URLTransform.swift */; };
 		6A2AD0501B2C786C0097E150 /* EnumTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1E7F361ABC44C000F9B1CF /* EnumTransform.swift */; };
 		6A3774341A31427F00CC0AB5 /* BasicTypesTestsToJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3774331A31427F00CC0AB5 /* BasicTypesTestsToJSON.swift */; };
+		6A412A171BAC770C001C3F67 /* ClassClusterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A412A161BAC770C001C3F67 /* ClassClusterTests.swift */; };
+		6A412A181BAC830B001C3F67 /* ClassClusterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A412A161BAC770C001C3F67 /* ClassClusterTests.swift */; };
+		6A412A241BB0DA26001C3F67 /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A412A231BB0DA26001C3F67 /* PerformanceTests.swift */; };
+		6A412A251BB0DA26001C3F67 /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A412A231BB0DA26001C3F67 /* PerformanceTests.swift */; };
 		6A51372C1AADDE2700B82516 /* DateFormatterTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A51372B1AADDE2700B82516 /* DateFormatterTransform.swift */; };
 		6A51372F1AADE12C00B82516 /* CustomTransformTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A51372E1AADE12C00B82516 /* CustomTransformTests.swift */; };
 		6A6AEB961A93874F002573D3 /* BasicTypesTestsFromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6AEB951A93874F002573D3 /* BasicTypesTestsFromJSON.swift */; };
@@ -39,6 +43,9 @@
 		6A6C54D019FE8DB600239454 /* URLTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6C54CF19FE8DB600239454 /* URLTransform.swift */; };
 		6AA1F66E1BE991FF006EF513 /* Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAD2C0B1BDDB10D00E6B203 /* Mappable.swift */; };
 		6AA1F66F1BE9921C006EF513 /* MappableExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAD2C0F1BDDC0B000E6B203 /* MappableExtensionsTests.swift */; };
+		6AA1F66B1BE94687006EF513 /* ClassClusterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A412A161BAC770C001C3F67 /* ClassClusterTests.swift */; };
+		6AA1F66C1BE94687006EF513 /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A412A231BB0DA26001C3F67 /* PerformanceTests.swift */; };
+		6AA1F66D1BE9468D006EF513 /* NestedArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6100B1BF1BD76A020011114A /* NestedArrayTests.swift */; };
 		6AAC8F7C19F03C2900E7A677 /* ObjectMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AAC8F7B19F03C2900E7A677 /* ObjectMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6AAC8F8619F03C2900E7A677 /* ObjectMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8F8519F03C2900E7A677 /* ObjectMapperTests.swift */; };
 		6AAC8FCD19F048FE00E7A677 /* FromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC319F048FE00E7A677 /* FromJSON.swift */; };
@@ -71,6 +78,9 @@
 		6ACB15D21BC7F1D0006C029C /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACB15D11BC7F1D0006C029C /* Map.swift */; };
 		6ACB15D31BC7F1D0006C029C /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACB15D11BC7F1D0006C029C /* Map.swift */; };
 		6ACB15D41BC7F1D0006C029C /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACB15D11BC7F1D0006C029C /* Map.swift */; };
+		891804CD1C122AF000E5C3EE /* MappableTypesWithTransformsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891804CC1C122AF000E5C3EE /* MappableTypesWithTransformsTests.swift */; };
+		891804CE1C122AF000E5C3EE /* MappableTypesWithTransformsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891804CC1C122AF000E5C3EE /* MappableTypesWithTransformsTests.swift */; };
+		891804CF1C122AF000E5C3EE /* MappableTypesWithTransformsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891804CC1C122AF000E5C3EE /* MappableTypesWithTransformsTests.swift */; };
 		BC1E7F371ABC44C000F9B1CF /* EnumTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1E7F361ABC44C000F9B1CF /* EnumTransform.swift */; };
 		CD16030A1AC023D6000CD69A /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD1602FF1AC023D5000CD69A /* ObjectMapper.framework */; };
 		CD1603181AC02437000CD69A /* ObjectMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AAC8F7B19F03C2900E7A677 /* ObjectMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -158,6 +168,8 @@
 		6A0BF1FE1C0B53470083D1AF /* ToObjectTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToObjectTests.swift; sourceTree = "<group>"; };
 		6A2AD03D1B2C78540097E150 /* ObjectMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ObjectMapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A3774331A31427F00CC0AB5 /* BasicTypesTestsToJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = BasicTypesTestsToJSON.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		6A412A161BAC770C001C3F67 /* ClassClusterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassClusterTests.swift; sourceTree = "<group>"; };
+		6A412A231BB0DA26001C3F67 /* PerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceTests.swift; sourceTree = "<group>"; };
 		6A51372B1AADDE2700B82516 /* DateFormatterTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFormatterTransform.swift; sourceTree = "<group>"; };
 		6A51372E1AADE12C00B82516 /* CustomTransformTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CustomTransformTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		6A6AEB951A93874F002573D3 /* BasicTypesTestsFromJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicTypesTestsFromJSON.swift; sourceTree = "<group>"; };
@@ -176,6 +188,7 @@
 		6AAC8FC719F048FE00E7A677 /* ToJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ToJSON.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		6AAC8FCB19F048FE00E7A677 /* DateTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTransform.swift; sourceTree = "<group>"; };
 		6ACB15D11BC7F1D0006C029C /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
+		891804CC1C122AF000E5C3EE /* MappableTypesWithTransformsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MappableTypesWithTransformsTests.swift; sourceTree = "<group>"; };
 		BC1E7F361ABC44C000F9B1CF /* EnumTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnumTransform.swift; sourceTree = "<group>"; };
 		CD1602FF1AC023D5000CD69A /* ObjectMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ObjectMapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD1603091AC023D6000CD69A /* ObjectMapper-MacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ObjectMapper-MacTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -302,12 +315,15 @@
 				6A6AEB971A9387D0002573D3 /* BasicTypes.swift */,
 				6A6AEB951A93874F002573D3 /* BasicTypesTestsFromJSON.swift */,
 				6A3774331A31427F00CC0AB5 /* BasicTypesTestsToJSON.swift */,
+				6A412A161BAC770C001C3F67 /* ClassClusterTests.swift */,
 				6A51372E1AADE12C00B82516 /* CustomTransformTests.swift */,
+				6A412A231BB0DA26001C3F67 /* PerformanceTests.swift */,
 				CD44374C1AAE9C1100A271BA /* NestedKeysTests.swift */,
 				6100B1BF1BD76A020011114A /* NestedArrayTests.swift */,
 				6AAC8F8519F03C2900E7A677 /* ObjectMapperTests.swift */,
 				3BAD2C0F1BDDC0B000E6B203 /* MappableExtensionsTests.swift */,
 				6A0BF1FE1C0B53470083D1AF /* ToObjectTests.swift */,
+				891804CC1C122AF000E5C3EE /* MappableTypesWithTransformsTests.swift */,
 				6AAC8F8319F03C2900E7A677 /* Supporting Files */,
 			);
 			path = ObjectMapperTests;
@@ -647,6 +663,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				6AA1F66F1BE9921C006EF513 /* MappableExtensionsTests.swift in Sources */,
+				891804CF1C122AF000E5C3EE /* MappableTypesWithTransformsTests.swift in Sources */,
+				6AA1F66B1BE94687006EF513 /* ClassClusterTests.swift in Sources */,
+				6AA1F66C1BE94687006EF513 /* PerformanceTests.swift in Sources */,
 				6AC692411BE3FD45004C119A /* BasicTypes.swift in Sources */,
 				6A0BF2011C0B53470083D1AF /* ToObjectTests.swift in Sources */,
 				6AC692421BE3FD45004C119A /* BasicTypesTestsFromJSON.swift in Sources */,
@@ -705,12 +724,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				3BAD2C101BDDC0B000E6B203 /* MappableExtensionsTests.swift in Sources */,
+				891804CD1C122AF000E5C3EE /* MappableTypesWithTransformsTests.swift in Sources */,
 				6A6AEB961A93874F002573D3 /* BasicTypesTestsFromJSON.swift in Sources */,
 				6A0BF1FF1C0B53470083D1AF /* ToObjectTests.swift in Sources */,
 				CD44374D1AAE9C1100A271BA /* NestedKeysTests.swift in Sources */,
 				6A3774341A31427F00CC0AB5 /* BasicTypesTestsToJSON.swift in Sources */,
+				6A412A171BAC770C001C3F67 /* ClassClusterTests.swift in Sources */,
 				6A51372F1AADE12C00B82516 /* CustomTransformTests.swift in Sources */,
 				6A6AEB981A9387D0002573D3 /* BasicTypes.swift in Sources */,
+				6A412A241BB0DA26001C3F67 /* PerformanceTests.swift in Sources */,
 				6AAC8F8619F03C2900E7A677 /* ObjectMapperTests.swift in Sources */,
 				6100B1C01BD76A030011114A /* NestedArrayTests.swift in Sources */,
 			);
@@ -742,12 +764,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				3BAD2C111BDDC0B000E6B203 /* MappableExtensionsTests.swift in Sources */,
+				891804CE1C122AF000E5C3EE /* MappableTypesWithTransformsTests.swift in Sources */,
+				6AA1F66D1BE9468D006EF513 /* NestedArrayTests.swift in Sources */,
+				6A412A181BAC830B001C3F67 /* ClassClusterTests.swift in Sources */,
 				CD1603261AC02480000CD69A /* BasicTypesTestsFromJSON.swift in Sources */,
 				6A0BF2001C0B53470083D1AF /* ToObjectTests.swift in Sources */,
 				CD1603291AC02480000CD69A /* NestedKeysTests.swift in Sources */,
 				CD1603251AC02480000CD69A /* BasicTypes.swift in Sources */,
 				CD16032A1AC02480000CD69A /* ObjectMapperTests.swift in Sources */,
 				CD1603271AC02480000CD69A /* BasicTypesTestsToJSON.swift in Sources */,
+				6A412A251BB0DA26001C3F67 /* PerformanceTests.swift in Sources */,
 				CD1603281AC02480000CD69A /* CustomTransformTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

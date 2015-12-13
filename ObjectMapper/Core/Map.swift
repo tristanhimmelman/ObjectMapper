@@ -34,7 +34,7 @@ public final class Map {
 	public let mappingType: MappingType
 	
 	var JSONDictionary: [String : AnyObject] = [:]
-	var currentValue: AnyObject?
+	public var currentValue: AnyObject?
 	var currentKey: String?
 	var keyIsNested = false
 
