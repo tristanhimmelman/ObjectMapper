@@ -55,7 +55,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		
 		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
 		let mappedObject = mapper.map(JSONString!)
-
+		
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.bool, value)
 		XCTAssertEqual(mappedObject?.boolOptional, value)
