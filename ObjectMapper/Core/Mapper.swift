@@ -405,38 +405,31 @@ extension Mapper where N: Hashable {
 }
 
 extension Dictionary {
-	internal func map<K: Hashable, V>(@noescape f: Element -> (K, V)) -> [K : V] {
-		var mapped = [K : V]()
-
-		for element in self {
-			let newElement = f(element)
-			mapped[newElement.0] = newElement.1
-		}
-
-		return mapped
-	}
-
-	internal func map<K: Hashable, V>(@noescape f: Element -> (K, [V])) -> [K : [V]] {
-		var mapped = [K : [V]]()
-		
-		for element in self {
-			let newElement = f(element)
-			mapped[newElement.0] = newElement.1
-		}
-		
-		return mapped
-	}
-
-	
-	internal func filterMap<U>(@noescape f: Value -> U?) -> [Key : U] {
-		var mapped = [Key : U]()
-
-		for (key, value) in self {
-			if let newValue = f(value){
-				mapped[key] = newValue
-			}
-		}
-
-		return mapped
-	}
+    internal func map<K: Hashable, V>(@noescape f: Element -> (K, V)) -> [K : V] {
+        return reduce([K : V]()) { (var mapped: [K : V], element: Element) in
+            let newElement = f(element)
+            mapped[newElement.0] = newElement.1
+            
+            return mapped
+        }
+    }
+    
+    internal func map<K: Hashable, V>(@noescape f: Element -> (K, [V])) -> [K : [V]] {
+        return reduce([K : [V]]()) { (var mapped: [K : [V]], element: Element) in
+            let newElement = f(element)
+            mapped[newElement.0] = newElement.1
+            
+            return mapped
+        }
+    }
+    
+    internal func filterMap<U>(@noescape f: Value -> U?) -> [Key : U] {
+        return reduce([Key : U]()) { (var mapped: [Key : U], element: Element) in
+            if let newValue = f(element.1) {
+                mapped[element.0] = newValue
+            }
+            
+            return mapped
+        }
+    }
 }
