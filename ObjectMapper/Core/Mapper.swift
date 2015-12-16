@@ -254,13 +254,13 @@ public final class Mapper<N: Mappable> {
 	// MARK: Utility functions for converting strings to JSON objects
 	
 	/// Convert a JSON String into a Dictionary<String, AnyObject> using NSJSONSerialization
-	static func parseJSONDictionary(JSON: String) -> [String : AnyObject]? {
+	public static func parseJSONDictionary(JSON: String) -> [String : AnyObject]? {
 		let parsedJSON: AnyObject? = Mapper.parseJSONString(JSON)
 		return Mapper.parseJSONDictionary(parsedJSON)
 	}
 	
 	/// Convert a JSON Object into a Dictionary<String, AnyObject> using NSJSONSerialization
-	static func parseJSONDictionary(JSON: AnyObject?) -> [String : AnyObject]? {
+	public static func parseJSONDictionary(JSON: AnyObject?) -> [String : AnyObject]? {
 		if let JSONDict = JSON as? [String : AnyObject] {
 			return JSONDict
 		}
@@ -269,7 +269,7 @@ public final class Mapper<N: Mappable> {
 	}
 
 	/// Convert a JSON String into an Object using NSJSONSerialization
-	static func parseJSONString(JSON: String) -> AnyObject? {
+	public static func parseJSONString(JSON: String) -> AnyObject? {
 		let data = JSON.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
 		if let data = data {
 			let parsedJSON: AnyObject?
