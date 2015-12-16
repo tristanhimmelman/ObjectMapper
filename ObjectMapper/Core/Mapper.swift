@@ -51,7 +51,7 @@ public final class Mapper<N: Mappable> {
 	
 	/// Map a JSON string onto an existing object
 	public func map(JSONString: String, toObject object: N) -> N {
-		if let JSON = parseJSONDictionary(JSONString) {
+		if let JSON = Mapper.parseJSONDictionary(JSONString) {
 			return map(JSON, toObject: object)
 		}
 		return object
@@ -78,7 +78,7 @@ public final class Mapper<N: Mappable> {
 	
 	/// Map a JSON string to an object that conforms to Mappable
 	public func map(JSONString: String) -> N? {
-		if let JSON = parseJSONDictionary(JSONString) {
+		if let JSON = Mapper.parseJSONDictionary(JSONString) {
 			return map(JSON)
 		}
 		
@@ -122,7 +122,7 @@ public final class Mapper<N: Mappable> {
 	
 	/// Maps a JSON array to an object that conforms to Mappable
 	public func mapArray(JSONString: String) -> [N]? {
-		let parsedJSON: AnyObject? = parseJSONString(JSONString)
+		let parsedJSON: AnyObject? = Mapper.parseJSONString(JSONString)
 
 		if let objectArray = mapArray(parsedJSON) {
 			return objectArray
@@ -164,7 +164,7 @@ public final class Mapper<N: Mappable> {
 	
 	/// Maps a JSON object to a dictionary of Mappable objects if it is a JSON dictionary of dictionaries, or returns nil.
 	public func mapDictionary(JSONString: String) -> [String : N]? {
-		let parsedJSON: AnyObject? = parseJSONString(JSONString)
+		let parsedJSON: AnyObject? = Mapper.parseJSONString(JSONString)
 		return mapDictionary(parsedJSON)
 	}
 	
@@ -251,16 +251,16 @@ public final class Mapper<N: Mappable> {
 		return nil
 	}
 
-	// MARK: Private utility functions for converting strings to JSON objects
+	// MARK: Utility functions for converting strings to JSON objects
 	
 	/// Convert a JSON String into a Dictionary<String, AnyObject> using NSJSONSerialization
-	private func parseJSONDictionary(JSON: String) -> [String : AnyObject]? {
-		let parsedJSON: AnyObject? = parseJSONString(JSON)
-		return parseJSONDictionary(parsedJSON)
+	public static func parseJSONDictionary(JSON: String) -> [String : AnyObject]? {
+		let parsedJSON: AnyObject? = Mapper.parseJSONString(JSON)
+		return Mapper.parseJSONDictionary(parsedJSON)
 	}
 	
 	/// Convert a JSON Object into a Dictionary<String, AnyObject> using NSJSONSerialization
-	private func parseJSONDictionary(JSON: AnyObject?) -> [String : AnyObject]? {
+	public static func parseJSONDictionary(JSON: AnyObject?) -> [String : AnyObject]? {
 		if let JSONDict = JSON as? [String : AnyObject] {
 			return JSONDict
 		}
@@ -269,7 +269,7 @@ public final class Mapper<N: Mappable> {
 	}
 
 	/// Convert a JSON String into an Object using NSJSONSerialization
-	private func parseJSONString(JSON: String) -> AnyObject? {
+	public static func parseJSONString(JSON: String) -> AnyObject? {
 		let data = JSON.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
 		if let data = data {
 			let parsedJSON: AnyObject?
@@ -358,7 +358,7 @@ extension Mapper where N: Hashable {
 	
 	/// Maps a JSON array to an object that conforms to Mappable
 	public func mapSet(JSONString: String) -> Set<N>? {
-		let parsedJSON: AnyObject? = parseJSONString(JSONString)
+		let parsedJSON: AnyObject? = Mapper.parseJSONString(JSONString)
 		
 		if let objectArray = mapArray(parsedJSON){
 			return Set(objectArray)
