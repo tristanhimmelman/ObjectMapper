@@ -96,6 +96,8 @@ internal final class ToJSON {
 			_setValue(x)
 		} else if let x = field as? Array<AnyObject> {
 			_setValue(x)
+		} else if let x = field as? Array<Dictionary<String, AnyObject>> {
+			_setValue(x)
 		} else if let x = field as? Dictionary<String, NSNumber> { // Dictionaries
 			_setValue(x)
 		} else if let x = field as? Dictionary<String, Bool> {
