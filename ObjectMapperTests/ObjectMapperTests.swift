@@ -538,6 +538,24 @@ class ObjectMapperTests: XCTestCase {
 		XCTAssertEqual(arrayTest2?.twoDimensionalArray?[0][0].base, arrayTest?.twoDimensionalArray?[0][0].base)
 		XCTAssertEqual(arrayTest2?.twoDimensionalArray?[0][1].base, arrayTest?.twoDimensionalArray?[0][1].base)
 	}
+
+	func testShouldPreventOverwritingMappableProperty() {
+		let json: [String: AnyObject] = [
+			"name": "Entry 1",
+			"bigList": [["name": "item 1"], ["name": "item 2"], ["name": "item 3"]]
+		]
+		let model = CachedModel()
+		Mapper().map(json, toObject: model)
+
+		XCTAssertEqual(model.name, "Entry 1")
+		XCTAssertEqual(model.bigList?.count, 3)
+
+		let json2: [String: AnyObject] = ["name": "Entry 1"]
+		Mapper().map(json2, toObject: model)
+
+		XCTAssertEqual(model.name, "Entry 1")
+		XCTAssertEqual(model.bigList?.count, 3)
+	}
 }
 
 class Response<T: Mappable>: Mappable {
@@ -812,6 +830,30 @@ class ArrayTest: Mappable {
 	
 	func mapping(map: Map) {
 		twoDimensionalArray <- map["twoDimensionalArray"]
+	}
+}
+
+class CachedModel: Mappable {
+	var name: String?
+	var bigList: [CachedItem]?
+
+	init() {}
+
+	required init?(_ map: Map){}
+
+	func mapping(map: Map) {
+		name <- map["name"]
+		bigList <- map["bigList"]
+	}
+}
+
+struct CachedItem: Mappable {
+	var name: String?
+
+	init?(_ map: Map){}
+
+	mutating func mapping(map: Map) {
+		name <- map["name"]
 	}
 }
 
