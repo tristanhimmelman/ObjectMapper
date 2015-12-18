@@ -118,7 +118,12 @@ private func valueFor(keyPathComponents: ArraySlice<String>, dictionary: [String
 		} else if let dict = object as? [String : AnyObject] where keyPathComponents.count > 1 {
 			let tail = keyPathComponents.dropFirst()
 			return valueFor(tail, dictionary: dict)
-		} else {
+		}
+		else if let dict = object as? [AnyObject] where keyPathComponents.count > 1 {
+			let tail = keyPathComponents.dropFirst()
+			return valueFor(tail, dictionary: dict)
+		}
+		else {
 			return object
 		}
 	}
@@ -138,15 +143,17 @@ private func valueFor(keyPathComponents: ArraySlice<String>, dictionary: [AnyObj
 	if let keyPath = keyPathComponents.first,
 		let index = Int(keyPath) {
 
-		let object = dictionary[index]
+		if index >= 0 && index < dictionary.count {
+			let object = dictionary[index]
 			
-		if object is NSNull {
-			return nil
-		} else if let dict = object as? [AnyObject] where keyPathComponents.count > 1 {
-			let tail = keyPathComponents.dropFirst()
-			return valueFor(tail, dictionary: dict)
-		} else {
-			return object
+			if object is NSNull {
+				return nil
+			} else if let dict = object as? [AnyObject] where keyPathComponents.count > 1 {
+				let tail = keyPathComponents.dropFirst()
+				return valueFor(tail, dictionary: dict)
+			} else {
+				return object
+			}
 		}
 	}
 	return nil
