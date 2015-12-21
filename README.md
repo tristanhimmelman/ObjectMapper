@@ -4,7 +4,7 @@ ObjectMapper
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Build Status](https://travis-ci.org/Hearst-DD/ObjectMapper.svg?branch=master)](https://travis-ci.org/Hearst-DD/ObjectMapper)
 
-ObjectMapper is a framework written in Swift that makes it easy for you to convert your Model objects (Classes and Structs) to and from JSON. 
+ObjectMapper is a framework written in Swift that makes it easy for you to convert your model objects (classes and structs) to and from JSON. 
 
 - [Features](#features)
 - [The Basics](#the-basics)
@@ -17,15 +17,15 @@ ObjectMapper is a framework written in Swift that makes it easy for you to conve
 - [Contributing](#contributing)
 - [Installation](#installation)
 
-#Features:
+# Features:
 - Mapping JSON to objects
 - Mapping objects to JSON
-- Nested Objects (stand alone, in Arrays or in Dictionaries)
+- Nested Objects (stand alone, in arrays or in dictionaries)
 - Custom transformations during mapping
 - Struct support
 
-#The Basics
-To support mapping, a Class or Struct just needs to implement the ```Mappable``` protocol.
+# The Basics
+To support mapping, a class or struct just needs to implement the ```Mappable``` protocol.
 ```swift
 public protocol Mappable {
 	init?(_ map: Map)
@@ -77,7 +77,7 @@ struct Temperature: Mappable {
 }
 ```
 
-Once your class implements Mappable, the Mapper class handles everything else for you:
+Once your class implements `Mappable`, the Mapper class handles everything else for you:
 
 Convert a JSON string to a model object:
 ```swift
@@ -107,7 +107,7 @@ ObjectMapper can map classes composed of the following types:
 - Optionals of all the above
 - Implicitly Unwrapped Optionals of the above
 
-#Easy Mapping of Nested Objects
+# Easy Mapping of Nested Objects
 ObjectMapper supports dot notation within keys for easy mapping of nested objects. Given the following JSON String:
 ```json
 "distance" : {
@@ -121,25 +121,25 @@ func mapping(map: Map) {
     distance <- map["distance.value"]
 }
 ```
-Nested keys also support accesssing values from an array. Given a JSON response with an array of distances, the value could be accessed as follows:
+Nested keys also support accessing values from an array. Given a JSON response with an array of distances, the value could be accessed as follows:
 ```
 distance <- map["distances.0.value"]
 ```
-If you have a key that contains `.`, you can disable the above feature as follows:
+If you have a key that contains `.`, you can individually disable the above feature as follows:
 ```swift
 func mapping(map: Map) {
     identifier <- map["app.identifier", nested: false]
 }
 ```
 
-#Custom Transforms
-ObjectMapper also supports custom Transforms that convert values during the mapping process. To use a transform, simply create a tuple with ```map["field_name"]``` and the transform of choice on the right side of the ```<-``` operator:
+# Custom Transforms
+ObjectMapper also supports custom transforms that convert values during the mapping process. To use a transform, simply create a tuple with ```map["field_name"]``` and the transform of your choice on the right side of the ```<-``` operator:
 ```swift
 birthday <- (map["birthday"], DateTransform())
 ```
 The above transform will convert the JSON Int value to an NSDate when reading JSON and will convert the NSDate to an Int when converting objects to JSON.
 
-You can easily create your own custom transforms by adopting and implementing the methods in the TransformType protocol:
+You can easily create your own custom transforms by adopting and implementing the methods in the ```TransformType``` protocol:
 ```swift
 public protocol TransformType {
     typealias Object
@@ -151,7 +151,7 @@ public protocol TransformType {
 ```
 
 ### TransformOf
-In a lot of situations you can use the built in transform class ```TransformOf``` to quickly perform a desired transformation. ```TransformOf``` is initialized with two types and two closures. The types define what the transform is converting to and from and the closures perform the actual transformation. 
+In a lot of situations you can use the built-in transform class ```TransformOf``` to quickly perform a desired transformation. ```TransformOf``` is initialized with two types and two closures. The types define what the transform is converting to and from and the closures perform the actual transformation. 
 
 For example, if you want to transform a JSON String value to an Int you could use ```TransformOf``` as follows:
 ```swift
@@ -173,9 +173,9 @@ Here is a more condensed version of the above:
 id <- (map["id"], TransformOf<Int, String>(fromJSON: { $0?.toInt() }, toJSON: { $0.map { String($0) } }))
 ```
 
-#Subclasses
+# Subclasses
 
-Classes that implement the Mappable protocol can easily be subclassed. When subclassing Mappable classes, follow the structure below:
+Classes that implement the ```Mappable``` protocol can easily be subclassed. When subclassing mappable classes, follow the structure below:
 
 ```swift
 class Base: Mappable {
@@ -204,7 +204,10 @@ class Subclass: Base {
 	}
 }
 ```
-#Generic Objects
+
+Make sure your subclass implemenation calls the right initializers and mapping functions to also apply the mappings from your superclass.
+
+# Generic Objects
 
 ObjectMapper can handle classes with generic types as long as the generic type also conforms to `Mappable`. See the following example:
 ```swift
@@ -255,12 +258,12 @@ if let model = Mapper<Model>().map(JSONString) {
 
 #ObjectMapper + Alamofire
 
-If you are using [Alamofire](https://github.com/Alamofire/Alamofire) for networking and you want to convert your responses to swift objects, you can use [AlamofireObjectMapper](https://github.com/tristanhimmelman/AlamofireObjectMapper). It is a simple Alamofire extension that uses ObjectMapper to automatically map JSON response data to swift objects.
+If you are using [Alamofire](https://github.com/Alamofire/Alamofire) for networking and you want to convert your responses to Swift objects, you can use [AlamofireObjectMapper](https://github.com/tristanhimmelman/AlamofireObjectMapper). It is a simple Alamofire extension that uses ObjectMapper to automatically map JSON response data to Swift objects.
 
 
 #ObjectMapper + Realm
 
-ObjectMapper and Realm can be used together. Simply follow the Class structure below and you will be able to use ObjectMapper to generate your Realm models:
+ObjectMapper and Realm can be used together. Simply follow the class structure below and you will be able to use ObjectMapper to generate your Realm models:
 
 ```swift
 class Model: Object, Mappable {
@@ -280,30 +283,30 @@ Note: Generating a JSON string of a Realm Object using ObjectMappers' `toJSON` f
 
 <!-- ##To Do -->
 
-#Contributing
+# Contributing
 
-Contributions are very welcomed 👍😃. 
+Contributions are very welcome 👍😃. 
 
-Before submitting any Pull Request, please ensure you have run the included tests and that they have passed. If you are including new functionality, please write test cases for it as well. 
+Before submitting any pull request, please ensure you have run the included tests and they have passed. If you are including new functionality, please write test cases for it as well.
 
-#Installation
-ObjectMapper can be added to your project using [CocoaPods 0.36 or later](http://blog.cocoapods.org/Pod-Authors-Guide-to-CocoaPods-Frameworks/) by adding the following line to your Podfile:
+# Installation
+ObjectMapper can be added to your project using [CocoaPods 0.36 or later](http://blog.cocoapods.org/Pod-Authors-Guide-to-CocoaPods-Frameworks/) by adding the following line to your `Podfile`:
 
 ```ruby
 pod 'ObjectMapper', '~> 1.0'
 ```
 
-If your using [Carthage](https://github.com/Carthage/Carthage) you can add a dependency on ObjectMapper by adding it to your Cartfile:
+If you're using [Carthage](https://github.com/Carthage/Carthage) you can add a dependency on ObjectMapper by adding it to your `Cartfile`:
 ```
 github "Hearst-DD/ObjectMapper" ~> 1.0
 ```
 
 Otherwise, ObjectMapper can be added as a submodule:
 
-1. Add ObjectMapper as a [submodule](http://git-scm.com/docs/git-submodule) by opening the Terminal, `cd`-ing into your top-level project directory, and entering the command `git submodule add https://github.com/Hearst-DD/ObjectMapper.git`
+1. Add ObjectMapper as a [submodule](http://git-scm.com/docs/git-submodule) by opening the terminal, `cd`-ing into your top-level project directory, and entering the command `git submodule add https://github.com/Hearst-DD/ObjectMapper.git`
 2. Open the `ObjectMapper` folder, and drag `ObjectMapper.xcodeproj` into the file navigator of your app project.
 3. In Xcode, navigate to the target configuration window by clicking on the blue project icon, and selecting the application target under the "Targets" heading in the sidebar.
-4. Ensure that the deployment target of ObjectMapper.framework matches that of the application target.
+4. Ensure that the deployment target of `ObjectMapper.framework` matches that of the application target.
 5. In the tab bar at the top of that window, open the "Build Phases" panel.
 6. Expand the "Target Dependencies" group, and add `ObjectMapper.framework`.
 7. Click on the `+` button at the top left of the panel and select "New Copy Files Phase". Rename this new phase to "Copy Frameworks", set the "Destination" to "Frameworks", and add `ObjectMapper.framework`.
