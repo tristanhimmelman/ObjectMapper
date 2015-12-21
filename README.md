@@ -157,7 +157,7 @@ For example, if you want to transform a JSON String value to an Int you could us
 ```swift
 let transform = TransformOf<Int, String>(fromJSON: { (value: String?) -> Int? in 
     // transform value from String? to Int?
-    return value?.toInt()
+    return Int(value!)
 }, toJSON: { (value: Int?) -> String? in
     // transform value from Int? to String?
     if let value = value {
@@ -170,7 +170,7 @@ id <- (map["id"], transform)
 ```
 Here is a more condensed version of the above:
 ```swift
-id <- (map["id"], TransformOf<Int, String>(fromJSON: { $0?.toInt() }, toJSON: { $0.map { String($0) } }))
+id <- (map["id"], TransformOf<Int, String>(fromJSON: { Int($0!) }, toJSON: { $0.map { String($0) } }))
 ```
 
 # Subclasses
