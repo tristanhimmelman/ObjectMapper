@@ -54,6 +54,14 @@ class CustomTransformTests: XCTestCase {
 		XCTAssertNotNil(parsedTransforms)
 		XCTAssertEqual(parsedTransforms?.date, transforms.date)
 		XCTAssertEqual(parsedTransforms?.dateOpt, transforms.dateOpt)
+		
+		let JSONDateString: [String: AnyObject] = ["date": "946684800", "dateOpt": "946684912"]
+		let parsedTransformsDateString = mapper.map(JSONDateString)
+		
+		XCTAssertNotNil(parsedTransformsDateString)
+		XCTAssertEqual(parsedTransforms?.date, parsedTransformsDateString?.date)
+		XCTAssertEqual(parsedTransforms?.dateOpt, parsedTransformsDateString?.dateOpt)
+
 	}
 	
 	func testISO8601DateTransform() {

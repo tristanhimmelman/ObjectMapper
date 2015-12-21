@@ -38,6 +38,11 @@ public class DateTransform: TransformType {
 		if let timeInt = value as? Double {
 			return NSDate(timeIntervalSince1970: NSTimeInterval(timeInt))
 		}
+		
+		if let timeStr = value as? String {
+			return NSDate(timeIntervalSince1970: NSTimeInterval(atof(timeStr)))
+		}
+		
 		return nil
 	}
 
