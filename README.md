@@ -63,7 +63,7 @@ class User: Mappable {
 }
 
 struct Temperature: Mappable {
-    var celcius: Double?
+    var celsius: Double?
     var fahrenheit: Double?
 
     init?(_ map: Map) {
@@ -71,7 +71,7 @@ struct Temperature: Mappable {
     }
 
     mutating func mapping(map: Map) {
-        celcius 	<- map["celcius"]
+        celsius 	<- map["celsius"]
         fahrenheit 	<- map["fahrenheit"]
     }
 }
