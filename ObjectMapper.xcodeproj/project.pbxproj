@@ -41,11 +41,11 @@
 		6A6AEB961A93874F002573D3 /* BasicTypesTestsFromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6AEB951A93874F002573D3 /* BasicTypesTestsFromJSON.swift */; };
 		6A6AEB981A9387D0002573D3 /* BasicTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6AEB971A9387D0002573D3 /* BasicTypes.swift */; };
 		6A6C54D019FE8DB600239454 /* URLTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6C54CF19FE8DB600239454 /* URLTransform.swift */; };
-		6AA1F66E1BE991FF006EF513 /* Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAD2C0B1BDDB10D00E6B203 /* Mappable.swift */; };
-		6AA1F66F1BE9921C006EF513 /* MappableExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAD2C0F1BDDC0B000E6B203 /* MappableExtensionsTests.swift */; };
 		6AA1F66B1BE94687006EF513 /* ClassClusterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A412A161BAC770C001C3F67 /* ClassClusterTests.swift */; };
 		6AA1F66C1BE94687006EF513 /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A412A231BB0DA26001C3F67 /* PerformanceTests.swift */; };
 		6AA1F66D1BE9468D006EF513 /* NestedArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6100B1BF1BD76A020011114A /* NestedArrayTests.swift */; };
+		6AA1F66E1BE991FF006EF513 /* Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAD2C0B1BDDB10D00E6B203 /* Mappable.swift */; };
+		6AA1F66F1BE9921C006EF513 /* MappableExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAD2C0F1BDDC0B000E6B203 /* MappableExtensionsTests.swift */; };
 		6AAC8F7C19F03C2900E7A677 /* ObjectMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AAC8F7B19F03C2900E7A677 /* ObjectMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6AAC8F8619F03C2900E7A677 /* ObjectMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8F8519F03C2900E7A677 /* ObjectMapperTests.swift */; };
 		6AAC8FCD19F048FE00E7A677 /* FromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC319F048FE00E7A677 /* FromJSON.swift */; };
@@ -802,6 +802,7 @@
 		6A05B7B71BE274BE00F19B53 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -817,12 +818,14 @@
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
 		6A05B7B81BE274BE00F19B53 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -839,6 +842,7 @@
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
@@ -890,6 +894,7 @@
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
@@ -913,6 +918,7 @@
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
@@ -1020,6 +1026,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hearst.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SKIP_INSTALL = YES;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
@@ -1037,6 +1045,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hearst.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SKIP_INSTALL = YES;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
@@ -1087,6 +1097,8 @@
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
@@ -1109,6 +1121,8 @@
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
