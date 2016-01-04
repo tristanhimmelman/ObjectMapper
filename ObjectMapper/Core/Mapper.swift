@@ -325,22 +325,22 @@ extension Mapper {
 	public func toJSONString(object: N, prettyPrint: Bool = false) -> String? {
 		let JSONDict = toJSON(object)
 		
-        return toJSONString(JSONDict, prettyPrint: prettyPrint)
+        return Mapper.toJSONString(JSONDict, prettyPrint: prettyPrint)
 	}
 
     /// Maps an array of Objects to a JSON string with option of pretty formatting	
     public func toJSONString(array: [N], prettyPrint: Bool = false) -> String? {
         let JSONDict = toJSONArray(array)
         
-        return toJSONString(JSONDict, prettyPrint: prettyPrint)
+        return Mapper.toJSONString(JSONDict, prettyPrint: prettyPrint)
     }
 	
-    private func toJSONString(object: AnyObject, prettyPrint: Bool) -> String? {
-        if NSJSONSerialization.isValidJSONObject(object) {
-            let options: NSJSONWritingOptions = prettyPrint ? .PrettyPrinted : []
+    public static func toJSONString(JSONObject: AnyObject, prettyPrint: Bool) -> String? {
+        if NSJSONSerialization.isValidJSONObject(JSONObject) {
             let JSONData: NSData?
             do {
-                JSONData = try NSJSONSerialization.dataWithJSONObject(object, options: options)
+				let options: NSJSONWritingOptions = prettyPrint ? .PrettyPrinted : []
+                JSONData = try NSJSONSerialization.dataWithJSONObject(JSONObject, options: options)
             } catch let error {
                 print(error)
                 JSONData = nil
@@ -400,7 +400,7 @@ extension Mapper where N: Hashable {
 	public func toJSONString(set: Set<N>, prettyPrint: Bool = false) -> String? {
 		let JSONDict = toJSONSet(set)
 		
-		return toJSONString(JSONDict, prettyPrint: prettyPrint)
+		return Mapper.toJSONString(JSONDict, prettyPrint: prettyPrint)
 	}
 }
 
