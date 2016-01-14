@@ -87,7 +87,7 @@ let user = Mapper<User>().map(JSONString)
 
 Convert a model object to a JSON string:
 ```swift
-let JSONString = Mapper().toJSONString(user, prettyPrint: true)
+let JSONString = Mapper<User>().toJSONString(user, prettyPrint: true)
 ```
 
 ObjectMapper can map classes composed of the following types:
