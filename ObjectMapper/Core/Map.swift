@@ -72,6 +72,12 @@ public final class Map {
 		return self
 	}
 	
+	// MARK: Real JSON dictionary data
+    
+    	public func rootValue() -> [String : AnyObject] {
+        	return self.JSONDictionary
+    	}
+	
 	// MARK: Immutable Mapping
 	
 	public func value<T>() -> T? {
