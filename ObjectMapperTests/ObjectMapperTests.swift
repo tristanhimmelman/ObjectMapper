@@ -490,25 +490,6 @@ class ObjectMapperTests: XCTestCase {
 		XCTAssertEqual(genericItems?[1].value, "value1")
 	}
 	
-	func testImmutableMappable() {
-		let mapper = Mapper<Immutable>()
-		let JSON = ["prop1": "Immutable!", "prop2": 255, "prop3": true ]
-
-		let immutable: Immutable! = mapper.map(JSON)
-		XCTAssertNotNil(immutable)
-		XCTAssertEqual(immutable.prop1, "Immutable!")
-		XCTAssertEqual(immutable.prop2, 255)
-		XCTAssertEqual(immutable.prop3, true)
-		XCTAssertEqual(immutable.prop4, DBL_MAX)
-
-		let JSON2 = [ "prop1": "prop1", "prop2": NSNull() ]
-		let immutable2 = mapper.map(JSON2)
-		XCTAssertNil(immutable2)
-
-		let JSONFromObject = mapper.toJSON(immutable)
-		XCTAssertEqual(mapper.map(JSONFromObject), immutable)
-	}
-	
 	func testArrayOfArrayOfMappable() {
 		let base1 = "1"
 		let base2 = "2"
@@ -855,47 +836,4 @@ struct CachedItem: Mappable {
 	mutating func mapping(map: Map) {
 		name <- map["name"]
 	}
-}
-
-struct Immutable: Equatable {
-	let prop1: String
-	let prop2: Int
-	let prop3: Bool
-	let prop4: Double
-}
-
-extension Immutable: Mappable {
-	init(_ map: Map) throws {
-		prop1 = try map["prop1"].valueOrFail()
-		prop2 = try map["prop2"].valueOrFail()
-		prop3 = try map["prop3"].valueOrFail()
-		prop4 = map["prop4"].valueOr(DBL_MAX)
-	}
-		
-	mutating func mapping(map: Map) {
-		switch map.mappingType {
-		case .FromJSON:
-			if let x = try? Immutable(map) {
-				self = x
-			}
-			
-		case .ToJSON:
-			var prop1 = self.prop1
-			var prop2 = self.prop2
-			var prop3 = self.prop3
-			var prop4 = self.prop4
-			
-			prop1 <- map["prop1"]
-			prop2 <- map["prop2"]
-			prop3 <- map["prop3"]
-			prop4 <- map["prop4"]
-		}
-	}
-}
-
-func ==(lhs: Immutable, rhs: Immutable) -> Bool {
-	return lhs.prop1 == rhs.prop1
-		&& lhs.prop2 == rhs.prop2
-		&& lhs.prop3 == rhs.prop3
-		&& lhs.prop4 == rhs.prop4
 }

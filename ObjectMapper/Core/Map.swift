@@ -68,8 +68,11 @@ public final class Map {
 		
 		return self
 	}
-	
-	// MARK: Immutable Mapping
+}
+
+// MARK: Immutable Mapping
+
+public extension Map {
 	
 	public func value<T>() -> T? {
 		return currentValue as? T
@@ -82,11 +85,88 @@ public final class Map {
 	/// Returns current JSON value of type `T` if it is existing, or returns a
 	/// unusable proxy value for `T` and collects failed count.
 	public func valueOrFail<T>() throws -> T {
-		if let value: T = value() {
-			return value
-		} else {
+		guard let value: T = value() else {
 			throw MapperError.error
 		}
+		return value
+	}
+	
+	/// Object of Basic type with Transform
+	public func valueOrFailWithTransform<Transform: TransformType>(transform: Transform) throws -> Transform.Object {
+		guard let value = transform.transformFromJSON(currentValue) else {
+			throw MapperError.error
+		}
+		return value
+	}
+	
+	/// Optional object of basic type with Transform
+	public func valueWithTransform<Transform: TransformType>(transform: Transform) -> Transform.Object? {
+		return transform.transformFromJSON(currentValue)
+	}
+	
+	/// Array of Basic type with Transform
+	public func valueOrFailWithTransform<Transform: TransformType>(transform: Transform) throws -> [Transform.Object] {
+		guard let values = fromJSONArrayWithTransform(currentValue, transform: transform) else {
+			throw MapperError.error
+		}
+		return values
+	}
+	
+	/// Optional array of Basic type with Transform
+	public func valueWithTransform<Transform: TransformType>(transform: Transform) -> [Transform.Object]? {
+		return fromJSONArrayWithTransform(currentValue, transform: transform)
+	}
+	
+	/// Dictionary of Basic type with Transform
+	public func valueOrFailWithTransform<Transform: TransformType>(transform: Transform) throws -> [String: Transform.Object] {
+		guard let values = fromJSONDictionaryWithTransform(currentValue, transform: transform) else {
+			throw MapperError.error
+		}
+		return values
+	}
+	
+	/// Optional dictionary of Basic type with Transform
+	public func valueWithTransform<Transform: TransformType>(transform: Transform) -> [String: Transform.Object]? {
+		return fromJSONDictionaryWithTransform(currentValue, transform: transform)
+	}
+	
+	/// Object conforming to Mappable
+	public func valueOrFail<T: Mappable>() throws -> T {
+		guard let object = Mapper<T>().map(currentValue) else {
+			throw MapperError.error
+		}
+		return object
+	}
+	
+	/// Optional Mappable objects
+	public func value<T: Mappable>() -> T? {
+		return Mapper<T>().map(currentValue)
+	}
+	
+	/// Dictionary of Mappable objects <String, T: Mappable>
+	public func valueOrFail<T: Mappable>() throws -> [String: T] {
+		guard let dictionary = Mapper<T>().mapDictionary(currentValue) else {
+			throw MapperError.error
+		}
+		return dictionary
+	}
+	
+	/// Optional Dictionary of Mappable object <String, T: Mappable>
+	public func value<T: Mappable>() -> [String: T]? {
+		return Mapper<T>().mapDictionary(currentValue)
+	}
+	
+	/// Array of Mappable objects
+	public func valueOrFail<T: Mappable>() throws -> [T] {
+		guard let array = Mapper<T>().mapArray(currentValue) else {
+			throw MapperError.error
+		}
+		return array
+	}
+	
+	/// Optional Array of Mappable objects
+	public func value<T: Mappable>() -> [T]? {
+		return Mapper<T>().mapArray(currentValue)
 	}
 }
 
