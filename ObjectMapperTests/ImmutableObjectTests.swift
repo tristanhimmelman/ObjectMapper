@@ -59,6 +59,30 @@ class ImmutableObjectTests: XCTestCase {
 		XCTAssertEqual(immutable.prop3, true)
 		XCTAssertEqual(immutable.prop4, DBL_MAX)
 		
+		XCTAssertEqual(immutable.prop5, "prop5_TRANSFORMED")
+		XCTAssertEqual(immutable.prop6, "prop6_TRANSFORMED")
+		XCTAssertEqual(immutable.prop7, "prop7_TRANSFORMED")
+		
+		XCTAssertEqual(immutable.prop8, ["prop8_TRANSFORMED"])
+		XCTAssertEqual(immutable.prop9!, ["prop9_TRANSFORMED"])
+		XCTAssertEqual(immutable.prop10, ["prop10_TRANSFORMED"])
+		
+		XCTAssertEqual(immutable.prop11, ["key": "prop11_TRANSFORMED"])
+		XCTAssertEqual(immutable.prop12!, ["key": "prop12_TRANSFORMED"])
+		XCTAssertEqual(immutable.prop13, ["key": "prop13_TRANSFORMED"])
+		
+		XCTAssertEqual(immutable.prop14.base, "prop14")
+		XCTAssertEqual(immutable.prop15?.base, "prop15")
+		XCTAssertEqual(immutable.prop16.base, "prop16")
+		
+		XCTAssertEqual(immutable.prop17[0].base, "prop17")
+		XCTAssertEqual(immutable.prop18![0].base, "prop18")
+		XCTAssertEqual(immutable.prop19[0].base, "prop19")
+		
+		XCTAssertEqual(immutable.prop20["key"]!.base, "prop20")
+		XCTAssertEqual(immutable.prop21!["key"]!.base, "prop21")
+		XCTAssertEqual(immutable.prop22["key"]!.base, "prop22")
+		
 		let JSON2 = [ "prop1": "prop1", "prop2": NSNull() ]
 		let immutable2 = mapper.map(JSON2)
 		XCTAssertNil(immutable2)
@@ -192,10 +216,14 @@ extension Immutable: Mappable {
 	}
 }
 
+// Very simple transform, so we avoid comparing array of dates/enums/somethingcomplex in our unit tests
 let stringTransform = TransformOf<String, String>(fromJSON: { str -> String? in
-	return ""
+	guard let str = str else {
+		return nil
+	}
+	return "\(str)_TRANSFORMED"
 }) { str -> String? in
-	return ""
+	return str?.stringByReplacingOccurrencesOfString("_TRANSFORMED", withString: "", options: [], range: nil)
 }
 
 private func assertImmutableObjectsEqual(lhs: Immutable, _ rhs: Immutable) {
