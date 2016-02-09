@@ -40,9 +40,6 @@ public final class Map {
 
 	let toObject: Bool // indicates whether the mapping is being applied to an existing object
 	
-	/// Counter for failing cases of deserializing values to `let` properties.
-	private var failedCount: Int = 0
-	
 	public init(mappingType: MappingType, JSONDictionary: [String : AnyObject], toObject: Bool = false) {
 		self.mappingType = mappingType
 		self.JSONDictionary = JSONDictionary
@@ -84,23 +81,12 @@ public final class Map {
 	
 	/// Returns current JSON value of type `T` if it is existing, or returns a
 	/// unusable proxy value for `T` and collects failed count.
-	public func valueOrFail<T>() -> T {
+	public func valueOrFail<T>() throws -> T {
 		if let value: T = value() {
 			return value
 		} else {
-			// Collects failed count
-			failedCount++
-			
-			// Returns dummy memory as a proxy for type `T`
-			let pointer = UnsafeMutablePointer<T>.alloc(0)
-			pointer.dealloc(0)
-			return pointer.memory
+			throw MapperError.error
 		}
-	}
-	
-	/// Returns whether the receiver is success or failure.
-	public var isValid: Bool {
-		return failedCount == 0
 	}
 }
 

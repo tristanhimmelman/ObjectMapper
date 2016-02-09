@@ -131,7 +131,7 @@ class BasicTypes: Mappable {
 		
 	}
 	
-	required init?(_ map: Map){
+	required init(_ map: Map) throws {
 
 	}
 	
@@ -233,7 +233,7 @@ class TestCollectionOfPrimitives : Mappable {
 		
 	}
 	
-	required init?(_ map: Map){
+	required init(_ map: Map) throws {
 		
 	}
 	

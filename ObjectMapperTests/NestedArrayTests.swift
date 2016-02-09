@@ -81,7 +81,7 @@ class NestedArray: Mappable {
 
 	var nestedObjectValue: Int?
 	
-	required init?(_ map: Map){
+	required init(_ map: Map) throws {
 		
 	}
 	
@@ -97,7 +97,7 @@ class NestedArray: Mappable {
 class NestedObject: Mappable {
 	var value: Int?
 	
-	required init?(_ map: Map){}
+	required init(_ map: Map) throws {}
 	
 	func mapping(map: Map) {
 		value	<- map["value"]

@@ -9,7 +9,7 @@
 import Foundation
 
 public protocol Mappable {
-	init?(_ map: Map)
+	init(_ map: Map) throws
 	mutating func mapping(map: Map)
 }
 
@@ -20,20 +20,20 @@ public protocol MappableCluster: Mappable {
 public extension Mappable {
 	
 	/// Initializes object from a JSON String
-	public init?(JSONString: String) {
+	public init(JSONString: String) throws {
 		if let obj: Self = Mapper().map(JSONString) {
 			self = obj
 		} else {
-			return nil
+			throw MapperError.error
 		}
 	}
 	
 	/// Initializes object from a JSON Dictionary
-	public init?(JSON: [String : AnyObject]) {
+	public init(JSON: [String : AnyObject]) throws {
 		if let obj: Self = Mapper().map(JSON) {
 			self = obj
 		} else {
-			return nil
+			throw MapperError.error
 		}
 	}
 	
