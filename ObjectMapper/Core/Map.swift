@@ -53,7 +53,8 @@ public final class Map {
 	/// The Key paramater can be a period separated string (ex. "distance.value") to access sub objects.
 	public subscript(key: String) -> Map {
 		// save key and value associated to it
-		return self[key, nested: true]
+		let nested = key.containsString(".")
+		return self[key, nested: nested]
 	}
 	
 	public subscript(key: String, nested nested: Bool) -> Map {
