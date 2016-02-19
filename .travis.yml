@@ -9,6 +9,7 @@ env:
     - IOS_FRAMEWORK_SCHEME="ObjectMapper-iOS"
     - OSX_FRAMEWORK_SCHEME="ObjectMapper-Mac"
     - TVOS_FRAMEWORK_SCHEME="ObjectMapper-tvOS"
+    - WATCHOS_FRAMEWORK_SCHEME="ObjectMapper-watchOS"
     - IOS_SDK=iphonesimulator9.2
     - OSX_SDK=macosx10.11
     - TVOS_SDK=appletvsimulator9.1
