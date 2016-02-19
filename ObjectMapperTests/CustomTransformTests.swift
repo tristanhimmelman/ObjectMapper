@@ -173,7 +173,7 @@ class Transforms: Mappable {
 		
 	}
 	
-	required init?(_ map: Map){
+	required init(_ map: Map) throws {
 		
 	}
 	

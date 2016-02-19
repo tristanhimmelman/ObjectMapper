@@ -80,7 +80,7 @@ class ToObjectTests: XCTestCase {
 		var spouse: Person?
 		var children: [String : Person]?
 		
-		required init?(_ map: Map) {
+		required init(_ map: Map) throws {
 			
 		}
 		

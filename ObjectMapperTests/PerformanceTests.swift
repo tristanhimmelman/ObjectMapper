@@ -77,7 +77,7 @@ class Person: Mappable {
 		
 	}
 	
-	required init?(_ map: Map){
+	required init(_ map: Map) throws {
 		
 	}
 	
@@ -124,7 +124,7 @@ class PersonCluster: MappableCluster {
 		
 	}
 	
-	required init?(_ map: Map){
+	required init(_ map: Map) throws {
 		
 	}
 	

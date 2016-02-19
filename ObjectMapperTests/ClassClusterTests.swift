@@ -67,9 +67,9 @@ class Vehicle: MappableCluster {
 		if let type: String = map["type"].value() {
 			switch type {
 				case "car":
-					return Car(map)
+					return try? Car(map)
 				case "bus":
-					return Bus(map)
+					return try? Bus(map)
 				default:
 					return nil
 			}
@@ -77,7 +77,7 @@ class Vehicle: MappableCluster {
 		return nil
 	}
 
-	required init?(_ map: Map){
+	required init(_ map: Map) throws {
 		
 	}
 	

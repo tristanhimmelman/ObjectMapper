@@ -28,6 +28,10 @@
 
 import Foundation
 
+public struct MapperError: ErrorType {
+	public static let error = MapperError()
+}
+
 public enum MappingType {
 	case FromJSON
 	case ToJSON
@@ -111,7 +115,7 @@ public final class Mapper<N: Mappable> {
 			}
 		}
 		
-		if var object = N(map) {
+		if var object = try? N(map) {
 			object.mapping(map)
 			return object
 		}

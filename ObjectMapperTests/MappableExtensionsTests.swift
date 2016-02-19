@@ -19,7 +19,7 @@ struct TestMappable : Mappable, Equatable, Hashable {
 	var value: String?
 	
 	init() {}
-	init?(_ map: Map) {	}
+	init(_ map: Map) throws {	}
 	
 	mutating func mapping(map: Map) {
 		value <- map["value"]
@@ -48,14 +48,14 @@ class MappableExtensionsTests: XCTestCase {
 	}
 	
 	func testInitFromString() {
-		let mapped = TestMappable(JSONString: TestMappable.workingJSONString)
+		let mapped = try? TestMappable(JSONString: TestMappable.workingJSONString)
 		
 		XCTAssertNotNil(mapped)
 		XCTAssertEqual(mapped?.value, TestMappable.valueForString)
 	}
 	
 	func testToJSONAndBack() {
-		let mapped = TestMappable(JSON: testMappable.toJSON())
+		let mapped = try? TestMappable(JSON: testMappable.toJSON())
 		XCTAssertEqual(mapped, testMappable)
 	}
 	

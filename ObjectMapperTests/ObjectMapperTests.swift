@@ -490,25 +490,6 @@ class ObjectMapperTests: XCTestCase {
 		XCTAssertEqual(genericItems?[1].value, "value1")
 	}
 	
-	func testImmutableMappable() {
-		let mapper = Mapper<Immutable>()
-		let JSON = ["prop1": "Immutable!", "prop2": 255, "prop3": true ]
-
-		let immutable: Immutable! = mapper.map(JSON)
-		XCTAssertNotNil(immutable)
-		XCTAssertEqual(immutable.prop1, "Immutable!")
-		XCTAssertEqual(immutable.prop2, 255)
-		XCTAssertEqual(immutable.prop3, true)
-		XCTAssertEqual(immutable.prop4, DBL_MAX)
-
-		let JSON2 = [ "prop1": "prop1", "prop2": NSNull() ]
-		let immutable2 = mapper.map(JSON2)
-		XCTAssertNil(immutable2)
-
-		let JSONFromObject = mapper.toJSON(immutable)
-		XCTAssertEqual(mapper.map(JSONFromObject), immutable)
-	}
-	
 	func testArrayOfArrayOfMappable() {
 		let base1 = "1"
 		let base2 = "2"
@@ -561,7 +542,7 @@ class ObjectMapperTests: XCTestCase {
 class Response<T: Mappable>: Mappable {
 	var result: T?
 	
-	required init?(_ map: Map){
+	required init(_ map: Map) throws {
 		
 	}
 	
@@ -573,7 +554,7 @@ class Response<T: Mappable>: Mappable {
 class Status: Mappable {
 	var status: Int?
 	
-	required init?(_ map: Map){
+	required init(_ map: Map) throws {
 		
 	}
 
@@ -586,7 +567,7 @@ class Plan: Mappable {
 	var tasks: [Task]?
 	var dictionaryOfTasks: [String: [Task]]?
 	
-	required init?(_ map: Map){
+	required init(_ map: Map) throws {
 		
 	}
 	
@@ -604,7 +585,7 @@ class Task: Mappable {
 		
 	}
 	
-	required init?(_ map: Map){
+	required init(_ map: Map) throws {
 		
 	}
 
@@ -618,7 +599,7 @@ class TaskDictionary: Mappable {
 	var test: String?
 	var tasks: [String : Task]?
 	
-	required init?(_ map: Map){
+	required init(_ map: Map) throws {
 		
 	}
 	
@@ -640,7 +621,7 @@ struct Student: Mappable {
 		
 	}
 	
-	init?(_ map: Map){
+	init(_ map: Map) throws {
 		
 	}
 
@@ -681,7 +662,7 @@ class User: Mappable {
 		
 	}
 	
-	required init?(_ map: Map){
+	required init(_ map: Map) throws {
 		
 	}
 	
@@ -714,7 +695,7 @@ class Base: Mappable {
 		
 	}
 	
-	required init?(_ map: Map){
+	required init(_ map: Map) throws {
 		
 	}
 	
@@ -731,8 +712,8 @@ class Subclass: Base {
 		super.init()
 	}
 	
-	required init?(_ map: Map){
-		super.init(map)
+	required init(_ map: Map) throws {
+		try super.init(map)
 	}
 
 	override func mapping(map: Map) {
@@ -751,8 +732,8 @@ class GenericSubclass<T>: Base {
 		super.init()
 	}
 	
-	required init?(_ map: Map){
-		super.init(map)
+	required init(_ map: Map) throws {
+		try super.init(map)
 	}
 
 	override func mapping(map: Map) {
@@ -765,7 +746,7 @@ class GenericSubclass<T>: Base {
 class WithGenericArray<T: Mappable>: Mappable {
 	var genericItems: [T]?
 
-	required init?(_ map: Map){
+	required init(_ map: Map) throws {
 		
 	}
 
@@ -777,7 +758,7 @@ class WithGenericArray<T: Mappable>: Mappable {
 class ConcreteItem: Mappable {
 	var value: String?
 
-	required init?(_ map: Map){
+	required init(_ map: Map) throws {
 		
 	}
 	
@@ -787,8 +768,8 @@ class ConcreteItem: Mappable {
 }
 
 class SubclassWithGenericArrayInSuperclass<Unused>: WithGenericArray<ConcreteItem> {
-	required init?(_ map: Map){
-		super.init(map)
+	required init(_ map: Map) throws {
+		try super.init(map)
 	}
 }
 
@@ -801,7 +782,7 @@ enum ExampleEnum: Int {
 class ExampleEnumArray: Mappable {
 	var enums: [ExampleEnum] = []
 
-	required init?(_ map: Map){
+	required init(_ map: Map) throws {
 		
 	}
 
@@ -813,7 +794,7 @@ class ExampleEnumArray: Mappable {
 class ExampleEnumDictionary: Mappable {
 	var enums: [String: ExampleEnum] = [:]
 
-	required init?(_ map: Map){
+	required init(_ map: Map) throws {
 		
 	}
 
@@ -826,7 +807,7 @@ class ArrayTest: Mappable {
 	
 	var twoDimensionalArray: Array<Array<Base>>?
 	
-	required init?(_ map: Map){}
+	required init(_ map: Map) throws {}
 	
 	func mapping(map: Map) {
 		twoDimensionalArray <- map["twoDimensionalArray"]
@@ -839,7 +820,7 @@ class CachedModel: Mappable {
 
 	init() {}
 
-	required init?(_ map: Map){}
+	required init(_ map: Map) throws {}
 
 	func mapping(map: Map) {
 		name <- map["name"]
@@ -850,56 +831,9 @@ class CachedModel: Mappable {
 struct CachedItem: Mappable {
 	var name: String?
 
-	init?(_ map: Map){}
+	init(_ map: Map) throws {}
 
 	mutating func mapping(map: Map) {
 		name <- map["name"]
 	}
-}
-
-struct Immutable: Equatable {
-	let prop1: String
-	let prop2: Int
-	let prop3: Bool
-	let prop4: Double
-}
-
-extension Immutable: Mappable {
-	init?(_ map: Map) {
-		prop1 = map["prop1"].valueOrFail()
-		prop2 = map["prop2"].valueOrFail()
-		prop3 = map["prop3"].valueOrFail()
-		prop4 = map["prop4"].valueOr(DBL_MAX)
-		
-		if !map.isValid {
-			return nil
-		}
-	}
-		
-	mutating func mapping(map: Map) {
-		switch map.mappingType {
-		case .FromJSON:
-			if let x = Immutable(map) {
-				self = x
-			}
-			
-		case .ToJSON:
-			var prop1 = self.prop1
-			var prop2 = self.prop2
-			var prop3 = self.prop3
-			var prop4 = self.prop4
-			
-			prop1 <- map["prop1"]
-			prop2 <- map["prop2"]
-			prop3 <- map["prop3"]
-			prop4 <- map["prop4"]
-		}
-	}
-}
-
-func ==(lhs: Immutable, rhs: Immutable) -> Bool {
-	return lhs.prop1 == rhs.prop1
-		&& lhs.prop2 == rhs.prop2
-		&& lhs.prop3 == rhs.prop3
-		&& lhs.prop4 == rhs.prop4
 }
