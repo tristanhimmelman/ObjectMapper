@@ -121,7 +121,7 @@ private func valueFor(keyPathComponents: ArraySlice<String>, dictionary: [String
 			return valueFor(tail, dictionary: dict)
 		} else if let array = object as? [AnyObject] where keyPathComponents.count > 1 {
 			let tail = keyPathComponents.dropFirst()
-			return valueFor(tail, dictionary: array)
+			return valueFor(tail, array: array)
 		} else {
 			return object
 		}
@@ -131,7 +131,7 @@ private func valueFor(keyPathComponents: ArraySlice<String>, dictionary: [String
 }
 
 /// Fetch value from JSON Array, loop through keyPathComponents them until we reach the desired object
-private func valueFor(keyPathComponents: ArraySlice<String>, dictionary: [AnyObject]) -> AnyObject? {
+private func valueFor(keyPathComponents: ArraySlice<String>, array: [AnyObject]) -> AnyObject? {
 	// Implement it as a tail recursive function.
 	
 	if keyPathComponents.isEmpty {
@@ -140,15 +140,15 @@ private func valueFor(keyPathComponents: ArraySlice<String>, dictionary: [AnyObj
 	
 	//Try to convert keypath to Int as index
 	if let keyPath = keyPathComponents.first,
-		let index = Int(keyPath) where index >= 0 && index < dictionary.count {
+		let index = Int(keyPath) where index >= 0 && index < array.count {
 
-		let object = dictionary[index]
+		let object = array[index]
 		
 		if object is NSNull {
 			return nil
 		} else if let array = object as? [AnyObject] where keyPathComponents.count > 1 {
 			let tail = keyPathComponents.dropFirst()
-			return valueFor(tail, dictionary: array)
+			return valueFor(tail, array: array)
 		} else if let dict = object as? [String : AnyObject] where keyPathComponents.count > 1 {
 			let tail = keyPathComponents.dropFirst()
 			return valueFor(tail, dictionary: dict)
