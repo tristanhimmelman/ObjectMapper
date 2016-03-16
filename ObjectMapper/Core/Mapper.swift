@@ -59,7 +59,7 @@ public final class Mapper<N: Mappable> {
 	
 	/// Maps a JSON dictionary to an existing object that conforms to Mappable.
 	/// Usefull for those pesky objects that have crappy designated initializers like NSManagedObject
-	public func map(JSONDictionary: [String : AnyObject], var toObject object: N) -> N {
+	public func map(JSONDictionary: [String : AnyObject], toObject object: N) -> N {
 		let map = Map(mappingType: .FromJSON, JSONDictionary: JSONDictionary, toObject: true)
 		object.mapping(map)
 		return object
@@ -105,13 +105,13 @@ public final class Mapper<N: Mappable> {
 		
 		// check if N is of type MappableCluster
 		if let klass = N.self as? MappableCluster.Type {
-			if var object = klass.objectForMapping(map) as? N {
+			if let object = klass.objectForMapping(map) as? N {
 				object.mapping(map)
 				return object
 			}
 		}
 		
-		if var object = N(map) {
+		if let object = N(map) {
 			object.mapping(map)
 			return object
 		}
@@ -291,7 +291,7 @@ extension Mapper {
 	// MARK: Functions that create JSON from objects	
 	
 	///Maps an object that conforms to Mappable to a JSON dictionary <String : AnyObject>
-	public func toJSON(var object: N) -> [String : AnyObject] {
+	public func toJSON(object: N) -> [String : AnyObject] {
 		let map = Map(mappingType: .ToJSON, JSONDictionary: [:])
 		object.mapping(map)
 		return map.JSONDictionary
