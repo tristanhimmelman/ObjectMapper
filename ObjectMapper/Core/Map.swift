@@ -90,7 +90,7 @@ public final class Map {
 			return value
 		} else {
 			// Collects failed count
-			failedCount++
+			failedCount += 1
 			
 			// Returns dummy memory as a proxy for type `T`
 			let pointer = UnsafeMutablePointer<T>.alloc(0)
