@@ -62,9 +62,17 @@ public final class Map {
 		// save key and value associated to it
 		currentKey = key
 		keyIsNested = nested
-		
-		// break down the components of the key that are separated by .
-		(isKeyPresent, currentValue) = valueFor(ArraySlice(key.componentsSeparatedByString(".")), dictionary: JSONDictionary)
+
+		// check if a value exists for the current key 
+		// do this pre-check for performance reasons
+		if nested == false {
+			let object = JSONDictionary[key], isNSNull = object is NSNull
+			isKeyPresent = isNSNull ? true : object != nil
+			currentValue = isNSNull ? nil : object
+		} else {
+			// break down the components of the key that are separated by .
+			(isKeyPresent, currentValue) = valueFor(ArraySlice(key.componentsSeparatedByString(".")), dictionary: JSONDictionary)
+		}
 		
 		return self
 	}
