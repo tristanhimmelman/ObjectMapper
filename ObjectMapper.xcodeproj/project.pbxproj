@@ -108,6 +108,9 @@
 		CD50B6FD1A82518300744312 /* TransformType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD50B6FC1A82518300744312 /* TransformType.swift */; };
 		CD71C8C11A7218AD009D4161 /* TransformOf.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD71C8C01A7218AD009D4161 /* TransformOf.swift */; };
 		D86BDEA41A51E5AD00120819 /* ISO8601DateTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86BDEA31A51E5AC00120819 /* ISO8601DateTransform.swift */; };
+		DC99C8CC1CA261A8005C788C /* NullableKeysFromJSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C8CB1CA261A8005C788C /* NullableKeysFromJSONTests.swift */; };
+		DC99C8CD1CA261AD005C788C /* NullableKeysFromJSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C8CB1CA261A8005C788C /* NullableKeysFromJSONTests.swift */; };
+		DC99C8CE1CA261AE005C788C /* NullableKeysFromJSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C8CB1CA261A8005C788C /* NullableKeysFromJSONTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -196,6 +199,7 @@
 		CD50B6FC1A82518300744312 /* TransformType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformType.swift; sourceTree = "<group>"; };
 		CD71C8C01A7218AD009D4161 /* TransformOf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TransformOf.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		D86BDEA31A51E5AC00120819 /* ISO8601DateTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISO8601DateTransform.swift; sourceTree = "<group>"; };
+		DC99C8CB1CA261A8005C788C /* NullableKeysFromJSONTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullableKeysFromJSONTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -320,6 +324,7 @@
 				6A412A231BB0DA26001C3F67 /* PerformanceTests.swift */,
 				CD44374C1AAE9C1100A271BA /* NestedKeysTests.swift */,
 				6100B1BF1BD76A020011114A /* NestedArrayTests.swift */,
+				DC99C8CB1CA261A8005C788C /* NullableKeysFromJSONTests.swift */,
 				6AAC8F8519F03C2900E7A677 /* ObjectMapperTests.swift */,
 				3BAD2C0F1BDDC0B000E6B203 /* MappableExtensionsTests.swift */,
 				6A0BF1FE1C0B53470083D1AF /* ToObjectTests.swift */,
@@ -673,6 +678,7 @@
 				6AC692441BE3FD45004C119A /* CustomTransformTests.swift in Sources */,
 				6AC692451BE3FD45004C119A /* NestedKeysTests.swift in Sources */,
 				6AC692461BE3FD45004C119A /* NestedArrayTests.swift in Sources */,
+				DC99C8CE1CA261AE005C788C /* NullableKeysFromJSONTests.swift in Sources */,
 				6AC692471BE3FD45004C119A /* ObjectMapperTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -734,6 +740,7 @@
 				6A6AEB981A9387D0002573D3 /* BasicTypes.swift in Sources */,
 				6A412A241BB0DA26001C3F67 /* PerformanceTests.swift in Sources */,
 				6AAC8F8619F03C2900E7A677 /* ObjectMapperTests.swift in Sources */,
+				DC99C8CC1CA261A8005C788C /* NullableKeysFromJSONTests.swift in Sources */,
 				6100B1C01BD76A030011114A /* NestedArrayTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -774,6 +781,7 @@
 				CD16032A1AC02480000CD69A /* ObjectMapperTests.swift in Sources */,
 				CD1603271AC02480000CD69A /* BasicTypesTestsToJSON.swift in Sources */,
 				6A412A251BB0DA26001C3F67 /* PerformanceTests.swift in Sources */,
+				DC99C8CD1CA261AD005C788C /* NullableKeysFromJSONTests.swift in Sources */,
 				CD1603281AC02480000CD69A /* CustomTransformTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
