@@ -60,18 +60,29 @@ public final class Map {
 	
 	public subscript(key: String, nested nested: Bool) -> Map {
 		// save key and value associated to it
+		return map(key, nested: nested, matchExactKeyPath: false)
+	}
+	
+	public subscript(key: String, matchExactKeyPath matchExactKeyPath: Bool) -> Map {
+		// save key and value associated to it
+		let nested = key.containsString(".")
+		return self.map(key, nested: nested, matchExactKeyPath: true)
+	}
+	
+	private func map(key: String, nested: Bool = false, matchExactKeyPath: Bool = false) -> Map {
+		
 		currentKey = key
 		keyIsNested = nested
-
-		// check if a value exists for the current key 
+		
+		// check if a value exists for the current key
 		// do this pre-check for performance reasons
-		if nested == false {
+		if keyIsNested == false {
 			let object = JSONDictionary[key], isNSNull = object is NSNull
 			isKeyPresent = isNSNull ? true : object != nil
 			currentValue = isNSNull ? nil : object
 		} else {
 			// break down the components of the key that are separated by .
-			(isKeyPresent, currentValue) = valueFor(ArraySlice(key.componentsSeparatedByString(".")), dictionary: JSONDictionary)
+			(isKeyPresent, currentValue) = valueFor(ArraySlice(key.componentsSeparatedByString(".")), dictionary: JSONDictionary, matchExactKeyPath: matchExactKeyPath)
 		}
 		
 		return self
@@ -110,7 +121,7 @@ public final class Map {
 }
 
 /// Fetch value from JSON dictionary, loop through keyPathComponents until we reach the desired object
-private func valueFor(keyPathComponents: ArraySlice<String>, dictionary: [String: AnyObject]) -> (Bool, AnyObject?) {
+private func valueFor(keyPathComponents: ArraySlice<String>, dictionary: [String: AnyObject], matchExactKeyPath: Bool = false) -> (Bool, AnyObject?) {
 	// Implement it as a tail recursive function.
 	if keyPathComponents.isEmpty {
 		return (false, nil)
@@ -126,6 +137,8 @@ private func valueFor(keyPathComponents: ArraySlice<String>, dictionary: [String
 		} else if let array = object as? [AnyObject] where keyPathComponents.count > 1 {
 			let tail = keyPathComponents.dropFirst()
 			return valueFor(tail, array: array)
+		} else if keyPathComponents.last != keyPath && matchExactKeyPath {
+			return (false, nil)
 		} else {
 			return (object != nil, object)
 		}
@@ -135,7 +148,7 @@ private func valueFor(keyPathComponents: ArraySlice<String>, dictionary: [String
 }
 
 /// Fetch value from JSON Array, loop through keyPathComponents them until we reach the desired object
-private func valueFor(keyPathComponents: ArraySlice<String>, array: [AnyObject]) -> (Bool, AnyObject?) {
+private func valueFor(keyPathComponents: ArraySlice<String>, array: [AnyObject], matchExactKeyPath: Bool = false) -> (Bool, AnyObject?) {
 	// Implement it as a tail recursive function.
 	
 	if keyPathComponents.isEmpty {
@@ -145,20 +158,22 @@ private func valueFor(keyPathComponents: ArraySlice<String>, array: [AnyObject])
 	//Try to convert keypath to Int as index
 	if let keyPath = keyPathComponents.first,
 		let index = Int(keyPath) where index >= 0 && index < array.count {
-			
-			let object = array[index]
-			
-			if object is NSNull {
-				return (true, nil)
-			} else if let array = object as? [AnyObject] where keyPathComponents.count > 1 {
-				let tail = keyPathComponents.dropFirst()
-				return valueFor(tail, array: array)
-			} else if let dict = object as? [String : AnyObject] where keyPathComponents.count > 1 {
-				let tail = keyPathComponents.dropFirst()
-				return valueFor(tail, dictionary: dict)
-			} else {
-				return (true, object)
-			}
+		
+		let object = array[index]
+		
+		if object is NSNull {
+			return (true, nil)
+		} else if let array = object as? [AnyObject] where keyPathComponents.count > 1 {
+			let tail = keyPathComponents.dropFirst()
+			return valueFor(tail, array: array)
+		} else if let dict = object as? [String : AnyObject] where keyPathComponents.count > 1 {
+			let tail = keyPathComponents.dropFirst()
+			return valueFor(tail, dictionary: dict)
+		} else if keyPathComponents.last != keyPath && matchExactKeyPath {
+			return (false, nil)
+		} else {
+			return (true, object)
+		}
 	}
 	
 	return (false, nil)
