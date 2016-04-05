@@ -9,7 +9,7 @@ ObjectMapper is a framework written in Swift that makes it easy for you to conve
 - [Features](#features)
 - [The Basics](#the-basics)
 - [Mapping Nested Objects](#easy-mapping-of-nested-objects)
-- [Custom Transformations](#custom-transfoms)
+- [Custom Transformations](#custom-transforms)
 - [Subclassing](#subclasses)
 - [Generic Objects](#generic-objects)
 - [ObjectMapper + Alamofire](#objectmapper--alamofire) 
@@ -91,22 +91,39 @@ let JSONString = Mapper().toJSONString(user, prettyPrint: true)
 ```
 
 ObjectMapper can map classes composed of the following types:
-- Int
-- Bool
-- Double
-- Float
-- String
-- RawRepresentable (Enums)
-- Array\<AnyObject\>
-- Dictionary\<String, AnyObject\>
-- Object\<T: Mappable\>
-- Array\<T: Mappable\>
-- Array\<Array\<T: Mappable\>\>
-- Set\<T: Mappable\> 
-- Dictionary\<String, T: Mappable\>
-- Dictionary\<String, Array\<T: Mappable\>\>
+- `Int`
+- `Bool`
+- `Double`
+- `Float`
+- `String`
+- `RawRepresentable` (Enums)
+- `Array<AnyObject>`
+- `Dictionary<String, AnyObject>`
+- `Object<T: Mappable>`
+- `Array<T: Mappable>`
+- `Array<Array<T: Mappable>>`
+- `Set<T: Mappable>` 
+- `Dictionary<String, T: Mappable>`
+- `Dictionary<String, Array<T: Mappable>>`
 - Optionals of all the above
 - Implicitly Unwrapped Optionals of the above
+
+## `Mappable` Protocol
+
+The failable initializer in the `Mappable` protocol is designed to be used for validation prior to object serialization. Returning nil within the function will prevent mapping from occuring for the object in question.
+```
+required init?(_ map: Map){
+	// check if a required JSON property exists within the JSON. There are two ways you can inspect the JSON object. See below
+	if map["name"].value() == nil {
+		return nil
+	}
+	if map.JSONDictionary["name"] == nil {
+		return nil
+	}
+}
+```
+
+The `mapping(map: Map)` function is where all mapping definitions should go. When parsing JSON, it is executed right after successful object initialization. When generating JSON, it is the only function that is called on the object.
 
 # Easy Mapping of Nested Objects
 ObjectMapper supports dot notation within keys for easy mapping of nested objects. Given the following JSON String:
@@ -226,36 +243,6 @@ class Result<T: Mappable>: Mappable {
 
 let result = Mapper<Result<User>>().map(JSON)
 ```
-<!-- # Mapping Immutable Properties
-
-Note: This is an experimental feature. Not all ObjectMapper functionality is guaranteed to work for immutable mappings.
-
-If you have a class or struct whose properties are immutable (`let`) and want to map it using ObjectMapper, you can use the following approach.
-
-In the failable initializer, assign values to your properties using the `valueOrFail()` function on the `map` object. Once all properties are set, check `isValid` to determine if the mapping succeeded for all properties. If `isValid` returns false, return `nil` to indicate that initialization failed.
-
-```swift
-class Model: Mappable {
-    let name: String // Non-optional property
-
-    required init?(_ map: Map) {
-        name = map["name"].valueOrFail()
-
-        if !map.isValid {
-            return nil
-        }
-    }
-
-    func mapping(map: Map) {
-    }
-}
-
-if let model = Mapper<Model>().map(JSONString) {
-    // Now we have valid model.
-} else {
-    // Something wrong...
-}
-``` -->
 
 #ObjectMapper + Alamofire
 
