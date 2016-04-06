@@ -100,7 +100,7 @@ internal final class ToJSON {
 	}
 
 	class func object<N: Mappable>(field: N, map: Map) {
-		setValue(Mapper().toJSON(field), map: map)
+		setValue(Mapper().toJSON(field, mappingIdentificator: map.mappingIdentificator), map: map)
 	}
 	
 	class func optionalObject<N: Mappable>(field: N?, map: Map) {
@@ -110,7 +110,7 @@ internal final class ToJSON {
 	}
 
 	class func objectArray<N: Mappable>(field: Array<N>, map: Map) {
-		let JSONObjects = Mapper().toJSONArray(field)
+		let JSONObjects = Mapper().toJSONArray(field, mappingIdentificator: map.mappingIdentificator)
 		
 		setValue(JSONObjects, map: map)
 	}
@@ -124,7 +124,7 @@ internal final class ToJSON {
 	class func twoDimensionalObjectArray<N: Mappable>(field: Array<Array<N>>, map: Map) {
 		var array = [[[String : AnyObject]]]()
 		for innerArray in field {
-			let JSONObjects = Mapper().toJSONArray(innerArray)
+			let JSONObjects = Mapper().toJSONArray(innerArray, mappingIdentificator: map.mappingIdentificator)
 			array.append(JSONObjects)
 		}
 		setValue(array, map: map)
@@ -137,7 +137,7 @@ internal final class ToJSON {
 	}
 	
 	class func objectSet<N: Mappable where N: Hashable>(field: Set<N>, map: Map) {
-		let JSONObjects = Mapper().toJSONSet(field)
+		let JSONObjects = Mapper().toJSONSet(field, mappingIdentificator: map.mappingIdentificator)
 		
 		setValue(JSONObjects, map: map)
 	}
@@ -149,7 +149,7 @@ internal final class ToJSON {
 	}
 	
 	class func objectDictionary<N: Mappable>(field: Dictionary<String, N>, map: Map) {
-		let JSONObjects = Mapper().toJSONDictionary(field)
+		let JSONObjects = Mapper().toJSONDictionary(field, mappingIdentificator: map.mappingIdentificator)
 		
 		setValue(JSONObjects, map: map)
 	}
@@ -161,7 +161,7 @@ internal final class ToJSON {
     }
 	
 	class func objectDictionaryOfArrays<N: Mappable>(field: Dictionary<String, [N]>, map: Map) {
-		let JSONObjects = Mapper().toJSONDictionaryOfArrays(field)
+		let JSONObjects = Mapper().toJSONDictionaryOfArrays(field, mappingIdentificator: map.mappingIdentificator)
 
 		setValue(JSONObjects, map: map)
 	}
