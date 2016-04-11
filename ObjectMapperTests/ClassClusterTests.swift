@@ -59,11 +59,11 @@ class ClassClusterTests: XCTestCase {
 	}
 }
 
-class Vehicle: MappableCluster {
+class Vehicle: Mappable {
 	
 	var type: String?
 	
-	static func objectForMapping(map: Map) -> Mappable? {
+	class func objectForMapping(map: Map) -> Mappable? {
 		if let type: String = map["type"].value() {
 			switch type {
 				case "car":
@@ -89,6 +89,10 @@ class Vehicle: MappableCluster {
 class Car: Vehicle {
 	
 	var name: String?
+	
+	override class func objectForMapping(map: Map) -> Mappable? {
+		return nil
+	}
 	
 	override func mapping(map: Map) {
 		super.mapping(map)

@@ -11,13 +11,14 @@ import Foundation
 public protocol Mappable {
 	init?(_ map: Map)
 	mutating func mapping(map: Map)
-}
-
-public protocol MappableCluster: Mappable {
 	static func objectForMapping(map: Map) -> Mappable?
 }
 
 public extension Mappable {
+	
+	public static func objectForMapping(map: Map) -> Mappable? {
+		return nil
+	}
 	
 	/// Initializes object from a JSON String
 	public init?(JSONString: String) {

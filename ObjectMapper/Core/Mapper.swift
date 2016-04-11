@@ -105,11 +105,9 @@ public final class Mapper<N: Mappable> {
 		let map = Map(mappingType: .FromJSON, JSONDictionary: JSONDictionary)
 		
 		// check if N is of type MappableCluster
-		if let klass = N.self as? MappableCluster.Type {
-			if var object = klass.objectForMapping(map) as? N {
-				object.mapping(map)
-				return object
-			}
+		if var object = N.self.objectForMapping(map) as? N {
+			object.mapping(map)
+			return object
 		}
 		
 		if var object = N(map) {
