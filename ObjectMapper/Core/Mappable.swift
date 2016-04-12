@@ -9,8 +9,13 @@
 import Foundation
 
 public protocol Mappable {
+	/// This function can be used to validate JSON prior to mapping. Return nil to cancel mapping at this point
 	init?(_ map: Map)
+	/// This function is where all variable mappings should occur. It is executed by Mapper during the mapping (serialization and deserialization) process.
 	mutating func mapping(map: Map)
+	/// This function can be used to:
+	///		1) provide an existing cached object to be use during the Mapping process instead of a newly initialized object
+	///		2) return a subclass of the current object, to enable class cluster mapping
 	static func objectForMapping(map: Map) -> Mappable?
 }
 
