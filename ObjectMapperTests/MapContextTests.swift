@@ -40,7 +40,7 @@ class MapContextTests: XCTestCase {
 		XCTAssertNil(person?.name)
 	}
 	
-	class Context: MapContext {
+	struct Context: MapContext {
 		var shouldMap = false
 		
 		init(shouldMap: Bool){
