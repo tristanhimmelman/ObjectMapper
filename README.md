@@ -12,6 +12,7 @@ ObjectMapper is a framework written in Swift that makes it easy for you to conve
 - [Custom Transformations](#custom-transforms)
 - [Subclassing](#subclasses)
 - [Generic Objects](#generic-objects)
+- [Mapping Context](#mapping-context)
 - [ObjectMapper + Alamofire](#objectmapper--alamofire) 
 - [ObjectMapper + Realm](#objectmapper--realm)
 - [To Do](#to-do)
@@ -250,6 +251,34 @@ class Result<T: Mappable>: Mappable {
 }
 
 let result = Mapper<Result<User>>().map(JSON)
+```
+
+# Mapping Context
+
+The `Map` object which is passed around during mapping, has an optional `MapContext` object that is available for developers to use if they need to pass information around during mapping. 
+
+To take advantage of this feature, simple create an object that implments `MapContext` (which is an empty protocol) and pass it into `Mapper` during initialization. 
+```
+struct Context: MapContext {
+	var importantMappingInfo = "Info that I need during mapping"
+}
+
+class User: Mappable {
+	var name: String?
+	
+	required init?(_ map: Map){
+	
+	}
+	
+	func mapping(map: Map){
+		if let context = map.context as? Context {
+			// use context to make decisions about mapping
+		}
+	}
+}
+
+let context = Context()
+let user = Mapper<User>(context: context).map(JSONString)
 ```
 
 #ObjectMapper + Alamofire
