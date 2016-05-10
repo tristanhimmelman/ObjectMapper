@@ -29,8 +29,9 @@ ObjectMapper is a framework written in Swift that makes it easy for you to conve
 To support mapping, a class or struct just needs to implement the ```Mappable``` protocol.
 ```swift
 public protocol Mappable {
-	init?(_ map: Map)
+    init?(_ map: Map)
     mutating func mapping(map: Map)
+    static func objectForMapping(map: Map) -> Mappable? // Optional
 }
 ```
 ObjectMapper uses the ```<-``` operator to define how each member variable maps to and from JSON.
@@ -46,9 +47,9 @@ class User: Mappable {
     var friends: [User]?                        // Array of Users
     var birthday: NSDate?
 
-	required init?(_ map: Map) {
+    required init?(_ map: Map) {
 
-	}
+    }
 
     // Mappable
     func mapping(map: Map) {
@@ -110,10 +111,11 @@ ObjectMapper can map classes composed of the following types:
 
 ## `Mappable` Protocol
 
-The failable initializer in the `Mappable` protocol is designed to be used for validation prior to object serialization. Returning nil within the function will prevent mapping from occuring for the object in question.
+#### `init?(_ map: Map)` 
+This failable initializer can be used for JSON validation prior to object serialization. Returning nil within the function will prevent the mapping from occuring. You can inspect the JSON stored within the `Map` object to do your validation. See two approaches to do this below:
 ```
 required init?(_ map: Map){
-	// check if a required JSON property exists within the JSON. There are two ways you can inspect the JSON object. See below
+	// check if a required "name" property exists within the JSON.
 	if map["name"].value() == nil {
 		return nil
 	}
@@ -123,7 +125,13 @@ required init?(_ map: Map){
 }
 ```
 
-The `mapping(map: Map)` function is where all mapping definitions should go. When parsing JSON, it is executed right after successful object initialization. When generating JSON, it is the only function that is called on the object.
+#### `mutating func mapping(map: Map)` 
+This function is where all mapping definitions should go. When parsing JSON, it is executed after a successful object initialization. When generating JSON, it is the only function that is called on the object.
+
+#### `static func objectForMapping(map: Map) -> Mappable?` 
+This is an optional function. If it is implemented, `init?(_ map: Map)` will no longer be called by ObjectMapper. This function should be used to:
+- provide an existing cached object to be used for mapping
+- return an object of another type (which also conforms to Mappable) to be used for mapping. For instance, you may inspect the JSON to infer the type of object that should be used for mapping ([see example](https://github.com/Hearst-DD/ObjectMapper/blob/master/ObjectMapperTests/ClassClusterTests.swift#L62))
 
 # Easy Mapping of Nested Objects
 ObjectMapper supports dot notation within keys for easy mapping of nested objects. Given the following JSON String:
