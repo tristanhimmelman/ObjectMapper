@@ -36,7 +36,11 @@ public enum MappingType {
 /// The Mapper class provides methods for converting Model objects to JSON and methods for converting JSON to Model objects
 public final class Mapper<N: Mappable> {
 	
-	public init(){}
+	public var context: MapContext?
+	
+	public init(context: MapContext? = nil){
+		self.context = context
+	}
 	
 	// MARK: Mapping functions that map to an existing object toObject
 	
@@ -61,7 +65,7 @@ public final class Mapper<N: Mappable> {
 	/// Usefull for those pesky objects that have crappy designated initializers like NSManagedObject
 	public func map(JSONDictionary: [String : AnyObject], toObject object: N) -> N {
 		var mutableObject = object
-		let map = Map(mappingType: .FromJSON, JSONDictionary: JSONDictionary, toObject: true)
+		let map = Map(mappingType: .FromJSON, JSONDictionary: JSONDictionary, toObject: true, context: context)
 		mutableObject.mapping(map)
 		return mutableObject
 	}
@@ -102,7 +106,7 @@ public final class Mapper<N: Mappable> {
 
 	/// Maps a JSON dictionary to an object that conforms to Mappable
 	public func map(JSONDictionary: [String : AnyObject]) -> N? {
-		let map = Map(mappingType: .FromJSON, JSONDictionary: JSONDictionary)
+		let map = Map(mappingType: .FromJSON, JSONDictionary: JSONDictionary, context: context)
 		
 		// check if objectForMapping returns an object for mapping
 		if var object = N.self.objectForMapping(map) as? N {
@@ -295,7 +299,7 @@ extension Mapper {
 	///Maps an object that conforms to Mappable to a JSON dictionary <String : AnyObject>
 	public func toJSON( object: N) -> [String : AnyObject] {
 		var mutableObject = object
-		let map = Map(mappingType: .ToJSON, JSONDictionary: [:])
+		let map = Map(mappingType: .ToJSON, JSONDictionary: [:], context: context)
 		mutableObject.mapping(map)
 		return map.JSONDictionary
 	}

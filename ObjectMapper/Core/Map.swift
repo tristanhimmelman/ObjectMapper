@@ -29,6 +29,10 @@
 
 import Foundation
 
+public protocol MapContext {
+	
+}
+
 /// A class used for holding mapping data
 public final class Map {
 	public let mappingType: MappingType
@@ -36,6 +40,7 @@ public final class Map {
 	public internal(set) var JSONDictionary: [String : AnyObject] = [:]
 	public internal(set) var isKeyPresent = false
 	public var currentValue: AnyObject?
+	public var context: MapContext?
 	var currentKey: String?
 	var keyIsNested = false
 	
@@ -44,10 +49,11 @@ public final class Map {
 	/// Counter for failing cases of deserializing values to `let` properties.
 	private var failedCount: Int = 0
 	
-	public init(mappingType: MappingType, JSONDictionary: [String : AnyObject], toObject: Bool = false) {
+	public init(mappingType: MappingType, JSONDictionary: [String : AnyObject], toObject: Bool = false, context: MapContext? = nil) {
 		self.mappingType = mappingType
 		self.JSONDictionary = JSONDictionary
 		self.toObject = toObject
+		self.context = context
 	}
 	
 	/// Sets the current mapper value and key.

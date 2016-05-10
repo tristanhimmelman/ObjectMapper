@@ -13,9 +13,9 @@ public protocol Mappable {
 	init?(_ map: Map)
 	/// This function is where all variable mappings should occur. It is executed by Mapper during the mapping (serialization and deserialization) process.
 	mutating func mapping(map: Map)
-	/// This function can be used to:
-	///		1) provide an existing cached object to be use during the Mapping process instead of a newly initialized object
-	///		2) return a subclass of the current object, to enable class cluster mapping
+	/// This is an optional function that can be used to:
+	///		1) provide an existing cached object to be used for mapping
+	///		2) return an object of another class (which conforms to Mappable) to be used for mapping. For instance, you may inspect the JSON to infer the type of object that should be used for mapping
 	static func objectForMapping(map: Map) -> Mappable?
 }
 
