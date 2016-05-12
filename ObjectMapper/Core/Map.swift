@@ -29,6 +29,7 @@
 
 import Foundation
 
+/// MapContext is available for developers who wish to pass information around during the mapping process.
 public protocol MapContext {
 	
 }
@@ -72,7 +73,8 @@ public final class Map {
 		// check if a value exists for the current key 
 		// do this pre-check for performance reasons
 		if nested == false {
-			let object = JSONDictionary[key], isNSNull = object is NSNull
+			let object = JSONDictionary[key]
+			let isNSNull = object is NSNull
 			isKeyPresent = isNSNull ? true : object != nil
 			currentValue = isNSNull ? nil : object
 		} else {
