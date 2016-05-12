@@ -257,7 +257,7 @@ let result = Mapper<Result<User>>().map(JSON)
 
 The `Map` object which is passed around during mapping, has an optional `MapContext` object that is available for developers to use if they need to pass information around during mapping. 
 
-To take advantage of this feature, simple create an object that implments `MapContext` (which is an empty protocol) and pass it into `Mapper` during initialization. 
+To take advantage of this feature, simple create an object that implements `MapContext` (which is an empty protocol) and pass it into `Mapper` during initialization. 
 ```
 struct Context: MapContext {
 	var importantMappingInfo = "Info that I need during mapping"
