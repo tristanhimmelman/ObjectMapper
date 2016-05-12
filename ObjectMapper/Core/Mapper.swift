@@ -297,7 +297,7 @@ extension Mapper {
 	// MARK: Functions that create JSON from objects	
 	
 	///Maps an object that conforms to Mappable to a JSON dictionary <String : AnyObject>
-	public func toJSON( object: N) -> [String : AnyObject] {
+	public func toJSON(object: N) -> [String : AnyObject] {
 		var mutableObject = object
 		let map = Map(mappingType: .ToJSON, JSONDictionary: [:], context: context)
 		mutableObject.mapping(map)
@@ -367,7 +367,7 @@ extension Mapper where N: Hashable {
 	public func mapSet(JSONString: String) -> Set<N>? {
 		let parsedJSON: AnyObject? = Mapper.parseJSONString(JSONString)
 		
-		if let objectArray = mapArray(parsedJSON){
+		if let objectArray = mapArray(parsedJSON) {
 			return Set(objectArray)
 		}
 		
@@ -439,7 +439,7 @@ extension Dictionary {
 		var mapped = [Key : U]()
 
 		for (key, value) in self {
-			if let newValue = f(value){
+			if let newValue = f(value) {
 				mapped[key] = newValue
 			}
 		}
