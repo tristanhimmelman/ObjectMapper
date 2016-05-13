@@ -65,6 +65,10 @@ public final class Map {
         return self[key, nested: nested, ignoreNil: false]
 	}
 	
+	public subscript(key: String, nested nested: Bool) -> Map {
+	    return self[key, nested: nested, ignoreNil: false]
+	}
+	
     public subscript(key: String, ignoreNil ignoreNil: Bool) -> Map {
         let nested = key.containsString(".")
         return self[key, nested: nested, ignoreNil: ignoreNil]
