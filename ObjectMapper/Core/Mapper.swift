@@ -342,23 +342,32 @@ extension Mapper {
         return Mapper.toJSONString(JSONDict, prettyPrint: prettyPrint)
     }
 	
-    public static func toJSONString(JSONObject: AnyObject, prettyPrint: Bool) -> String? {
-        if NSJSONSerialization.isValidJSONObject(JSONObject) {
-            let JSONData: NSData?
-            do {
-				let options: NSJSONWritingOptions = prettyPrint ? .PrettyPrinted : []
-                JSONData = try NSJSONSerialization.dataWithJSONObject(JSONObject, options: options)
-            } catch let error {
-                print(error)
-                JSONData = nil
-            }
-            
-            if let JSON = JSONData {
-                return String(data: JSON, encoding: NSUTF8StringEncoding)
-            }
-        }
-        return nil
-    }
+	/// Converts an Object to a JSON string with option of pretty formatting
+	public static func toJSONString(JSONObject: AnyObject, prettyPrint: Bool) -> String? {
+		let options: NSJSONWritingOptions = prettyPrint ? .PrettyPrinted : []
+		if let JSON = Mapper.toJSONData(JSONObject, options: options) {
+			return String(data: JSON, encoding: NSUTF8StringEncoding)
+		}
+		
+		return nil
+	}
+	
+	/// Converts an Object to JSON data with options
+	public static func toJSONData(JSONObject: AnyObject, options: NSJSONWritingOptions) -> NSData? {
+		if NSJSONSerialization.isValidJSONObject(JSONObject) {
+			let JSONData: NSData?
+			do {
+				JSONData = try NSJSONSerialization.dataWithJSONObject(JSONObject, options: options)
+			} catch let error {
+				print(error)
+				JSONData = nil
+			}
+			
+			return JSONData
+		}
+		
+		return nil
+	}
 }
 
 extension Mapper where N: Hashable {
