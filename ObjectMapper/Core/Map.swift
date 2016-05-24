@@ -91,8 +91,22 @@ public final class Map {
 		return currentValue as? T
 	}
 	
+	public func valueWithTransform<Transform: TransformType>(transform: Transform) -> Transform.Object? {
+		if let transformValue = transform.transformFromJSON(currentValue) {
+			return transformValue
+		}
+		return nil
+	}
+	
 	public func valueOr<T>(@autoclosure defaultValue: () -> T) -> T {
 		return value() ?? defaultValue()
+	}
+	
+	public func valueWithTransformOr<Transform: TransformType>(@autoclosure defaultValue: () -> Transform.Object, transform: Transform) -> Transform.Object {
+		if let transformValue = transform.transformFromJSON(currentValue) {
+			return transformValue
+		}
+		return defaultValue()
 	}
 	
 	/// Returns current JSON value of type `T` if it is existing, or returns a
@@ -106,6 +120,20 @@ public final class Map {
 			
 			// Returns dummy memory as a proxy for type `T`
 			let pointer = UnsafeMutablePointer<T>.alloc(0)
+			pointer.dealloc(0)
+			return pointer.memory
+		}
+	}
+	
+	public func valueWithTransformOrFail<Transform: TransformType>(transform: Transform) -> Transform.Object {
+		if let transformValue: Transform.Object = transform.transformFromJSON (currentValue) {
+			return transformValue
+		} else {
+			// Collects failed count
+			failedCount += 1
+			
+			// Returns dummy memory as a proxy for type `T`
+			let pointer = UnsafeMutablePointer<Transform.Object>.alloc(0)
 			pointer.dealloc(0)
 			return pointer.memory
 		}

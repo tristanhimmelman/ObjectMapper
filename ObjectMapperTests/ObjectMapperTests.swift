@@ -509,6 +509,16 @@ class ObjectMapperTests: XCTestCase {
 		XCTAssertEqual(mapper.map(JSONFromObject), immutable)
 	}
 	
+	func testImmutableMappableTransform() {
+		let mapper = Mapper<ImmutableTransform>()
+		let double: Double = 244.244
+		let JSON = ["prop1": "http://google.com/image/1234", "prop2": "\(double)"]
+		
+		let immutableTrans: ImmutableTransform! = mapper.map(JSON)
+		XCTAssertEqual(immutableTrans.prop1, NSURL(string: "http://google.com/image/1234"))
+		XCTAssertEqual(immutableTrans.prop2, NSDecimalNumber(double: double))
+	}
+	
 	func testArrayOfArrayOfMappable() {
 		let base1 = "1"
 		let base2 = "2"
@@ -903,3 +913,41 @@ func ==(lhs: Immutable, rhs: Immutable) -> Bool {
 		&& lhs.prop3 == rhs.prop3
 		&& lhs.prop4 == rhs.prop4
 }
+
+struct ImmutableTransform: Equatable {
+	let prop1: NSURL
+	let prop2: NSDecimalNumber
+}
+
+extension ImmutableTransform: Mappable {
+	init?(_ map: Map) {
+		prop1 = map["prop1"].valueWithTransformOrFail(URLTransform())
+		prop2 = map["prop2"].valueWithTransformOr(NSDecimalNumber(double: DBL_MAX), transform: NSDecimalNumberTransform())
+		
+		if !map.isValid {
+			return nil
+		}
+	}
+	
+	mutating func mapping(map: Map) {
+		switch map.mappingType {
+		case .FromJSON:
+			if let x = ImmutableTransform(map) {
+				self = x
+			}
+			
+		case .ToJSON:
+			var prop1 = self.prop1
+			var prop2 = self.prop2
+
+			prop1 <- map["prop1"]
+			prop2 <- map["prop2"]
+		}
+	}
+}
+
+func ==(lhs: ImmutableTransform, rhs: ImmutableTransform) -> Bool {
+	return lhs.prop1 == rhs.prop1
+	   && lhs.prop2 == rhs.prop2
+}
+
