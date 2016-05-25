@@ -91,6 +91,10 @@ public final class Map {
 		return currentValue as? T
 	}
 	
+	public func value<T: Mappable>() -> T? {
+		return Mapper(context: context).map(currentValue)
+	}
+	
 	public func valueWithTransform<Transform: TransformType>(transform: Transform) -> Transform.Object? {
 		if let transformValue = transform.transformFromJSON(currentValue) {
 			return transformValue
@@ -100,6 +104,10 @@ public final class Map {
 	
 	public func valueOr<T>(@autoclosure defaultValue: () -> T) -> T {
 		return value() ?? defaultValue()
+	}
+	
+	public func valueOr<T: Mappable>(@autoclosure defaultValue: () -> T) -> T {
+		return Mapper(context: context).map(currentValue) ?? defaultValue()
 	}
 	
 	public func valueWithTransformOr<Transform: TransformType>(@autoclosure defaultValue: () -> Transform.Object, transform: Transform) -> Transform.Object {
@@ -114,6 +122,20 @@ public final class Map {
 	public func valueOrFail<T>() -> T {
 		if let value: T = value() {
 			return value
+		} else {
+			// Collects failed count
+			failedCount += 1
+			
+			// Returns dummy memory as a proxy for type `T`
+			let pointer = UnsafeMutablePointer<T>.alloc(0)
+			pointer.dealloc(0)
+			return pointer.memory
+		}
+	}
+	
+	public func valueOrFail<T: Mappable>() -> T {
+		if let obj: T = Mapper(context: context).map(currentValue) {
+			return obj
 		} else {
 			// Collects failed count
 			failedCount += 1
