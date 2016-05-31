@@ -114,7 +114,7 @@ ObjectMapper can map classes composed of the following types:
 
 #### `init?(_ map: Map)` 
 This failable initializer can be used for JSON validation prior to object serialization. Returning nil within the function will prevent the mapping from occuring. You can inspect the JSON stored within the `Map` object to do your validation. See two approaches to do this below:
-```
+```swift
 required init?(_ map: Map){
 	// check if a required "name" property exists within the JSON.
 	if map["name"].value() == nil {
@@ -258,7 +258,7 @@ let result = Mapper<Result<User>>().map(JSON)
 The `Map` object which is passed around during mapping, has an optional `MapContext` object that is available for developers to use if they need to pass information around during mapping. 
 
 To take advantage of this feature, simple create an object that implements `MapContext` (which is an empty protocol) and pass it into `Mapper` during initialization. 
-```
+```swift
 struct Context: MapContext {
 	var importantMappingInfo = "Info that I need during mapping"
 }
