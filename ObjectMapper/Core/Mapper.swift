@@ -207,9 +207,9 @@ public final class Mapper<N: Mappable> {
 		var mutableDictionary = dictionary
         for (key, value) in JSONDictionary {
             if let object = dictionary[key] {
-				Mapper(context: context).map(value, toObject: object)
+				map(value, toObject: object)
             } else {
-				mutableDictionary[key] = Mapper(context: context).map(value)
+				mutableDictionary[key] = map(value)
             }
         }
         
