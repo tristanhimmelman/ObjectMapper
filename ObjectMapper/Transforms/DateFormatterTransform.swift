@@ -29,25 +29,25 @@
 import Foundation
 
 public class DateFormatterTransform: TransformType {
-	public typealias Object = NSDate
+	public typealias Object = Date
 	public typealias JSON = String
 	
-	let dateFormatter: NSDateFormatter
+	let dateFormatter: DateFormatter
 	
-	public init(dateFormatter: NSDateFormatter) {
+	public init(dateFormatter: DateFormatter) {
 		self.dateFormatter = dateFormatter
 	}
 	
-	public func transformFromJSON(value: AnyObject?) -> NSDate? {
+	public func transformFromJSON(_ value: AnyObject?) -> Date? {
 		if let dateString = value as? String {
-			return dateFormatter.dateFromString(dateString)
+			return dateFormatter.date(from: dateString)
 		}
 		return nil
 	}
 	
-	public func transformToJSON(value: NSDate?) -> String? {
+	public func transformToJSON(_ value: Date?) -> String? {
 		if let date = value {
-			return dateFormatter.stringFromDate(date)
+			return dateFormatter.string(from: date)
 		}
 		return nil
 	}

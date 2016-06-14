@@ -52,7 +52,7 @@ class IgnoreNilTests: XCTestCase {
 			
 		}
 		
-		func mapping(map: Map){
+		func mapping(_ map: Map){
 			name <- map["name", ignoreNil: true]
 		}
 	}

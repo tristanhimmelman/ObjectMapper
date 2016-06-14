@@ -29,19 +29,19 @@
 import Foundation
 
 public class URLTransform: TransformType {
-	public typealias Object = NSURL
+	public typealias Object = URL
 	public typealias JSON = String
 
 	public init() {}
 
-	public func transformFromJSON(value: AnyObject?) -> NSURL? {
+	public func transformFromJSON(_ value: AnyObject?) -> URL? {
 		if let URLString = value as? String {
-			return NSURL(string: URLString)
+			return URL(string: URLString)
 		}
 		return nil
 	}
 
-	public func transformToJSON(value: NSURL?) -> String? {
+	public func transformToJSON(_ value: URL?) -> String? {
 		if let URL = value {
 			return URL.absoluteString
 		}

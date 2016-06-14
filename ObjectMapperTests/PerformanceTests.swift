@@ -22,7 +22,7 @@ class PerformanceTests: XCTestCase {
         super.tearDown()
     }
 	
-	func createJSONString(count: Int = 1000) -> String {
+	func createJSONString(_ count: Int = 1000) -> String {
 		let subPersonJSON = "{\"identifier\" : \"user8723\", \"drinker\" : true, \"age\": 17, \"username\" : \"sub user\" }"
 		
 		let personJSONString = "{\"username\":\"John Doe\",\"identifier\":\"identifier\",\"photoCount\":12,\"age\":1227,\"drinker\":true,\"smoker\":false, \"arr\":[ \"bla\", true, 42 ], \"dict\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"arrOpt\":[ \"bla\", true, 42 ], \"dictOpt\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"weight\": 122.22, \"float\": 123.331, \"friend\": \(subPersonJSON), \"friendDictionary\":{ \"bestFriend\": \(subPersonJSON)}}"
@@ -38,18 +38,18 @@ class PerformanceTests: XCTestCase {
     func testPerformance() {
         let JSONString = createJSONString()
 		
-        self.measureBlock {
+        self.measure {
             // Put the code you want to measure the time of here.
-			Mapper<Person>().mapArray(JSONString)
+			_ = Mapper<Person>().mapArray(JSONString)
         }
     }
 	
 	func testPerformanceCluster() {
 		let JSONString = createJSONString()
 		
-		self.measureBlock {
+		self.measure {
 			// Put the code you want to measure the time of here.
-			Mapper<PersonCluster>().mapArray(JSONString)
+			_ = Mapper<PersonCluster>().mapArray(JSONString)
 		}
 	}
 }
@@ -81,7 +81,7 @@ class Person: Mappable {
 		
 	}
 	
-	func mapping(map: Map) {
+	func mapping(_ map: Map) {
 		username         <- map["username"]
 		identifier       <- map["identifier"]
 		photoCount       <- map["photoCount"]
@@ -128,11 +128,11 @@ class PersonCluster: Mappable {
 		
 	}
 	
-	static func objectForMapping(map: Map) -> Mappable? {
+	static func objectForMapping(_ map: Map) -> Mappable? {
 		return PersonCluster()
 	}
 	
-	func mapping(map: Map) {
+	func mapping(_ map: Map) {
 		username         <- map["username"]
 		identifier       <- map["identifier"]
 		photoCount       <- map["photoCount"]

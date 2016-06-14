@@ -15,8 +15,8 @@ class NSDecimalNumberTransformTests: XCTestCase {
         let mappedObject = mapper.map(JSONString)
 
         XCTAssertNotNil(mappedObject)
-        XCTAssertEqual(mappedObject?.int, NSDecimalNumber(integer: int))
-        XCTAssertEqual(mappedObject?.double, NSDecimalNumber(double: double))
+        XCTAssertEqual(mappedObject?.int, NSDecimalNumber(value: int))
+        XCTAssertEqual(mappedObject?.double, NSDecimalNumber(value: double))
         XCTAssertEqual(mappedObject?.intString, NSDecimalNumber(string: intString))
         XCTAssertEqual(mappedObject?.doubleString, NSDecimalNumber(string: doubleString))
     }
@@ -37,7 +37,7 @@ class NSDecimalNumberType: Mappable {
 
     }
 
-    func mapping(map: Map) {
+    func mapping(_ map: Map) {
         int <- (map["int"], NSDecimalNumberTransform())
         double <- (map["double"], NSDecimalNumberTransform())
         intString <- (map["intString"], NSDecimalNumberTransform())

@@ -375,7 +375,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 	}
 
 	func testMappingIntEnumToJSON(){
-		let value = BasicTypes.EnumInt.Another
+		let value = BasicTypes.EnumInt.another
 		let object = BasicTypes()
 		object.enumInt = value
 		object.enumIntOptional = value
@@ -391,7 +391,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 	}
 
 	func testMappingDoubleEnumToJSON(){
-		let value = BasicTypes.EnumDouble.Another
+		let value = BasicTypes.EnumDouble.another
 		let object = BasicTypes()
 		object.enumDouble = value
 		object.enumDoubleOptional = value
@@ -407,7 +407,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 	}
 
 	func testMappingFloatEnumToJSON(){
-		let value = BasicTypes.EnumFloat.Another
+		let value = BasicTypes.EnumFloat.another
 		let object = BasicTypes()
 		object.enumFloat = value
 		object.enumFloatOptional = value
@@ -439,7 +439,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 	}
 
 	func testMappingEnumIntArrayToJSON(){
-		let value = BasicTypes.EnumInt.Another
+		let value = BasicTypes.EnumInt.another
 		let object = BasicTypes()
 		object.arrayEnumInt = [value]
 		object.arrayEnumIntOptional = [value]
@@ -456,7 +456,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 
 	func testMappingEnumIntDictionaryToJSON(){
 		let key = "key"
-		let value = BasicTypes.EnumInt.Another
+		let value = BasicTypes.EnumInt.another
 		let object = BasicTypes()
 		object.dictEnumInt = [key: value]
 		object.dictEnumIntOptional = [key: value]

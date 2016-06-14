@@ -21,7 +21,7 @@ struct TestMappable : Mappable, Equatable, Hashable {
 	init() {}
 	init?(_ map: Map) {	}
 	
-	mutating func mapping(map: Map) {
+	mutating func mapping(_ map: Map) {
 		value <- map["value"]
 	}
 	

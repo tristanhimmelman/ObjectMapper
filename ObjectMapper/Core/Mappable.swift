@@ -12,16 +12,16 @@ public protocol Mappable {
 	/// This function can be used to validate JSON prior to mapping. Return nil to cancel mapping at this point
 	init?(_ map: Map)
 	/// This function is where all variable mappings should occur. It is executed by Mapper during the mapping (serialization and deserialization) process.
-	mutating func mapping(map: Map)
+	mutating func mapping(_ map: Map)
 	/// This is an optional function that can be used to:
 	///		1) provide an existing cached object to be used for mapping
 	///		2) return an object of another class (which conforms to Mappable) to be used for mapping. For instance, you may inspect the JSON to infer the type of object that should be used for any given mapping
-	static func objectForMapping(map: Map) -> Mappable?
+	static func objectForMapping(_ map: Map) -> Mappable?
 }
 
 public extension Mappable {
 	
-	public static func objectForMapping(map: Map) -> Mappable? {
+	public static func objectForMapping(_ map: Map) -> Mappable? {
 		return nil
 	}
 	
@@ -49,7 +49,7 @@ public extension Mappable {
 	}
 	
 	/// Returns the JSON String for the object
-	public func toJSONString(prettyPrint: Bool = false) -> String? {
+	public func toJSONString(_ prettyPrint: Bool = false) -> String? {
 		return Mapper().toJSONString(self, prettyPrint: prettyPrint)
 	}
 }
@@ -80,7 +80,7 @@ public extension Array where Element: Mappable {
 	}
 	
 	/// Returns the JSON String for the object
-	public func toJSONString(prettyPrint: Bool = false) -> String? {
+	public func toJSONString(_ prettyPrint: Bool = false) -> String? {
 		return Mapper().toJSONString(self, prettyPrint: prettyPrint)
 	}
 }
@@ -111,7 +111,7 @@ public extension Set where Element: Mappable {
 	}
 	
 	/// Returns the JSON String for the object
-	public func toJSONString(prettyPrint: Bool = false) -> String? {
+	public func toJSONString(_ prettyPrint: Bool = false) -> String? {
 		return Mapper().toJSONString(self, prettyPrint: prettyPrint)
 	}
 }
