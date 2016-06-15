@@ -53,7 +53,7 @@ class NullableKeysFromJSONTests: XCTestCase {
 		XCTAssertNotNil(player.age)
 		XCTAssertNotNil(player.address?.city)
 
-		mapper.map(nullJSONString, toObject: player)
+		_ = mapper.map(nullJSONString, toObject: player)
 
 		XCTAssertNotNil(player.firstName)
 		XCTAssertNil(player.lastName)
@@ -71,7 +71,7 @@ class NullableKeysFromJSONTests: XCTestCase {
 		XCTAssertNotNil(player.age)
 		XCTAssertNotNil(player.address?.city)
 
-		mapper.map(absentJSONString, toObject: player)
+		_ = mapper.map(absentJSONString, toObject: player)
 
 		XCTAssertNotNil(player.firstName)
 		XCTAssertNotNil(player.lastName)
@@ -92,7 +92,7 @@ class Player: Mappable  {
 		mapping(map)
 	}
 
-	func mapping(map: Map) {
+	func mapping(_ map: Map) {
 		firstName <- map["firstName"]
 		lastName <- map["lastName"]
 		team <- map["team"]
@@ -110,7 +110,7 @@ class Address: Mappable {
 		mapping(map)
 	}
 
-	func mapping(map: Map) {
+	func mapping(_ map: Map) {
 		street <- map["street"]
 		number <- map["number"]
 		city <- map["city"]

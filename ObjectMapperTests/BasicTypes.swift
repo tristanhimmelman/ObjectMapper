@@ -88,26 +88,26 @@ class BasicTypes: Mappable {
 	var dictAnyObjectImplicitlyUnwrapped: Dictionary<String, AnyObject>!
 
 	enum EnumInt: Int {
-		case Default
-		case Another
+		case `default`
+		case another
 	}
-	var enumInt: EnumInt = .Default
+	var enumInt: EnumInt = .default
 	var enumIntOptional: EnumInt?
 	var enumIntImplicitlyUnwrapped: EnumInt!
 
 	enum EnumDouble: Double {
-		case Default
-		case Another
+		case `default`
+		case another
 	}
-	var enumDouble: EnumDouble = .Default
+	var enumDouble: EnumDouble = .default
 	var enumDoubleOptional: EnumDouble?
 	var enumDoubleImplicitlyUnwrapped: EnumDouble!
 
 	enum EnumFloat: Float {
-		case Default
-		case Another
+		case `default`
+		case another
 	}
-	var enumFloat: EnumFloat = .Default
+	var enumFloat: EnumFloat = .default
 	var enumFloatOptional: EnumFloat?
 	var enumFloatImplicitlyUnwrapped: EnumFloat!
 
@@ -135,7 +135,7 @@ class BasicTypes: Mappable {
 
 	}
 	
-	func mapping(map: Map) {
+	func mapping(_ map: Map) {
 		bool								<- map["bool"]
 		boolOptional						<- map["boolOpt"]
 		boolImplicityUnwrapped				<- map["boolImp"]
@@ -242,7 +242,7 @@ class TestCollectionOfPrimitives : Mappable {
 		}
 	}
 	
-	func mapping(map: Map) {
+	func mapping(_ map: Map) {
 		dictStringString    <- map["dictStringString"]
 		dictStringBool      <- map["dictStringBool"]
 		dictStringInt       <- map["dictStringInt"]

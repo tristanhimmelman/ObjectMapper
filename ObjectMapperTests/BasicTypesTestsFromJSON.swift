@@ -291,7 +291,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 	}
 
 	func testMappingIntEnumFromJSON(){
-		let value: BasicTypes.EnumInt = .Another
+		let value: BasicTypes.EnumInt = .another
 		let JSONString = "{\"enumInt\" : \(value.rawValue), \"enumIntOpt\" : \(value.rawValue), \"enumIntImp\" : \(value.rawValue) }"
 
 		let mappedObject = mapper.map(JSONString)
@@ -309,13 +309,13 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let mappedObject = mapper.map(JSONString)
 		
 		XCTAssertNotNil(mappedObject)
-		XCTAssertEqual(mappedObject?.enumInt, BasicTypes.EnumInt.Default)
+		XCTAssertEqual(mappedObject?.enumInt, BasicTypes.EnumInt.default)
 		XCTAssertNil(mappedObject?.enumIntOptional)
 		XCTAssertNil(mappedObject?.enumIntImplicitlyUnwrapped)
 	}
 
 	func testMappingDoubleEnumFromJSON(){
-		let value: BasicTypes.EnumDouble = .Another
+		let value: BasicTypes.EnumDouble = .another
 		let JSONString = "{\"enumDouble\" : \(value.rawValue), \"enumDoubleOpt\" : \(value.rawValue), \"enumDoubleImp\" : \(value.rawValue) }"
 
 		let mappedObject = mapper.map(JSONString)
@@ -327,7 +327,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 	}
 
 	func testMappingFloatEnumFromJSON(){
-		let value: BasicTypes.EnumFloat = .Another
+		let value: BasicTypes.EnumFloat = .another
 		let JSONString = "{\"enumFloat\" : \(value.rawValue), \"enumFloatOpt\" : \(value.rawValue), \"enumFloatImp\" : \(value.rawValue) }"
 
 		let mappedObject = mapper.map(JSONString)
@@ -351,7 +351,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 	}
 
 	func testMappingEnumIntArrayFromJSON(){
-		let value: BasicTypes.EnumInt = .Another
+		let value: BasicTypes.EnumInt = .another
 		let JSONString = "{ \"arrayEnumInt\" : [\(value.rawValue)], \"arrayEnumIntOpt\" : [\(value.rawValue)], \"arrayEnumIntImp\" : [\(value.rawValue)] }"
 
 		let mappedObject = mapper.map(JSONString)
@@ -376,7 +376,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 
 	func testMappingEnumIntDictionaryFromJSON(){
 		let key = "key"
-		let value: BasicTypes.EnumInt = .Another
+		let value: BasicTypes.EnumInt = .another
 		let JSONString = "{ \"dictEnumInt\" : { \"\(key)\" : \(value.rawValue) }, \"dictEnumIntOpt\" : { \"\(key)\" : \(value.rawValue) }, \"dictEnumIntImp\" : { \"\(key)\" : \(value.rawValue) } }"
 
 		let mappedObject = mapper.map(JSONString)

@@ -85,7 +85,7 @@ class NestedArray: Mappable {
 		
 	}
 	
-	func mapping(map: Map) {
+	func mapping(_ map: Map) {
 		value_0	<- map["nested.0.value"]
 		value_1	<- map["nested.1.value"]
 		
@@ -99,7 +99,7 @@ class NestedObject: Mappable {
 	
 	required init?(_ map: Map){}
 	
-	func mapping(map: Map) {
+	func mapping(_ map: Map) {
 		value	<- map["value"]
 	}
 }
