@@ -46,8 +46,8 @@ class CustomTransformTests: XCTestCase {
 
 	func testDateTransform() {
 		let transforms = Transforms()
-		transforms.date = NSDate(timeIntervalSince1970: 946684800)
-		transforms.dateOpt = NSDate(timeIntervalSince1970: 946684912)
+		transforms.date = Date(timeIntervalSince1970: 946684800)
+		transforms.dateOpt = Date(timeIntervalSince1970: 946684912)
 		
 		let JSON = mapper.toJSON(transforms)
 		let parsedTransforms = mapper.map(JSON)
@@ -66,8 +66,8 @@ class CustomTransformTests: XCTestCase {
 	
 	func testISO8601DateTransform() {
 		let transforms = Transforms()
-		transforms.ISO8601Date = NSDate(timeIntervalSince1970: 1398956159)
-		transforms.ISO8601DateOpt = NSDate(timeIntervalSince1970: 1398956159)
+		transforms.ISO8601Date = Date(timeIntervalSince1970: 1398956159)
+		transforms.ISO8601DateOpt = Date(timeIntervalSince1970: 1398956159)
 		let JSON = mapper.toJSON(transforms)
 
 		let parsedTransforms = mapper.map(JSON)
@@ -121,8 +121,8 @@ class CustomTransformTests: XCTestCase {
 	
 	func testURLTranform() {
 		let transforms = Transforms()
-		transforms.URL = NSURL(string: "http://google.com/image/1234")!
-		transforms.URLOpt = NSURL(string: "http://google.com/image/1234")
+		transforms.URL = URL(string: "http://google.com/image/1234")!
+		transforms.URLOpt = URL(string: "http://google.com/image/1234")
 		
 		let JSON = mapper.toJSON(transforms)
 
@@ -150,17 +150,17 @@ class Transforms: Mappable {
 		case Thumbnail = "thumbnail"
 	}
 
-	var date = NSDate()
-	var dateOpt: NSDate?
+	var date = Date()
+	var dateOpt: Date?
 	
-	var ISO8601Date: NSDate = NSDate()
-	var ISO8601DateOpt: NSDate?
+	var ISO8601Date: Date = Date()
+	var ISO8601DateOpt: Date?
 	
-	var customFormatDate = NSDate()
-	var customFormatDateOpt: NSDate?
+	var customFormatDate = Date()
+	var customFormatDateOpt: Date?
 	
-	var URL = NSURL()
-	var URLOpt: NSURL?
+	var URL = Foundation.URL(string: "")
+	var URLOpt: Foundation.URL?
 	
 	var intWithString: Int = 0
 	
@@ -177,7 +177,7 @@ class Transforms: Mappable {
 		
 	}
 	
-	func mapping(map: Map) {
+	func mapping(_ map: Map) {
 		date				<- (map["date"], DateTransform())
 		dateOpt				<- (map["dateOpt"], DateTransform())
 		
@@ -191,7 +191,7 @@ class Transforms: Mappable {
 		URLOpt				<- (map["URLOpt"], URLTransform())
 		
 		intWithString		<- (map["intWithString"], TransformOf<Int, String>(fromJSON: { $0 == nil ? nil : Int($0!) }, toJSON: { $0.map { String($0) } }))
-		int64Value			<- (map["int64Value"], TransformOf<Int64, NSNumber>(fromJSON: { $0?.longLongValue }, toJSON: { $0.map { NSNumber(longLong: $0) } }))
+		int64Value			<- (map["int64Value"], TransformOf<Int64, NSNumber>(fromJSON: { $0?.int64Value }, toJSON: { $0.map { NSNumber(value: $0) } }))
 		
 		firstImageType		<- (map["firstImageType"], EnumTransform<ImageType>())
 		secondImageType		<- (map["secondImageType"], EnumTransform<ImageType>())

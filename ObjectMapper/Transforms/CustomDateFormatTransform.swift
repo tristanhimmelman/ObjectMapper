@@ -31,8 +31,8 @@ import Foundation
 public class CustomDateFormatTransform: DateFormatterTransform {
 	
     public init(formatString: String) {
-		let formatter = NSDateFormatter()
-		formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+		let formatter = DateFormatter()
+		formatter.locale = Locale(localeIdentifier: "en_US_POSIX")
 		formatter.dateFormat = formatString
 		
 		super.init(dateFormatter: formatter)
