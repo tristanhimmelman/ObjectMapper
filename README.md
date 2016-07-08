@@ -113,13 +113,10 @@ ObjectMapper can map classes composed of the following types:
 ## `Mappable` Protocol
 
 #### `init?(_ map: Map)` 
-This failable initializer can be used for JSON validation prior to object serialization. Returning nil within the function will prevent the mapping from occuring. You can inspect the JSON stored within the `Map` object to do your validation. See two approaches to do this below:
+This failable initializer can be used for JSON validation prior to object serialization. Returning nil within the function will prevent the mapping from occuring. You can inspect the JSON stored within the `Map` object to do your validation:
 ```swift
 required init?(_ map: Map){
 	// check if a required "name" property exists within the JSON.
-	if map["name"].value() == nil {
-		return nil
-	}
 	if map.JSONDictionary["name"] == nil {
 		return nil
 	}
