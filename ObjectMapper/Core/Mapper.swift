@@ -207,9 +207,9 @@ public final class Mapper<N: Mappable> {
 		var mutableDictionary = dictionary
         for (key, value) in JSONDictionary {
             if let object = dictionary[key] {
-				Mapper(context: context).map(value, toObject: object)
+				map(value, toObject: object)
             } else {
-				mutableDictionary[key] = Mapper(context: context).map(value)
+				mutableDictionary[key] = map(value)
             }
         }
         
@@ -297,7 +297,7 @@ extension Mapper {
 	// MARK: Functions that create JSON from objects	
 	
 	///Maps an object that conforms to Mappable to a JSON dictionary <String : AnyObject>
-	public func toJSON( object: N) -> [String : AnyObject] {
+	public func toJSON(object: N) -> [String : AnyObject] {
 		var mutableObject = object
 		let map = Map(mappingType: .ToJSON, JSONDictionary: [:], context: context)
 		mutableObject.mapping(map)
@@ -342,23 +342,32 @@ extension Mapper {
         return Mapper.toJSONString(JSONDict, prettyPrint: prettyPrint)
     }
 	
-    public static func toJSONString(JSONObject: AnyObject, prettyPrint: Bool) -> String? {
-        if NSJSONSerialization.isValidJSONObject(JSONObject) {
-            let JSONData: NSData?
-            do {
-				let options: NSJSONWritingOptions = prettyPrint ? .PrettyPrinted : []
-                JSONData = try NSJSONSerialization.dataWithJSONObject(JSONObject, options: options)
-            } catch let error {
-                print(error)
-                JSONData = nil
-            }
-            
-            if let JSON = JSONData {
-                return String(data: JSON, encoding: NSUTF8StringEncoding)
-            }
-        }
-        return nil
-    }
+	/// Converts an Object to a JSON string with option of pretty formatting
+	public static func toJSONString(JSONObject: AnyObject, prettyPrint: Bool) -> String? {
+		let options: NSJSONWritingOptions = prettyPrint ? .PrettyPrinted : []
+		if let JSON = Mapper.toJSONData(JSONObject, options: options) {
+			return String(data: JSON, encoding: NSUTF8StringEncoding)
+		}
+		
+		return nil
+	}
+	
+	/// Converts an Object to JSON data with options
+	public static func toJSONData(JSONObject: AnyObject, options: NSJSONWritingOptions) -> NSData? {
+		if NSJSONSerialization.isValidJSONObject(JSONObject) {
+			let JSONData: NSData?
+			do {
+				JSONData = try NSJSONSerialization.dataWithJSONObject(JSONObject, options: options)
+			} catch let error {
+				print(error)
+				JSONData = nil
+			}
+			
+			return JSONData
+		}
+		
+		return nil
+	}
 }
 
 extension Mapper where N: Hashable {
@@ -367,7 +376,7 @@ extension Mapper where N: Hashable {
 	public func mapSet(JSONString: String) -> Set<N>? {
 		let parsedJSON: AnyObject? = Mapper.parseJSONString(JSONString)
 		
-		if let objectArray = mapArray(parsedJSON){
+		if let objectArray = mapArray(parsedJSON) {
 			return Set(objectArray)
 		}
 		
@@ -439,7 +448,7 @@ extension Dictionary {
 		var mapped = [Key : U]()
 
 		for (key, value) in self {
-			if let newValue = f(value){
+			if let newValue = f(value) {
 				mapped[key] = newValue
 			}
 		}
