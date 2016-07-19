@@ -142,10 +142,10 @@ private func valueFor(_ keyPathComponents: ArraySlice<String>, dictionary: [Stri
 		let object = dictionary[keyPath]
 		if object is NSNull {
 			return (true, nil)
-		} else if let dict = object as? [String : AnyObject] where keyPathComponents.count > 1 {
+		} else if let dict = object as? [String : AnyObject], keyPathComponents.count > 1 {
 			let tail = keyPathComponents.dropFirst()
 			return valueFor(tail, dictionary: dict)
-		} else if let array = object as? [AnyObject] where keyPathComponents.count > 1 {
+		} else if let array = object as? [AnyObject], keyPathComponents.count > 1 {
 			let tail = keyPathComponents.dropFirst()
 			return valueFor(tail, array: array)
 		} else {
@@ -166,16 +166,16 @@ private func valueFor(_ keyPathComponents: ArraySlice<String>, array: [AnyObject
 	
 	//Try to convert keypath to Int as index
 	if let keyPath = keyPathComponents.first,
-		let index = Int(keyPath) where index >= 0 && index < array.count {
+		let index = Int(keyPath), index >= 0 && index < array.count {
 			
 			let object = array[index]
 			
 			if object is NSNull {
 				return (true, nil)
-			} else if let array = object as? [AnyObject] where keyPathComponents.count > 1 {
+			} else if let array = object as? [AnyObject], keyPathComponents.count > 1 {
 				let tail = keyPathComponents.dropFirst()
 				return valueFor(tail, array: array)
-			} else if let dict = object as? [String : AnyObject] where keyPathComponents.count > 1 {
+			} else if let dict = object as? [String : AnyObject], keyPathComponents.count > 1 {
 				let tail = keyPathComponents.dropFirst()
 				return valueFor(tail, dictionary: dict)
 			} else {
