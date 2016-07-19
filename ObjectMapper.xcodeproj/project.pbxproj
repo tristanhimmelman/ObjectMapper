@@ -211,7 +211,7 @@
 		891804CC1C122AF000E5C3EE /* MappableTypesWithTransformsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MappableTypesWithTransformsTests.swift; sourceTree = "<group>"; };
 		BC1E7F361ABC44C000F9B1CF /* EnumTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnumTransform.swift; sourceTree = "<group>"; };
 		CD1602FF1AC023D5000CD69A /* ObjectMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ObjectMapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CD1603091AC023D6000CD69A /* ObjectMapper-MacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ObjectMapper-MacTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD1603091AC023D6000CD69A /* ObjectMapper-macOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ObjectMapper-macOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD44374C1AAE9C1100A271BA /* NestedKeysTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NestedKeysTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		CD50B6FC1A82518300744312 /* TransformType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformType.swift; sourceTree = "<group>"; };
 		CD71C8C01A7218AD009D4161 /* TransformOf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TransformOf.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -303,7 +303,7 @@
 				6AAC8F7619F03C2900E7A677 /* ObjectMapper.framework */,
 				6AAC8F8119F03C2900E7A677 /* ObjectMapper-iOSTests.xctest */,
 				CD1602FF1AC023D5000CD69A /* ObjectMapper.framework */,
-				CD1603091AC023D6000CD69A /* ObjectMapper-MacTests.xctest */,
+				CD1603091AC023D6000CD69A /* ObjectMapper-macOSTests.xctest */,
 				6A2AD03D1B2C78540097E150 /* ObjectMapper.framework */,
 				6A05B7A61BE274BE00F19B53 /* ObjectMapper.framework */,
 				6A05B7AF1BE274BE00F19B53 /* ObjectMapper-tvOSTests.xctest */,
@@ -517,9 +517,9 @@
 			productReference = 6AAC8F8119F03C2900E7A677 /* ObjectMapper-iOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		CD1602FE1AC023D5000CD69A /* ObjectMapper-Mac */ = {
+		CD1602FE1AC023D5000CD69A /* ObjectMapper-macOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CD1603161AC023D6000CD69A /* Build configuration list for PBXNativeTarget "ObjectMapper-Mac" */;
+			buildConfigurationList = CD1603161AC023D6000CD69A /* Build configuration list for PBXNativeTarget "ObjectMapper-macOS" */;
 			buildPhases = (
 				CD1602FA1AC023D5000CD69A /* Sources */,
 				CD1602FB1AC023D5000CD69A /* Frameworks */,
@@ -530,14 +530,14 @@
 			);
 			dependencies = (
 			);
-			name = "ObjectMapper-Mac";
+			name = "ObjectMapper-macOS";
 			productName = "ObjectMapper-Mac";
 			productReference = CD1602FF1AC023D5000CD69A /* ObjectMapper.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		CD1603081AC023D6000CD69A /* ObjectMapper-MacTests */ = {
+		CD1603081AC023D6000CD69A /* ObjectMapper-macOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CD1603171AC023D6000CD69A /* Build configuration list for PBXNativeTarget "ObjectMapper-MacTests" */;
+			buildConfigurationList = CD1603171AC023D6000CD69A /* Build configuration list for PBXNativeTarget "ObjectMapper-macOSTests" */;
 			buildPhases = (
 				CD1603051AC023D6000CD69A /* Sources */,
 				CD1603061AC023D6000CD69A /* Frameworks */,
@@ -549,9 +549,9 @@
 			dependencies = (
 				CD16030C1AC023D6000CD69A /* PBXTargetDependency */,
 			);
-			name = "ObjectMapper-MacTests";
+			name = "ObjectMapper-macOSTests";
 			productName = "ObjectMapper-MacTests";
-			productReference = CD1603091AC023D6000CD69A /* ObjectMapper-MacTests.xctest */;
+			productReference = CD1603091AC023D6000CD69A /* ObjectMapper-macOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -566,12 +566,15 @@
 				TargetAttributes = {
 					6A05B7A51BE274BE00F19B53 = {
 						CreatedOnToolsVersion = 7.1;
+						LastSwiftMigration = 0800;
 					};
 					6A05B7AE1BE274BE00F19B53 = {
 						CreatedOnToolsVersion = 7.1;
+						LastSwiftMigration = 0800;
 					};
 					6A2AD03C1B2C78540097E150 = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 0800;
 					};
 					6AAC8F7519F03C2900E7A677 = {
 						CreatedOnToolsVersion = 6.0.1;
@@ -583,9 +586,11 @@
 					};
 					CD1602FE1AC023D5000CD69A = {
 						CreatedOnToolsVersion = 6.2;
+						LastSwiftMigration = 0800;
 					};
 					CD1603081AC023D6000CD69A = {
 						CreatedOnToolsVersion = 6.2;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -602,11 +607,11 @@
 			projectRoot = "";
 			targets = (
 				6AAC8F7519F03C2900E7A677 /* ObjectMapper-iOS */,
-				CD1602FE1AC023D5000CD69A /* ObjectMapper-Mac */,
+				CD1602FE1AC023D5000CD69A /* ObjectMapper-macOS */,
 				6A2AD03C1B2C78540097E150 /* ObjectMapper-watchOS */,
 				6A05B7A51BE274BE00F19B53 /* ObjectMapper-tvOS */,
 				6AAC8F8019F03C2900E7A677 /* ObjectMapper-iOSTests */,
-				CD1603081AC023D6000CD69A /* ObjectMapper-MacTests */,
+				CD1603081AC023D6000CD69A /* ObjectMapper-macOSTests */,
 				6A05B7AE1BE274BE00F19B53 /* ObjectMapper-tvOSTests */,
 			);
 		};
@@ -837,7 +842,7 @@
 		};
 		CD16030C1AC023D6000CD69A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = CD1602FE1AC023D5000CD69A /* ObjectMapper-Mac */;
+			target = CD1602FE1AC023D5000CD69A /* ObjectMapper-macOS */;
 			targetProxy = CD16030B1AC023D6000CD69A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -862,6 +867,7 @@
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
@@ -888,6 +894,7 @@
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
@@ -903,7 +910,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hearst.ObjectMapper-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = B26DDK9LKP/;
 				SDKROOT = appletvos;
+				SWIFT_VERSION = 3.0;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Debug;
@@ -919,6 +928,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hearst.ObjectMapper-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
+				SWIFT_VERSION = 3.0;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Release;
@@ -943,6 +953,7 @@
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
@@ -969,6 +980,7 @@
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
@@ -992,7 +1004,6 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1041,7 +1052,6 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1158,6 +1168,7 @@
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
@@ -1183,6 +1194,7 @@
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
@@ -1203,6 +1215,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.heart.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -1219,6 +1232,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.heart.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -1279,7 +1293,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CD1603161AC023D6000CD69A /* Build configuration list for PBXNativeTarget "ObjectMapper-Mac" */ = {
+		CD1603161AC023D6000CD69A /* Build configuration list for PBXNativeTarget "ObjectMapper-macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CD1603121AC023D6000CD69A /* Debug */,
@@ -1288,7 +1302,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CD1603171AC023D6000CD69A /* Build configuration list for PBXNativeTarget "ObjectMapper-MacTests" */ = {
+		CD1603171AC023D6000CD69A /* Build configuration list for PBXNativeTarget "ObjectMapper-macOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CD1603141AC023D6000CD69A /* Debug */,

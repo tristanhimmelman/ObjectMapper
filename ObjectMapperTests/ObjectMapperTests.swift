@@ -878,12 +878,12 @@ extension Immutable: Mappable {
 		
 	mutating func mapping(_ map: Map) {
 		switch map.mappingType {
-		case .FromJSON:
+		case .fromJSON:
 			if let x = Immutable(map) {
 				self = x
 			}
 			
-		case .ToJSON:
+		case .toJSON:
 			var prop1 = self.prop1
 			var prop2 = self.prop2
 			var prop3 = self.prop3
