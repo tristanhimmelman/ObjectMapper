@@ -25,12 +25,12 @@ public struct DictionaryTransform<Key, Value where Key: Hashable, Key: RawRepres
 		let result = json.reduce([:]) { (result, element) -> [Key: Value] in
 			
 			guard
-				let key = Key(rawValue: element.0),
-				let valueJSON = element.1 as? [String: AnyObject],
-				let value = Value(JSON: valueJSON)
-				else {
-					
-					return result
+			let key = Key(rawValue: element.0),
+			let valueJSON = element.1 as? [String: AnyObject],
+			let value = Value(JSON: valueJSON)
+			else {
+				
+				return result
 			}
 			
 			var result = result
