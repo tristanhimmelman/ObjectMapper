@@ -66,7 +66,7 @@ private func setValue(_ value: AnyObject, forKeyPathComponents components: Array
 internal final class ToJSON {
 	
 	class func basicType<N>(_ field: N, map: Map) {
-		if let x = field as? AnyObject where false
+		if let x = field as? AnyObject, false
 			|| x is NSNumber // Basic types
 			|| x is Bool
 			|| x is Int

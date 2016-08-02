@@ -56,7 +56,7 @@ internal final class FromJSON {
 	
 	/// Optional Mappable Object
 	class func optionalObject<N: Mappable>(_ field: inout N?, map: Map) {
-		if let field = field where map.toObject && map.currentValue != nil {
+		if let field = field, map.toObject && map.currentValue != nil {
 			_ = Mapper(context: map.context).map(map.currentValue, toObject: field)
 		} else {
 			field = Mapper(context: map.context).map(map.currentValue)
@@ -65,7 +65,7 @@ internal final class FromJSON {
 	
 	/// Implicitly unwrapped Optional Mappable Object
 	class func optionalObject<N: Mappable>(_ field: inout N!, map: Map) {
-		if let field = field where map.toObject && map.currentValue != nil {
+		if let field = field, map.toObject && map.currentValue != nil {
 			_ = Mapper(context: map.context).map(map.currentValue, toObject: field)
 		} else {
 			field = Mapper(context: map.context).map(map.currentValue)
@@ -127,7 +127,7 @@ internal final class FromJSON {
 	
 	/// Optional dictionary containing Mappable objects
 	class func optionalObjectDictionary<N: Mappable>(_ field: inout Dictionary<String, N>?, map: Map) {
-		if let field = field where map.toObject && map.currentValue != nil {
+		if let field = field, map.toObject && map.currentValue != nil {
 			_ = Mapper(context: map.context).mapDictionary(map.currentValue, toDictionary: field)
 		} else {
 			field = Mapper(context: map.context).mapDictionary(map.currentValue)
@@ -136,7 +136,7 @@ internal final class FromJSON {
 	
 	/// Implicitly unwrapped Dictionary containing Mappable objects
 	class func optionalObjectDictionary<N: Mappable>(_ field: inout Dictionary<String, N>!, map: Map) {
-		if let field = field where map.toObject && map.currentValue != nil {
+		if let field = field, map.toObject && map.currentValue != nil {
 			_ = Mapper(context: map.context).mapDictionary(map.currentValue, toDictionary: field)
 		} else {
 			field = Mapper(context: map.context).mapDictionary(map.currentValue)
