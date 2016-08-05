@@ -306,7 +306,7 @@ protocol URIInitiable {
 	init(URI: String)
 }
 
-class RelationshipTransform<ObjectType where ObjectType: protocol<Mappable, URIInitiable>>: TransformType {
+class RelationshipTransform<ObjectType>: TransformType where ObjectType: Mappable & URIInitiable {
 	typealias Object = ObjectType
 	typealias JSON = [String: AnyObject]
 	
