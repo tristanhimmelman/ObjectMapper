@@ -108,10 +108,12 @@ public final class Mapper<N: Mappable> {
 	public func map(JSONDictionary: [String : AnyObject]) -> N? {
 		let map = Map(mappingType: .FromJSON, JSONDictionary: JSONDictionary, context: context)
 		
-		// check if objectForMapping returns an object for mapping
-		if var object = N.self.objectForMapping(map) as? N {
-			object.mapping(map)
-			return object
+		// check if object is StaticMappable
+		if let klass = N.self as? StaticMappable.Type {
+			if var object = klass.objectForMapping(map) as? N {
+				object.mapping(map)
+				return object
+			}
 		}
 		
 		// fall back to using init? to create N

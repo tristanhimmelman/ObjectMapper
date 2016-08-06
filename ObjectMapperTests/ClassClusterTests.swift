@@ -59,7 +59,7 @@ class ClassClusterTests: XCTestCase {
 	}
 }
 
-class Vehicle: Mappable {
+class Vehicle: StaticMappable {
 	
 	var type: String?
 	

@@ -13,17 +13,16 @@ public protocol Mappable {
 	init?(_ map: Map)
 	/// This function is where all variable mappings should occur. It is executed by Mapper during the mapping (serialization and deserialization) process.
 	mutating func mapping(map: Map)
-	/// This is an optional function that can be used to:
+}
+
+public protocol StaticMappable: Mappable {
+	/// This is function that can be used to:
 	///		1) provide an existing cached object to be used for mapping
 	///		2) return an object of another class (which conforms to Mappable) to be used for mapping. For instance, you may inspect the JSON to infer the type of object that should be used for any given mapping
 	static func objectForMapping(map: Map) -> Mappable?
 }
 
 public extension Mappable {
-	
-	public static func objectForMapping(map: Map) -> Mappable? {
-		return nil
-	}
 	
 	/// Initializes object from a JSON String
 	public init?(JSONString: String) {
