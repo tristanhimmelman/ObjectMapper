@@ -32,7 +32,6 @@ To support mapping, a class or struct just needs to implement the ```Mappable```
 public protocol Mappable {
     init?(_ map: Map)
     mutating func mapping(map: Map)
-    static func objectForMapping(map: Map) -> Mappable? // Optional
 }
 ```
 ObjectMapper uses the ```<-``` operator to define how each member variable maps to and from JSON.
@@ -129,8 +128,12 @@ required init?(_ map: Map){
 #### `mutating func mapping(map: Map)` 
 This function is where all mapping definitions should go. When parsing JSON, it is executed after a successful object initialization. When generating JSON, it is the only function that is called on the object.
 
+### `StaticMappable` Protocol
+
+This is a extension to the Mappable protocol that provides an extra static function that can be used instead of `init?(_ map: Map)`
+
 #### `static func objectForMapping(map: Map) -> Mappable?` 
-This is an optional function. If it is implemented, `init?(_ map: Map)` will no longer be called by ObjectMapper. This function should be used to:
+If this function is implemented, `init?(_ map: Map)` will no longer be called by ObjectMapper. This function should be used to:
 - provide an existing cached object to be used for mapping
 - return an object of another type (which also conforms to Mappable) to be used for mapping. For instance, you may inspect the JSON to infer the type of object that should be used for mapping ([see example](https://github.com/Hearst-DD/ObjectMapper/blob/master/ObjectMapperTests/ClassClusterTests.swift#L62))
 
