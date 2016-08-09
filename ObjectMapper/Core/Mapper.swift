@@ -117,11 +117,13 @@ public final class Mapper<N: Mappable> {
 		}
 		
 		// fall back to using init? to create N
-		if var object = N(map) {
-			object.mapping(map)
-			return object
+		if let klass = N.self as? CreateMappable.Type {
+			if var object = klass.init(map) as? N {
+				object.mapping(map)
+				return object
+			}
 		}
-		
+
 		return nil
 	}
 
