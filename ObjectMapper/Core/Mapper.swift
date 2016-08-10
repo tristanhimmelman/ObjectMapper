@@ -34,7 +34,7 @@ public enum MappingType {
 }
 
 /// The Mapper class provides methods for converting Model objects to JSON and methods for converting JSON to Model objects
-public final class Mapper<N: Mappable> {
+public final class Mapper<N: BaseMappable> {
 	
 	public var context: MapContext?
 	
@@ -115,7 +115,7 @@ public final class Mapper<N: Mappable> {
 				return object
 			}
 		}
-		
+
 		// fall back to using init? to create N
 		if let klass = N.self as? Mappable.Type {
 			if var object = klass.init(map) as? N {
