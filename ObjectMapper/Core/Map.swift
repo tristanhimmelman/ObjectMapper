@@ -87,8 +87,20 @@ public final class Map {
 			isKeyPresent = isNSNull ? true : object != nil
 			currentValue = isNSNull ? nil : object
 		} else {
+			let components = key.componentsSeparatedByString(".")
+			let integerComponents = components.map { Int($0) }.filter { $0 != nil }
+			let containsIntegers = integerComponents.count > 0
+			if !containsIntegers {
+				// if the components contain no integers use a fast, built-in path for getting the value.
+				currentValue = (JSONDictionary as NSDictionary).valueForKeyPath(key)
+				isKeyPresent = currentValue != nil
+				currentValue = currentValue is NSNull ? nil : currentValue
+			} else {
+				// otherwise, break down the components of the key that are separated by. This handles integers in the path.
+				(isKeyPresent, currentValue) = valueFor(ArraySlice(components), dictionary: JSONDictionary)
+			}
 			// break down the components of the key that are separated by .
-			(isKeyPresent, currentValue) = valueFor(ArraySlice(key.componentsSeparatedByString(".")), dictionary: JSONDictionary)
+			(isKeyPresent, currentValue) = valueFor(ArraySlice(components), dictionary: JSONDictionary)
 		}
 		
 		// update isKeyPresent if ignoreNil is true
