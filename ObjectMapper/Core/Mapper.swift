@@ -117,7 +117,7 @@ public final class Mapper<N: Mappable> {
 		}
 		
 		// fall back to using init? to create N
-		if let klass = N.self as? CreateMappable.Type {
+		if let klass = N.self as? Mappable.Type {
 			if var object = klass.init(map) as? N {
 				object.mapping(map)
 				return object
