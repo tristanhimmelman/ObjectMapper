@@ -481,11 +481,11 @@ class BasicTypesTestsToJSON: XCTestCase {
 		
 		let json = Mapper<TestCollectionOfPrimitives>().toJSON(object)
 
-		XCTAssertTrue((json["dictStringString"] as? [String:String])?.count > 0)
-		XCTAssertTrue((json["dictStringBool"] as? [String:Bool])?.count > 0)
-		XCTAssertTrue((json["dictStringInt"] as? [String:Int])?.count > 0)
-		XCTAssertTrue((json["dictStringDouble"] as? [String:Double])?.count > 0)
-		XCTAssertTrue((json["dictStringFloat"] as? [String:Float])?.count > 0)
-		XCTAssertEqual(json["dictStringString"]?["string"], "string")
+		XCTAssertTrue((json["dictStringString"] as? [String:String])?.count ?? 0 > 0)
+		XCTAssertTrue((json["dictStringBool"] as? [String:Bool])?.count ?? 0 > 0)
+		XCTAssertTrue((json["dictStringInt"] as? [String:Int])?.count ?? 0 > 0)
+		XCTAssertTrue((json["dictStringDouble"] as? [String:Double])?.count ?? 0 > 0)
+		XCTAssertTrue((json["dictStringFloat"] as? [String:Float])?.count ?? 0 > 0)
+		XCTAssertEqual((json["dictStringString"] as? [String:String])?["string"], "string")
 	}
 }

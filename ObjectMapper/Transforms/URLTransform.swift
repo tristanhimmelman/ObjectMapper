@@ -34,7 +34,7 @@ public class URLTransform: TransformType {
 
 	public init() {}
 
-	public func transformFromJSON(_ value: AnyObject?) -> URL? {
+	public func transformFromJSON(_ value: Any?) -> URL? {
 		if let URLString = value as? String {
 			return URL(string: URLString)
 		}

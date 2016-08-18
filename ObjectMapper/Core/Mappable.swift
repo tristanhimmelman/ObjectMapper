@@ -34,7 +34,7 @@ public extension Mappable {
 	}
 	
 	/// Initializes object from a JSON Dictionary
-	public init?(JSON: [String : AnyObject]) {
+	public init?(JSON: [String : Any]) {
 		if let obj: Self = Mapper().map(JSON) {
 			self = obj
 		} else {
@@ -43,7 +43,7 @@ public extension Mappable {
 	}
 	
 	/// Returns the JSON Dictionary for the object
-	public func toJSON() -> [String: AnyObject] {
+	public func toJSON() -> [String: Any] {
 		return Mapper().toJSON(self)
 	}
 	
@@ -65,7 +65,7 @@ public extension Array where Element: Mappable {
 	}
 	
 	/// Initialize Array from a JSON Array
-	public init?(JSONArray: [[String : AnyObject]]) {
+	public init?(JSONArray: [[String : Any]]) {
 		if let obj: [Element] = Mapper().mapArray(JSONArray) {
 			self = obj
 		} else {
@@ -74,7 +74,7 @@ public extension Array where Element: Mappable {
 	}
 	
 	/// Returns the JSON Array
-	public func toJSON() -> [[String : AnyObject]] {
+	public func toJSON() -> [[String : Any]] {
 		return Mapper().toJSONArray(self)
 	}
 	
@@ -96,16 +96,13 @@ public extension Set where Element: Mappable {
 	}
 	
 	/// Initializes a set from JSON
-	public init?(JSONArray: [[String : AnyObject]]) {
-		if let obj: Set<Element> = Mapper().mapSet(JSONArray) {
-			self = obj
-		} else {
-			return nil
-		}
+	public init?(JSONArray: [[String : Any]]) {
+		guard let obj = Mapper().mapSet(JSONArray) as Set<Element>? else {return nil}
+		self = obj
 	}
 	
 	/// Returns the JSON Set
-	public func toJSON() -> [[String : AnyObject]] {
+	public func toJSON() -> [[String : Any]] {
 		return Mapper().toJSONSet(self)
 	}
 	

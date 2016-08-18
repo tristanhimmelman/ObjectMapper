@@ -38,9 +38,9 @@ public protocol MapContext {
 public final class Map {
 	public let mappingType: MappingType
 	
-	public internal(set) var JSONDictionary: [String : AnyObject] = [:]
+	public internal(set) var JSONDictionary: [String : Any] = [:]
 	public internal(set) var isKeyPresent = false
-	public var currentValue: AnyObject?
+	public var currentValue: Any?
 	public var context: MapContext?
 	var currentKey: String?
 	var keyIsNested = false
@@ -50,7 +50,7 @@ public final class Map {
 	/// Counter for failing cases of deserializing values to `let` properties.
 	private var failedCount: Int = 0
 	
-	public init(mappingType: MappingType, JSONDictionary: [String : AnyObject], toObject: Bool = false, context: MapContext? = nil) {
+	public init(mappingType: MappingType, JSONDictionary: [String : Any], toObject: Bool = false, context: MapContext? = nil) {
 		self.mappingType = mappingType
 		self.JSONDictionary = JSONDictionary
 		self.toObject = toObject
@@ -132,7 +132,7 @@ public final class Map {
 }
 
 /// Fetch value from JSON dictionary, loop through keyPathComponents until we reach the desired object
-private func valueFor(_ keyPathComponents: ArraySlice<String>, dictionary: [String: AnyObject]) -> (Bool, AnyObject?) {
+private func valueFor(_ keyPathComponents: ArraySlice<String>, dictionary: [String: Any]) -> (Bool, Any?) {
 	// Implement it as a tail recursive function.
 	if keyPathComponents.isEmpty {
 		return (false, nil)
@@ -142,10 +142,10 @@ private func valueFor(_ keyPathComponents: ArraySlice<String>, dictionary: [Stri
 		let object = dictionary[keyPath]
 		if object is NSNull {
 			return (true, nil)
-		} else if let dict = object as? [String : AnyObject] , keyPathComponents.count > 1 {
+		} else if let dict = object as? [String : Any] , keyPathComponents.count > 1 {
 			let tail = keyPathComponents.dropFirst()
 			return valueFor(tail, dictionary: dict)
-		} else if let array = object as? [AnyObject] , keyPathComponents.count > 1 {
+		} else if let array = object as? [Any] , keyPathComponents.count > 1 {
 			let tail = keyPathComponents.dropFirst()
 			return valueFor(tail, array: array)
 		} else {
@@ -157,7 +157,7 @@ private func valueFor(_ keyPathComponents: ArraySlice<String>, dictionary: [Stri
 }
 
 /// Fetch value from JSON Array, loop through keyPathComponents them until we reach the desired object
-private func valueFor(_ keyPathComponents: ArraySlice<String>, array: [AnyObject]) -> (Bool, AnyObject?) {
+private func valueFor(_ keyPathComponents: ArraySlice<String>, array: [Any]) -> (Bool, Any?) {
 	// Implement it as a tail recursive function.
 	
 	if keyPathComponents.isEmpty {
@@ -172,10 +172,10 @@ private func valueFor(_ keyPathComponents: ArraySlice<String>, array: [AnyObject
 			
 			if object is NSNull {
 				return (true, nil)
-			} else if let array = object as? [AnyObject] , keyPathComponents.count > 1 {
+			} else if let array = object as? [Any] , keyPathComponents.count > 1 {
 				let tail = keyPathComponents.dropFirst()
 				return valueFor(tail, array: array)
-			} else if let dict = object as? [String : AnyObject] , keyPathComponents.count > 1 {
+			} else if let dict = object as? [String : Any] , keyPathComponents.count > 1 {
 				let tail = keyPathComponents.dropFirst()
 				return valueFor(tail, dictionary: dict)
 			} else {

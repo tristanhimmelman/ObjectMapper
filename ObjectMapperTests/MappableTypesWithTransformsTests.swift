@@ -12,7 +12,7 @@ import ObjectMapper
 
 class MappableTypesWithTransformsTests: XCTestCase {
 	// This is a func so that it can be collapsed
-	func JSONPayload() -> [String : AnyObject] {
+	func JSONPayload() -> [String : Any] {
 		return [
 			"teams": [[
 				"api_uri": "/teams/8",
@@ -310,7 +310,7 @@ class RelationshipTransform<ObjectType>: TransformType where ObjectType: Mappabl
 	typealias Object = ObjectType
 	typealias JSON = [String: AnyObject]
 	
-	func transformFromJSON(_ value: AnyObject?) -> Object? {
+	func transformFromJSON(_ value: Any?) -> Object? {
 		guard let URI = value as? String else { return nil }
 		let relation = ObjectType(URI: URI)
 		

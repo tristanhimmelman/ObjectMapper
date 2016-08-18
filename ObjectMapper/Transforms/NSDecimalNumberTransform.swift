@@ -6,7 +6,7 @@ public class NSDecimalNumberTransform: TransformType {
 
     public init() {}
 
-    public func transformFromJSON(_ value: AnyObject?) -> NSDecimalNumber? {
+    public func transformFromJSON(_ value: Any?) -> NSDecimalNumber? {
         if let string = value as? String {
             return NSDecimalNumber(string: string)
         }

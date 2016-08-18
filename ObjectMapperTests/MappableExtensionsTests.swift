@@ -13,7 +13,7 @@ import ObjectMapper
 struct TestMappable : Mappable, Equatable, Hashable {
 	static let valueForString = "This string should work"
 	static let workingJSONString = "{ \"value\" : \"\(valueForString)\" }"
-	static let workingJSON: [String: AnyObject] = ["value" : valueForString]
+	static let workingJSON: [String: AnyObject] = ["value" : valueForString as AnyObject]
 	static let workingJSONArrayString = "[\(workingJSONString)]"
 	
 	var value: String?
@@ -29,7 +29,7 @@ struct TestMappable : Mappable, Equatable, Hashable {
 		if let value = value {
 			return value.hashValue
 		}
-		return [].hashValue
+		return NSIntegerMax
 	}
 }
 
