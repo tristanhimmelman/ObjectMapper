@@ -26,7 +26,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-import Foundation
+import class Foundation.NSNumber
 
 fileprivate func setValue(_ value: AnyObject, map: Map) {
 	setValue(value, key: map.currentKey!, checkForNestedKeys: map.keyIsNested, dictionary: &map.JSONDictionary)
@@ -66,7 +66,7 @@ fileprivate func setValue(_ value: AnyObject, forKeyPathComponents components: A
 internal final class ToJSON {
 	
 	class func basicType<N>(_ field: N, map: Map) {
-		if let x = field as? AnyObject , false
+		if let x = (field as AnyObject?) , false
 			|| x is NSNumber // Basic types
 			|| x is Bool
 			|| x is Int
