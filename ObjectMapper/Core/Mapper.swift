@@ -29,8 +29,8 @@
 import Foundation
 
 public enum MappingType {
-	case FromJSON
-	case ToJSON
+	case fromJSON
+	case toJSON
 }
 
 /// The Mapper class provides methods for converting Model objects to JSON and methods for converting JSON to Model objects
@@ -65,7 +65,7 @@ public final class Mapper<N: Mappable> {
 	/// Usefull for those pesky objects that have crappy designated initializers like NSManagedObject
 	public func map(_ JSONDictionary: [String : Any], toObject object: N) -> N {
 		var mutableObject = object
-		let map = Map(mappingType: .FromJSON, JSONDictionary: JSONDictionary, toObject: true, context: context)
+		let map = Map(mappingType: .fromJSON, JSONDictionary: JSONDictionary, toObject: true, context: context)
 		mutableObject.mapping(map)
 		return mutableObject
 	}
@@ -106,7 +106,7 @@ public final class Mapper<N: Mappable> {
 
 	/// Maps a JSON dictionary to an object that conforms to Mappable
 	public func map(_ JSONDictionary: [String : Any]) -> N? {
-		let map = Map(mappingType: .FromJSON, JSONDictionary: JSONDictionary, context: context)
+		let map = Map(mappingType: .fromJSON, JSONDictionary: JSONDictionary, context: context)
 		
 		// check if object is StaticMappable
 		if let klass = N.self as? StaticMappable.Type {
@@ -301,7 +301,7 @@ extension Mapper {
 	///Maps an object that conforms to Mappable to a JSON dictionary <String : Any>
 	public func toJSON(_ object: N) -> [String : Any] {
 		var mutableObject = object
-		let map = Map(mappingType: .ToJSON, JSONDictionary: [:], context: context)
+		let map = Map(mappingType: .toJSON, JSONDictionary: [:], context: context)
 		mutableObject.mapping(map)
 		return map.JSONDictionary
 	}
