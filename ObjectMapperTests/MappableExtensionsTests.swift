@@ -13,7 +13,7 @@ import ObjectMapper
 struct TestMappable : Mappable, Equatable, Hashable {
 	static let valueForString = "This string should work"
 	static let workingJSONString = "{ \"value\" : \"\(valueForString)\" }"
-	static let workingJSON: [String: AnyObject] = ["value" : valueForString as AnyObject]
+	static let workingJSON: [String: Any] = ["value" : valueForString]
 	static let workingJSONArrayString = "[\(workingJSONString)]"
 	
 	var value: String?

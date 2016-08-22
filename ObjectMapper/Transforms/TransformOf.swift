@@ -26,7 +26,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-public class TransformOf<ObjectType, JSONType>: TransformType {
+open class TransformOf<ObjectType, JSONType>: TransformType {
 	public typealias Object = ObjectType
 	public typealias JSON = JSONType
 

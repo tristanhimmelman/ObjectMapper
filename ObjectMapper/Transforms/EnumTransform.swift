@@ -28,7 +28,7 @@
 
 import Foundation
 
-public class EnumTransform<T: RawRepresentable>: TransformType {
+open class EnumTransform<T: RawRepresentable>: TransformType {
 	public typealias Object = T
 	public typealias JSON = T.RawValue
 	

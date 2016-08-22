@@ -282,7 +282,7 @@ public final class Mapper<N: Mappable> {
 		if let data = data {
 			let parsedJSON: Any?
 			do {
-				parsedJSON = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as Any?
+				parsedJSON = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments)
 			} catch let error {
 				print(error)
 				parsedJSON = nil

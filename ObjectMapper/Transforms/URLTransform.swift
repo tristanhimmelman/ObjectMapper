@@ -28,7 +28,7 @@
 
 import Foundation
 
-public class URLTransform: TransformType {
+open class URLTransform: TransformType {
 	public typealias Object = URL
 	public typealias JSON = String
 
