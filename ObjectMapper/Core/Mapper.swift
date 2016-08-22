@@ -282,7 +282,7 @@ public final class Mapper<N: Mappable> {
 		if let data = data {
 			let parsedJSON: AnyObject?
 			do {
-				parsedJSON = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments)
+				parsedJSON = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as AnyObject?
 			} catch let error {
 				print(error)
 				parsedJSON = nil
@@ -334,14 +334,14 @@ extension Mapper {
 	public func toJSONString(_ object: N, prettyPrint: Bool = false) -> String? {
 		let JSONDict = toJSON(object)
 		
-        return Mapper.toJSONString(JSONDict, prettyPrint: prettyPrint)
+        return Mapper.toJSONString(JSONDict as AnyObject, prettyPrint: prettyPrint)
 	}
 
     /// Maps an array of Objects to a JSON string with option of pretty formatting	
     public func toJSONString(_ array: [N], prettyPrint: Bool = false) -> String? {
         let JSONDict = toJSONArray(array)
         
-        return Mapper.toJSONString(JSONDict, prettyPrint: prettyPrint)
+        return Mapper.toJSONString(JSONDict as AnyObject, prettyPrint: prettyPrint)
     }
 	
 	/// Converts an Object to a JSON string with option of pretty formatting
@@ -418,12 +418,13 @@ extension Mapper where N: Hashable {
 	public func toJSONString(_ set: Set<N>, prettyPrint: Bool = false) -> String? {
 		let JSONDict = toJSONSet(set)
 		
-		return Mapper.toJSONString(JSONDict, prettyPrint: prettyPrint)
+		return Mapper.toJSONString(JSONDict as AnyObject, prettyPrint: prettyPrint)
 	}
 }
 
 extension Dictionary {
-	internal func map<K: Hashable, V>( _ f: @noescape(Element) -> (K, V)) -> [K : V] {
+	internal func map<K: Hashable, V>( _ f: (Element)
+		-> (K, V)) -> [K : V] {
 		var mapped = [K : V]()
 
 		for element in self {
@@ -434,7 +435,7 @@ extension Dictionary {
 		return mapped
 	}
 
-	internal func map<K: Hashable, V>( _ f: @noescape(Element) -> (K, [V])) -> [K : [V]] {
+	internal func map<K: Hashable, V>( _ f: (Element) -> (K, [V])) -> [K : [V]] {
 		var mapped = [K : [V]]()
 		
 		for element in self {
@@ -444,9 +445,8 @@ extension Dictionary {
 		
 		return mapped
 	}
-
 	
-	internal func filterMap<U>(@noescape _ f: @noescape(Value) -> U?) -> [Key : U] {
+	internal func filterMap<U>( _ f: (Value) -> U?) -> [Key : U] {
 		var mapped = [Key : U]()
 
 		for (key, value) in self {
