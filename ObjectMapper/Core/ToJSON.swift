@@ -26,22 +26,22 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-import class Foundation.NSNumber
+import Foundation
 
-private func setValue(_ value: AnyObject, map: Map) {
+fileprivate func setValue(_ value: AnyObject, map: Map) {
 	setValue(value, key: map.currentKey!, checkForNestedKeys: map.keyIsNested, dictionary: &map.JSONDictionary)
 }
 
-private func setValue(_ value: AnyObject, key: String, checkForNestedKeys: Bool, dictionary: inout [String : AnyObject]) {
+fileprivate func setValue(_ value: AnyObject, key: String, checkForNestedKeys: Bool, dictionary: inout [String : AnyObject]) {
 	if checkForNestedKeys {
 		let keyComponents = ArraySlice(key.characters.split { $0 == "." })
-		setValue(value, forKeyPathComponents: keyComponents, dictionary: &dictionary)
+		setValue(value as AnyObject, forKeyPathComponents: keyComponents, dictionary: &dictionary)
 	} else {
 		dictionary[key] = value
 	}
 }
 
-private func setValue(_ value: AnyObject, forKeyPathComponents components: ArraySlice<String.CharacterView.SubSequence>, dictionary: inout [String : AnyObject]) {
+fileprivate func setValue(_ value: AnyObject, forKeyPathComponents components: ArraySlice<String.CharacterView.SubSequence>, dictionary: inout [String : AnyObject]) {
 	if components.isEmpty {
 		return
 	}
@@ -59,7 +59,7 @@ private func setValue(_ value: AnyObject, forKeyPathComponents components: Array
 		let tail = components.dropFirst()
 		setValue(value, forKeyPathComponents: tail, dictionary: &child!)
 
-		dictionary[String(head)] = child
+		dictionary[String(head)] = child as AnyObject?
 	}
 }
 
@@ -100,7 +100,7 @@ internal final class ToJSON {
 	}
 
 	class func object<N: Mappable>(_ field: N, map: Map) {
-		setValue(Mapper(context: map.context).toJSON(field), map: map)
+		setValue(Mapper(context: map.context).toJSON(field) as AnyObject, map: map)
 	}
 	
 	class func optionalObject<N: Mappable>(_ field: N?, map: Map) {
@@ -112,7 +112,7 @@ internal final class ToJSON {
 	class func objectArray<N: Mappable>(_ field: Array<N>, map: Map) {
 		let JSONObjects = Mapper(context: map.context).toJSONArray(field)
 		
-		setValue(JSONObjects, map: map)
+		setValue(JSONObjects as AnyObject, map: map)
 	}
 	
 	class func optionalObjectArray<N: Mappable>(_ field: Array<N>?, map: Map) {
@@ -127,7 +127,7 @@ internal final class ToJSON {
 			let JSONObjects = Mapper(context: map.context).toJSONArray(innerArray)
 			array.append(JSONObjects)
 		}
-		setValue(array, map: map)
+		setValue(array as AnyObject, map: map)
 	}
 	
 	class func optionalTwoDimensionalObjectArray<N: Mappable>(_ field: Array<Array<N>>?, map: Map) {
@@ -136,13 +136,13 @@ internal final class ToJSON {
 		}
 	}
 	
-	class func objectSet<N: Mappable where N: Hashable>(_ field: Set<N>, map: Map) {
+	class func objectSet<N: Mappable>(_ field: Set<N>, map: Map) where N: Hashable {
 		let JSONObjects = Mapper(context: map.context).toJSONSet(field)
 		
-		setValue(JSONObjects, map: map)
+		setValue(JSONObjects as AnyObject, map: map)
 	}
 	
-	class func optionalObjectSet<N: Mappable where N: Hashable>(_ field: Set<N>?, map: Map) {
+	class func optionalObjectSet<N: Mappable>(_ field: Set<N>?, map: Map) where N: Hashable {
 		if let field = field {
 			objectSet(field, map: map)
 		}
@@ -151,7 +151,7 @@ internal final class ToJSON {
 	class func objectDictionary<N: Mappable>(_ field: Dictionary<String, N>, map: Map) {
 		let JSONObjects = Mapper(context: map.context).toJSONDictionary(field)
 		
-		setValue(JSONObjects, map: map)
+		setValue(JSONObjects as AnyObject, map: map)
 	}
 	
 	class func optionalObjectDictionary<N: Mappable>(_ field: Dictionary<String, N>?, map: Map) {
@@ -163,7 +163,7 @@ internal final class ToJSON {
 	class func objectDictionaryOfArrays<N: Mappable>(_ field: Dictionary<String, [N]>, map: Map) {
 		let JSONObjects = Mapper(context: map.context).toJSONDictionaryOfArrays(field)
 
-		setValue(JSONObjects, map: map)
+		setValue(JSONObjects as AnyObject, map: map)
 	}
 	
 	class func optionalObjectDictionaryOfArrays<N: Mappable>(_ field: Dictionary<String, [N]>?, map: Map) {
