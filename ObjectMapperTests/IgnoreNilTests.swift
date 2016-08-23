@@ -43,7 +43,7 @@ class IgnoreNilTests: XCTestCase {
 		XCTAssertEqual(user.name, name)
 	}
 
-	private class User: Mappable {
+	fileprivate class User: Mappable {
 		var name: String?
 		
 		init(){}
@@ -52,7 +52,7 @@ class IgnoreNilTests: XCTestCase {
 			
 		}
 		
-		func mapping(map: Map){
+		func mapping(_ map: Map){
 			name <- map["name", ignoreNil: true]
 		}
 	}

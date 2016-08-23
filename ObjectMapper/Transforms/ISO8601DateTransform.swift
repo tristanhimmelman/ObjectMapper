@@ -28,11 +28,11 @@
 
 import Foundation
 
-public class ISO8601DateTransform: DateFormatterTransform {
+open class ISO8601DateTransform: DateFormatterTransform {
 
 	public init() {
-		let formatter = NSDateFormatter()
-		formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+		let formatter = DateFormatter()
+		formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX") as Locale!
 		formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
 		
 		super.init(dateFormatter: formatter)

@@ -63,7 +63,7 @@ class Vehicle: StaticMappable {
 	
 	var type: String?
 	
-	class func objectForMapping(map: Map) -> Mappable? {
+	class func objectForMapping(_ map: Map) -> Mappable? {
 		if let type: String = map["type"].value() {
 			switch type {
 				case "car":
@@ -81,7 +81,7 @@ class Vehicle: StaticMappable {
 		
 	}
 	
-	func mapping(map: Map) {
+	func mapping(_ map: Map) {
 		type <- map["type"]
 	}
 }
@@ -90,11 +90,11 @@ class Car: Vehicle {
 	
 	var name: String?
 	
-	override class func objectForMapping(map: Map) -> Mappable? {
+	override class func objectForMapping(_ map: Map) -> Mappable? {
 		return nil
 	}
 	
-	override func mapping(map: Map) {
+	override func mapping(_ map: Map) {
 		super.mapping(map)
 		
 		name <- map["name"]
@@ -103,7 +103,7 @@ class Car: Vehicle {
 
 class Bus: Vehicle {
 
-	override func mapping(map: Map) {
+	override func mapping(_ map: Map) {
 		super.mapping(map)
 	}
 }

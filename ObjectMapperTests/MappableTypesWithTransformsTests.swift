@@ -252,7 +252,7 @@ class MappableTypesWithTransformsTests: XCTestCase {
 		required init(URI: String) { self.URI = URI }
 		required init?(_ map: Map) {}
 		
-		func mapping(map: Map) {
+		func mapping(_ map: Map) {
 			players		<- (map["players"], RelationshipTransform<Player>())		// 2D Array with transform
 			team1Lineup	<- (map["team1_lineup"], RelationshipTransform<Player>())	// Dictionary with transform
 			team2Lineup	<- (map["team1_lineup"], RelationshipTransform<Player>())
@@ -287,7 +287,7 @@ class MappableTypesWithTransformsTests: XCTestCase {
 		required init(URI: String) { self.URI = URI }
 		required init?(_ map: Map) {}
 		
-		func mapping(map: Map) {
+		func mapping(_ map: Map) {
 			players		<- (map["players"], RelationshipTransform<Player>())
 			O_players	<- (map["players"], RelationshipTransform<Player>())
 			I_players	<- (map["players"], RelationshipTransform<Player>())
@@ -298,7 +298,7 @@ class MappableTypesWithTransformsTests: XCTestCase {
 		required init(URI: String) {}
 		required init?(_ map: Map) {}
 		
-		func mapping(map: Map) {}
+		func mapping(_ map: Map) {}
 	}
 }
 
@@ -306,18 +306,18 @@ protocol URIInitiable {
 	init(URI: String)
 }
 
-class RelationshipTransform<ObjectType where ObjectType: protocol<Mappable, URIInitiable>>: TransformType {
+class RelationshipTransform<ObjectType>: TransformType where ObjectType: protocol<Mappable, URIInitiable> {
 	typealias Object = ObjectType
 	typealias JSON = [String: AnyObject]
 	
-	func transformFromJSON(value: AnyObject?) -> Object? {
+	func transformFromJSON(_ value: AnyObject?) -> Object? {
 		guard let URI = value as? String else { return nil }
 		let relation = ObjectType(URI: URI)
 		
 		return relation
 	}
 	
-	func transformToJSON(value: Object?) -> JSON? {
+	func transformToJSON(_ value: Object?) -> JSON? {
 		return nil
 	}
 }

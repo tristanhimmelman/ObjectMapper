@@ -26,23 +26,23 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-public class TransformOf<ObjectType, JSONType>: TransformType {
+open class TransformOf<ObjectType, JSONType>: TransformType {
 	public typealias Object = ObjectType
 	public typealias JSON = JSONType
 
-	private let fromJSON: JSONType? -> ObjectType?
-	private let toJSON: ObjectType? -> JSONType?
+	fileprivate let fromJSON: (JSONType?) -> ObjectType?
+	fileprivate let toJSON: (ObjectType?) -> JSONType?
 
-	public init(fromJSON: JSONType? -> ObjectType?, toJSON: ObjectType? -> JSONType?) {
+	public init(fromJSON: ((JSONType?) -> ObjectType?), toJSON: ((ObjectType?) -> JSONType?)) {
 		self.fromJSON = fromJSON
 		self.toJSON = toJSON
 	}
 
-	public func transformFromJSON(value: AnyObject?) -> ObjectType? {
+	open func transformFromJSON(_ value: AnyObject?) -> ObjectType? {
 		return fromJSON(value as? JSONType)
 	}
 
-	public func transformToJSON(value: ObjectType?) -> JSONType? {
+	open func transformToJSON(_ value: ObjectType?) -> JSONType? {
 		return toJSON(value)
 	}
 }

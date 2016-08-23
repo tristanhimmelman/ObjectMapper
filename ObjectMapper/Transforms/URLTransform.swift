@@ -28,21 +28,21 @@
 
 import Foundation
 
-public class URLTransform: TransformType {
-	public typealias Object = NSURL
+open class URLTransform: TransformType {
+	public typealias Object = URL
 	public typealias JSON = String
 
 	public init() {}
 
-	public func transformFromJSON(value: AnyObject?) -> NSURL? {
+	open func transformFromJSON(_ value: AnyObject?) -> URL? {
 		if let URLString = value as? String,
-			let escapedURLString = URLString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet()){
-			return NSURL(string: escapedURLString)
+			let escapedURLString = URLString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed){
+			return URL(string: escapedURLString)
 		}
 		return nil
 	}
 
-	public func transformToJSON(value: NSURL?) -> String? {
+	open func transformToJSON(_ value: URL?) -> String? {
 		if let URL = value {
 			return URL.absoluteString
 		}

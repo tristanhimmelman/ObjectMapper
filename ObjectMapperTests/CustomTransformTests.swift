@@ -55,7 +55,7 @@ class CustomTransformTests: XCTestCase {
 		XCTAssertEqual(parsedTransforms?.date, transforms.date)
 		XCTAssertEqual(parsedTransforms?.dateOpt, transforms.dateOpt)
 		
-		let JSONDateString: [String: AnyObject] = ["date": "946684800", "dateOpt": "946684912"]
+		let JSONDateString: [String: AnyObject] = ["date": "946684800" as AnyObject, "dateOpt": "946684912" as AnyObject]
 		let parsedTransformsDateString = mapper.map(JSONDateString)
 		
 		XCTAssertNotNil(parsedTransformsDateString)
@@ -77,7 +77,7 @@ class CustomTransformTests: XCTestCase {
 	}
 	
 	func testISO8601DateTransformWithInvalidInput() {
-		var JSON: [String: AnyObject] = ["ISO8601Date": ""]
+		var JSON: [String: AnyObject] = ["ISO8601Date": "" as AnyObject]
 		let transforms = mapper.map(JSON)
 
 		XCTAssertNil(transforms?.ISO8601DateOpt)
@@ -91,7 +91,7 @@ class CustomTransformTests: XCTestCase {
 	
 	func testCustomFormatDateTransform(){
 		let dateString = "2015-03-03T02:36:44"
-		let JSON: [String: AnyObject] = ["customFormateDate": dateString]
+		let JSON: [String: AnyObject] = ["customFormateDate": dateString as AnyObject]
 		let transform: Transforms! = mapper.map(JSON)
 		XCTAssertNotNil(transform)
 		
@@ -102,7 +102,7 @@ class CustomTransformTests: XCTestCase {
 	
 	func testIntToStringTransformOf() {
 		let intValue = 12345
-		let JSON: [String: AnyObject] = ["intWithString": "\(intValue)"]
+		let JSON: [String: AnyObject] = (["intWithString": "\(intValue)"] as AnyObject) as! [String : AnyObject]
 		let transforms = mapper.map(JSON)
 
 		XCTAssertEqual(transforms?.intWithString, intValue)
@@ -134,7 +134,7 @@ class CustomTransformTests: XCTestCase {
 	}
 	
 	func testEnumTransform() {
-		let JSON: [String: AnyObject] = ["firstImageType" : "cover", "secondImageType" : "thumbnail"]
+		let JSON: [String: AnyObject] = ["firstImageType" : "cover" as AnyObject, "secondImageType" : "thumbnail" as AnyObject]
 		let transforms = mapper.map(JSON)
 
 		let imageType = Transforms.ImageType.self
