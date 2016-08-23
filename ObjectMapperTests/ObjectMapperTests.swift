@@ -29,6 +29,26 @@
 import Foundation
 import XCTest
 import ObjectMapper
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class ObjectMapperTests: XCTestCase {
 
@@ -135,7 +155,7 @@ class ObjectMapperTests: XCTestCase {
         let UUID: String = "12345"
         let major: Int = 99
         let minor: Int = 1
-        let json: [String: AnyObject] = ["name": name, "UUID": UUID, "major": major]
+        let json: [String: AnyObject] = ["name": name as AnyObject, "UUID": UUID as AnyObject, "major": major as AnyObject]
         
         //test that the sematics of value types works as expected.  the resulting maped student
         //should have the correct minor property set even thoug it's not mapped
@@ -153,7 +173,7 @@ class ObjectMapperTests: XCTestCase {
         let identifier: String = "Political"
         let photoCount: Int = 1000000000
         
-        let json2: [String: AnyObject] = ["username": username, "identifier": identifier, "photoCount": photoCount]
+        let json2: [String: AnyObject] = ["username": username as AnyObject, "identifier": identifier as AnyObject, "photoCount": photoCount as AnyObject]
         let user = User()
         Mapper().map(json2, toObject: user)
 		
@@ -354,9 +374,9 @@ class ObjectMapperTests: XCTestCase {
 	}
 	
 	func testArrayOfEnumObjects(){
-		let a: ExampleEnum = .A
-		let b: ExampleEnum = .B
-		let c: ExampleEnum = .C
+		let a: ExampleEnum = .a
+		let b: ExampleEnum = .b
+		let c: ExampleEnum = .c
 
 		let JSONString = "{ \"enums\": [\(a.rawValue), \(b.rawValue), \(c.rawValue)] }"
 
@@ -384,9 +404,9 @@ class ObjectMapperTests: XCTestCase {
 	}
 
 	func testDictionryOfEnumObjects(){
-		let a: ExampleEnum = .A
-		let b: ExampleEnum = .B
-		let c: ExampleEnum = .C
+		let a: ExampleEnum = .a
+		let b: ExampleEnum = .b
+		let c: ExampleEnum = .c
 
 		let JSONString = "{ \"enums\": {\"A\": \(a.rawValue), \"B\": \(b.rawValue), \"C\": \(c.rawValue)} }"
 
@@ -492,7 +512,7 @@ class ObjectMapperTests: XCTestCase {
 	
 	func testImmutableMappable() {
 		let mapper = Mapper<Immutable>()
-		let JSON = ["prop1": "Immutable!", "prop2": 255, "prop3": true ]
+		let JSON = ["prop1": "Immutable!", "prop2": 255, "prop3": true ] as [String : Any]
 
 		let immutable: Immutable! = mapper.map(JSON)
 		XCTAssertNotNil(immutable)
@@ -501,7 +521,7 @@ class ObjectMapperTests: XCTestCase {
 		XCTAssertEqual(immutable.prop3, true)
 		XCTAssertEqual(immutable.prop4, DBL_MAX)
 
-		let JSON2 = [ "prop1": "prop1", "prop2": NSNull() ]
+		let JSON2 = [ "prop1": "prop1", "prop2": NSNull() ] as [String : Any]
 		let immutable2 = mapper.map(JSON2)
 		XCTAssertNil(immutable2)
 
@@ -541,7 +561,7 @@ class ObjectMapperTests: XCTestCase {
 
 	func testShouldPreventOverwritingMappableProperty() {
 		let json: [String: AnyObject] = [
-			"name": "Entry 1",
+			"name": "Entry 1" as AnyObject,
 			"bigList": [["name": "item 1"], ["name": "item 2"], ["name": "item 3"]]
 		]
 		let model = CachedModel()
@@ -550,7 +570,7 @@ class ObjectMapperTests: XCTestCase {
 		XCTAssertEqual(model.name, "Entry 1")
 		XCTAssertEqual(model.bigList?.count, 3)
 
-		let json2: [String: AnyObject] = ["name": "Entry 1"]
+		let json2: [String: AnyObject] = ["name": "Entry 1" as AnyObject]
 		Mapper().map(json2, toObject: model)
 
 		XCTAssertEqual(model.name, "Entry 1")
@@ -565,7 +585,7 @@ class Response<T: Mappable>: Mappable {
 		
 	}
 	
-	func mapping(map: Map) {
+	func mapping(_ map: Map) {
 		result <- map["result"]
 	}
 }
@@ -577,7 +597,7 @@ class Status: Mappable {
 		
 	}
 
-	func mapping(map: Map) {
+	func mapping(_ map: Map) {
 		status <- map["code"]
 	}
 }
@@ -590,7 +610,7 @@ class Plan: Mappable {
 		
 	}
 	
-	func mapping(map: Map) {
+	func mapping(_ map: Map) {
 		tasks <- map["tasks"]
 		dictionaryOfTasks <- map["dictionaryOfTasks"]
 	}
@@ -608,7 +628,7 @@ class Task: Mappable {
 		
 	}
 
-	func mapping(map: Map) {
+	func mapping(_ map: Map) {
 		taskId <- map["taskId"]
 		percentage <- map["percentage"]
 	}
@@ -622,7 +642,7 @@ class TaskDictionary: Mappable {
 		
 	}
 	
-	func mapping(map: Map) {
+	func mapping(_ map: Map) {
 		test <- map["test"]
 		tasks <- map["tasks"]
 	}
@@ -644,7 +664,7 @@ struct Student: Mappable {
 		
 	}
 
-	mutating func mapping(map: Map) {
+	mutating func mapping(_ map: Map) {
 		name <- map["name"]
 		UUID <- map["UUID"]
 		major <- map["major"]
@@ -685,7 +705,7 @@ class User: Mappable {
 		
 	}
 	
-	func mapping(map: Map) {
+	func mapping(_ map: Map) {
 		username         <- map["username"]
 		identifier       <- map["identifier"]
 		photoCount       <- map["photoCount"]
@@ -718,7 +738,7 @@ class Base: Mappable {
 		
 	}
 	
-	func mapping(map: Map) {
+	func mapping(_ map: Map) {
 		base <- map["base"]
 	}
 }
@@ -735,7 +755,7 @@ class Subclass: Base {
 		super.init(map)
 	}
 
-	override func mapping(map: Map) {
+	override func mapping(_ map: Map) {
 		super.mapping(map)
 		
 		sub <- map["sub"]
@@ -755,7 +775,7 @@ class GenericSubclass<T>: Base {
 		super.init(map)
 	}
 
-	override func mapping(map: Map) {
+	override func mapping(_ map: Map) {
 		super.mapping(map)
 		
 		sub <- map["sub"]
@@ -769,7 +789,7 @@ class WithGenericArray<T: Mappable>: Mappable {
 		
 	}
 
-	func mapping(map: Map) {
+	func mapping(_ map: Map) {
 		genericItems <- map["genericItems"]
 	}
 }
@@ -781,7 +801,7 @@ class ConcreteItem: Mappable {
 		
 	}
 	
-	func mapping(map: Map) {
+	func mapping(_ map: Map) {
 		value <- map["value"]
 	}
 }
@@ -793,9 +813,9 @@ class SubclassWithGenericArrayInSuperclass<Unused>: WithGenericArray<ConcreteIte
 }
 
 enum ExampleEnum: Int {
-	case A
-	case B
-	case C
+	case a
+	case b
+	case c
 }
 
 class ExampleEnumArray: Mappable {
@@ -805,7 +825,7 @@ class ExampleEnumArray: Mappable {
 		
 	}
 
-	func mapping(map: Map) {
+	func mapping(_ map: Map) {
 		enums <- map["enums"]
 	}
 }
@@ -817,7 +837,7 @@ class ExampleEnumDictionary: Mappable {
 		
 	}
 
-	func mapping(map: Map) {
+	func mapping(_ map: Map) {
 		enums <- map["enums"]
 	}
 }
@@ -828,7 +848,7 @@ class ArrayTest: Mappable {
 	
 	required init?(_ map: Map){}
 	
-	func mapping(map: Map) {
+	func mapping(_ map: Map) {
 		twoDimensionalArray <- map["twoDimensionalArray"]
 	}
 }
@@ -841,7 +861,7 @@ class CachedModel: Mappable {
 
 	required init?(_ map: Map){}
 
-	func mapping(map: Map) {
+	func mapping(_ map: Map) {
 		name <- map["name"]
 		bigList <- map["bigList"]
 	}
@@ -852,7 +872,7 @@ struct CachedItem: Mappable {
 
 	init?(_ map: Map){}
 
-	mutating func mapping(map: Map) {
+	mutating func mapping(_ map: Map) {
 		name <- map["name"]
 	}
 }
@@ -876,14 +896,14 @@ extension Immutable: Mappable {
 		}
 	}
 		
-	mutating func mapping(map: Map) {
+	mutating func mapping(_ map: Map) {
 		switch map.mappingType {
-		case .FromJSON:
+		case .fromJSON:
 			if let x = Immutable(map) {
 				self = x
 			}
 			
-		case .ToJSON:
+		case .toJSON:
 			var prop1 = self.prop1
 			var prop2 = self.prop2
 			var prop3 = self.prop3

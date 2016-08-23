@@ -44,7 +44,7 @@ class DictionaryTransformTestsObject: Mappable {
 		
 	}
 	
-	func mapping(map: Map) {
+	func mapping(_ map: Map) {
 		
 		self.dictionary <- (map["dictionary"], DictionaryTransform<MyKey, MyValue>())
 	}
@@ -80,7 +80,7 @@ extension DictionaryTransformTestsObject {
 			}
 		}
 		
-		func mapping(map: Map) {
+		func mapping(_ map: Map) {
 			
 			self.foo <- map["foo"]
 			self.bar <- map["bar"]

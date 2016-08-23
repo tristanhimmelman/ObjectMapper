@@ -9,13 +9,13 @@
 import Foundation
 
 ///Transforms [String: AnyObject] <-> [Key: Value] where Key is RawRepresentable as String, Value is Mappable
-public struct DictionaryTransform<Key, Value where Key: Hashable, Key: RawRepresentable, Key.RawValue == String, Value: Mappable>: TransformType {
+public struct DictionaryTransform<Key, Value>: TransformType where Key: Hashable, Key: RawRepresentable, Key.RawValue == String, Value: Mappable {
 	
 	public init() {
 		
 	}
 	
-	public func transformFromJSON(value: AnyObject?) -> [Key: Value]? {
+	public func transformFromJSON(_ value: AnyObject?) -> [Key: Value]? {
 		
 		guard let json = value as? [String: AnyObject] else {
 			
@@ -41,7 +41,7 @@ public struct DictionaryTransform<Key, Value where Key: Hashable, Key: RawRepres
 		return result
 	}
 	
-	public func transformToJSON(value: [Key: Value]?) -> AnyObject? {
+	public func transformToJSON(_ value: [Key: Value]?) -> AnyObject? {
 		
 		let result = value?.reduce([:]) { (result, element) -> [String: AnyObject] in
 			
@@ -49,10 +49,10 @@ public struct DictionaryTransform<Key, Value where Key: Hashable, Key: RawRepres
 			let value = element.1.toJSON()
 			
 			var result = result
-			result[key] = value
+			result[key] = value as AnyObject
 			return result
 		}
 		
-		return result
+		return result as AnyObject
 	}
 }

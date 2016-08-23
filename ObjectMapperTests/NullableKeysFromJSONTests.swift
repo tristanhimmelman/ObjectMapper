@@ -92,7 +92,7 @@ class Player: Mappable  {
 		mapping(map)
 	}
 
-	func mapping(map: Map) {
+	func mapping(_ map: Map) {
 		firstName <- map["firstName"]
 		lastName <- map["lastName"]
 		team <- map["team"]
@@ -110,7 +110,7 @@ class Address: Mappable {
 		mapping(map)
 	}
 
-	func mapping(map: Map) {
+	func mapping(_ map: Map) {
 		street <- map["street"]
 		number <- map["number"]
 		city <- map["city"]

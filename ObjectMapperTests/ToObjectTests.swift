@@ -84,7 +84,7 @@ class ToObjectTests: XCTestCase {
 			
 		}
 		
-		func mapping(map: Map) {
+		func mapping(_ map: Map) {
 			name		<- map["name"]
 			spouse		<- map["spouse"]
 			children	<- map["children"]

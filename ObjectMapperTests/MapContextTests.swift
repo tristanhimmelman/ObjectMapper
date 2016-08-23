@@ -55,7 +55,7 @@ class MapContextTests: XCTestCase {
 			
 		}
 		
-		func mapping(map: Map) {
+		func mapping(_ map: Map) {
 			if (map.context as? Context)?.shouldMap == true {
 				name <- map["name"]
 			}
