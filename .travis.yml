@@ -11,7 +11,7 @@ env:
     - TVOS_FRAMEWORK_SCHEME="ObjectMapper-tvOS"
     - WATCHOS_FRAMEWORK_SCHEME="ObjectMapper-watchOS"
     - IOS_SDK=iphonesimulator10.0
-    - OSX_SDK=macosx10.11
+    - OSX_SDK=macosx10.12
     - TVOS_SDK=appletvsimulator10.0
     - WATCHOS_SDK=watchsimulator3.0    
   matrix:
