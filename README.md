@@ -305,12 +305,13 @@ class Model: Object, Mappable {
 }
 ```
 
+If you want to serialize associated RealmObjects, you can use [ObjectMapper+Realm](https://github.com/jakenberg/ObjectMapper-Realm). It is a simple Realm extension that serializes arbitrary JSON into Realm's List class.
+
 Note: Generating a JSON string of a Realm Object using ObjectMappers' `toJSON` function only works within a Realm write transaction. This is caused because ObjectMapper uses the `inout` flag in its mapping functions (`<-`) which are used both for serializing and deserializing. Realm detects the flag and forces the `toJSON` function to be called within a write block even though the objects are not being modified.
 
 # To Do
 - Improve error handling. Perhaps using `throws`
 - Class cluster documentation
-- Realm List Transform
 
 # Contributing
 
