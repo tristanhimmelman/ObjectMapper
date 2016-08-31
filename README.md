@@ -117,7 +117,7 @@ This failable initializer can be used for JSON validation prior to object serial
 ```swift
 required init?(_ map: Map){
 	// check if a required "name" property exists within the JSON.
-	if map.JSONDictionary["name"] == nil {
+	guard let _: String = map["name"].value() else {
 		return nil
 	}
 }
