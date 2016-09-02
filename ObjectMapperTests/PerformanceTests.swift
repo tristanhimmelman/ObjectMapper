@@ -67,6 +67,7 @@ class Person: Mappable {
 	var arr: [AnyObject] = []
 	var arrOptional: [AnyObject]?
 	var dict: [String : AnyObject] = [:]
+	var dictKey1: String?
 	var dictOptional: [String : AnyObject]?
 	var dictString: [String : String]?
 	var friendDictionary: [String : Person]?
@@ -93,6 +94,7 @@ class Person: Mappable {
 		arr              <- map["arr"]
 		arrOptional      <- map["arrOpt"]
 		dict             <- map["dict"]
+		dictKey1         <- map["dict.key1"]
 		dictOptional     <- map["dictOpt"]
 		friend           <- map["friend"]
 		friends          <- map["friends"]
@@ -114,6 +116,7 @@ class PersonCluster: StaticMappable {
 	var arr: [AnyObject] = []
 	var arrOptional: [AnyObject]?
 	var dict: [String : AnyObject] = [:]
+	var dictKey1: String?
 	var dictOptional: [String : AnyObject]?
 	var dictString: [String : String]?
 	var friendDictionary: [String : Person]?
@@ -144,6 +147,7 @@ class PersonCluster: StaticMappable {
 		arr              <- map["arr"]
 		arrOptional      <- map["arrOpt"]
 		dict             <- map["dict"]
+		dictKey1         <- map["dict.key1"]
 		dictOptional     <- map["dictOpt"]
 		friend           <- map["friend"]
 		friends          <- map["friends"]
