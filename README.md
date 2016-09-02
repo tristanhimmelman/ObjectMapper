@@ -112,13 +112,10 @@ ObjectMapper can map classes composed of the following types:
 ## `Mappable` Protocol
 
 #### `init?(_ map: Map)` 
-This failable initializer can be used for JSON validation prior to object serialization. Returning nil within the function will prevent the mapping from occuring. You can inspect the JSON stored within the `Map` object to do your validation. See two approaches to do this below:
+This failable initializer can be used for JSON validation prior to object serialization. Returning nil within the function will prevent the mapping from occuring. You can inspect the JSON stored within the `Map` object to do your validation:
 ```swift
 required init?(_ map: Map){
 	// check if a required "name" property exists within the JSON.
-	if map["name"].value() == nil {
-		return nil
-	}
 	if map.JSONDictionary["name"] == nil {
 		return nil
 	}
@@ -130,7 +127,7 @@ This function is where all mapping definitions should go. When parsing JSON, it 
 
 ### `StaticMappable` Protocol
 
-This is a extension to the Mappable protocol that provides an extra static function that can be used instead of `init?(_ map: Map)`
+This is a sub protocol of Mappable that provides an extra static function that can be used instead of `init?(_ map: Map)`
 
 #### `static func objectForMapping(map: Map) -> Mappable?` 
 If this function is implemented, `init?(_ map: Map)` will no longer be called by ObjectMapper. This function should be used to:
@@ -307,12 +304,13 @@ class Model: Object, Mappable {
 }
 ```
 
+If you want to serialize associated RealmObjects, you can use [ObjectMapper+Realm](https://github.com/jakenberg/ObjectMapper-Realm). It is a simple Realm extension that serializes arbitrary JSON into Realm's List class.
+
 Note: Generating a JSON string of a Realm Object using ObjectMappers' `toJSON` function only works within a Realm write transaction. This is caused because ObjectMapper uses the `inout` flag in its mapping functions (`<-`) which are used both for serializing and deserializing. Realm detects the flag and forces the `toJSON` function to be called within a write block even though the objects are not being modified.
 
 # To Do
 - Improve error handling. Perhaps using `throws`
 - Class cluster documentation
-- Realm List Transform
 
 # Contributing
 
