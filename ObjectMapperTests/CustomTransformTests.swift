@@ -134,7 +134,7 @@ class CustomTransformTests: XCTestCase {
 	}
 	
 	func testEnumTransform() {
-		let JSON: [String: AnyObject] = ["firstImageType" : "cover", "secondImageType" : "thumbnail"]
+		let JSON: [String: AnyObject] = ["firstImageType": "cover", "secondImageType": "thumbnail"]
 		let transforms = mapper.map(JSON)
 
 		let imageType = Transforms.ImageType.self

@@ -68,7 +68,7 @@ public extension Array where Element: BaseMappable {
 	}
 	
 	/// Initialize Array from a JSON Array
-	public init?(JSONArray: [[String : AnyObject]]) {
+	public init?(JSONArray: [[String: AnyObject]]) {
 		if let obj: [Element] = Mapper().mapArray(JSONArray) {
 			self = obj
 		} else {
@@ -77,7 +77,7 @@ public extension Array where Element: BaseMappable {
 	}
 	
 	/// Returns the JSON Array
-	public func toJSON() -> [[String : AnyObject]] {
+	public func toJSON() -> [[String: AnyObject]] {
 		return Mapper().toJSONArray(self)
 	}
 	
@@ -99,7 +99,7 @@ public extension Set where Element: BaseMappable {
 	}
 	
 	/// Initializes a set from JSON
-	public init?(JSONArray: [[String : AnyObject]]) {
+	public init?(JSONArray: [[String: AnyObject]]) {
 		if let obj: Set<Element> = Mapper().mapSet(JSONArray) {
 			self = obj
 		} else {
@@ -108,7 +108,7 @@ public extension Set where Element: BaseMappable {
 	}
 	
 	/// Returns the JSON Set
-	public func toJSON() -> [[String : AnyObject]] {
+	public func toJSON() -> [[String: AnyObject]] {
 		return Mapper().toJSONSet(self)
 	}
 	

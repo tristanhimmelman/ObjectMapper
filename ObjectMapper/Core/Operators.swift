@@ -431,7 +431,7 @@ public func <- <T: BaseMappable>(inout left: Dictionary<String, [T]>!, right: Ma
 /// Dictionary of Mappable objects <String, T: BaseMappable> with a transform
 public func <- <Transform: TransformType where Transform.Object: BaseMappable>(inout left: Dictionary<String, Transform.Object>, right: (Map, Transform)) {
 	let (map, transform) = right
-	if let object = map.currentValue as? [String : AnyObject] where map.mappingType == .FromJSON && map.isKeyPresent {
+	if let object = map.currentValue as? [String: AnyObject] where map.mappingType == .FromJSON && map.isKeyPresent {
 		let value = fromJSONDictionaryWithTransform(object, transform: transform) ?? left
 		FromJSON.basicType(&left, object: value)
 	} else if map.mappingType == .ToJSON {
@@ -443,7 +443,7 @@ public func <- <Transform: TransformType where Transform.Object: BaseMappable>(i
 /// Optional Dictionary of Mappable object <String, T: BaseMappable> with a transform
 public func <- <Transform: TransformType where Transform.Object: BaseMappable>(inout left: Dictionary<String, Transform.Object>?, right: (Map, Transform)) {
 	let (map, transform) = right
-	if let object = map.currentValue as? [String : AnyObject] where map.mappingType == .FromJSON && map.isKeyPresent {
+	if let object = map.currentValue as? [String: AnyObject] where map.mappingType == .FromJSON && map.isKeyPresent {
 		let value = fromJSONDictionaryWithTransform(object, transform: transform) ?? left
 		FromJSON.optionalBasicType(&left, object: value)
 	} else if map.mappingType == .ToJSON {
@@ -455,7 +455,7 @@ public func <- <Transform: TransformType where Transform.Object: BaseMappable>(i
 /// Implicitly unwrapped Optional Dictionary of Mappable object <String, T: BaseMappable> with a transform
 public func <- <Transform: TransformType where Transform.Object: BaseMappable>(inout left: Dictionary<String, Transform.Object>!, right: (Map, Transform)) {
 	let (map, transform) = right
-	if let dictionary = map.currentValue as? [String : AnyObject] where map.mappingType == .FromJSON && map.isKeyPresent {
+	if let dictionary = map.currentValue as? [String: AnyObject] where map.mappingType == .FromJSON && map.isKeyPresent {
 		let transformedDictionary = fromJSONDictionaryWithTransform(dictionary, transform: transform) ?? left
 		FromJSON.optionalBasicType(&left, object: transformedDictionary)
 	} else if map.mappingType == .ToJSON {
@@ -467,7 +467,7 @@ public func <- <Transform: TransformType where Transform.Object: BaseMappable>(i
 /// Dictionary of Mappable objects <String, T: BaseMappable> with a transform
 public func <- <Transform: TransformType where Transform.Object: BaseMappable>(inout left: Dictionary<String, [Transform.Object]>, right: (Map, Transform)) {
 	let (map, transform) = right
-	if let dictionary = map.currentValue as? [String : [AnyObject]] where map.mappingType == .FromJSON && map.isKeyPresent {
+	if let dictionary = map.currentValue as? [String: [AnyObject]] where map.mappingType == .FromJSON && map.isKeyPresent {
 		let transformedDictionary = dictionary.map { (key: String, values: [AnyObject]) -> (String, [Transform.Object]) in
       if let jsonArray = fromJSONArrayWithTransform(values, transform: transform) {
         return (key, jsonArray)
@@ -490,7 +490,7 @@ public func <- <Transform: TransformType where Transform.Object: BaseMappable>(i
 /// Optional Dictionary of Mappable object <String, T: BaseMappable> with a transform
 public func <- <Transform: TransformType where Transform.Object: BaseMappable>(inout left: Dictionary<String, [Transform.Object]>?, right: (Map, Transform)) {
 	let (map, transform) = right
-	if let dictionary = map.currentValue as? [String : [AnyObject]] where map.mappingType == .FromJSON && map.isKeyPresent {
+	if let dictionary = map.currentValue as? [String: [AnyObject]] where map.mappingType == .FromJSON && map.isKeyPresent {
 		let transformedDictionary = dictionary.map { (key: String, values: [AnyObject]) -> (String, [Transform.Object]) in
       if let jsonArray = fromJSONArrayWithTransform(values, transform: transform) {
         return (key, jsonArray)
@@ -513,7 +513,7 @@ public func <- <Transform: TransformType where Transform.Object: BaseMappable>(i
 /// Implicitly unwrapped Optional Dictionary of Mappable object <String, T: BaseMappable> with a transform
 public func <- <Transform: TransformType where Transform.Object: BaseMappable>(inout left: Dictionary<String, [Transform.Object]>!, right: (Map, Transform)) {
 	let (map, transform) = right
-	if let dictionary = map.currentValue as? [String : [AnyObject]] where map.mappingType == .FromJSON && map.isKeyPresent {
+	if let dictionary = map.currentValue as? [String: [AnyObject]] where map.mappingType == .FromJSON && map.isKeyPresent {
 		let transformedDictionary = dictionary.map { (key: String, values: [AnyObject]) -> (String, [Transform.Object]) in
       if let jsonArray = fromJSONArrayWithTransform(values, transform: transform) {
         return (key, jsonArray)
