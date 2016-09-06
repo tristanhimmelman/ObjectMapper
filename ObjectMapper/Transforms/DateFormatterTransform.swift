@@ -28,7 +28,7 @@
 
 import Foundation
 
-public class DateFormatterTransform: TransformType {
+open class DateFormatterTransform: TransformType {
 	public typealias Object = Date
 	public typealias JSON = String
 	

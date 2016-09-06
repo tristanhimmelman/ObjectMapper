@@ -28,7 +28,7 @@
 
 import Foundation
 
-public class DateTransform: TransformType {
+open class DateTransform: TransformType {
 	public typealias Object = Date
 	public typealias JSON = Double
 

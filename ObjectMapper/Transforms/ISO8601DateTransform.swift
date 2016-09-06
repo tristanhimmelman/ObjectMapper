@@ -28,7 +28,7 @@
 
 import Foundation
 
-public class ISO8601DateTransform: DateFormatterTransform {
+open class ISO8601DateTransform: DateFormatterTransform {
 
 	public init() {
 		let formatter = DateFormatter()
