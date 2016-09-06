@@ -37,7 +37,7 @@ public extension BaseMappable {
 	}
 	
 	/// Initializes object from a JSON Dictionary
-	public init?(JSON: [String : AnyObject]) {
+	public init?(JSON: [String: AnyObject]) {
 		if let obj: Self = Mapper().map(JSON) {
 			self = obj
 		} else {
