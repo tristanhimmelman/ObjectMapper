@@ -127,11 +127,7 @@ class PersonCluster: StaticMappable {
 		
 	}
 	
-	required init?(_ map: Map){
-		
-	}
-	
-	static func objectForMapping(map: Map) -> Mappable? {
+	static func objectForMapping(map: Map) -> BaseMappable? {
 		return PersonCluster()
 	}
 	
