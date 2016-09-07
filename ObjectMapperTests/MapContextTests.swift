@@ -22,7 +22,7 @@ class MapContextTests: XCTestCase {
     }
     
     func testMappingWithContext() {
-		let JSON = ["name":"Tristan"]
+		let JSON = ["name": "Tristan"]
 		let context = Context(shouldMap: true)
 		
 		let person = Mapper<Person>(context: context).map(JSON)
@@ -32,7 +32,7 @@ class MapContextTests: XCTestCase {
     }
 	
 	func testMappingWithoutContext() {
-		let JSON = ["name" : "Tristan"]
+		let JSON = ["name": "Tristan"]
 		
 		let person = Mapper<Person>().map(JSON)
 		
