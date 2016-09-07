@@ -40,11 +40,11 @@ class DataType: Mappable {
 		
 	}
 	
-	required init?(_ map: Map){
+	required init?(map: Map){
 		
 	}
 	
-	func mapping(_ map: Map) {
+	func mapping(map: Map) {
 		stringData <- map["data"]
 		data <- (map["data"], DataTransform())
 	}

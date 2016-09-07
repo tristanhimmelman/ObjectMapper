@@ -66,7 +66,7 @@ public final class Mapper<N: BaseMappable> {
 	public func map(_ JSONDictionary: [String: Any], toObject object: N) -> N {
 		var mutableObject = object
 		let map = Map(mappingType: .fromJSON, JSONDictionary: JSONDictionary, toObject: true, context: context)
-		mutableObject.mapping(map)
+		mutableObject.mapping(map: map)
 		return mutableObject
 	}
 
@@ -110,16 +110,16 @@ public final class Mapper<N: BaseMappable> {
 		
 		// check if object is StaticMappable
 		if let klass = N.self as? StaticMappable.Type {
-			if var object = klass.objectForMapping(map) as? N {
-				object.mapping(map)
+			if var object = klass.objectForMapping(map: map) as? N {
+				object.mapping(map: map)
 				return object
 			}
 		}
 
 		// fall back to using init? to create N
 		if let klass = N.self as? Mappable.Type {
-			if var object = klass.init(map) as? N {
-				object.mapping(map)
+			if var object = klass.init(map: map) as? N {
+				object.mapping(map: map)
 				return object
 			}
 		}
@@ -304,7 +304,7 @@ extension Mapper {
 	public func toJSON(_ object: N) -> [String: Any] {
 		var mutableObject = object
 		let map = Map(mappingType: .toJSON, JSONDictionary: [:], context: context)
-		mutableObject.mapping(map)
+		mutableObject.mapping(map: map)
 		return map.JSONDictionary
 	}
 	

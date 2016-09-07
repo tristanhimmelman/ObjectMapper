@@ -163,11 +163,11 @@ class NestedKeys: Mappable {
 	var objectArray: [Object] = []
 	var objectDict: [String: Object] = [:]
 
-	required init?(_ map: Map){
+	required init?(map: Map){
 		
 	}
 
-	func mapping(_ map: Map) {
+	func mapping(map: Map) {
 		nonNestedString <- map["non.nested.key", nested: false]
 		
 		int64	<- map["nested.int64"]
@@ -206,11 +206,11 @@ class NestedKeys: Mappable {
 class Object: Mappable, Equatable {
 	var value: Int = Int.min
 	
-	required init?(_ map: Map){
+	required init?(map: Map){
 		
 	}
 	
-	func mapping(_ map: Map) {
+	func mapping(map: Map) {
 		value <- map["value"]
 	}
 }

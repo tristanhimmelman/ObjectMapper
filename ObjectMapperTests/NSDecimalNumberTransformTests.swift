@@ -33,11 +33,11 @@ class NSDecimalNumberType: Mappable {
 
     }
 
-    required init?(_ map: Map){
+    required init?(map: Map){
 
     }
 
-    func mapping(_ map: Map) {
+    func mapping(map: Map) {
         int <- (map["int"], NSDecimalNumberTransform())
         double <- (map["double"], NSDecimalNumberTransform())
         intString <- (map["intString"], NSDecimalNumberTransform())

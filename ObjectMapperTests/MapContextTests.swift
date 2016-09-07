@@ -51,11 +51,11 @@ class MapContextTests: XCTestCase {
 	class Person: Mappable {
 		var name: String?
 		
-		required init?(_ map: Map){
+		required init?(map: Map){
 			
 		}
 		
-		func mapping(_ map: Map) {
+		func mapping(map: Map) {
 			if (map.context as? Context)?.shouldMap == true {
 				name <- map["name"]
 			}

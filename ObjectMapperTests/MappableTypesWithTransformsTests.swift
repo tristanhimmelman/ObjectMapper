@@ -250,9 +250,9 @@ class MappableTypesWithTransformsTests: XCTestCase {
 		var I_winner: Team!
 		
 		required init(URI: String) { self.URI = URI }
-		required init?(_ map: Map) {}
+		required init?(map: Map) {}
 		
-		func mapping(_ map: Map) {
+		func mapping(map: Map) {
 			players		<- (map["players"], RelationshipTransform<Player>())		// 2D Array with transform
 			team1Lineup	<- (map["team1_lineup"], RelationshipTransform<Player>())	// Dictionary with transform
 			team2Lineup	<- (map["team1_lineup"], RelationshipTransform<Player>())
@@ -285,9 +285,9 @@ class MappableTypesWithTransformsTests: XCTestCase {
 		var I_players: [Player]?
 		
 		required init(URI: String) { self.URI = URI }
-		required init?(_ map: Map) {}
+		required init?(map: Map) {}
 		
-		func mapping(_ map: Map) {
+		func mapping(map: Map) {
 			players		<- (map["players"], RelationshipTransform<Player>())
 			O_players	<- (map["players"], RelationshipTransform<Player>())
 			I_players	<- (map["players"], RelationshipTransform<Player>())
@@ -296,9 +296,9 @@ class MappableTypesWithTransformsTests: XCTestCase {
 	
 	class Player: Mappable, URIInitiable {
 		required init(URI: String) {}
-		required init?(_ map: Map) {}
+		required init?(map: Map) {}
 		
-		func mapping(_ map: Map) {}
+		func mapping(map: Map) {}
 	}
 }
 
