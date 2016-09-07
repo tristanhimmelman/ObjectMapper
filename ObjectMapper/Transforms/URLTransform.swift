@@ -31,15 +31,30 @@ import Foundation
 public class URLTransform: TransformType {
 	public typealias Object = NSURL
 	public typealias JSON = String
+	private let shouldEncodeURLString: Bool
 
-	public init() {}
+	/**
+	Initializes the URLTransform with an option to encode URL strings before converting them to an NSURL
+	- parameter shouldEncodeUrlString: when true (the default) the string is encoded before passing
+	to `NSURL(string:)`
+	- returns: an initialized transformer
+	*/
+	public init(shouldEncodeURLString: Bool = true) {
+		self.shouldEncodeURLString = shouldEncodeURLString
+	}
 
 	public func transformFromJSON(value: AnyObject?) -> NSURL? {
-		if let URLString = value as? String,
-			let escapedURLString = URLString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet()){
-			return NSURL(string: escapedURLString)
+		guard let URLString = value as? String else { return nil }
+		
+		if !shouldEncodeURLString {
+			return NSURL(string: URLString)
 		}
-		return nil
+
+		guard let escapedURLString = URLString.stringByAddingPercentEncodingWithAllowedCharacters(
+			NSCharacterSet.URLQueryAllowedCharacterSet()) else {
+			return nil
+		}
+		return NSURL(string: escapedURLString)
 	}
 
 	public func transformToJSON(value: NSURL?) -> String? {
