@@ -12,7 +12,7 @@ import ObjectMapper
 
 class MappableTypesWithTransformsTests: XCTestCase {
 	// This is a func so that it can be collapsed
-	func JSONPayload() -> [String : Any] {
+	func JSONPayload() -> [String: Any] {
 		return [
 			"teams": [[
 				"api_uri": "/teams/8",
@@ -227,25 +227,25 @@ class MappableTypesWithTransformsTests: XCTestCase {
 	class Game: Mappable, URIInitiable {
 		var URI: String?
 		var players: [[Player]] = [[]]
-		var team1Lineup: [String : Player] = [:]
-		var team2Lineup: [String : Player] = [:]
-		var headToHead: [String : [Player]] = [:]
+		var team1Lineup: [String: Player] = [:]
+		var team2Lineup: [String: Player] = [:]
+		var headToHead: [String: [Player]] = [:]
 		var teams: Set<Team> = []
 		var winner: Team = Team(URI: "FAKE")
 
 		// Optional
 		var O_players: [[Player]]?
-		var O_team1Lineup: [String : Player]?
-		var O_team2Lineup: [String : Player]?
-		var O_headToHead: [String : [Player]]?
+		var O_team1Lineup: [String: Player]?
+		var O_team2Lineup: [String: Player]?
+		var O_headToHead: [String: [Player]]?
 		var O_teams: Set<Team>?
 		var O_winner: Team?
 		
 		// Implicitly Unwrapped
 		var I_players: [[Player]]!
-		var I_team1Lineup: [String : Player]!
-		var I_team2Lineup: [String : Player]!
-		var I_headToHead: [String : [Player]]!
+		var I_team1Lineup: [String: Player]!
+		var I_team2Lineup: [String: Player]!
+		var I_headToHead: [String: [Player]]!
 		var I_teams: Set<Team>!
 		var I_winner: Team!
 		

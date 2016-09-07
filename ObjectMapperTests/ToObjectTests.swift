@@ -78,7 +78,7 @@ class ToObjectTests: XCTestCase {
 	class Person: Mappable {
 		var name: String?
 		var spouse: Person?
-		var children: [String : Person]?
+		var children: [String: Person]?
 		
 		required init?(_ map: Map) {
 			

@@ -111,8 +111,11 @@ ObjectMapper can map classes composed of the following types:
 
 ## `Mappable` Protocol
 
+#### `mutating func mapping(map: Map)` 
+This function is where all mapping definitions should go. When parsing JSON, this function is executed after successful object creation. When generating JSON, it is the only function that is called on the object.
+
 #### `init?(_ map: Map)` 
-This failable initializer can be used for JSON validation prior to object serialization. Returning nil within the function will prevent the mapping from occuring. You can inspect the JSON stored within the `Map` object to do your validation:
+This failable initializer is used by ObjectMapper for object creation. It can be used by developers to validate JSON prior to object serialization. Returning nil within the function will prevent the mapping from occuring. You can inspect the JSON stored within the `Map` object to do your validation:
 ```swift
 required init?(_ map: Map){
 	// check if a required "name" property exists within the JSON.
@@ -122,17 +125,18 @@ required init?(_ map: Map){
 }
 ```
 
-#### `mutating func mapping(map: Map)` 
-This function is where all mapping definitions should go. When parsing JSON, it is executed after a successful object initialization. When generating JSON, it is the only function that is called on the object.
+## `StaticMappable` Protocol
+`StaticMappable` is an alternative to `Mappable`. It provides developers with a static function that is used by ObjectMapper for object initialization instead of `init?(_ map: Map)`. 
 
-### `StaticMappable` Protocol
+Note: `StaticMappable`, like `Mappable`, is a sub protocol of `BaseMappable` which is where the `mapping(_ map: Map)` function is defined.
 
-This is a sub protocol of Mappable that provides an extra static function that can be used instead of `init?(_ map: Map)`
-
-#### `static func objectForMapping(map: Map) -> Mappable?` 
-If this function is implemented, `init?(_ map: Map)` will no longer be called by ObjectMapper. This function should be used to:
+#### `static func objectForMapping(map: Map) -> BaseMappable?` 
+ObjectMapper uses this function to get objects to use for mapping. Developers should return an instance of an object that conforms to `BaseMappable` in this function. This function can also be used to:
+- validate JSON prior to object serialization
 - provide an existing cached object to be used for mapping
-- return an object of another type (which also conforms to Mappable) to be used for mapping. For instance, you may inspect the JSON to infer the type of object that should be used for mapping ([see example](https://github.com/Hearst-DD/ObjectMapper/blob/master/ObjectMapperTests/ClassClusterTests.swift#L62))
+- return an object of another type (which also conforms to BaseMappable) to be used for mapping. For instance, you may inspect the JSON to infer the type of object that should be used for mapping ([see example](https://github.com/Hearst-DD/ObjectMapper/blob/master/ObjectMapperTests/ClassClusterTests.swift#L62))
+
+If you need to implemented ObjectMapper in an extension, you will need to select this protocol instead of `Mappable`. 
 
 # Easy Mapping of Nested Objects
 ObjectMapper supports dot notation within keys for easy mapping of nested objects. Given the following JSON String:

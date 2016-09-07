@@ -63,21 +63,21 @@ class Vehicle: StaticMappable {
 	
 	var type: String?
 	
-	class func objectForMapping(_ map: Map) -> Mappable? {
+	class func objectForMapping(_ map: Map) -> BaseMappable? {
 		if let type: String = map["type"].value() {
 			switch type {
 				case "car":
-					return Car(map)
+					return Car()
 				case "bus":
-					return Bus(map)
+					return Bus()
 				default:
-					return nil
+					return Vehicle()
 			}
 		}
 		return nil
 	}
 
-	required init?(_ map: Map){
+	init(){
 		
 	}
 	
@@ -90,7 +90,7 @@ class Car: Vehicle {
 	
 	var name: String?
 	
-	override class func objectForMapping(_ map: Map) -> Mappable? {
+	override class func objectForMapping(_ map: Map) -> BaseMappable? {
 		return nil
 	}
 	

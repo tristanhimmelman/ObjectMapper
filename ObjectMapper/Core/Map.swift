@@ -38,7 +38,7 @@ public protocol MapContext {
 public final class Map {
 	public let mappingType: MappingType
 	
-	public internal(set) var JSONDictionary: [String : Any] = [:]
+	public internal(set) var JSONDictionary: [String: Any] = [:]
 	public internal(set) var isKeyPresent = false
 	public var currentValue: Any?
 	public var context: MapContext?
@@ -50,7 +50,7 @@ public final class Map {
 	/// Counter for failing cases of deserializing values to `let` properties.
 	private var failedCount: Int = 0
 	
-	public init(mappingType: MappingType, JSONDictionary: [String : Any], toObject: Bool = false, context: MapContext? = nil) {
+	public init(mappingType: MappingType, JSONDictionary: [String: Any], toObject: Bool = false, context: MapContext? = nil) {
 		self.mappingType = mappingType
 		self.JSONDictionary = JSONDictionary
 		self.toObject = toObject
@@ -142,7 +142,7 @@ private func valueFor(_ keyPathComponents: ArraySlice<String>, dictionary: [Stri
 		let object = dictionary[keyPath]
 		if object is NSNull {
 			return (true, nil)
-		} else if let dict = object as? [String : Any] , keyPathComponents.count > 1 {
+		} else if let dict = object as? [String: Any] , keyPathComponents.count > 1 {
 			let tail = keyPathComponents.dropFirst()
 			return valueFor(tail, dictionary: dict)
 		} else if let array = object as? [Any] , keyPathComponents.count > 1 {
@@ -175,7 +175,7 @@ private func valueFor(_ keyPathComponents: ArraySlice<String>, array: [Any]) -> 
 			} else if let array = object as? [Any] , keyPathComponents.count > 1 {
 				let tail = keyPathComponents.dropFirst()
 				return valueFor(tail, array: array)
-			} else if let dict = object as? [String : Any] , keyPathComponents.count > 1 {
+			} else if let dict = object as? [String: Any] , keyPathComponents.count > 1 {
 				let tail = keyPathComponents.dropFirst()
 				return valueFor(tail, dictionary: dict)
 			} else {

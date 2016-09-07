@@ -216,7 +216,7 @@ class BasicTypes: Mappable {
 	}
 }
 
-class TestCollectionOfPrimitives : Mappable {
+class TestCollectionOfPrimitives: Mappable {
 	var dictStringString: [String: String] = [:]
 	var dictStringInt: [String: Int] = [:]
 	var dictStringBool: [String: Bool] = [:]
