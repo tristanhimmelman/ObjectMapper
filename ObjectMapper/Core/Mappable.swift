@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// BaseMappable should not be implemented directly. Mappable or StaticMappable should be used instead
 public protocol BaseMappable {
 	/// This function is where all variable mappings should occur. It is executed by Mapper during the mapping (serialization and deserialization) process.
 	mutating func mapping(map: Map)
