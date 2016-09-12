@@ -25,16 +25,26 @@ class MapContextTests: XCTestCase {
 		let JSON = ["name": "Tristan"]
 		let context = Context(shouldMap: true)
 		
-		let person = Mapper<Person>(context: context).map(JSON)
+		let person = Mapper<Person>(context: context).map(JSON: JSON)
 		
 		XCTAssertNotNil(person)
 		XCTAssertNotNil(person?.name)
     }
 	
+	func testMappingWithContextViaMappableExtension() {
+		let JSON = ["name": "Tristan"]
+		let context = Context(shouldMap: true)
+		
+		let person = Person(JSON: JSON, context: context)
+		
+		XCTAssertNotNil(person)
+		XCTAssertNotNil(person?.name)
+	}
+	
 	func testMappingWithoutContext() {
 		let JSON = ["name": "Tristan"]
 		
-		let person = Mapper<Person>().map(JSON)
+		let person = Mapper<Person>().map(JSON: JSON)
 		
 		XCTAssertNotNil(person)
 		XCTAssertNil(person?.name)
@@ -51,11 +61,11 @@ class MapContextTests: XCTestCase {
 	class Person: Mappable {
 		var name: String?
 		
-		required init?(_ map: Map){
+		required init?(map: Map){
 			
 		}
 		
-		func mapping(_ map: Map) {
+		func mapping(map: Map) {
 			if (map.context as? Context)?.shouldMap == true {
 				name <- map["name"]
 			}

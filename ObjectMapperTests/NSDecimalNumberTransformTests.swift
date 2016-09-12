@@ -12,7 +12,7 @@ class NSDecimalNumberTransformTests: XCTestCase {
         let doubleString = "\(double)"
         let JSONString = "{\"double\" : \(double), \"int\" : \(int), \"intString\" : \"\(intString)\", \"doubleString\" : \"\(doubleString)\"}"
 
-        let mappedObject = mapper.map(JSONString)
+        let mappedObject = mapper.map(JSONString: JSONString)
 
         XCTAssertNotNil(mappedObject)
         XCTAssertEqual(mappedObject?.int, NSDecimalNumber(value: int))
@@ -33,11 +33,11 @@ class NSDecimalNumberType: Mappable {
 
     }
 
-    required init?(_ map: Map){
+    required init?(map: Map){
 
     }
 
-    func mapping(_ map: Map) {
+    func mapping(map: Map) {
         int <- (map["int"], NSDecimalNumberTransform())
         double <- (map["double"], NSDecimalNumberTransform())
         intString <- (map["intString"], NSDecimalNumberTransform())

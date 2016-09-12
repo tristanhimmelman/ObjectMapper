@@ -27,7 +27,7 @@ class ToObjectTests: XCTestCase {
 		let spouseName = "HJKL"
 		let JSONString = "{\"name\" : \"\(name)\", \"spouse\" : {\"name\" : \"\(spouseName)\"}}"
 		
-		let mappedObject = Mapper<Person>().map(JSONString)
+		let mappedObject = Mapper<Person>().map(JSONString: JSONString)
 		
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.name, name)
@@ -41,12 +41,12 @@ class ToObjectTests: XCTestCase {
 		let initialJSONString = "{\"name\" : \"\(name)\", \"spouse\" : {\"name\" : \"\(initialSpouseName)\"}}"
 		let updatedJSONString = "{\"name\" : \"\(name)\", \"spouse\" : {\"name\" : \"\(updatedSpouseName)\"}}"
 		
-		let mappedObject = Mapper<Person>().map(initialJSONString)
+		let mappedObject = Mapper<Person>().map(JSONString: initialJSONString)
 		let initialSpouse = mappedObject?.spouse
 		
 		XCTAssertNotNil(mappedObject)
 		
-		let updatedObject = Mapper<Person>().map(updatedJSONString, toObject: mappedObject!)
+		let updatedObject = Mapper<Person>().map(JSONString: updatedJSONString, toObject: mappedObject!)
 		
 		XCTAssert(initialSpouse === updatedObject.spouse, "Expected mapping to update the existing object not create a new one")
 		XCTAssertEqual(updatedObject.spouse?.name, updatedSpouseName)
@@ -60,14 +60,14 @@ class ToObjectTests: XCTestCase {
 		let initialJSONString = "{\"children\" : {\"\(childKey)\" : {\"name\" : \"\(initialChildName)\"}}}"
 		let updatedJSONString = "{\"children\" : {\"\(childKey)\" : {\"name\" : \"\(updatedChildName)\"}}}"
 		
-		let mappedObject = Mapper<Person>().map(initialJSONString)
+		let mappedObject = Mapper<Person>().map(JSONString: initialJSONString)
 		let initialChild = mappedObject?.children?[childKey]
 		
 		XCTAssertNotNil(mappedObject)
 		XCTAssertNotNil(initialChild)
 		XCTAssertEqual(initialChild?.name, initialChildName)
 		
-		_ = Mapper<Person>().map(updatedJSONString, toObject: mappedObject!)
+		_ = Mapper<Person>().map(JSONString: updatedJSONString, toObject: mappedObject!)
 		
 		let updatedChild = mappedObject?.children?[childKey]
 		XCTAssert(initialChild === updatedChild, "Expected mapping to update the existing object not create a new one")
@@ -80,11 +80,11 @@ class ToObjectTests: XCTestCase {
 		var spouse: Person?
 		var children: [String: Person]?
 		
-		required init?(_ map: Map) {
+		required init?(map: Map) {
 			
 		}
 		
-		func mapping(_ map: Map) {
+		func mapping(map: Map) {
 			name		<- map["name"]
 			spouse		<- map["spouse"]
 			children	<- map["children"]

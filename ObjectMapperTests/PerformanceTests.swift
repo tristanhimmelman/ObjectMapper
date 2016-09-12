@@ -40,7 +40,7 @@ class PerformanceTests: XCTestCase {
 		
         self.measure {
             // Put the code you want to measure the time of here.
-			_ = Mapper<Person>().mapArray(JSONString)
+			_ = Mapper<Person>().mapArray(JSONString: JSONString)
         }
     }
 	
@@ -49,7 +49,7 @@ class PerformanceTests: XCTestCase {
 		
 		self.measure {
 			// Put the code you want to measure the time of here.
-			_ = Mapper<PersonCluster>().mapArray(JSONString)
+			_ = Mapper<PersonCluster>().mapArray(JSONString: JSONString)
 		}
 	}
 }
@@ -78,11 +78,11 @@ class Person: Mappable {
 		
 	}
 	
-	required init?(_ map: Map){
+	required init?(map: Map){
 		
 	}
 	
-	func mapping(_ map: Map) {
+	func mapping(map: Map) {
 		username         <- map["username"]
 		identifier       <- map["identifier"]
 		photoCount       <- map["photoCount"]
@@ -127,11 +127,11 @@ class PersonCluster: StaticMappable {
 		
 	}
 	
-	static func objectForMapping(_ map: Map) -> BaseMappable? {
+	static func objectForMapping(map: Map) -> BaseMappable? {
 		return PersonCluster()
 	}
 	
-	func mapping(_ map: Map) {
+	func mapping(map: Map) {
 		username         <- map["username"]
 		identifier       <- map["identifier"]
 		photoCount       <- map["photoCount"]

@@ -22,7 +22,7 @@ class DataTransformTests: XCTestCase {
 		let dataString = data.base64EncodedString()
 		let JSONString = "{\"data\" : \"\(dataString)\"}"
 		
-		let mappedObject = mapper.map(JSONString)
+		let mappedObject = mapper.map(JSONString: JSONString)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.stringData, dataString)
@@ -40,11 +40,11 @@ class DataType: Mappable {
 		
 	}
 	
-	required init?(_ map: Map){
+	required init?(map: Map){
 		
 	}
 	
-	func mapping(_ map: Map) {
+	func mapping(map: Map) {
 		stringData <- map["data"]
 		data <- (map["data"], DataTransform())
 	}

@@ -38,7 +38,7 @@ public protocol MapContext {
 public final class Map {
 	public let mappingType: MappingType
 	
-	public internal(set) var JSONDictionary: [String: Any] = [:]
+	public internal(set) var JSON: [String: Any] = [:]
 	public internal(set) var isKeyPresent = false
 	public var currentValue: Any?
 	public var context: MapContext?
@@ -50,9 +50,9 @@ public final class Map {
 	/// Counter for failing cases of deserializing values to `let` properties.
 	private var failedCount: Int = 0
 	
-	public init(mappingType: MappingType, JSONDictionary: [String: Any], toObject: Bool = false, context: MapContext? = nil) {
+	public init(mappingType: MappingType, JSON: [String: Any], toObject: Bool = false, context: MapContext? = nil) {
 		self.mappingType = mappingType
-		self.JSONDictionary = JSONDictionary
+		self.JSON = JSON
 		self.toObject = toObject
 		self.context = context
 	}
@@ -82,13 +82,13 @@ public final class Map {
 		// check if a value exists for the current key 
 		// do this pre-check for performance reasons
 		if nested == false {
-			let object = JSONDictionary[key]
+			let object = JSON[key]
 			let isNSNull = object is NSNull
 			isKeyPresent = isNSNull ? true : object != nil
 			currentValue = isNSNull ? nil : object
 		} else {
 			// break down the components of the key that are separated by .
-			(isKeyPresent, currentValue) = valueFor(ArraySlice(key.components(separatedBy: ".")), dictionary: JSONDictionary)
+			(isKeyPresent, currentValue) = valueFor(ArraySlice(key.components(separatedBy: ".")), dictionary: JSON)
 		}
 		
 		// update isKeyPresent if ignoreNil is true
