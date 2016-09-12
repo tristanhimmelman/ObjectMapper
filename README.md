@@ -79,15 +79,23 @@ struct Temperature: Mappable {
 }
 ```
 
-Once your class implements `Mappable`, the Mapper class handles everything else for you:
+Once your class implements `Mappable`, ObjectMapper allows you to easily convert to and from JSON. 
 
 Convert a JSON string to a model object:
 ```swift
-let user = Mapper<User>().map(JSONString)
+let user = User(JSONString: JSONString)
 ```
 
 Convert a model object to a JSON string:
 ```swift
+let JSONString = user.toJSONString(prettyPrint: true)
+```
+
+Alternatively, the `Mapper.swift` class can also be used to accomplish the above (it also provides extra functionality for more other situations):
+```
+// Convert JSON String to Model
+let user = Mapper<User>().map(JSONString: JSONString)
+// Create JSON String from Model
 let JSONString = Mapper().toJSONString(user, prettyPrint: true)
 ```
 
