@@ -218,7 +218,7 @@ class ObjectMapperTests: XCTestCase {
         user.smoker = false
 			  user.sex = .Female
         user.arr = ["cheese", 11234]
-        
+		
         let JSONString = Mapper().toJSONString(user, prettyPrint: true)
         //print(JSONString)
 
@@ -420,6 +420,19 @@ class ObjectMapperTests: XCTestCase {
 		XCTAssertEqual(status, code)
 	}
 
+	
+	func testMappingAGenericObjectViaMappableExtension(){
+		let code: Int = 22
+		let JSONString = "{\"result\":{\"code\":\(code)}}"
+		
+		let response = Response<Status>(JSONString: JSONString)
+		
+		let status = response?.result?.status
+		
+		XCTAssertNotNil(status)
+		XCTAssertEqual(status, code)
+	}
+	
 	func testToJSONArray(){
 		let task1 = Task()
 		task1.taskId = 1

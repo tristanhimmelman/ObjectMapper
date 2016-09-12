@@ -31,6 +31,16 @@ class MapContextTests: XCTestCase {
 		XCTAssertNotNil(person?.name)
     }
 	
+	func testMappingWithContextViaMappableExtension() {
+		let JSON = ["name": "Tristan"]
+		let context = Context(shouldMap: true)
+		
+		let person = Person(JSON: JSON, context: context)
+		
+		XCTAssertNotNil(person)
+		XCTAssertNotNil(person?.name)
+	}
+	
 	func testMappingWithoutContext() {
 		let JSON = ["name": "Tristan"]
 		
