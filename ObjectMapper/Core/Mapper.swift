@@ -345,7 +345,7 @@ extension Mapper {
 extension Mapper where N: Hashable {
 	
 	/// Maps a JSON array to an object that conforms to Mappable
-	public func mapSet(_ JSONString: String) -> Set<N>? {
+	public func mapSet(JSONString: String) -> Set<N>? {
 		let parsedJSON: Any? = Mapper.parseJSONString(JSONString: JSONString)
 		
 		if let objectArray = mapArray(JSONObject: parsedJSON) {
@@ -393,7 +393,7 @@ extension Mapper where N: Hashable {
 }
 
 extension Dictionary {
-	internal func map<K: Hashable, V>( _ f: (Element) -> (K, V)) -> [K: V] {
+	internal func map<K: Hashable, V>(_ f: (Element) -> (K, V)) -> [K: V] {
 		var mapped = [K: V]()
 
 		for element in self {
@@ -404,7 +404,7 @@ extension Dictionary {
 		return mapped
 	}
 
-	internal func map<K: Hashable, V>( _ f: (Element) -> (K, [V])) -> [K: [V]] {
+	internal func map<K: Hashable, V>(_ f: (Element) -> (K, [V])) -> [K: [V]] {
 		var mapped = [K: [V]]()
 		
 		for element in self {
@@ -416,7 +416,7 @@ extension Dictionary {
 	}
 
 	
-	internal func filterMap<U>( _ f: (Value) -> U?) -> [Key: U] {
+	internal func filterMap<U>(_ f: (Value) -> U?) -> [Key: U] {
 		var mapped = [Key: U]()
 
 		for (key, value) in self {

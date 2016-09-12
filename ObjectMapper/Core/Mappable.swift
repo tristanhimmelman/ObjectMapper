@@ -83,7 +83,7 @@ public extension Array where Element: BaseMappable {
 	}
 	
 	/// Returns the JSON String for the object
-	public func toJSONString(_ prettyPrint: Bool = false) -> String? {
+	public func toJSONString(prettyPrint: Bool = false) -> String? {
 		return Mapper().toJSONString(self, prettyPrint: prettyPrint)
 	}
 }
@@ -92,7 +92,7 @@ public extension Set where Element: BaseMappable {
 	
 	/// Initializes a set from a JSON String
 	public init?(JSONString: String) {
-		if let obj: Set<Element> = Mapper().mapSet(JSONString) {
+		if let obj: Set<Element> = Mapper().mapSet(JSONString: JSONString) {
 			self = obj
 		} else {
 			return nil
@@ -113,7 +113,7 @@ public extension Set where Element: BaseMappable {
 	}
 	
 	/// Returns the JSON String for the object
-	public func toJSONString(_ prettyPrint: Bool = false) -> String? {
+	public func toJSONString(prettyPrint: Bool = false) -> String? {
 		return Mapper().toJSONString(self, prettyPrint: prettyPrint)
 	}
 }
