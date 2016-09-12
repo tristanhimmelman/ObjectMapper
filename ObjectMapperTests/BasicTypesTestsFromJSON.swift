@@ -404,7 +404,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let JSON: [String: [String: Any]] = ["dictStringString":["string": "string"], "dictStringBool":["string": false], "dictStringInt":["string": 1], "dictStringDouble":["string": 1.1], "dictStringFloat":["string": Float(1.2)]]
 		
 		let mapper = Mapper<TestCollectionOfPrimitives>()
-		let testSet: TestCollectionOfPrimitives! = mapper.map(JSONDictionary: JSON)
+		let testSet: TestCollectionOfPrimitives! = mapper.map(JSON: JSON)
 
 		XCTAssertNotNil(testSet)
 

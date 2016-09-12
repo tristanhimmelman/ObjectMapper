@@ -141,7 +141,7 @@ class ObjectMapperTests: XCTestCase {
         //should have the correct minor property set even thoug it's not mapped
         var s = Student()
         s.minor = minor
-        let student = Mapper().map(JSONDictionary: json, toObject: s)
+        let student = Mapper().map(JSON: json, toObject: s)
 
 		XCTAssertEqual(name, student.name)
 		XCTAssertEqual(UUID, student.UUID)
@@ -155,7 +155,7 @@ class ObjectMapperTests: XCTestCase {
         
         let json2: [String: Any] = ["username": username, "identifier": identifier, "photoCount": photoCount]
         let user = User()
-        _ = Mapper().map(JSONDictionary: json2, toObject: user)
+        _ = Mapper().map(JSON: json2, toObject: user)
 		
 		XCTAssertEqual(username, user.username)
 		XCTAssertEqual(identifier, user.identifier)
@@ -190,7 +190,7 @@ class ObjectMapperTests: XCTestCase {
 		let user = User()
 		user.username = "Tristan"
 		
-		_ = Mapper().map(JSONDictionary: JSON, toObject: user)
+		_ = Mapper().map(JSON: JSON, toObject: user)
 
 		XCTAssertEqual(username, user.username)
 	}
@@ -473,7 +473,7 @@ class ObjectMapperTests: XCTestCase {
 		object.sub = "sub var"
 		
 		let json = Mapper().toJSON(object)
-		let parsedObject = Mapper<Subclass>().map(JSONDictionary: json)
+		let parsedObject = Mapper<Subclass>().map(JSON: json)
 
 		XCTAssertEqual(object.base, parsedObject?.base)
 		XCTAssertEqual(object.sub, parsedObject?.sub)
@@ -485,7 +485,7 @@ class ObjectMapperTests: XCTestCase {
 		object.sub = "sub var"
 		
 		let json = Mapper().toJSON(object)
-		let parsedObject = Mapper<GenericSubclass<String>>().map(JSONDictionary: json)
+		let parsedObject = Mapper<GenericSubclass<String>>().map(JSON: json)
 
 		XCTAssertEqual(object.base, parsedObject?.base)
 		XCTAssertEqual(object.sub, parsedObject?.sub)
@@ -507,7 +507,7 @@ class ObjectMapperTests: XCTestCase {
 		let mapper = Mapper<Immutable>()
 		let JSON: [String: Any] = ["prop1": "Immutable!", "prop2": 255, "prop3": true ]
 
-		let immutable: Immutable! = mapper.map(JSONDictionary: JSON)
+		let immutable: Immutable! = mapper.map(JSON: JSON)
 		XCTAssertNotNil(immutable)
 		XCTAssertEqual(immutable.prop1, "Immutable!")
 		XCTAssertEqual(immutable.prop2, 255)
@@ -515,11 +515,11 @@ class ObjectMapperTests: XCTestCase {
 		XCTAssertEqual(immutable.prop4, DBL_MAX)
 
 		let JSON2: [String: Any] = [ "prop1": "prop1", "prop2": NSNull() ]
-		let immutable2 = mapper.map(JSONDictionary: JSON2)
+		let immutable2 = mapper.map(JSON: JSON2)
 		XCTAssertNil(immutable2)
 
 		let JSONFromObject = mapper.toJSON(immutable)
-		XCTAssertEqual(mapper.map(JSONDictionary: JSONFromObject), immutable)
+		XCTAssertEqual(mapper.map(JSON: JSONFromObject), immutable)
 	}
 	
 	func testArrayOfArrayOfMappable() {
@@ -532,7 +532,7 @@ class ObjectMapperTests: XCTestCase {
 		let array2 = [["base": base4]]
 		let JSON = ["twoDimensionalArray":[array1, array2]]
 		
-		let arrayTest = Mapper<ArrayTest>().map(JSONDictionary: JSON)
+		let arrayTest = Mapper<ArrayTest>().map(JSON: JSON)
 		
 		XCTAssertNotNil(arrayTest)
 		XCTAssertEqual(arrayTest?.twoDimensionalArray?[0][0].base, base1)
@@ -546,7 +546,7 @@ class ObjectMapperTests: XCTestCase {
 		let backToJSON = Mapper<ArrayTest>().toJSON(arrayTest!)
 		XCTAssertNotNil(backToJSON)
 		
-		let arrayTest2 = Mapper<ArrayTest>().map(JSONDictionary: backToJSON)
+		let arrayTest2 = Mapper<ArrayTest>().map(JSON: backToJSON)
 		XCTAssertNotNil(arrayTest2)
 		XCTAssertEqual(arrayTest2?.twoDimensionalArray?[0][0].base, arrayTest?.twoDimensionalArray?[0][0].base)
 		XCTAssertEqual(arrayTest2?.twoDimensionalArray?[0][1].base, arrayTest?.twoDimensionalArray?[0][1].base)
@@ -558,13 +558,13 @@ class ObjectMapperTests: XCTestCase {
 			"bigList": [["name": "item 1"], ["name": "item 2"], ["name": "item 3"]]
 		]
 		let model = CachedModel()
-		_ = Mapper().map(JSONDictionary: json, toObject: model)
+		_ = Mapper().map(JSON: json, toObject: model)
 
 		XCTAssertEqual(model.name, "Entry 1")
 		XCTAssertEqual(model.bigList?.count, 3)
 
 		let json2: [String: Any] = ["name": "Entry 1"]
-		_ = Mapper().map(JSONDictionary: json2, toObject: model)
+		_ = Mapper().map(JSON: json2, toObject: model)
 
 		XCTAssertEqual(model.name, "Entry 1")
 		XCTAssertEqual(model.bigList?.count, 3)

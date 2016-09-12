@@ -26,7 +26,7 @@ class ClassClusterTests: XCTestCase {
 		let carName = "Honda"
 		let JSON = ["name": carName, "type": "car"]
 		
-		if let vehicle = Mapper<Vehicle>().map(JSONDictionary: JSON){
+		if let vehicle = Mapper<Vehicle>().map(JSON: JSON){
 			XCTAssertNotNil(vehicle)
 			XCTAssertNotNil(vehicle as? Car)
 			XCTAssertEqual((vehicle as? Car)?.name, carName)

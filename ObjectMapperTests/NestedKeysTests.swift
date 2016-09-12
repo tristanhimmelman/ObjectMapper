@@ -89,7 +89,7 @@ class NestedKeysTests: XCTestCase {
 		XCTAssertNotNil(value)
 		
 		let JSONFromValue = mapper.toJSON(value)
-		let valueFromParsedJSON: NestedKeys! = mapper.map(JSONDictionary: JSONFromValue)
+		let valueFromParsedJSON: NestedKeys! = mapper.map(JSON: JSONFromValue)
 		XCTAssertNotNil(valueFromParsedJSON)
 
 		XCTAssertEqual(value.nonNestedString, valueFromParsedJSON.nonNestedString)

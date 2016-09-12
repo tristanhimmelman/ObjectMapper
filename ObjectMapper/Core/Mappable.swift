@@ -39,7 +39,7 @@ public extension BaseMappable {
 	
 	/// Initializes object from a JSON Dictionary
 	public init?(JSON: [String: Any], context: MapContext? = nil) {
-		if let obj: Self = Mapper(context: context).map(JSONDictionary: JSON) {
+		if let obj: Self = Mapper(context: context).map(JSON: JSON) {
 			self = obj
 		} else {
 			return nil
