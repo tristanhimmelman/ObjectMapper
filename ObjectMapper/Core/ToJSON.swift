@@ -29,7 +29,7 @@
 import class Foundation.NSNumber
 
 private func setValue(_ value: Any, map: Map) {
-	setValue(value, key: map.currentKey!, checkForNestedKeys: map.keyIsNested, dictionary: &map.JSONDictionary)
+	setValue(value, key: map.currentKey!, checkForNestedKeys: map.keyIsNested, dictionary: &map.JSON)
 }
 
 private func setValue(_ value: Any, key: String, checkForNestedKeys: Bool, dictionary: inout [String : Any]) {

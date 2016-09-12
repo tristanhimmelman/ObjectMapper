@@ -65,7 +65,7 @@ public final class Mapper<N: BaseMappable> {
 	/// Usefull for those pesky objects that have crappy designated initializers like NSManagedObject
 	public func map(JSON: [String: Any], toObject object: N) -> N {
 		var mutableObject = object
-		let map = Map(mappingType: .fromJSON, JSONDictionary: JSON, toObject: true, context: context)
+		let map = Map(mappingType: .fromJSON, JSON: JSON, toObject: true, context: context)
 		mutableObject.mapping(map: map)
 		return mutableObject
 	}
@@ -92,7 +92,7 @@ public final class Mapper<N: BaseMappable> {
 
 	/// Maps a JSON dictionary to an object that conforms to Mappable
 	public func map(JSON: [String: Any]) -> N? {
-		let map = Map(mappingType: .fromJSON, JSONDictionary: JSON, context: context)
+		let map = Map(mappingType: .fromJSON, JSON: JSON, context: context)
 		
 		// check if object is StaticMappable
 		if let klass = N.self as? StaticMappable.Type {
@@ -271,9 +271,9 @@ extension Mapper {
 	///Maps an object that conforms to Mappable to a JSON dictionary <String, Any>
 	public func toJSON(_ object: N) -> [String: Any] {
 		var mutableObject = object
-		let map = Map(mappingType: .toJSON, JSONDictionary: [:], context: context)
+		let map = Map(mappingType: .toJSON, JSON: [:], context: context)
 		mutableObject.mapping(map: map)
-		return map.JSONDictionary
+		return map.JSON
 	}
 	
 	///Maps an array of Objects to an array of JSON dictionaries [[String: Any]]

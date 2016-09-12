@@ -237,7 +237,7 @@ class TestCollectionOfPrimitives: Mappable {
 		if map["value"].value() == nil {
 			
 		}
-		if map.JSONDictionary["value"] == nil {
+		if map.JSON["value"] == nil {
 			
 		}
 	}
