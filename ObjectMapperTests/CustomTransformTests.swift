@@ -123,6 +123,7 @@ class CustomTransformTests: XCTestCase {
 		let transforms = Transforms()
 		transforms.URL = URL(string: "http://google.com/image/1234")!
 		transforms.URLOpt = URL(string: "http://google.com/image/1234")
+		transforms.URLWithoutEncoding = URL(string: "http://google.com/image/1234#fragment")!
 		
 		let JSON = mapper.toJSON(transforms)
 
@@ -131,6 +132,7 @@ class CustomTransformTests: XCTestCase {
 		XCTAssertNotNil(parsedTransforms)
 		XCTAssertEqual(parsedTransforms?.URL, transforms.URL)
 		XCTAssertEqual(parsedTransforms?.URLOpt, transforms.URLOpt)
+		XCTAssertEqual(parsedTransforms?.URLWithoutEncoding, transforms.URLWithoutEncoding)
 	}
 	
 	func testEnumTransform() {
@@ -161,6 +163,7 @@ class Transforms: Mappable {
 	
 	var URL = Foundation.URL(string: "")
 	var URLOpt: Foundation.URL?
+	var URLWithoutEncoding = Foundation.URL(string: "")
 	
 	var intWithString: Int = 0
 	
@@ -189,6 +192,7 @@ class Transforms: Mappable {
 
 		URL					<- (map["URL"], URLTransform())
 		URLOpt				<- (map["URLOpt"], URLTransform())
+		URLWithoutEncoding  <- (map["URLWithoutEncoding"], URLTransform(shouldEncodeURLString: false))
 		
 		intWithString		<- (map["intWithString"], TransformOf<Int, String>(fromJSON: { $0 == nil ? nil : Int($0!) }, toJSON: { $0.map { String($0) } }))
 		int64Value			<- (map["int64Value"], TransformOf<Int64, NSNumber>(fromJSON: { $0?.int64Value }, toJSON: { $0.map { NSNumber(value: $0) } }))
