@@ -44,7 +44,7 @@ class NullableKeysFromJSONTests: XCTestCase {
     }
     
     func testMapperNullifiesValues() {
-		guard let player = mapper.map(fullJSONString) else {
+		guard let player = mapper.map(JSONString: fullJSONString) else {
 			XCTFail("Mapping failed")
 			return
 		}
@@ -53,7 +53,7 @@ class NullableKeysFromJSONTests: XCTestCase {
 		XCTAssertNotNil(player.age)
 		XCTAssertNotNil(player.address?.city)
 
-		_ = mapper.map(nullJSONString, toObject: player)
+		_ = mapper.map(JSONString: nullJSONString, toObject: player)
 
 		XCTAssertNotNil(player.firstName)
 		XCTAssertNil(player.lastName)
@@ -62,7 +62,7 @@ class NullableKeysFromJSONTests: XCTestCase {
     }
 
 	func testMapperAbsentValues() {
-		guard let player = mapper.map(fullJSONString) else {
+		guard let player = mapper.map(JSONString: fullJSONString) else {
 			XCTFail("Mapping failed")
 			return
 		}
@@ -71,7 +71,7 @@ class NullableKeysFromJSONTests: XCTestCase {
 		XCTAssertNotNil(player.age)
 		XCTAssertNotNil(player.address?.city)
 
-		_ = mapper.map(absentJSONString, toObject: player)
+		_ = mapper.map(JSONString: absentJSONString, toObject: player)
 
 		XCTAssertNotNil(player.firstName)
 		XCTAssertNotNil(player.lastName)

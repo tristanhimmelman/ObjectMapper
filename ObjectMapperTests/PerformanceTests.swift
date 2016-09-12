@@ -40,7 +40,7 @@ class PerformanceTests: XCTestCase {
 		
         self.measure {
             // Put the code you want to measure the time of here.
-			_ = Mapper<Person>().mapArray(JSONString)
+			_ = Mapper<Person>().mapArray(JSONString: JSONString)
         }
     }
 	
@@ -49,7 +49,7 @@ class PerformanceTests: XCTestCase {
 		
 		self.measure {
 			// Put the code you want to measure the time of here.
-			_ = Mapper<PersonCluster>().mapArray(JSONString)
+			_ = Mapper<PersonCluster>().mapArray(JSONString: JSONString)
 		}
 	}
 }

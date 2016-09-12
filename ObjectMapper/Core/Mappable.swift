@@ -30,7 +30,7 @@ public extension BaseMappable {
 	
 	/// Initializes object from a JSON String
 	public init?(JSONString: String) {
-		if let obj: Self = Mapper().map(JSONString) {
+		if let obj: Self = Mapper().map(JSONString: JSONString) {
 			self = obj
 		} else {
 			return nil
@@ -39,7 +39,7 @@ public extension BaseMappable {
 	
 	/// Initializes object from a JSON Dictionary
 	public init?(JSON: [String: Any]) {
-		if let obj: Self = Mapper().map(JSON) {
+		if let obj: Self = Mapper().map(JSONDictionary: JSON) {
 			self = obj
 		} else {
 			return nil
@@ -61,7 +61,7 @@ public extension Array where Element: BaseMappable {
 	
 	/// Initialize Array from a JSON String
 	public init?(JSONString: String) {
-		if let obj: [Element] = Mapper().mapArray(JSONString) {
+		if let obj: [Element] = Mapper().mapArray(JSONString: JSONString) {
 			self = obj
 		} else {
 			return nil
@@ -70,7 +70,7 @@ public extension Array where Element: BaseMappable {
 	
 	/// Initialize Array from a JSON Array
 	public init?(JSONArray: [[String: Any]]) {
-		if let obj: [Element] = Mapper().mapArray(JSONArray) {
+		if let obj: [Element] = Mapper().mapArray(JSONArray: JSONArray) {
 			self = obj
 		} else {
 			return nil
@@ -101,7 +101,7 @@ public extension Set where Element: BaseMappable {
 	
 	/// Initializes a set from JSON
 	public init?(JSONArray: [[String: Any]]) {
-		guard let obj = Mapper().mapSet(JSONArray) as Set<Element>? else {
+		guard let obj = Mapper().mapSet(JSONArray: JSONArray) as Set<Element>? else {
             return nil
         }
 		self = obj

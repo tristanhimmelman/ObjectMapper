@@ -47,11 +47,11 @@ class NestedArrayTests: XCTestCase {
 		
 		let mapper = Mapper<NestedArray>()
 		
-		let value: NestedArray! = mapper.map(JSON)
+		let value: NestedArray! = mapper.map(JSONDictionary: JSON)
 		XCTAssertNotNil(value)
 		
 		let JSONFromValue = mapper.toJSON(value)
-		let valueFromParsedJSON: NestedArray! = mapper.map(JSONFromValue)
+		let valueFromParsedJSON: NestedArray! = mapper.map(JSONDictionary: JSONFromValue)
 		XCTAssertNotNil(valueFromParsedJSON)
 		
 		XCTAssertEqual(value.value_0, valueFromParsedJSON.value_0)
@@ -64,7 +64,7 @@ class NestedArrayTests: XCTestCase {
 		
 		let mapper = Mapper<NestedArray>()
 		
-		let mappedObject: NestedArray! = mapper.map(JSON)
+		let mappedObject: NestedArray! = mapper.map(JSONDictionary: JSON)
 		XCTAssertNotNil(mappedObject)
 		
 		XCTAssertEqual(mappedObject.nestedObject!.value, value)

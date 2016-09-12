@@ -27,7 +27,7 @@ class IgnoreNilTests: XCTestCase {
 		user.name = name
 		
 		let JSON = "{\"name\" : null}"
-		user = Mapper<User>().map(JSON, toObject: user)
+		user = Mapper<User>().map(JSONString: JSON, toObject: user)
 		
 		XCTAssertEqual(user.name, name)
 	}
@@ -38,7 +38,7 @@ class IgnoreNilTests: XCTestCase {
 		user.name = name
 		
 		let JSON = "{\"name\" : nil}"
-		user = Mapper<User>().map(JSON, toObject: user)
+		user = Mapper<User>().map(JSONString: JSON, toObject: user)
 		
 		XCTAssertEqual(user.name, name)
 	}

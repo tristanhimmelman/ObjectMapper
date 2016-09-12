@@ -22,7 +22,7 @@ class DataTransformTests: XCTestCase {
 		let dataString = data.base64EncodedString()
 		let JSONString = "{\"data\" : \"\(dataString)\"}"
 		
-		let mappedObject = mapper.map(JSONString)
+		let mappedObject = mapper.map(JSONString: JSONString)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.stringData, dataString)

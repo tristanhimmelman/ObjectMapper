@@ -26,7 +26,7 @@ class ClassClusterTests: XCTestCase {
 		let carName = "Honda"
 		let JSON = ["name": carName, "type": "car"]
 		
-		if let vehicle = Mapper<Vehicle>().map(JSON){
+		if let vehicle = Mapper<Vehicle>().map(JSONDictionary: JSON){
 			XCTAssertNotNil(vehicle)
 			XCTAssertNotNil(vehicle as? Car)
 			XCTAssertEqual((vehicle as? Car)?.name, carName)
@@ -37,7 +37,7 @@ class ClassClusterTests: XCTestCase {
 		let carName = "Honda"
 		let JSON = "{\"name\": \"\(carName)\", \"type\": \"car\"}"
 		
-		if let vehicle = Mapper<Vehicle>().map(JSON){
+		if let vehicle = Mapper<Vehicle>().map(JSONString: JSON){
 			XCTAssertNotNil(vehicle)
 			XCTAssertNotNil(vehicle as? Car)
 			XCTAssertEqual((vehicle as? Car)?.name, carName)
@@ -48,7 +48,7 @@ class ClassClusterTests: XCTestCase {
 		let carName = "Honda"
 		let JSON = [["name": carName, "type": "car"], ["type": "bus"], ["type": "vehicle"]]
 		
-		if let vehicles = Mapper<Vehicle>().mapArray(JSON){
+		if let vehicles = Mapper<Vehicle>().mapArray(JSONArray: JSON){
 			XCTAssertNotNil(vehicles)
 			XCTAssertTrue(vehicles.count == 3)
 			XCTAssertNotNil(vehicles[0] as? Car)
