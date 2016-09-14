@@ -54,7 +54,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.boolImplicityUnwrapped = value
 		
 		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
-		let mappedObject = mapper.map(JSONString!)
+		let mappedObject = mapper.map(JSONString: JSONString!)
 		
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.bool, value)
@@ -70,7 +70,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.intImplicityUnwrapped = value
 		
 		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
-		let mappedObject = mapper.map(JSONString!)
+		let mappedObject = mapper.map(JSONString: JSONString!)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.int, value)
@@ -86,7 +86,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.doubleImplicityUnwrapped = value
 		
 		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
-		let mappedObject = mapper.map(JSONString!)
+		let mappedObject = mapper.map(JSONString: JSONString!)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.double, value)
@@ -102,7 +102,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.floatImplicityUnwrapped = value
 		
 		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
-		let mappedObject = mapper.map(JSONString!)
+		let mappedObject = mapper.map(JSONString: JSONString!)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.float, value)
@@ -118,7 +118,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.stringImplicityUnwrapped = value
 		
 		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
-		let mappedObject = mapper.map(JSONString!)
+		let mappedObject = mapper.map(JSONString: JSONString!)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.string, value)
@@ -134,7 +134,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.anyObjectImplicitlyUnwrapped = value
 		
 		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
-		let mappedObject = mapper.map(JSONString!)
+		let mappedObject = mapper.map(JSONString: JSONString!)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.anyObject as? String, value)
@@ -151,7 +151,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.arrayBoolImplicityUnwrapped = []
 		
 		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
-		let mappedObject = mapper.map(JSONString!)
+		let mappedObject = mapper.map(JSONString: JSONString!)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject!.arrayBool, [])
@@ -167,7 +167,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.arrayBoolImplicityUnwrapped = [value]
 		
 		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
-		let mappedObject = mapper.map(JSONString!)
+		let mappedObject = mapper.map(JSONString: JSONString!)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.arrayBool.first, value)
@@ -183,7 +183,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.arrayIntImplicityUnwrapped = [value]
 		
 		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
-		let mappedObject = mapper.map(JSONString!)
+		let mappedObject = mapper.map(JSONString: JSONString!)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.arrayInt.first, value)
@@ -199,7 +199,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.arrayDoubleImplicityUnwrapped = [value]
 		
 		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
-		let mappedObject = mapper.map(JSONString!)
+		let mappedObject = mapper.map(JSONString: JSONString!)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.arrayDouble.first, value)
@@ -215,7 +215,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.arrayFloatImplicityUnwrapped = [value]
 		
 		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
-		let mappedObject = mapper.map(JSONString!)
+		let mappedObject = mapper.map(JSONString: JSONString!)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.arrayFloat.first, value)
@@ -231,7 +231,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.arrayStringImplicityUnwrapped = [value]
 		
 		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
-		let mappedObject = mapper.map(JSONString!)
+		let mappedObject = mapper.map(JSONString: JSONString!)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.arrayString.first, value)
@@ -247,7 +247,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.arrayAnyObjectImplicitlyUnwrapped = [value]
 		
 		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
-		let mappedObject = mapper.map(JSONString!)
+		let mappedObject = mapper.map(JSONString: JSONString!)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.arrayAnyObject.first as? String, value)
@@ -264,7 +264,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.dictBoolImplicityUnwrapped = [:]
 		
 		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
-		let mappedObject = mapper.map(JSONString!)
+		let mappedObject = mapper.map(JSONString: JSONString!)
 		
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject!.dictBool, [:])
@@ -281,7 +281,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.dictBoolImplicityUnwrapped = [key:value]
 		
 		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
-		let mappedObject = mapper.map(JSONString!)
+		let mappedObject = mapper.map(JSONString: JSONString!)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.dictBool[key], value)
@@ -298,7 +298,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.dictIntImplicityUnwrapped = [key:value]
 		
 		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
-		let mappedObject = mapper.map(JSONString!)
+		let mappedObject = mapper.map(JSONString: JSONString!)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.dictInt[key], value)
@@ -315,7 +315,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.dictDoubleImplicityUnwrapped = [key:value]
 		
 		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
-		let mappedObject = mapper.map(JSONString!)
+		let mappedObject = mapper.map(JSONString: JSONString!)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.dictDouble[key], value)
@@ -332,7 +332,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.dictFloatImplicityUnwrapped = [key:value]
 		
 		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
-		let mappedObject = mapper.map(JSONString!)
+		let mappedObject = mapper.map(JSONString: JSONString!)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.dictFloat[key], value)
@@ -349,7 +349,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.dictStringImplicityUnwrapped = [key:value]
 		
 		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
-		let mappedObject = mapper.map(JSONString!)
+		let mappedObject = mapper.map(JSONString: JSONString!)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.dictString[key], value)
@@ -366,7 +366,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.dictAnyObjectImplicitlyUnwrapped = [key:value]
 		
 		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
-		let mappedObject = mapper.map(JSONString!)
+		let mappedObject = mapper.map(JSONString: JSONString!)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.dictAnyObject[key] as? String, value)
@@ -382,7 +382,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.enumIntImplicitlyUnwrapped = value
 
 		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
-		let mappedObject = mapper.map(JSONString!)
+		let mappedObject = mapper.map(JSONString: JSONString!)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.enumInt, value)
@@ -398,7 +398,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.enumDoubleImplicitlyUnwrapped = value
 
 		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
-		let mappedObject = mapper.map(JSONString!)
+		let mappedObject = mapper.map(JSONString: JSONString!)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.enumDouble, value)
@@ -414,7 +414,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.enumFloatImplicitlyUnwrapped = value
 
 		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
-		let mappedObject = mapper.map(JSONString!)
+		let mappedObject = mapper.map(JSONString: JSONString!)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.enumFloat, value)
@@ -430,7 +430,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.enumStringImplicitlyUnwrapped = value
 
 		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
-		let mappedObject = mapper.map(JSONString!)
+		let mappedObject = mapper.map(JSONString: JSONString!)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.enumString, value)
@@ -446,7 +446,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.arrayEnumIntImplicitlyUnwrapped = [value]
 
 		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
-		let mappedObject = mapper.map(JSONString!)
+		let mappedObject = mapper.map(JSONString: JSONString!)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.arrayEnumInt.first, value)
@@ -463,7 +463,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.dictEnumIntImplicitlyUnwrapped = [key: value]
 
 		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
-		let mappedObject = mapper.map(JSONString!)
+		let mappedObject = mapper.map(JSONString: JSONString!)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.dictEnumInt[key], value)
@@ -481,11 +481,11 @@ class BasicTypesTestsToJSON: XCTestCase {
 		
 		let json = Mapper<TestCollectionOfPrimitives>().toJSON(object)
 
-		XCTAssertTrue((json["dictStringString"] as? [String:String])?.count > 0)
-		XCTAssertTrue((json["dictStringBool"] as? [String:Bool])?.count > 0)
-		XCTAssertTrue((json["dictStringInt"] as? [String:Int])?.count > 0)
-		XCTAssertTrue((json["dictStringDouble"] as? [String:Double])?.count > 0)
-		XCTAssertTrue((json["dictStringFloat"] as? [String:Float])?.count > 0)
-		XCTAssertEqual(json["dictStringString"]?["string"], "string")
+		XCTAssertTrue((json["dictStringString"] as? [String:String])?.count ?? 0 > 0)
+		XCTAssertTrue((json["dictStringBool"] as? [String:Bool])?.count ?? 0 > 0)
+		XCTAssertTrue((json["dictStringInt"] as? [String:Int])?.count ?? 0 > 0)
+		XCTAssertTrue((json["dictStringDouble"] as? [String:Double])?.count ?? 0 > 0)
+		XCTAssertTrue((json["dictStringFloat"] as? [String:Float])?.count ?? 0 > 0)
+		XCTAssertEqual((json["dictStringString"] as? [String:String])?["string"], "string")
 	}
 }

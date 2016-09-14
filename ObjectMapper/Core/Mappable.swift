@@ -16,7 +16,7 @@ public protocol BaseMappable {
 
 public protocol Mappable: BaseMappable {
     /// This function can be used to validate JSON prior to mapping. Return nil to cancel mapping at this point
-    init?(_ map: Map)
+    init?(map: Map)
 }
 
 public protocol StaticMappable: BaseMappable {
@@ -29,8 +29,8 @@ public protocol StaticMappable: BaseMappable {
 public extension BaseMappable {
 	
 	/// Initializes object from a JSON String
-	public init?(JSONString: String) {
-		if let obj: Self = Mapper().map(JSONString) {
+	public init?(JSONString: String, context: MapContext? = nil) {
+		if let obj: Self = Mapper(context: context).map(JSONString: JSONString) {
 			self = obj
 		} else {
 			return nil
@@ -38,8 +38,8 @@ public extension BaseMappable {
 	}
 	
 	/// Initializes object from a JSON Dictionary
-	public init?(JSON: [String: AnyObject]) {
-		if let obj: Self = Mapper().map(JSON) {
+	public init?(JSON: [String: Any], context: MapContext? = nil) {
+		if let obj: Self = Mapper(context: context).map(JSON: JSON) {
 			self = obj
 		} else {
 			return nil
@@ -47,7 +47,7 @@ public extension BaseMappable {
 	}
 	
 	/// Returns the JSON Dictionary for the object
-	public func toJSON() -> [String: AnyObject] {
+	public func toJSON() -> [String: Any] {
 		return Mapper().toJSON(self)
 	}
 	
@@ -60,8 +60,8 @@ public extension BaseMappable {
 public extension Array where Element: BaseMappable {
 	
 	/// Initialize Array from a JSON String
-	public init?(JSONString: String) {
-		if let obj: [Element] = Mapper().mapArray(JSONString) {
+	public init?(JSONString: String, context: MapContext? = nil) {
+		if let obj: [Element] = Mapper(context: context).mapArray(JSONString: JSONString) {
 			self = obj
 		} else {
 			return nil
@@ -69,8 +69,8 @@ public extension Array where Element: BaseMappable {
 	}
 	
 	/// Initialize Array from a JSON Array
-	public init?(JSONArray: [[String: AnyObject]]) {
-		if let obj: [Element] = Mapper().mapArray(JSONArray) {
+	public init?(JSONArray: [[String: Any]], context: MapContext? = nil) {
+		if let obj: [Element] = Mapper(context: context).mapArray(JSONArray: JSONArray) {
 			self = obj
 		} else {
 			return nil
@@ -78,7 +78,7 @@ public extension Array where Element: BaseMappable {
 	}
 	
 	/// Returns the JSON Array
-	public func toJSON() -> [[String: AnyObject]] {
+	public func toJSON() -> [[String: Any]] {
 		return Mapper().toJSONArray(self)
 	}
 	
@@ -91,8 +91,8 @@ public extension Array where Element: BaseMappable {
 public extension Set where Element: BaseMappable {
 	
 	/// Initializes a set from a JSON String
-	public init?(JSONString: String) {
-		if let obj: Set<Element> = Mapper().mapSet(JSONString) {
+	public init?(JSONString: String, context: MapContext? = nil) {
+		if let obj: Set<Element> = Mapper(context: context).mapSet(JSONString: JSONString) {
 			self = obj
 		} else {
 			return nil
@@ -100,16 +100,15 @@ public extension Set where Element: BaseMappable {
 	}
 	
 	/// Initializes a set from JSON
-	public init?(JSONArray: [[String: AnyObject]]) {
-		if let obj: Set<Element> = Mapper().mapSet(JSONArray) {
-			self = obj
-		} else {
-			return nil
-		}
+	public init?(JSONArray: [[String: Any]], context: MapContext? = nil) {
+		guard let obj = Mapper(context: context).mapSet(JSONArray: JSONArray) as Set<Element>? else {
+            return nil
+        }
+		self = obj
 	}
 	
 	/// Returns the JSON Set
-	public func toJSON() -> [[String: AnyObject]] {
+	public func toJSON() -> [[String: Any]] {
 		return Mapper().toJSONSet(self)
 	}
 	

@@ -39,7 +39,7 @@ class DictionaryTransformTestsObject: Mappable {
 	
 	var dictionary: [MyKey: MyValue] = [:]
 	
-	required init?(_ map: Map) {
+	required init?(map: Map) {
 
 		
 	}
@@ -67,12 +67,12 @@ extension DictionaryTransformTestsObject {
 		var foo: String
 		var bar: Int
 		
-		required init?(_ map: Map) {
+		required init?(map: Map) {
 			
 			self.foo = "__foo"
 			self.bar = self.foo.hash
 			
-			self.mapping(map)
+			self.mapping(map: map)
 			
 			guard self.foo != "__foo" && self.bar != self.foo.hash else {
 				

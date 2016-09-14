@@ -45,9 +45,9 @@ class BasicTypes: Mappable {
 	var string: String = ""
 	var stringOptional: String?
 	var stringImplicityUnwrapped: String!
-	var anyObject: AnyObject = true
-	var anyObjectOptional: AnyObject?
-	var anyObjectImplicitlyUnwrapped: AnyObject!
+	var anyObject: Any = true
+	var anyObjectOptional: Any?
+	var anyObjectImplicitlyUnwrapped: Any!
 	
 	var arrayBool: Array<Bool> = []
 	var arrayBoolOptional: Array<Bool>?
@@ -64,9 +64,9 @@ class BasicTypes: Mappable {
 	var arrayString: Array<String> = []
 	var arrayStringOptional: Array<String>?
 	var arrayStringImplicityUnwrapped: Array<String>!
-	var arrayAnyObject: Array<AnyObject> = []
-	var arrayAnyObjectOptional: Array<AnyObject>?
-	var arrayAnyObjectImplicitlyUnwrapped: Array<AnyObject>!
+	var arrayAnyObject: Array<Any> = []
+	var arrayAnyObjectOptional: Array<Any>?
+	var arrayAnyObjectImplicitlyUnwrapped: Array<Any>!
 	
 	var dictBool: Dictionary<String,Bool> = [:]
 	var dictBoolOptional: Dictionary<String, Bool>?
@@ -83,9 +83,9 @@ class BasicTypes: Mappable {
 	var dictString: Dictionary<String,String> = [:]
 	var dictStringOptional: Dictionary<String,String>?
 	var dictStringImplicityUnwrapped: Dictionary<String,String>!
-	var dictAnyObject: Dictionary<String, AnyObject> = [:]
-	var dictAnyObjectOptional: Dictionary<String, AnyObject>?
-	var dictAnyObjectImplicitlyUnwrapped: Dictionary<String, AnyObject>!
+	var dictAnyObject: Dictionary<String, Any> = [:]
+	var dictAnyObjectOptional: Dictionary<String, Any>?
+	var dictAnyObjectImplicitlyUnwrapped: Dictionary<String, Any>!
 
 	enum EnumInt: Int {
 		case Default
@@ -131,7 +131,7 @@ class BasicTypes: Mappable {
 		
 	}
 	
-	required init?(_ map: Map){
+	required init?(map: Map){
 
 	}
 	
@@ -233,11 +233,11 @@ class TestCollectionOfPrimitives: Mappable {
 		
 	}
 	
-	required init?(_ map: Map){
+	required init?(map: Map){
 		if map["value"].value() == nil {
 			
 		}
-		if map.JSONDictionary["value"] == nil {
+		if map.JSON["value"] == nil {
 			
 		}
 	}

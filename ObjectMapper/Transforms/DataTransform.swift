@@ -1,5 +1,5 @@
 //
-//  NSDataTransform.swift
+//  DataTransform.swift
 //  ObjectMapper
 //
 //  Created by Yagrushkin, Evgeny on 8/30/16.
@@ -28,23 +28,23 @@
 
 import Foundation
 
-public class NSDataTransform: TransformType {
-	public typealias Object = NSData
+open class DataTransform: TransformType {
+	public typealias Object = Data
 	public typealias JSON = String
 	
 	public init() {}
 	
-	public func transformFromJSON(value: AnyObject?) -> NSData? {
+	public func transformFromJSON(_ value: Any?) -> Data? {
 		guard let string = value as? String else{
 			return nil
 		}
-		return NSData(base64EncodedString: string, options: [])
+		return Data(base64Encoded: string)
 	}
 	
-	public func transformToJSON(value: NSData?) -> String? {
+	public func transformToJSON(_ value: Data?) -> String? {
 		guard let data = value else{
 			return nil
 		}
-		return data.base64EncodedStringWithOptions([])
+		return data.base64EncodedString()
 	}
 }

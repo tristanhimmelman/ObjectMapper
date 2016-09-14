@@ -43,15 +43,15 @@ class NestedArrayTests: XCTestCase {
     }
 	
 	func testNestedArray() {
-		let JSON: [String: AnyObject] = [ "nested": [ ["value": 123], ["value": 456] ] ]
+		let JSON: [String: Any] = [ "nested": [ ["value": 123], ["value": 456] ] ]
 		
 		let mapper = Mapper<NestedArray>()
 		
-		let value: NestedArray! = mapper.map(JSON)
+		let value: NestedArray! = mapper.map(JSON: JSON)
 		XCTAssertNotNil(value)
 		
 		let JSONFromValue = mapper.toJSON(value)
-		let valueFromParsedJSON: NestedArray! = mapper.map(JSONFromValue)
+		let valueFromParsedJSON: NestedArray! = mapper.map(JSON: JSONFromValue)
 		XCTAssertNotNil(valueFromParsedJSON)
 		
 		XCTAssertEqual(value.value_0, valueFromParsedJSON.value_0)
@@ -60,11 +60,11 @@ class NestedArrayTests: XCTestCase {
 	
 	func testNestedObjectArray() {
 		let value = 456
-		let JSON: [String: AnyObject] = [ "nested": [ ["value": 123], ["value": value] ] ]
+		let JSON: [String: Any] = [ "nested": [ ["value": 123], ["value": value] ] ]
 		
 		let mapper = Mapper<NestedArray>()
 		
-		let mappedObject: NestedArray! = mapper.map(JSON)
+		let mappedObject: NestedArray! = mapper.map(JSON: JSON)
 		XCTAssertNotNil(mappedObject)
 		
 		XCTAssertEqual(mappedObject.nestedObject!.value, value)
@@ -81,7 +81,7 @@ class NestedArray: Mappable {
 
 	var nestedObjectValue: Int?
 	
-	required init?(_ map: Map){
+	required init?(map: Map){
 		
 	}
 	
@@ -97,7 +97,7 @@ class NestedArray: Mappable {
 class NestedObject: Mappable {
 	var value: Int?
 	
-	required init?(_ map: Map){}
+	required init?(map: Map){}
 	
 	func mapping(map: Map) {
 		value	<- map["value"]

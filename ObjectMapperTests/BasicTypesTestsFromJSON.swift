@@ -50,7 +50,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let value: Bool = true
 		let JSONString = "{\"bool\" : \(value), \"boolOpt\" : \(value), \"boolImp\" : \(value)}"
 		
-		let mappedObject = mapper.map(JSONString)
+		let mappedObject = mapper.map(JSONString: JSONString)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.bool, value)
@@ -62,7 +62,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let value: Int = 11
 		let JSONString = "{\"int\" : \(value), \"intOpt\" : \(value), \"intImp\" : \(value)}"
 		
-		let mappedObject = mapper.map(JSONString)
+		let mappedObject = mapper.map(JSONString: JSONString)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.int, value)
@@ -74,7 +74,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let value: Double = 11
 		let JSONString = "{\"double\" : \(value), \"doubleOpt\" : \(value), \"doubleImp\" : \(value)}"
 
-		let mappedObject = mapper.map(JSONString)
+		let mappedObject = mapper.map(JSONString: JSONString)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.double, value)
@@ -86,7 +86,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let value: Float = 11
 		let JSONString = "{\"float\" : \(value), \"floatOpt\" : \(value), \"floatImp\" : \(value)}"
 		
-		let mappedObject = mapper.map(JSONString)
+		let mappedObject = mapper.map(JSONString: JSONString)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.float, value)
@@ -98,7 +98,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let value: String = "STRINGNGNGG"
 		let JSONString = "{\"string\" : \"\(value)\", \"stringOpt\" : \"\(value)\", \"stringImp\" : \"\(value)\"}"
 
-		let mappedObject = mapper.map(JSONString)
+		let mappedObject = mapper.map(JSONString: JSONString)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.string, value)
@@ -112,7 +112,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let value3: Double = 11.11
 		let JSONString = "{\"anyObject\" : \"\(value1)\", \"anyObjectOpt\" : \(value2), \"anyObjectImp\" : \(value3)}"
 		
-		let mappedObject = mapper.map(JSONString)
+		let mappedObject = mapper.map(JSONString: JSONString)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.anyObject as? String, value1)
@@ -122,9 +122,9 @@ class BasicTypesTestsFromJSON: XCTestCase {
 
 	func testMappingStringFromNSStringJSON(){
 		let value: String = "STRINGNGNGG"
-		let JSONNSString : NSString = "{\"string\" : \"\(value)\", \"stringOpt\" : \"\(value)\", \"stringImp\" : \"\(value)\"}"
+		let JSONNSString : NSString = "{\"string\" : \"\(value)\", \"stringOpt\" : \"\(value)\", \"stringImp\" : \"\(value)\"}" as NSString
 		
-		let mappedObject = mapper.map(JSONNSString)
+		let mappedObject = mapper.map(JSONString: JSONNSString as String)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.string, value)
@@ -138,7 +138,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let value: Bool = true
 		let JSONString = "{\"arrayBool\" : [\(value)], \"arrayBoolOpt\" : [\(value)], \"arrayBoolImp\" : [\(value)] }"
 
-		let mappedObject = mapper.map(JSONString)
+		let mappedObject = mapper.map(JSONString: JSONString)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.arrayBool.first, value)
@@ -150,7 +150,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let value: Int = 1
 		let JSONString = "{\"arrayInt\" : [\(value)], \"arrayIntOpt\" : [\(value)], \"arrayIntImp\" : [\(value)] }"
 
-		let mappedObject = mapper.map(JSONString)
+		let mappedObject = mapper.map(JSONString: JSONString)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.arrayInt.first, value)
@@ -162,7 +162,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let value: Double = 1.0
 		let JSONString = "{\"arrayDouble\" : [\(value)], \"arrayDoubleOpt\" : [\(value)], \"arrayDoubleImp\" : [\(value)] }"
 
-		let mappedObject = mapper.map(JSONString)
+		let mappedObject = mapper.map(JSONString: JSONString)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.arrayDouble.first, value)
@@ -174,7 +174,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let value: Float = 1.001
 		let JSONString = "{\"arrayFloat\" : [\(value)], \"arrayFloatOpt\" : [\(value)], \"arrayFloatImp\" : [\(value)] }"
 		
-		let mappedObject = mapper.map(JSONString)
+		let mappedObject = mapper.map(JSONString: JSONString)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.arrayFloat.first, value)
@@ -186,7 +186,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let value: String = "Stringgggg"
 		let JSONString = "{\"arrayString\" : [\"\(value)\"], \"arrayStringOpt\" : [\"\(value)\"], \"arrayStringImp\" : [\"\(value)\"] }"
 		
-		let mappedObject = mapper.map(JSONString)
+		let mappedObject = mapper.map(JSONString: JSONString)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.arrayString.first, value)
@@ -200,7 +200,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let value3: Double = 11.11
 		let JSONString = "{\"arrayAnyObject\" : [\"\(value1)\"], \"arrayAnyObjectOpt\" : [\(value2)], \"arratAnyObjectImp\" : [\(value3)] }"
 		
-		let mappedObject = mapper.map(JSONString)
+		let mappedObject = mapper.map(JSONString: JSONString)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.arrayAnyObject.first as? String, value1)
@@ -215,7 +215,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let value: Bool = true
 		let JSONString = "{\"dictBool\" : { \"\(key)\" : \(value)}, \"dictBoolOpt\" : { \"\(key)\" : \(value)}, \"dictBoolImp\" : { \"\(key)\" : \(value)} }"
 		
-		let mappedObject = mapper.map(JSONString)
+		let mappedObject = mapper.map(JSONString: JSONString)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.dictBool[key], value)
@@ -228,7 +228,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let value: Int = 11
 		let JSONString = "{\"dictInt\" : { \"\(key)\" : \(value)}, \"dictIntOpt\" : { \"\(key)\" : \(value)}, \"dictIntImp\" : { \"\(key)\" : \(value)} }"
 		
-		let mappedObject = mapper.map(JSONString)
+		let mappedObject = mapper.map(JSONString: JSONString)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.dictInt[key], value)
@@ -241,7 +241,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let value: Double = 11
 		let JSONString = "{\"dictDouble\" : { \"\(key)\" : \(value)}, \"dictDoubleOpt\" : { \"\(key)\" : \(value)}, \"dictDoubleImp\" : { \"\(key)\" : \(value)} }"
 		
-		let mappedObject = mapper.map(JSONString)
+		let mappedObject = mapper.map(JSONString: JSONString)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.dictDouble[key], value)
@@ -254,7 +254,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let value: Float = 111.1
 		let JSONString = "{\"dictFloat\" : { \"\(key)\" : \(value)}, \"dictFloatOpt\" : { \"\(key)\" : \(value)}, \"dictFloatImp\" : { \"\(key)\" : \(value)} }"
 
-		let mappedObject = mapper.map(JSONString)
+		let mappedObject = mapper.map(JSONString: JSONString)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.dictFloat[key], value)
@@ -267,7 +267,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let value = "value"
 		let JSONString = "{\"dictString\" : { \"\(key)\" : \"\(value)\"}, \"dictStringOpt\" : { \"\(key)\" : \"\(value)\"}, \"dictStringImp\" : { \"\(key)\" : \"\(value)\"} }"
 		
-		let mappedObject = mapper.map(JSONString)
+		let mappedObject = mapper.map(JSONString: JSONString)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.dictString[key], value)
@@ -282,7 +282,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let value3: Double = 11.11
 		let JSONString = "{\"dictAnyObject\" : { \"\(key)\" : \"\(value1)\"}, \"dictAnyObjectOpt\" : { \"\(key)\" : \(value2)}, \"dictAnyObjectImp\" : { \"\(key)\" : \(value3)} }"
 		
-		let mappedObject = mapper.map(JSONString)
+		let mappedObject = mapper.map(JSONString: JSONString)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.dictAnyObject[key] as? String, value1)
@@ -294,7 +294,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let value: BasicTypes.EnumInt = .Another
 		let JSONString = "{\"enumInt\" : \(value.rawValue), \"enumIntOpt\" : \(value.rawValue), \"enumIntImp\" : \(value.rawValue) }"
 
-		let mappedObject = mapper.map(JSONString)
+		let mappedObject = mapper.map(JSONString: JSONString)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.enumInt, value)
@@ -306,7 +306,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let value = Int.min
 		let JSONString = "{\"enumInt\" : \(value), \"enumIntOpt\" : \(value), \"enumIntImp\" : \(value) }"
 
-		let mappedObject = mapper.map(JSONString)
+		let mappedObject = mapper.map(JSONString: JSONString)
 		
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.enumInt, BasicTypes.EnumInt.Default)
@@ -318,7 +318,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let value: BasicTypes.EnumDouble = .Another
 		let JSONString = "{\"enumDouble\" : \(value.rawValue), \"enumDoubleOpt\" : \(value.rawValue), \"enumDoubleImp\" : \(value.rawValue) }"
 
-		let mappedObject = mapper.map(JSONString)
+		let mappedObject = mapper.map(JSONString: JSONString)
 		
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.enumDouble, value)
@@ -330,7 +330,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let value: BasicTypes.EnumFloat = .Another
 		let JSONString = "{\"enumFloat\" : \(value.rawValue), \"enumFloatOpt\" : \(value.rawValue), \"enumFloatImp\" : \(value.rawValue) }"
 
-		let mappedObject = mapper.map(JSONString)
+		let mappedObject = mapper.map(JSONString: JSONString)
 		
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.enumFloat, value)
@@ -342,7 +342,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let value: BasicTypes.EnumString = .Another
 		let JSONString = "{\"enumString\" : \"\(value.rawValue)\", \"enumStringOpt\" : \"\(value.rawValue)\", \"enumStringImp\" : \"\(value.rawValue)\" }"
 
-		let mappedObject = mapper.map(JSONString)
+		let mappedObject = mapper.map(JSONString: JSONString)
 		
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.enumString, value)
@@ -354,7 +354,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let value: BasicTypes.EnumInt = .Another
 		let JSONString = "{ \"arrayEnumInt\" : [\(value.rawValue)], \"arrayEnumIntOpt\" : [\(value.rawValue)], \"arrayEnumIntImp\" : [\(value.rawValue)] }"
 
-		let mappedObject = mapper.map(JSONString)
+		let mappedObject = mapper.map(JSONString: JSONString)
 		
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.arrayEnumInt.first, value)
@@ -366,7 +366,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let value = Int.min
 		let JSONString = "{ \"arrayEnumInt\" : [\(value)], \"arrayEnumIntOpt\" : [\(value)], \"arrayEnumIntImp\" : [\(value)] }"
 
-		let mappedObject = mapper.map(JSONString)
+		let mappedObject = mapper.map(JSONString: JSONString)
 		
 		XCTAssertNotNil(mappedObject)
 		XCTAssertNil(mappedObject?.arrayEnumInt.first)
@@ -379,7 +379,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let value: BasicTypes.EnumInt = .Another
 		let JSONString = "{ \"dictEnumInt\" : { \"\(key)\" : \(value.rawValue) }, \"dictEnumIntOpt\" : { \"\(key)\" : \(value.rawValue) }, \"dictEnumIntImp\" : { \"\(key)\" : \(value.rawValue) } }"
 
-		let mappedObject = mapper.map(JSONString)
+		let mappedObject = mapper.map(JSONString: JSONString)
 		
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.dictEnumInt[key], value)
@@ -392,7 +392,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let value = Int.min
 		let JSONString = "{ \"dictEnumInt\" : { \"\(key)\" : \(value) }, \"dictEnumIntOpt\" : { \"\(key)\" : \(value) }, \"dictEnumIntImp\" : { \"\(key)\" : \(value) } }"
 
-		let mappedObject = mapper.map(JSONString)
+		let mappedObject = mapper.map(JSONString: JSONString)
 		
 		XCTAssertNotNil(mappedObject)
 		XCTAssertNil(mappedObject?.dictEnumInt[key])
@@ -401,10 +401,10 @@ class BasicTypesTestsFromJSON: XCTestCase {
 	}
 
 	func testObjectModelOptionalDictionnaryOfPrimitives() {
-		let JSON: [String: [String: AnyObject]] = ["dictStringString":["string": "string"], "dictStringBool":["string": false], "dictStringInt":["string": 1], "dictStringDouble":["string": 1.1], "dictStringFloat":["string": 1.2]]
+		let JSON: [String: [String: Any]] = ["dictStringString":["string": "string"], "dictStringBool":["string": false], "dictStringInt":["string": 1], "dictStringDouble":["string": 1.1], "dictStringFloat":["string": Float(1.2)]]
 		
 		let mapper = Mapper<TestCollectionOfPrimitives>()
-		let testSet: TestCollectionOfPrimitives! = mapper.map(JSON)
+		let testSet: TestCollectionOfPrimitives! = mapper.map(JSON: JSON)
 
 		XCTAssertNotNil(testSet)
 

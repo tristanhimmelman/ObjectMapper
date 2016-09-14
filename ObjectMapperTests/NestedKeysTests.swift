@@ -43,10 +43,10 @@ class NestedKeysTests: XCTestCase {
 	}
 
 	func testNestedKeys() {
-		let JSON: [String: AnyObject] = [
+		let JSON: [String: Any] = [
 			"non.nested.key": "string",
 			"nested": [
-				"int64": NSNumber(longLong: INT64_MAX),
+				"int64": NSNumber(value: INT64_MAX),
 				"bool": true,
 				"int": 255,
 				"double": 100.0 as Double,
@@ -54,14 +54,14 @@ class NestedKeysTests: XCTestCase {
 				"string": "String!",
 
 				"nested": [
-					"int64Array": [NSNumber(longLong: INT64_MAX), NSNumber(longLong: INT64_MAX - 1), NSNumber(longLong: INT64_MAX - 10)],
+					"int64Array": [NSNumber(value: INT64_MAX), NSNumber(value: INT64_MAX - 1), NSNumber(value: INT64_MAX - 10)],
 					"boolArray": [false, true, false],
 					"intArray": [1, 2, 3],
 					"doubleArray": [1.0, 2.0, 3.0],
 					"floatArray": [1.0 as Float, 2.0 as Float, 3.0 as Float],
 					"stringArray": ["123", "ABC"],
 
-					"int64Dict": ["1": NSNumber(longLong: INT64_MAX)],
+					"int64Dict": ["1": NSNumber(value: INT64_MAX)],
 					"boolDict": ["2": true],
 					"intDict": ["3": 999],
 					"doubleDict": ["4": 999.999],
@@ -85,11 +85,11 @@ class NestedKeysTests: XCTestCase {
 
 		let mapper = Mapper<NestedKeys>()
 
-		let value: NestedKeys! = mapper.map(JSON)
+		let value: NestedKeys! = mapper.map(JSONObject: JSON)
 		XCTAssertNotNil(value)
 		
 		let JSONFromValue = mapper.toJSON(value)
-		let valueFromParsedJSON: NestedKeys! = mapper.map(JSONFromValue)
+		let valueFromParsedJSON: NestedKeys! = mapper.map(JSON: JSONFromValue)
 		XCTAssertNotNil(valueFromParsedJSON)
 
 		XCTAssertEqual(value.nonNestedString, valueFromParsedJSON.nonNestedString)
@@ -163,7 +163,7 @@ class NestedKeys: Mappable {
 	var objectArray: [Object] = []
 	var objectDict: [String: Object] = [:]
 
-	required init?(_ map: Map){
+	required init?(map: Map){
 		
 	}
 
@@ -206,7 +206,7 @@ class NestedKeys: Mappable {
 class Object: Mappable, Equatable {
 	var value: Int = Int.min
 	
-	required init?(_ map: Map){
+	required init?(map: Map){
 		
 	}
 	
@@ -220,23 +220,23 @@ func == (lhs: Object, rhs: Object) -> Bool {
 }
 
 enum Int64Enum: NSNumber {
-	case A = 0
-	case B = 1000
+	case a = 0
+	case b = 1000
 }
 
 enum IntEnum: Int {
-	case A = 0
-	case B = 255
+	case a = 0
+	case b = 255
 }
 
 enum DoubleEnum: Double {
-	case A = 0.0
-	case B = 100.0
+	case a = 0.0
+	case b = 100.0
 }
 
 enum FloatEnum: Float {
-	case A = 0.0
-	case B = 100.0
+	case a = 0.0
+	case b = 100.0
 }
 
 enum StringEnum: String {

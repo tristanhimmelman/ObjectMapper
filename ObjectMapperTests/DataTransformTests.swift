@@ -9,19 +9,20 @@
 import XCTest
 import ObjectMapper
 
-class NSDataTransformTests: XCTestCase {
+class DataTransformTests: XCTestCase {
 	
-	let mapper = Mapper<NSDataType>()
+	let mapper = Mapper<DataType>()
 
-	func testNSDataTransform() {
+	func testDataTransform() {
 
 		let dataLength = 20
 		let bytes = malloc(dataLength)
-		let data = NSData(bytes: bytes, length: dataLength)
-		let dataString = data.base64EncodedStringWithOptions([])
+		
+		let data = Data(bytes: bytes!, count: dataLength)
+		let dataString = data.base64EncodedString()
 		let JSONString = "{\"data\" : \"\(dataString)\"}"
 		
-		let mappedObject = mapper.map(JSONString)
+		let mappedObject = mapper.map(JSONString: JSONString)
 
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.stringData, dataString)
@@ -30,21 +31,21 @@ class NSDataTransformTests: XCTestCase {
 
 }
 
-class NSDataType: Mappable {
+class DataType: Mappable {
 	
-	var data: NSData?
+	var data: Data?
 	var stringData: String?
 	
 	init(){
 		
 	}
 	
-	required init?(_ map: Map){
+	required init?(map: Map){
 		
 	}
 	
 	func mapping(map: Map) {
 		stringData <- map["data"]
-		data <- (map["data"], NSDataTransform())
+		data <- (map["data"], DataTransform())
 	}
 }

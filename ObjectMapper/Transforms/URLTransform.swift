@@ -28,8 +28,8 @@
 
 import Foundation
 
-public class URLTransform: TransformType {
-	public typealias Object = NSURL
+open class URLTransform: TransformType {
+	public typealias Object = URL
 	public typealias JSON = String
 	private let shouldEncodeURLString: Bool
 
@@ -43,21 +43,20 @@ public class URLTransform: TransformType {
 		self.shouldEncodeURLString = shouldEncodeURLString
 	}
 
-	public func transformFromJSON(value: AnyObject?) -> NSURL? {
+	public func transformFromJSON(_ value: Any?) -> URL? {
 		guard let URLString = value as? String else { return nil }
 		
 		if !shouldEncodeURLString {
-			return NSURL(string: URLString)
+			return URL(string: URLString)
 		}
-
-		guard let escapedURLString = URLString.stringByAddingPercentEncodingWithAllowedCharacters(
-			NSCharacterSet.URLQueryAllowedCharacterSet()) else {
+		
+		guard let escapedURLString = URLString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) else {
 			return nil
 		}
-		return NSURL(string: escapedURLString)
+		return URL(string: escapedURLString)
 	}
 
-	public func transformToJSON(value: NSURL?) -> String? {
+	public func transformToJSON(_ value: URL?) -> String? {
 		if let URL = value {
 			return URL.absoluteString
 		}
