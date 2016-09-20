@@ -255,6 +255,103 @@ class BasicTypesTestsToJSON: XCTestCase {
 		XCTAssertEqual(mappedObject?.arrayAnyObjectImplicitlyUnwrapped.first as? String, value)
 	}
 	
+	// MARK: Test mapping Sets to JSON and back (with basic types in them Bool, Int, Double, Float, String)
+	
+//	func testMappingEmptySetToJSON(){
+//		let object = BasicTypes()
+//		object.setBool = []
+//		object.setBoolOptional = []
+//		object.setBoolImplicityUnwrapped = []
+//		
+//		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+//		let mappedObject = mapper.map(JSONString: JSONString!)
+//		
+//		XCTAssertNotNil(mappedObject)
+//		XCTAssertEqual(mappedObject!.setBool, [])
+//		XCTAssertEqual(mappedObject!.setBoolOptional!, [])
+//		XCTAssertEqual(mappedObject!.setBoolImplicityUnwrapped, [])
+//	}
+//	
+	func testMappingBoolSetToJSON(){
+		let value: Bool = true
+		let object = BasicTypes()
+		object.setBool = [value]
+		object.setBoolOptional = [value]
+		object.setBoolImplicityUnwrapped = [value]
+		
+		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+		let mappedObject = mapper.map(JSONString: JSONString!)
+		
+		XCTAssertNotNil(mappedObject)
+		XCTAssertEqual(mappedObject?.setBool.first, value)
+		XCTAssertEqual(mappedObject?.setBoolOptional?.first, value)
+		XCTAssertEqual(mappedObject?.setBoolImplicityUnwrapped.first, value)
+	}
+//
+//	func testMappingIntSetToJSON(){
+//		let value: Int = 1
+//		let object = BasicTypes()
+//		object.setInt = [value]
+//		object.setIntOptional = [value]
+//		object.setIntImplicityUnwrapped = [value]
+//		
+//		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+//		let mappedObject = mapper.map(JSONString: JSONString!)
+//		
+//		XCTAssertNotNil(mappedObject)
+//		XCTAssertEqual(mappedObject?.setInt.first, value)
+//		XCTAssertEqual(mappedObject?.setIntOptional?.first, value)
+//		XCTAssertEqual(mappedObject?.setIntImplicityUnwrapped.first, value)
+//	}
+//	
+//	func testMappingDoubleSetToJSON(){
+//		let value: Double = 1.0
+//		let object = BasicTypes()
+//		object.setDouble = [value]
+//		object.setDoubleOptional = [value]
+//		object.setDoubleImplicityUnwrapped = [value]
+//		
+//		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+//		let mappedObject = mapper.map(JSONString: JSONString!)
+//		
+//		XCTAssertNotNil(mappedObject)
+//		XCTAssertEqual(mappedObject?.setDouble.first, value)
+//		XCTAssertEqual(mappedObject?.setDoubleOptional?.first, value)
+//		XCTAssertEqual(mappedObject?.setDoubleImplicityUnwrapped.first, value)
+//	}
+//	
+//	func testMappingFloatSetToJSON(){
+//		let value: Float = 1.001
+//		let object = BasicTypes()
+//		object.setFloat = [value]
+//		object.setFloatOptional = [value]
+//		object.setFloatImplicityUnwrapped = [value]
+//		
+//		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+//		let mappedObject = mapper.map(JSONString: JSONString!)
+//		
+//		XCTAssertNotNil(mappedObject)
+//		XCTAssertEqual(mappedObject?.setFloat.first, value)
+//		XCTAssertEqual(mappedObject?.setFloatOptional?.first, value)
+//		XCTAssertEqual(mappedObject?.setFloatImplicityUnwrapped.first, value)
+//	}
+//	
+//	func testMappingStringSetToJSON(){
+//		let value: String = "Stringgggg"
+//		let object = BasicTypes()
+//		object.setString = [value]
+//		object.setStringOptional = [value]
+//		object.setStringImplicityUnwrapped = [value]
+//		
+//		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+//		let mappedObject = mapper.map(JSONString: JSONString!)
+//		
+//		XCTAssertNotNil(mappedObject)
+//		XCTAssertEqual(mappedObject?.setString.first, value)
+//		XCTAssertEqual(mappedObject?.setStringOptional?.first, value)
+//		XCTAssertEqual(mappedObject?.setStringImplicityUnwrapped.first, value)
+//	}
+	
 	// MARK: Test mapping Dictionaries to JSON and back (with basic types in them Bool, Int, Double, Float, String)
 	
 	func testMappingEmptyDictionaryToJSON(){

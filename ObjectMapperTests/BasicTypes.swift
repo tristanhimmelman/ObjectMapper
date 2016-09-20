@@ -68,6 +68,22 @@ class BasicTypes: Mappable {
 	var arrayAnyObjectOptional: Array<Any>?
 	var arrayAnyObjectImplicitlyUnwrapped: Array<Any>!
 	
+	var setBool: Set<Bool> = []
+	var setBoolOptional: Set<Bool>?
+	var setBoolImplicityUnwrapped: Set<Bool>!
+	var setInt: Set<Int> = []
+	var setIntOptional: Set<Int>?
+	var setIntImplicityUnwrapped: Set<Int>!
+	var setDouble: Set<Double> = []
+	var setDoubleOptional: Set<Double>?
+	var setDoubleImplicityUnwrapped: Set<Double>!
+	var setFloat: Set<Float> = []
+	var setFloatOptional: Set<Float>?
+	var setFloatImplicityUnwrapped: Set<Float>!
+	var setString: Set<String> = []
+	var setStringOptional: Set<String>?
+	var setStringImplicityUnwrapped: Set<String>!
+	
 	var dictBool: Dictionary<String,Bool> = [:]
 	var dictBoolOptional: Dictionary<String, Bool>?
 	var dictBoolImplicityUnwrapped: Dictionary<String, Bool>!
@@ -172,7 +188,23 @@ class BasicTypes: Mappable {
 		arrayStringImplicityUnwrapped		<- map["arrayStringImp"]
 		arrayAnyObject						<- map["arrayAnyObject"]
 		arrayAnyObjectOptional				<- map["arrayAnyObjectOpt"]
-		arrayAnyObjectImplicitlyUnwrapped	<- map["arratAnyObjectImp"]
+		arrayAnyObjectImplicitlyUnwrapped	<- map["arrayAnyObjectImp"]
+		
+		setBool								<- map["setBool"]
+		setBoolOptional						<- map["setBoolOpt"]
+		setBoolImplicityUnwrapped			<- map["setBoolImp"]
+		setInt								<- map["setInt"]
+		setIntOptional						<- map["setIntOpt"]
+		setIntImplicityUnwrapped			<- map["setIntImp"]
+		setDouble							<- map["setDouble"]
+		setDoubleOptional					<- map["setDoubleOpt"]
+		setDoubleImplicityUnwrapped			<- map["setDoubleImp"]
+		setFloat							<- map["setFloat"]
+		setFloatOptional					<- map["setFloatOpt"]
+		setFloatImplicityUnwrapped			<- map["setFloatImp"]
+		setString							<- map["setString"]
+		setStringOptional					<- map["setStringOpt"]
+		setStringImplicityUnwrapped			<- map["setStringImp"]
 		
 		dictBool							<- map["dictBool"]
 		dictBoolOptional					<- map["dictBoolOpt"]
@@ -248,6 +280,7 @@ class TestCollectionOfPrimitives: Mappable {
 		dictStringInt       <- map["dictStringInt"]
 		dictStringDouble    <- map["dictStringDouble"]
 		dictStringFloat     <- map["dictStringFloat"]
+		
 		arrayString         <- map["arrayString"]
 		arrayInt            <- map["arrayInt"]
 		arrayBool           <- map["arrayBool"]

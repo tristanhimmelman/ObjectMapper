@@ -69,6 +69,51 @@ public func <- <T>(left: inout T!, right: Map) {
 	}
 }
 
+/// Set of Basic type
+public func <- <T>(left: inout Set<T>, right: Map) {
+	switch right.mappingType {
+	case .fromJSON where right.isKeyPresent:
+		var value: Set<T>? = nil
+		if let valueArray: Array<T> = right.value() {
+			value = Set(valueArray)
+		}
+		FromJSON.basicType(&left, object: value)
+	case .toJSON:
+		ToJSON.basicType(left, map: right)
+	default: ()
+	}
+}
+
+/// Optional Set of basic type
+public func <- <T>(left: inout Set<T>?, right: Map) {
+	switch right.mappingType {
+	case .fromJSON where right.isKeyPresent:
+		var value: Set<T>? = nil
+		if let valueArray: Array<T> = right.value() {
+			value = Set(valueArray)
+		}
+		FromJSON.optionalBasicType(&left, object: value)
+	case .toJSON:
+		ToJSON.optionalBasicType(left, map: right)
+	default: ()
+	}
+}
+
+/// Implicitly unwrapped Set of basic type
+public func <- <T>(left: inout Set<T>!, right: Map) {
+	switch right.mappingType {
+	case .fromJSON where right.isKeyPresent:
+		var value: Set<T>? = nil
+		if let valueArray: Array<T> = right.value() {
+			value = Set(valueArray)
+		}
+		FromJSON.optionalBasicType(&left, object: value)
+	case .toJSON:
+		ToJSON.optionalBasicType(left, map: right)
+	default: ()
+	}
+}
+
 // MARK:- Raw Representable types
 
 /// Object of Raw Representable type

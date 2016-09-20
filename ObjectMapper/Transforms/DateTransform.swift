@@ -34,7 +34,7 @@ open class DateTransform: TransformType {
 
 	public init() {}
 
-	public func transformFromJSON(_ value: Any?) -> Date? {
+	open func transformFromJSON(_ value: Any?) -> Date? {
 		if let timeInt = value as? Double {
 			return Date(timeIntervalSince1970: TimeInterval(timeInt))
 		}
@@ -46,7 +46,7 @@ open class DateTransform: TransformType {
 		return nil
 	}
 
-	public func transformToJSON(_ value: Date?) -> Double? {
+	open func transformToJSON(_ value: Date?) -> Double? {
 		if let date = value {
 			return Double(date.timeIntervalSince1970)
 		}
