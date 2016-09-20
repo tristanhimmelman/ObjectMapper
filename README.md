@@ -179,11 +179,11 @@ The above transform will convert the JSON Int value to an NSDate when reading JS
 You can easily create your own custom transforms by adopting and implementing the methods in the ```TransformType``` protocol:
 ```swift
 public protocol TransformType {
-    typealias Object
-    typealias JSON
+    associatedtype Object
+    associatedtype JSON
 
-    func transformFromJSON(value: AnyObject?) -> Object?
-    func transformToJSON(value: Object?) -> JSON?
+    func transformFromJSON(_ value: Any?) -> Object?
+    func transformToJSON(_ value: Object?) -> JSON?
 }
 ```
 
