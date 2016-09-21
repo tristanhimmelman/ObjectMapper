@@ -745,7 +745,7 @@ public func <- <T: BaseMappable>(left: inout Set<T>!, right: Map) where T: Hasha
 // MARK:- Set of Mappable objects with a transform - Set<T: BaseMappable where T: Hashable>
 
 /// Set of Mappable objects with transform
-public func <- <Transform: TransformType>(left: inout Set<Transform.Object>, right: (Map, Transform)) where Transform.Object: Hashable & Mappable {
+public func <- <Transform: TransformType>(left: inout Set<Transform.Object>, right: (Map, Transform)) where Transform.Object: Hashable & BaseMappable {
 	let (map, transform) = right
 	switch map.mappingType {
 	case .fromJSON where map.isKeyPresent:
@@ -761,7 +761,7 @@ public func <- <Transform: TransformType>(left: inout Set<Transform.Object>, rig
 
 
 /// Optional Set of Mappable objects with transform
-public func <- <Transform: TransformType>(left: inout Set<Transform.Object>?, right: (Map, Transform)) where Transform.Object: Hashable & Mappable {
+public func <- <Transform: TransformType>(left: inout Set<Transform.Object>?, right: (Map, Transform)) where Transform.Object: Hashable & BaseMappable {
 	let (map, transform) = right
 	switch map.mappingType {
 	case .fromJSON where map.isKeyPresent:
@@ -778,7 +778,7 @@ public func <- <Transform: TransformType>(left: inout Set<Transform.Object>?, ri
 }
 
 /// Implicitly unwrapped Optional set of Mappable objects with transform
-public func <- <Transform: TransformType>(left: inout Set<Transform.Object>!, right: (Map, Transform)) where Transform.Object: Hashable & Mappable {
+public func <- <Transform: TransformType>(left: inout Set<Transform.Object>!, right: (Map, Transform)) where Transform.Object: Hashable & BaseMappable {
 	let (map, transform) = right
 	switch map.mappingType {
 	case .fromJSON where map.isKeyPresent:
