@@ -152,6 +152,21 @@ public extension Map {
 
 }
 
+public extension ImmutableMappable {
+	
+	/// Initializes object from a JSON String
+	public init(JSONString: String, context: MapContext? = nil) throws {
+		self = try Mapper(context: context).map(JSONString: JSONString)
+	}
+	
+	/// Initializes object from a JSON Dictionary
+	public init(JSON: [String: Any], context: MapContext? = nil) throws {
+		self = try Mapper(context: context).map(JSON: JSON)
+	}
+
+}
+
+
 public extension Mapper where N: ImmutableMappable {
 
 	public func map(JSON: [String: Any]) throws -> N {
