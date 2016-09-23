@@ -10,18 +10,39 @@ public struct MapError: Error {
 	public var key: String?
 	public var currentValue: Any?
 	public var reason: String?
+	public var file: StaticString?
+	public var function: StaticString?
+	public var line: UInt?
+
+	init(key: String?, currentValue: Any?, reason: String?, file: StaticString? = nil, function: StaticString? = nil, line: UInt? = nil) {
+		self.key = key
+		self.currentValue = currentValue
+		self.reason = reason
+		self.file = file
+		self.function = function
+		self.line = line
+	}
 }
 
 extension MapError: CustomStringConvertible {
+
+	private var location: String? {
+		guard let file = file, let function = function, let line = line else { return nil }
+		let fileName = ((String(describing: file).components(separatedBy: "/").last ?? "").components(separatedBy: ".").first ?? "")
+		return "\(fileName).\(function):\(line)"
+	}
+
 	public var description: String {
 		let info: [(String, Any?)] = [
-			("reason", reason),
-			("key", key),
-			("currentValue", currentValue),
+			("- reason", reason),
+			("- location", location),
+			("- key", key),
+			("- currentValue", currentValue),
 		]
-		let infoString = info.map { "\($0)=\($1 ?? "nil")" }.joined(separator: ", ")
-		return "Got an error while mapping. (\(infoString))"
+		let infoString = info.map { "\($0): \($1 ?? "nil")" }.joined(separator: "\n")
+		return "Got an error while mapping.\n\(infoString)"
 	}
+
 }
 
 public protocol ImmutableMappable: BaseMappable {
@@ -46,19 +67,19 @@ public extension Map {
 	// MARK: Basic
 
 	/// Returns a value or throws an error.
-	public func value<T>(_ key: String) throws -> T {
+	public func value<T>(_ key: String, file: StaticString = #file, function: StaticString = #function, line: UInt = #line) throws -> T {
 		let currentValue = self.currentValue(for: key)
 		guard let value = currentValue as? T else {
-			throw MapError(key: key, currentValue: currentValue, reason: "Cannot cast to '\(T.self)'")
+			throw MapError(key: key, currentValue: currentValue, reason: "Cannot cast to '\(T.self)'", file: file, function: function, line: line)
 		}
 		return value
 	}
 
 	/// Returns a transformed value or throws an error.
-	public func value<Transform: TransformType>(_ key: String, using transform: Transform) throws -> Transform.Object {
+	public func value<Transform: TransformType>(_ key: String, using transform: Transform, file: StaticString = #file, function: StaticString = #function, line: UInt = #line) throws -> Transform.Object {
 		let currentValue = self.currentValue(for: key)
 		guard let value = transform.transformFromJSON(currentValue) else {
-			throw MapError(key: key, currentValue: currentValue, reason: "Cannot transform to '\(Transform.Object.self)' using \(transform)")
+			throw MapError(key: key, currentValue: currentValue, reason: "Cannot transform to '\(Transform.Object.self)' using \(transform)", file: file, function: function, line: line)
 		}
 		return value
 	}
@@ -74,10 +95,10 @@ public extension Map {
 	// MARK: [BaseMappable]
 
 	/// Returns a `[BaseMappable]` or throws an error.
-	public func value<T: BaseMappable>(_ key: String) throws -> [T] {
+	public func value<T: BaseMappable>(_ key: String, file: StaticString = #file, function: StaticString = #function, line: UInt = #line) throws -> [T] {
 		let currentValue = self.currentValue(for: key)
 		guard let jsonArray = currentValue as? [Any] else {
-			throw MapError(key: key, currentValue: currentValue, reason: "Cannot cast to '[Any]'")
+			throw MapError(key: key, currentValue: currentValue, reason: "Cannot cast to '[Any]'", file: file, function: function, line: line)
 		}
 		return try jsonArray.enumerated().map { i, json -> T in
       return try Mapper<T>().mapOrFail(JSONObject: json)
@@ -85,14 +106,14 @@ public extension Map {
 	}
 
 	/// Returns a `[BaseMapple]` using transform or throws an error.
-	public func value<Transform: TransformType>(_ key: String, using transform: Transform) throws -> [Transform.Object] {
+	public func value<Transform: TransformType>(_ key: String, using transform: Transform, file: StaticString = #file, function: StaticString = #function, line: UInt = #line) throws -> [Transform.Object] {
 		let currentValue = self.currentValue(for: key)
 		guard let jsonArray = currentValue as? [Any] else {
-			throw MapError(key: key, currentValue: currentValue, reason: "Cannot cast to '[Any]' ")
+			throw MapError(key: key, currentValue: currentValue, reason: "Cannot cast to '[Any]'", file: file, function: function, line: line)
 		}
 		return try jsonArray.enumerated().map { i, json -> Transform.Object in
 			guard let object = transform.transformFromJSON(json) else {
-				throw MapError(key: "\(key)[\(i)]", currentValue: json, reason: "Cannot transform to '\(Transform.Object.self)' using \(transform)")
+				throw MapError(key: "\(key)[\(i)]", currentValue: json, reason: "Cannot transform to '\(Transform.Object.self)' using \(transform)", file: file, function: function, line: line)
 			}
 			return object
 		}
@@ -101,10 +122,10 @@ public extension Map {
 	// MARK: [String: BaseMappable]
 
 	/// Returns a `[String: BaseMappable]` or throws an error.
-	public func value<T: BaseMappable>(_ key: String) throws -> [String: T] {
+	public func value<T: BaseMappable>(_ key: String, file: StaticString = #file, function: StaticString = #function, line: UInt = #line) throws -> [String: T] {
 		let currentValue = self.currentValue(for: key)
 		guard let jsonDictionary = currentValue as? [String: Any] else {
-			throw MapError(key: key, currentValue: currentValue, reason: "Cannot cast to '[String: Any]'")
+			throw MapError(key: key, currentValue: currentValue, reason: "Cannot cast to '[String: Any]'", file: file, function: function, line: line)
 		}
 		var value: [String: T] = [:]
 		for (key, json) in jsonDictionary {
@@ -114,15 +135,15 @@ public extension Map {
 	}
 
 	/// Returns a `[String: BaseMappable]` using transform or throws an error.
-	public func value<Transform: TransformType>(_ key: String, using transform: Transform) throws -> [String: Transform.Object] {
+	public func value<Transform: TransformType>(_ key: String, using transform: Transform, file: StaticString = #file, function: StaticString = #function, line: UInt = #line) throws -> [String: Transform.Object] {
 		let currentValue = self.currentValue(for: key)
 		guard let jsonDictionary = currentValue as? [String: Any] else {
-			throw MapError(key: key, currentValue: currentValue, reason: "Cannot cast to '[String: Any]'")
+			throw MapError(key: key, currentValue: currentValue, reason: "Cannot cast to '[String: Any]'", file: file, function: function, line: line)
 		}
 		var value: [String: Transform.Object] = [:]
 		for (key, json) in jsonDictionary {
 			guard let object = transform.transformFromJSON(json) else {
-				throw MapError(key: key, currentValue: json, reason: "Cannot transform to '\(Transform.Object.self)' using \(transform)")
+				throw MapError(key: key, currentValue: json, reason: "Cannot transform to '\(Transform.Object.self)' using \(transform)", file: file, function: function, line: line)
 			}
 			value[key] = object
 		}
