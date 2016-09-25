@@ -55,11 +55,9 @@ public extension ImmutableMappable {
 }
 
 extension Map {
-
 	fileprivate func currentValue(for key: String) -> Any? {
 		return self[key].currentValue
 	}
-
 }
 
 public extension Map {
@@ -89,7 +87,7 @@ public extension Map {
 	/// Returns a `BaseMappable` object or throws an error.
 	public func value<T: BaseMappable>(_ key: String) throws -> T {
 		let currentValue = self.currentValue(for: key)
-    return try Mapper<T>().mapOrFail(JSONObject: currentValue)
+		return try Mapper<T>().mapOrFail(JSONObject: currentValue)
 	}
 
 	// MARK: [BaseMappable]
@@ -101,7 +99,7 @@ public extension Map {
 			throw MapError(key: key, currentValue: currentValue, reason: "Cannot cast to '[Any]'", file: file, function: function, line: line)
 		}
 		return try jsonArray.enumerated().map { i, json -> T in
-      return try Mapper<T>().mapOrFail(JSONObject: json)
+			return try Mapper<T>().mapOrFail(JSONObject: json)
 		}
 	}
 
@@ -129,7 +127,7 @@ public extension Map {
 		}
 		var value: [String: T] = [:]
 		for (key, json) in jsonDictionary {
-      value[key] = try Mapper<T>().mapOrFail(JSONObject: json)
+			value[key] = try Mapper<T>().mapOrFail(JSONObject: json)
 		}
 		return value
 	}
@@ -187,10 +185,14 @@ internal extension Mapper where N: BaseMappable {
 
 	internal func mapOrFail(JSON: [String: Any]) throws -> N {
 		let map = Map(mappingType: .fromJSON, JSON: JSON, context: context)
-		if let klass = N.self as? ImmutableMappable.Type {
-			return try klass.init(map: map) as! N
+		// Check if object is ImmutableMappable, if so use ImmutableMappable protocol for mapping
+		if let klass = N.self as? ImmutableMappable.Type,
+			var object = try klass.init(map: map) as? N {
+			object.mapping(map: map)
+			return object
 		}
-		guard let value = self.map(JSON: JSON) else {
+		// If not, map the object the standard way
+		guard let value = map(JSON: JSON) else {
 			throw MapError(key: nil, currentValue: JSON, reason: "Cannot map to '\(N.self)'")
 		}
 		return value

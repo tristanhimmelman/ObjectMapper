@@ -51,6 +51,12 @@ class ImmutableObjectTests: XCTestCase {
 			"prop20": ["key": ["base": "prop20"]],
 			"prop21": ["key": ["base": "prop21"]],
 			"prop22": ["key": ["base": "prop22"]],
+			
+			// Optional with immutables
+			"prop23": "Optional",
+			"prop24": 255,
+			"prop25": true,
+			"prop26": 255.0,
 		]
 		
 		let immutable: Struct = try! mapper.map(JSON: JSON)
@@ -83,6 +89,11 @@ class ImmutableObjectTests: XCTestCase {
 		XCTAssertEqual(immutable.prop20["key"]!.base, "prop20")
 		XCTAssertEqual(immutable.prop21!["key"]!.base, "prop21")
 		XCTAssertEqual(immutable.prop22["key"]!.base, "prop22")
+		
+		XCTAssertEqual(immutable.prop23!, "Optional")
+		XCTAssertEqual(immutable.prop24!, 255)
+		XCTAssertEqual(immutable.prop25!, true)
+		XCTAssertEqual(immutable.prop26!, 255.0)
 		
 		let JSON2: [String: Any] = [ "prop1": "prop1", "prop2": NSNull() ]
 		let immutable2 = try? mapper.map(JSON: JSON2)
@@ -126,6 +137,12 @@ struct Struct {
 	let prop20: [String: Base]
 	let prop21: [String: Base]?
 	let prop22: [String: Base]!
+	
+	// Optionals
+	var prop23: String?
+	var prop24: Int?
+	var prop25: Bool?
+	var prop26: Double?
 }
 
 extension Struct: ImmutableMappable {
@@ -161,6 +178,11 @@ extension Struct: ImmutableMappable {
 	}
 
 	mutating func mapping(map: Map) {
+		prop23 <- map["prop23"]
+		prop24 <- map["prop24"]
+		prop25 <- map["prop25"]
+		prop26 <- map["prop26"]
+		
 		guard case .toJSON = map.mappingType else { return }
 
 		var prop1 = self.prop1
@@ -238,6 +260,7 @@ private func assertImmutableObjectsEqual(_ lhs: Struct, _ rhs: Struct) {
 	XCTAssertEqual(lhs.prop6, rhs.prop6)
 	XCTAssertEqual(lhs.prop7, rhs.prop7)
 	XCTAssertEqual(lhs.prop8, rhs.prop8)
+	XCTAssertEqual(lhs.prop23, rhs.prop23)
 	
 	// @hack: compare arrays and objects with their string representation.
 	XCTAssertEqual("\(lhs.prop9)", "\(rhs.prop9)")
