@@ -192,7 +192,7 @@ internal extension Mapper where N: BaseMappable {
 			return object
 		}
 		// If not, map the object the standard way
-		guard let value = map(JSON: JSON) else {
+		guard let value = self.map(JSON: JSON) else {
 			throw MapError(key: nil, currentValue: JSON, reason: "Cannot map to '\(N.self)'")
 		}
 		return value
