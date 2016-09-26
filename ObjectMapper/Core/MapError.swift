@@ -1,8 +1,8 @@
 //
-//  EnumTransform.swift
+//  MapError.swift
 //  ObjectMapper
 //
-//  Created by Kaan Dedeoglu on 3/20/15.
+//  Created by Tristan Himmelman on 2016-09-26.
 //
 //  The MIT License (MIT)
 //
@@ -28,23 +28,41 @@
 
 import Foundation
 
-open class EnumTransform<T: RawRepresentable>: TransformType {
-	public typealias Object = T
-	public typealias JSON = T.RawValue
+public struct MapError: Error {
+	public var key: String?
+	public var currentValue: Any?
+	public var reason: String?
+	public var file: StaticString?
+	public var function: StaticString?
+	public var line: UInt?
 	
-	public init() {}
+	init(key: String?, currentValue: Any?, reason: String?, file: StaticString? = nil, function: StaticString? = nil, line: UInt? = nil) {
+		self.key = key
+		self.currentValue = currentValue
+		self.reason = reason
+		self.file = file
+		self.function = function
+		self.line = line
+	}
+}
+
+extension MapError: CustomStringConvertible {
 	
-	public func transformFromJSON(_ value: Any?) -> T? {
-		if let raw = value as? T.RawValue {
-			return T(rawValue: raw)
-		}
-		return nil
+	private var location: String? {
+		guard let file = file, let function = function, let line = line else { return nil }
+		let fileName = ((String(describing: file).components(separatedBy: "/").last ?? "").components(separatedBy: ".").first ?? "")
+		return "\(fileName).\(function):\(line)"
 	}
 	
-	public func transformToJSON(_ value: T?) -> T.RawValue? {
-		if let obj = value {
-			return obj.rawValue
-		}
-		return nil
+	public var description: String {
+		let info: [(String, Any?)] = [
+			("- reason", reason),
+			("- location", location),
+			("- key", key),
+			("- currentValue", currentValue),
+			]
+		let infoString = info.map { "\($0): \($1 ?? "nil")" }.joined(separator: "\n")
+		return "Got an error while mapping.\n\(infoString)"
 	}
+	
 }
