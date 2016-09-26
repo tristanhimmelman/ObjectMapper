@@ -98,12 +98,12 @@ public extension Map {
 		guard let jsonArray = currentValue as? [Any] else {
 			throw MapError(key: key, currentValue: currentValue, reason: "Cannot cast to '[Any]'", file: file, function: function, line: line)
 		}
-		return try jsonArray.enumerated().map { i, json -> T in
-			return try Mapper<T>().mapOrFail(JSONObject: json)
+		return try jsonArray.enumerated().map { i, JSONObject -> T in
+			return try Mapper<T>().mapOrFail(JSONObject: JSONObject)
 		}
 	}
 
-	/// Returns a `[BaseMapple]` using transform or throws an error.
+	/// Returns a `[BaseMappable]` using transform or throws an error.
 	public func value<Transform: TransformType>(_ key: String, using transform: Transform, file: StaticString = #file, function: StaticString = #function, line: UInt = #line) throws -> [Transform.Object] {
 		let currentValue = self.currentValue(for: key)
 		guard let jsonArray = currentValue as? [Any] else {
