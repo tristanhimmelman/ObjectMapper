@@ -203,59 +203,34 @@ extension Struct: ImmutableMappable {
 		prop25 <- map["prop25"]
 		prop26 <- map["prop26"]
 		
-		guard case .toJSON = map.mappingType else { return }
-
-		var prop1 = self.prop1
-		var prop2 = self.prop2
-		var prop3 = self.prop3
-		var prop4 = self.prop4
-		var prop5 = self.prop5
-		var prop6 = self.prop6
-		var prop7 = self.prop7
-		var prop8 = self.prop8
-		var prop9 = self.prop9
-		var prop10 = self.prop10
-		var prop11 = self.prop11
-		var prop12 = self.prop12
-		var prop13 = self.prop13
-		var prop14 = self.prop14
-		var prop15 = self.prop15
-		var prop16 = self.prop16
-		var prop17 = self.prop17
-		var prop18 = self.prop18
-		var prop19 = self.prop19
-		var prop20 = self.prop20
-		var prop21 = self.prop21
-		var prop22 = self.prop22
-
-		prop1 <- map["prop1"]
-		prop2 <- map["prop2"]
-		prop3 <- map["prop3"]
-		prop4 <- map["prop4"]
+		prop1 >>> map["prop1"]
+		prop2 >>> map["prop2"]
+		prop3 >>> map["prop3"]
+		prop4 >>> map["prop4"]
 		
-		prop5 <- (map["prop5"], stringTransform)
-		prop6 <- (map["prop6"], stringTransform)
-		prop7 <- (map["prop7"], stringTransform)
+		prop5 >>> (map["prop5"], stringTransform)
+		prop6 >>> (map["prop6"], stringTransform)
+		prop7 >>> (map["prop7"], stringTransform)
 		
-		prop8 <- (map["prop8"], stringTransform)
-		prop9 <- (map["prop9"], stringTransform)
-		prop10 <- (map["prop10"], stringTransform)
+		prop8 >>> (map["prop8"], stringTransform)
+		prop9 >>> (map["prop9"], stringTransform)
+		prop10 >>> (map["prop10"], stringTransform)
 
-		prop11 <- (map["prop11"], stringTransform)
-		prop12 <- (map["prop12"], stringTransform)
-		prop13 <- (map["prop13"], stringTransform)
+		prop11 >>> (map["prop11"], stringTransform)
+		prop12 >>> (map["prop12"], stringTransform)
+		prop13 >>> (map["prop13"], stringTransform)
 
-		prop14 <- map["prop14"]
-		prop15 <- map["prop15"]
-		prop16 <- map["prop16"]
+		prop14 >>> map["prop14"]
+		prop15 >>> map["prop15"]
+		prop16 >>> map["prop16"]
 		
-		prop17 <- map["prop17"]
-		prop18 <- map["prop18"]
-		prop19 <- map["prop19"]
+		prop17 >>> map["prop17"]
+		prop18 >>> map["prop18"]
+		prop19 >>> map["prop19"]
 		
-		prop20 <- map["prop20"]
-		prop21 <- map["prop21"]
-		prop22 <- map["prop22"]
+		prop20 >>> map["prop20"]
+		prop21 >>> map["prop21"]
+		prop22 >>> map["prop22"]
 	}
 }
 
