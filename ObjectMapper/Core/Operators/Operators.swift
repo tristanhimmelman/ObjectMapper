@@ -32,8 +32,10 @@
 * This provides a way to add custom logic to handle specific types of objects
 */
 
+/// Operator used for defining mappings to and from JSON
 infix operator <-
 
+/// Operator used to define mappings to JSON
 infix operator >>> 
 
 // MARK:- Objects with Basic types
