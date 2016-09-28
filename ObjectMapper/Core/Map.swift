@@ -42,7 +42,10 @@ public final class Map {
 	public internal(set) var isKeyPresent = false
 	public var currentValue: Any?
 	public var context: MapContext?
-	var currentKey: String?
+	var _currentKey: String?
+	public var currentKey: String? {
+		get { return _currentKey }
+	}
 	var keyIsNested = false
 	
 	let toObject: Bool // indicates whether the mapping is being applied to an existing object
@@ -76,7 +79,7 @@ public final class Map {
     
     public subscript(key: String, nested nested: Bool, ignoreNil ignoreNil: Bool) -> Map {
 		// save key and value associated to it
-		currentKey = key
+		_currentKey = key
 		keyIsNested = nested
 
 		// check if a value exists for the current key 
