@@ -6,7 +6,7 @@
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2014-2015 Hearst
+//  Copyright (c) 2014-2016 Hearst
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -38,14 +38,14 @@ open class DateFormatterTransform: TransformType {
 		self.dateFormatter = dateFormatter
 	}
 	
-	public func transformFromJSON(_ value: Any?) -> Date? {
+	open func transformFromJSON(_ value: Any?) -> Date? {
 		if let dateString = value as? String {
 			return dateFormatter.date(from: dateString)
 		}
 		return nil
 	}
 	
-	public func transformToJSON(_ value: Date?) -> String? {
+	open func transformToJSON(_ value: Date?) -> String? {
 		if let date = value {
 			return dateFormatter.string(from: date)
 		}

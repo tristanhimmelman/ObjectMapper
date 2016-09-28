@@ -6,7 +6,7 @@
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2014-2015 Hearst
+//  Copyright (c) 2014-2016 Hearst
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -169,42 +169,6 @@ class ObjectMapperTests: XCTestCase {
 		
 		XCTAssertNotNil(user)
 		XCTAssertNil(user?.age)
-	}
-	
-	func testToObjectFromString() {
-		let username = "bob"
-		let JSONString = "{\"username\":\"\(username)\"}"
-		
-		let user = User()
-		user.username = "Tristan"
-		
-		_ = Mapper().map(JSONString: JSONString, toObject: user)
-
-		XCTAssertEqual(user.username, username)
-	}
-	
-	func testToObjectFromJSON() {
-		let username = "bob"
-		let JSON = ["username": username]
-		
-		let user = User()
-		user.username = "Tristan"
-		
-		_ = Mapper().map(JSON: JSON, toObject: user)
-
-		XCTAssertEqual(username, user.username)
-	}
-	
-	func testToObjectFromAny() {
-		let username = "bob"
-		let userJSON = ["username": username]
-		
-		let user = User()
-		user.username = "Tristan"
-		
-		_ = Mapper().map(JSONObject: userJSON as Any, toObject: user)
-
-		XCTAssertEqual(user.username, username)
 	}
 	
     func testToJSONAndBack(){
@@ -407,32 +371,7 @@ class ObjectMapperTests: XCTestCase {
 		XCTAssertNotNil(task)
 		XCTAssertEqual(task?.percentage, percentage1)
 	}
-	
-	func testMappingAGenericObject(){
-		let code: Int = 22
-		let JSONString = "{\"result\":{\"code\":\(code)}}"
-		
-		let response = Mapper<Response<Status>>().map(JSONString: JSONString)
 
-		let status = response?.result?.status
-		
-		XCTAssertNotNil(status)
-		XCTAssertEqual(status, code)
-	}
-
-	
-	func testMappingAGenericObjectViaMappableExtension(){
-		let code: Int = 22
-		let JSONString = "{\"result\":{\"code\":\(code)}}"
-		
-		let response = Response<Status>(JSONString: JSONString)
-		
-		let status = response?.result?.status
-		
-		XCTAssertNotNil(status)
-		XCTAssertEqual(status, code)
-	}
-	
 	func testToJSONArray(){
 		let task1 = Task()
 		task1.taskId = 1
@@ -465,61 +404,6 @@ class ObjectMapperTests: XCTestCase {
 		
 		XCTAssertEqual(taskId3, task3.taskId)
 		XCTAssertEqual(percentage3, task3.percentage)
-	}
-	
-	func testSubclass() {
-		let object = Subclass()
-		object.base = "base var"
-		object.sub = "sub var"
-		
-		let json = Mapper().toJSON(object)
-		let parsedObject = Mapper<Subclass>().map(JSON: json)
-
-		XCTAssertEqual(object.base, parsedObject?.base)
-		XCTAssertEqual(object.sub, parsedObject?.sub)
-	}
-
-	func testGenericSubclass() {
-		let object = GenericSubclass<String>()
-		object.base = "base var"
-		object.sub = "sub var"
-		
-		let json = Mapper().toJSON(object)
-		let parsedObject = Mapper<GenericSubclass<String>>().map(JSON: json)
-
-		XCTAssertEqual(object.base, parsedObject?.base)
-		XCTAssertEqual(object.sub, parsedObject?.sub)
-	}
-	
-	func testSubclassWithGenericArrayInSuperclass() {
-		let JSONString = "{\"genericItems\":[{\"value\":\"value0\"}, {\"value\":\"value1\"}]}"
-
-		let parsedObject = Mapper<SubclassWithGenericArrayInSuperclass<AnyObject>>().map(JSONString: JSONString)
-
-		let genericItems = parsedObject?.genericItems
-		
-		XCTAssertNotNil(genericItems)
-		XCTAssertEqual(genericItems?[0].value, "value0")
-		XCTAssertEqual(genericItems?[1].value, "value1")
-	}
-	
-	func testImmutableMappable() {
-		let mapper = Mapper<Immutable>()
-		let JSON: [String: Any] = ["prop1": "Immutable!", "prop2": 255, "prop3": true ]
-
-		let immutable: Immutable! = mapper.map(JSON: JSON)
-		XCTAssertNotNil(immutable)
-		XCTAssertEqual(immutable.prop1, "Immutable!")
-		XCTAssertEqual(immutable.prop2, 255)
-		XCTAssertEqual(immutable.prop3, true)
-		XCTAssertEqual(immutable.prop4, DBL_MAX)
-
-		let JSON2: [String: Any] = [ "prop1": "prop1", "prop2": NSNull() ]
-		let immutable2 = mapper.map(JSON: JSON2)
-		XCTAssertNil(immutable2)
-
-		let JSONFromObject = mapper.toJSON(immutable)
-		XCTAssertEqual(mapper.map(JSON: JSONFromObject), immutable)
 	}
 	
 	func testArrayOfArrayOfMappable() {
@@ -568,18 +452,6 @@ class ObjectMapperTests: XCTestCase {
 
 		XCTAssertEqual(model.name, "Entry 1")
 		XCTAssertEqual(model.bigList?.count, 3)
-	}
-}
-
-class Response<T: Mappable>: Mappable {
-	var result: T?
-	
-	required init?(map: Map){
-		
-	}
-	
-	func mapping(map: Map) {
-		result <- map["result"]
 	}
 }
 
@@ -719,91 +591,6 @@ class User: Mappable {
 	}
 }
 
-class Base: Mappable {
-	
-	var base: String?
-	
-	init(){
-		
-	}
-	
-	required init?(map: Map){
-		
-	}
-	
-	func mapping(map: Map) {
-		base <- map["base"]
-	}
-}
-
-class Subclass: Base {
-	
-	var sub: String?
-	
-	override init(){
-		super.init()
-	}
-	
-	required init?(map: Map){
-		super.init(map: map)
-	}
-
-	override func mapping(map: Map) {
-		super.mapping(map: map)
-		
-		sub <- map["sub"]
-	}
-}
-
-
-class GenericSubclass<T>: Base {
-	
-	var sub: String?
-
-	override init(){
-		super.init()
-	}
-	
-	required init?(map: Map){
-		super.init(map: map)
-	}
-
-	override func mapping(map: Map) {
-		super.mapping(map: map)
-		
-		sub <- map["sub"]
-	}
-}
-
-class WithGenericArray<T: Mappable>: Mappable {
-	var genericItems: [T]?
-
-	required init?(map: Map){
-		
-	}
-
-	func mapping(map: Map) {
-		genericItems <- map["genericItems"]
-	}
-}
-
-class ConcreteItem: Mappable {
-	var value: String?
-
-	required init?(map: Map){
-		
-	}
-	
-	func mapping(map: Map) {
-		value <- map["value"]
-	}
-}
-
-class SubclassWithGenericArrayInSuperclass<Unused>: WithGenericArray<ConcreteItem> {
-	required init?(map: Map){
-		super.init(map: map)
-	}
-}
 
 enum ExampleEnum: Int {
 	case a
@@ -868,51 +655,4 @@ struct CachedItem: Mappable {
 	mutating func mapping(map: Map) {
 		name <- map["name"]
 	}
-}
-
-struct Immutable: Equatable {
-	let prop1: String
-	let prop2: Int
-	let prop3: Bool
-	let prop4: Double
-}
-
-extension Immutable: Mappable {
-	init?(map: Map) {
-		prop1 = map["prop1"].valueOrFail()
-		prop2 = map["prop2"].valueOrFail()
-		prop3 = map["prop3"].valueOrFail()
-		prop4 = map["prop4"].valueOr(DBL_MAX)
-		
-		if !map.isValid {
-			return nil
-		}
-	}
-		
-	mutating func mapping(map: Map) {
-		switch map.mappingType {
-		case .fromJSON:
-			if let x = Immutable(map: map) {
-				self = x
-			}
-			
-		case .toJSON:
-			var prop1 = self.prop1
-			var prop2 = self.prop2
-			var prop3 = self.prop3
-			var prop4 = self.prop4
-			
-			prop1 <- map["prop1"]
-			prop2 <- map["prop2"]
-			prop3 <- map["prop3"]
-			prop4 <- map["prop4"]
-		}
-	}
-}
-
-func ==(lhs: Immutable, rhs: Immutable) -> Bool {
-	return lhs.prop1 == rhs.prop1
-		&& lhs.prop2 == rhs.prop2
-		&& lhs.prop3 == rhs.prop3
-		&& lhs.prop4 == rhs.prop4
 }

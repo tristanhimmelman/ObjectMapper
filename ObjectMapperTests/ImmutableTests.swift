@@ -3,8 +3,28 @@
 //  ObjectMapper
 //
 //  Created by Suyeol Jeon on 23/09/2016.
-//  Copyright © 2016 hearst. All rights reserved.
 //
+//  The MIT License (MIT)
+//
+//  Copyright (c) 2014-2016 Hearst
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
 
 import Foundation
 import XCTest
@@ -51,6 +71,12 @@ class ImmutableObjectTests: XCTestCase {
 			"prop20": ["key": ["base": "prop20"]],
 			"prop21": ["key": ["base": "prop21"]],
 			"prop22": ["key": ["base": "prop22"]],
+			
+			// Optional with immutables
+			"prop23": "Optional",
+			"prop24": 255,
+			"prop25": true,
+			"prop26": 255.0,
 		]
 		
 		let immutable: Struct = try! mapper.map(JSON: JSON)
@@ -83,6 +109,11 @@ class ImmutableObjectTests: XCTestCase {
 		XCTAssertEqual(immutable.prop20["key"]!.base, "prop20")
 		XCTAssertEqual(immutable.prop21!["key"]!.base, "prop21")
 		XCTAssertEqual(immutable.prop22["key"]!.base, "prop22")
+		
+		XCTAssertEqual(immutable.prop23!, "Optional")
+		XCTAssertEqual(immutable.prop24!, 255)
+		XCTAssertEqual(immutable.prop25!, true)
+		XCTAssertEqual(immutable.prop26!, 255.0)
 		
 		let JSON2: [String: Any] = [ "prop1": "prop1", "prop2": NSNull() ]
 		let immutable2 = try? mapper.map(JSON: JSON2)
@@ -126,6 +157,12 @@ struct Struct {
 	let prop20: [String: Base]
 	let prop21: [String: Base]?
 	let prop22: [String: Base]!
+	
+	// Optionals
+	var prop23: String?
+	var prop24: Int?
+	var prop25: Bool?
+	var prop26: Double?
 }
 
 extension Struct: ImmutableMappable {
@@ -161,6 +198,11 @@ extension Struct: ImmutableMappable {
 	}
 
 	mutating func mapping(map: Map) {
+		prop23 <- map["prop23"]
+		prop24 <- map["prop24"]
+		prop25 <- map["prop25"]
+		prop26 <- map["prop26"]
+		
 		guard case .toJSON = map.mappingType else { return }
 
 		var prop1 = self.prop1
@@ -238,6 +280,7 @@ private func assertImmutableObjectsEqual(_ lhs: Struct, _ rhs: Struct) {
 	XCTAssertEqual(lhs.prop6, rhs.prop6)
 	XCTAssertEqual(lhs.prop7, rhs.prop7)
 	XCTAssertEqual(lhs.prop8, rhs.prop8)
+	XCTAssertEqual(lhs.prop23, rhs.prop23)
 	
 	// @hack: compare arrays and objects with their string representation.
 	XCTAssertEqual("\(lhs.prop9)", "\(rhs.prop9)")

@@ -3,8 +3,28 @@
 //  ObjectMapper
 //
 //  Created by Tristan Himmelman on 2015-11-29.
-//  Copyright © 2015 hearst. All rights reserved.
 //
+//  The MIT License (MIT)
+//
+//  Copyright (c) 2014-2016 Hearst
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
 
 import Foundation
 import XCTest
@@ -75,6 +95,42 @@ class ToObjectTests: XCTestCase {
 		XCTAssertEqual(initialChild?.name, updatedChildName)
 	}
 	
+	func testToObjectFromString() {
+		let username = "bob"
+		let JSONString = "{\"username\":\"\(username)\"}"
+		
+		let user = User()
+		user.username = "Tristan"
+		
+		_ = Mapper().map(JSONString: JSONString, toObject: user)
+		
+		XCTAssertEqual(user.username, username)
+	}
+	
+	func testToObjectFromJSON() {
+		let username = "bob"
+		let JSON = ["username": username]
+		
+		let user = User()
+		user.username = "Tristan"
+		
+		_ = Mapper().map(JSON: JSON, toObject: user)
+		
+		XCTAssertEqual(username, user.username)
+	}
+	
+	func testToObjectFromAny() {
+		let username = "bob"
+		let userJSON = ["username": username]
+		
+		let user = User()
+		user.username = "Tristan"
+		
+		_ = Mapper().map(JSONObject: userJSON as Any, toObject: user)
+		
+		XCTAssertEqual(user.username, username)
+	}
+
 	class Person: Mappable {
 		var name: String?
 		var spouse: Person?
@@ -90,4 +146,22 @@ class ToObjectTests: XCTestCase {
 			children	<- map["children"]
 		}
 	}
+	
+	class User: Mappable {
+		
+		var username: String = ""
+		
+		init(){
+			
+		}
+		
+		required init?(map: Map){
+			
+		}
+		
+		func mapping(map: Map) {
+			username	<- map["username"]
+		}
+	}
 }
+
