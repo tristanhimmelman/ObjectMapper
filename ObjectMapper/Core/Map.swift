@@ -42,7 +42,7 @@ public final class Map {
 	public internal(set) var isKeyPresent = false
 	public var currentValue: Any?
 	public var context: MapContext?
-	var currentKey: String?
+	public internal(set) var currentKey: String?
 	var keyIsNested = false
 	
 	let toObject: Bool // indicates whether the mapping is being applied to an existing object
