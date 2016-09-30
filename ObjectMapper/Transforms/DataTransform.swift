@@ -34,14 +34,14 @@ open class DataTransform: TransformType {
 	
 	public init() {}
 	
-	public func transformFromJSON(_ value: Any?) -> Data? {
+	open func transformFromJSON(_ value: Any?) -> Data? {
 		guard let string = value as? String else{
 			return nil
 		}
 		return Data(base64Encoded: string)
 	}
 	
-	public func transformToJSON(_ value: Data?) -> String? {
+	open func transformToJSON(_ value: Data?) -> String? {
 		guard let data = value else{
 			return nil
 		}

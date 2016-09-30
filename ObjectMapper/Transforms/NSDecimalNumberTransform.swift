@@ -34,7 +34,7 @@ open class NSDecimalNumberTransform: TransformType {
 
     public init() {}
 
-    public func transformFromJSON(_ value: Any?) -> NSDecimalNumber? {
+    open func transformFromJSON(_ value: Any?) -> NSDecimalNumber? {
         if let string = value as? String {
             return NSDecimalNumber(string: string)
         }
@@ -44,7 +44,7 @@ open class NSDecimalNumberTransform: TransformType {
         return nil
     }
 
-    public func transformToJSON(_ value: NSDecimalNumber?) -> String? {
+    open func transformToJSON(_ value: NSDecimalNumber?) -> String? {
         guard let value = value else { return nil }
         return value.description
     }
