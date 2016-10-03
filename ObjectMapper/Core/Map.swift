@@ -40,10 +40,10 @@ public final class Map {
 	
 	public internal(set) var JSON: [String: Any] = [:]
 	public internal(set) var isKeyPresent = false
-	public var currentValue: Any?
-	public var context: MapContext?
+	public internal(set) var currentValue: Any?
 	public internal(set) var currentKey: String?
 	var keyIsNested = false
+	public var context: MapContext?
 	
 	let toObject: Bool // indicates whether the mapping is being applied to an existing object
 	
