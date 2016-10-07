@@ -149,7 +149,7 @@ If you need to implemented ObjectMapper in an extension, you will need to select
 
 > ⚠️ This feature is currently in Beta. There might be breaking API changes in the future.
 
-`ImmutableMappable` provides an availability to map immutable properties. This is how `ImmutableMappable` differs from `Mappable`:
+`ImmutableMappable` provides the ability to map immutable properties. This is how `ImmutableMappable` differs from `Mappable`:
 
 <table>
   <tr>
