@@ -234,19 +234,18 @@ User(JSONString: JSONString)
 
 #### `init(map: Map) throws`
 
-This throwable initializer is used to map immutable properties from the given `Map`. Every immutable properties should be initialized in this initializer.
+This throwable initializer is used to map immutable properties from the given `Map`. Every immutable propertie should be initialized in this initializer.
 
-This initializer throws an error when ...
+This initializer throws an error when:
+- `Map` fails to get a value for the given key
+- `Map` fails to transform a value using `Transform`
 
-- ... failed to pop a value from the `Map`
-- ... failed to transform a value using `Transform`
-
-`ImmutableMappable` uses `Map.value(_:using:)` method to get values from the `Map`. This method should be used with `try` keyword because it is throwable. `Optional` properties could be easily handled using `try?`.
+`ImmutableMappable` uses `Map.value(_:using:)` method to get values from the `Map`. This method should be used with the `try` keyword as it is throwable. `Optional` properties can easily be handled using `try?`.
 
 ```swift
 init(map: Map) throws {
-    name      = try map.value("name") // throws an error when fails
-    createdAt = try map.value("createdAt", using: DateTransform()) // throws an error when fails
+    name      = try map.value("name") // throws an error when it fails
+    createdAt = try map.value("createdAt", using: DateTransform()) // throws an error when it fails
     updatedAt = try? map.value("updatedAt", using: DateTransform()) // optional
     posts     = (try? map.value("posts")) ?? [] // optional + default value
 }
@@ -254,7 +253,7 @@ init(map: Map) throws {
 
 #### `mutating func mapping(map: Map)`
 
-This method is where the reverse transform is performed. Since immutable properties are not mapped with `<-` operator, developers have to map reverse transform manually using `>>>` operator.
+This method is where the reverse transform is performed (Model to JSON). Since immutable properties can not be mapped with the `<-` operator, developers have to define the reverse transform using the `>>>` operator.
 
 ```swift
 mutating func mapping(map: Map) {
