@@ -30,7 +30,7 @@ ObjectMapper is a framework written in Swift that makes it easy for you to conve
 # The Basics
 To support mapping, a class or struct just needs to implement the ```Mappable``` protocol which includes the following functions:
 ```swift
-init?(_ map: Map)
+init?(map: Map)
 mutating func mapping(map: Map)
 ```
 ObjectMapper uses the ```<-``` operator to define how each member variable maps to and from JSON.
@@ -46,7 +46,7 @@ class User: Mappable {
     var friends: [User]?                        // Array of Users
     var birthday: NSDate?
 
-    required init?(_ map: Map) {
+    required init?(map: Map) {
 
     }
 
@@ -67,7 +67,7 @@ struct Temperature: Mappable {
     var celsius: Double?
     var fahrenheit: Double?
 
-    init?(_ map: Map) {
+    init?(map: Map) {
 
     }
 
@@ -121,10 +121,10 @@ ObjectMapper can map classes composed of the following types:
 #### `mutating func mapping(map: Map)` 
 This function is where all mapping definitions should go. When parsing JSON, this function is executed after successful object creation. When generating JSON, it is the only function that is called on the object.
 
-#### `init?(_ map: Map)` 
+#### `init?(map: Map)` 
 This failable initializer is used by ObjectMapper for object creation. It can be used by developers to validate JSON prior to object serialization. Returning nil within the function will prevent the mapping from occuring. You can inspect the JSON stored within the `Map` object to do your validation:
 ```swift
-required init?(_ map: Map){
+required init?(map: Map){
 	// check if a required "name" property exists within the JSON.
 	if map.JSONDictionary["name"] == nil {
 		return nil
@@ -133,9 +133,9 @@ required init?(_ map: Map){
 ```
 
 ## `StaticMappable` Protocol
-`StaticMappable` is an alternative to `Mappable`. It provides developers with a static function that is used by ObjectMapper for object initialization instead of `init?(_ map: Map)`. 
+`StaticMappable` is an alternative to `Mappable`. It provides developers with a static function that is used by ObjectMapper for object initialization instead of `init?(map: Map)`. 
 
-Note: `StaticMappable`, like `Mappable`, is a sub protocol of `BaseMappable` which is where the `mapping(_ map: Map)` function is defined.
+Note: `StaticMappable`, like `Mappable`, is a sub protocol of `BaseMappable` which is where the `mapping(map: Map)` function is defined.
 
 #### `static func objectForMapping(map: Map) -> BaseMappable?` 
 ObjectMapper uses this function to get objects to use for mapping. Developers should return an instance of an object that conforms to `BaseMappable` in this function. This function can also be used to:
@@ -340,7 +340,7 @@ Classes that implement the ```Mappable``` protocol can easily be subclassed. Whe
 class Base: Mappable {
 	var base: String?
 	
-	required init?(_ map: Map) {
+	required init?(map: Map) {
 
 	}
 
@@ -352,7 +352,7 @@ class Base: Mappable {
 class Subclass: Base {
 	var sub: String?
 
-	required init?(_ map: Map) {
+	required init?(map: Map) {
 		super.init(map)
 	}
 
@@ -373,7 +373,7 @@ ObjectMapper can handle classes with generic types as long as the generic type a
 class Result<T: Mappable>: Mappable {
     var result: T?
 
-    required init?(_ map: Map){
+    required init?(map: Map){
 
     }
 
@@ -398,7 +398,7 @@ struct Context: MapContext {
 class User: Mappable {
 	var name: String?
 	
-	required init?(_ map: Map){
+	required init?(map: Map){
 	
 	}
 	
@@ -426,7 +426,7 @@ ObjectMapper and Realm can be used together. Simply follow the class structure b
 class Model: Object, Mappable {
 	dynamic var name = ""
 
-	required convenience init?(_ map: Map) {
+	required convenience init?(map: Map) {
 		self.init()
 	}
 
