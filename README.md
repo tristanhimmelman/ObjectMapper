@@ -25,11 +25,12 @@ ObjectMapper is a framework written in Swift that makes it easy for you to conve
 - Nested Objects (stand alone, in arrays or in dictionaries)
 - Custom transformations during mapping
 - Struct support
+- [Immutable support](#immutablemappable-protocol-beta) (currently in beta)
 
 # The Basics
 To support mapping, a class or struct just needs to implement the ```Mappable``` protocol which includes the following functions:
 ```swift
-init?(_ map: Map)
+init?(map: Map)
 mutating func mapping(map: Map)
 ```
 ObjectMapper uses the ```<-``` operator to define how each member variable maps to and from JSON.
@@ -45,7 +46,7 @@ class User: Mappable {
     var friends: [User]?                        // Array of Users
     var birthday: NSDate?
 
-    required init?(_ map: Map) {
+    required init?(map: Map) {
 
     }
 
@@ -66,7 +67,7 @@ struct Temperature: Mappable {
     var celsius: Double?
     var fahrenheit: Double?
 
-    init?(_ map: Map) {
+    init?(map: Map) {
 
     }
 
@@ -120,10 +121,10 @@ ObjectMapper can map classes composed of the following types:
 #### `mutating func mapping(map: Map)` 
 This function is where all mapping definitions should go. When parsing JSON, this function is executed after successful object creation. When generating JSON, it is the only function that is called on the object.
 
-#### `init?(_ map: Map)` 
+#### `init?(map: Map)` 
 This failable initializer is used by ObjectMapper for object creation. It can be used by developers to validate JSON prior to object serialization. Returning nil within the function will prevent the mapping from occuring. You can inspect the JSON stored within the `Map` object to do your validation:
 ```swift
-required init?(_ map: Map){
+required init?(map: Map){
 	// check if a required "name" property exists within the JSON.
 	if map.JSONDictionary["name"] == nil {
 		return nil
@@ -132,9 +133,9 @@ required init?(_ map: Map){
 ```
 
 ## `StaticMappable` Protocol
-`StaticMappable` is an alternative to `Mappable`. It provides developers with a static function that is used by ObjectMapper for object initialization instead of `init?(_ map: Map)`. 
+`StaticMappable` is an alternative to `Mappable`. It provides developers with a static function that is used by ObjectMapper for object initialization instead of `init?(map: Map)`. 
 
-Note: `StaticMappable`, like `Mappable`, is a sub protocol of `BaseMappable` which is where the `mapping(_ map: Map)` function is defined.
+Note: `StaticMappable`, like `Mappable`, is a sub protocol of `BaseMappable` which is where the `mapping(map: Map)` function is defined.
 
 #### `static func objectForMapping(map: Map) -> BaseMappable?` 
 ObjectMapper uses this function to get objects to use for mapping. Developers should return an instance of an object that conforms to `BaseMappable` in this function. This function can also be used to:
@@ -143,6 +144,126 @@ ObjectMapper uses this function to get objects to use for mapping. Developers sh
 - return an object of another type (which also conforms to BaseMappable) to be used for mapping. For instance, you may inspect the JSON to infer the type of object that should be used for mapping ([see example](https://github.com/Hearst-DD/ObjectMapper/blob/master/ObjectMapperTests/ClassClusterTests.swift#L62))
 
 If you need to implemented ObjectMapper in an extension, you will need to select this protocol instead of `Mappable`. 
+
+## `ImmutableMappable` Protocol (Beta)
+
+> ⚠️ This feature is currently in Beta. There might be breaking API changes in the future.
+
+`ImmutableMappable` provides the ability to map immutable properties. This is how `ImmutableMappable` differs from `Mappable`:
+
+<table>
+  <tr>
+    <th>ImmutableMappable</th>
+    <th>Mappable</th>
+  </tr>
+  <tr>
+    <th colspan="2">Properties</th>
+  </tr>
+  <tr>
+    <td>
+<pre>
+<strong>let</strong> id: Int
+<strong>let</strong> name: String?
+</pre>
+  </td>
+    <td>
+<pre>
+var id: Int!
+var name: String?
+</pre>
+    </td>
+  </tr>
+  <tr>
+    <th colspan="2">JSON -> Model</th>
+  </tr>
+  <tr>
+    <td>
+<pre>
+init(map: Map) <strong>throws</strong> {
+  id   = <strong>try</strong> map.value("id")
+  name = <strong>try?</strong> map.value("name")
+}
+</pre>
+  </td>
+    <td>
+<pre>
+mutating func mapping(map: Map) {
+  id   <- map["id"]
+  name <- map["name"]
+}
+</pre>
+    </td>
+  </tr>
+  <tr>
+    <th colspan="2">Model -> JSON</th>
+  </tr>
+  <tr>
+    <td>
+<pre>
+mutating func mapping(map: Map) {
+  id   <strong>>>></strong> map["id"]
+  name <strong>>>></strong> map["name"]
+}
+</pre>
+    </td>
+    <td>
+<pre>
+mutating func mapping(map: Map) {
+  id   <- map["id"]
+  name <- map["name"]
+}
+</pre>
+    </td>
+  </tr>
+  <tr>
+    <th colspan="2">Initializing</th>
+  </tr>
+  <tr>
+    <td>
+<pre>
+<strong>try</strong> User(JSONString: JSONString)
+</pre>
+    </td>
+    <td>
+<pre>
+User(JSONString: JSONString)
+</pre>
+    </td>
+  </tr>
+</table>
+
+#### `init(map: Map) throws`
+
+This throwable initializer is used to map immutable properties from the given `Map`. Every immutable propertie should be initialized in this initializer.
+
+This initializer throws an error when:
+- `Map` fails to get a value for the given key
+- `Map` fails to transform a value using `Transform`
+
+`ImmutableMappable` uses `Map.value(_:using:)` method to get values from the `Map`. This method should be used with the `try` keyword as it is throwable. `Optional` properties can easily be handled using `try?`.
+
+```swift
+init(map: Map) throws {
+    name      = try map.value("name") // throws an error when it fails
+    createdAt = try map.value("createdAt", using: DateTransform()) // throws an error when it fails
+    updatedAt = try? map.value("updatedAt", using: DateTransform()) // optional
+    posts     = (try? map.value("posts")) ?? [] // optional + default value
+}
+```
+
+#### `mutating func mapping(map: Map)`
+
+This method is where the reverse transform is performed (Model to JSON). Since immutable properties can not be mapped with the `<-` operator, developers have to define the reverse transform using the `>>>` operator.
+
+```swift
+mutating func mapping(map: Map) {
+    name      >>> map["name"]
+    createdAt >>> (map["createdAt"], DateTransform())
+    updatedAt >>> (map["updatedAt"], DateTransform())
+    posts     >>> map["posts"]
+}
+```
+
 
 # Easy Mapping of Nested Objects
 ObjectMapper supports dot notation within keys for easy mapping of nested objects. Given the following JSON String:
@@ -218,7 +339,7 @@ Classes that implement the ```Mappable``` protocol can easily be subclassed. Whe
 class Base: Mappable {
 	var base: String?
 	
-	required init?(_ map: Map) {
+	required init?(map: Map) {
 
 	}
 
@@ -230,7 +351,7 @@ class Base: Mappable {
 class Subclass: Base {
 	var sub: String?
 
-	required init?(_ map: Map) {
+	required init?(map: Map) {
 		super.init(map)
 	}
 
@@ -251,7 +372,7 @@ ObjectMapper can handle classes with generic types as long as the generic type a
 class Result<T: Mappable>: Mappable {
     var result: T?
 
-    required init?(_ map: Map){
+    required init?(map: Map){
 
     }
 
@@ -276,7 +397,7 @@ struct Context: MapContext {
 class User: Mappable {
 	var name: String?
 	
-	required init?(_ map: Map){
+	required init?(map: Map){
 	
 	}
 	
@@ -304,7 +425,7 @@ ObjectMapper and Realm can be used together. Simply follow the class structure b
 class Model: Object, Mappable {
 	dynamic var name = ""
 
-	required convenience init?(_ map: Map) {
+	required convenience init?(map: Map) {
 		self.init()
 	}
 

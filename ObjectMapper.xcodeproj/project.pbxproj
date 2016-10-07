@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		030114A91D95187600FBFD4F /* ImmutableMappble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030114A81D95187600FBFD4F /* ImmutableMappble.swift */; };
+		030114AC1D951A4F00FBFD4F /* ImmutableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030114AA1D95197100FBFD4F /* ImmutableTests.swift */; };
+		030114AD1D951A5300FBFD4F /* ImmutableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030114AA1D95197100FBFD4F /* ImmutableTests.swift */; };
+		030114AE1D951A5600FBFD4F /* ImmutableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030114AA1D95197100FBFD4F /* ImmutableTests.swift */; };
+		030114AF1D951A6C00FBFD4F /* ImmutableMappble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030114A81D95187600FBFD4F /* ImmutableMappble.swift */; };
+		030114B01D951A7100FBFD4F /* ImmutableMappble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030114A81D95187600FBFD4F /* ImmutableMappble.swift */; };
+		030114B11D951A7500FBFD4F /* ImmutableMappble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030114A81D95187600FBFD4F /* ImmutableMappble.swift */; };
 		37AFD9B91AAD191C00AB59B5 /* CustomDateFormatTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AFD9B81AAD191C00AB59B5 /* CustomDateFormatTransform.swift */; };
 		3BAD2C0C1BDDB10D00E6B203 /* Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAD2C0B1BDDB10D00E6B203 /* Mappable.swift */; };
 		3BAD2C0D1BDDB10D00E6B203 /* Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAD2C0B1BDDB10D00E6B203 /* Mappable.swift */; };
@@ -87,6 +94,21 @@
 		6AECC9E61D79E29100222E7A /* DictionaryTransformTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AECC9E51D79E29100222E7A /* DictionaryTransformTests.swift */; };
 		6AECC9E71D79E29100222E7A /* DictionaryTransformTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AECC9E51D79E29100222E7A /* DictionaryTransformTests.swift */; };
 		6AECC9E81D79E29100222E7A /* DictionaryTransformTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AECC9E51D79E29100222E7A /* DictionaryTransformTests.swift */; };
+		6AF148841D999E31002BEA2C /* GenericObjectsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF148831D999E31002BEA2C /* GenericObjectsTests.swift */; };
+		6AF148851D999E31002BEA2C /* GenericObjectsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF148831D999E31002BEA2C /* GenericObjectsTests.swift */; };
+		6AF148861D999E31002BEA2C /* GenericObjectsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF148831D999E31002BEA2C /* GenericObjectsTests.swift */; };
+		6AF148881D99A25B002BEA2C /* MapError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF148871D99A25B002BEA2C /* MapError.swift */; };
+		6AF148891D99A25B002BEA2C /* MapError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF148871D99A25B002BEA2C /* MapError.swift */; };
+		6AF1488A1D99A25B002BEA2C /* MapError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF148871D99A25B002BEA2C /* MapError.swift */; };
+		6AF1488B1D99A25B002BEA2C /* MapError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF148871D99A25B002BEA2C /* MapError.swift */; };
+		6AF1488D1D99A7A6002BEA2C /* TransformOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1488C1D99A7A6002BEA2C /* TransformOperators.swift */; };
+		6AF1488E1D99A7A6002BEA2C /* TransformOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1488C1D99A7A6002BEA2C /* TransformOperators.swift */; };
+		6AF1488F1D99A7A6002BEA2C /* TransformOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1488C1D99A7A6002BEA2C /* TransformOperators.swift */; };
+		6AF148901D99A7A6002BEA2C /* TransformOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1488C1D99A7A6002BEA2C /* TransformOperators.swift */; };
+		6AF148921D99A7CA002BEA2C /* EnumOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF148911D99A7CA002BEA2C /* EnumOperators.swift */; };
+		6AF148931D99A7CA002BEA2C /* EnumOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF148911D99A7CA002BEA2C /* EnumOperators.swift */; };
+		6AF148941D99A7CA002BEA2C /* EnumOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF148911D99A7CA002BEA2C /* EnumOperators.swift */; };
+		6AF148951D99A7CA002BEA2C /* EnumOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF148911D99A7CA002BEA2C /* EnumOperators.swift */; };
 		84D4F8521CC3B643008B0FB6 /* NSDecimalNumberTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D4F8511CC3B643008B0FB6 /* NSDecimalNumberTransform.swift */; };
 		84D4F8531CC3B643008B0FB6 /* NSDecimalNumberTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D4F8511CC3B643008B0FB6 /* NSDecimalNumberTransform.swift */; };
 		84D4F8541CC3B643008B0FB6 /* NSDecimalNumberTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D4F8511CC3B643008B0FB6 /* NSDecimalNumberTransform.swift */; };
@@ -189,6 +211,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		030114A81D95187600FBFD4F /* ImmutableMappble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImmutableMappble.swift; sourceTree = "<group>"; };
+		030114AA1D95197100FBFD4F /* ImmutableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImmutableTests.swift; sourceTree = "<group>"; };
 		37AFD9B81AAD191C00AB59B5 /* CustomDateFormatTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDateFormatTransform.swift; sourceTree = "<group>"; };
 		3BAD2C0B1BDDB10D00E6B203 /* Mappable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Mappable.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		3BAD2C0F1BDDC0B000E6B203 /* MappableExtensionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MappableExtensionsTests.swift; sourceTree = "<group>"; };
@@ -216,11 +240,15 @@
 		6AAC8F8519F03C2900E7A677 /* ObjectMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ObjectMapperTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		6AAC8FC319F048FE00E7A677 /* FromJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FromJSON.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		6AAC8FC419F048FE00E7A677 /* Mapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Mapper.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		6AAC8FC519F048FE00E7A677 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Operators.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		6AAC8FC519F048FE00E7A677 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = Operators.swift; path = Operators/Operators.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		6AAC8FC719F048FE00E7A677 /* ToJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ToJSON.swift; sourceTree = "<group>"; };
 		6AAC8FCB19F048FE00E7A677 /* DateTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTransform.swift; sourceTree = "<group>"; };
 		6ACB15D11BC7F1D0006C029C /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		6AECC9E51D79E29100222E7A /* DictionaryTransformTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryTransformTests.swift; sourceTree = "<group>"; };
+		6AF148831D999E31002BEA2C /* GenericObjectsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericObjectsTests.swift; sourceTree = "<group>"; };
+		6AF148871D99A25B002BEA2C /* MapError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapError.swift; sourceTree = "<group>"; };
+		6AF1488C1D99A7A6002BEA2C /* TransformOperators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = TransformOperators.swift; path = Operators/TransformOperators.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		6AF148911D99A7CA002BEA2C /* EnumOperators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = EnumOperators.swift; path = Operators/EnumOperators.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		84D4F8511CC3B643008B0FB6 /* NSDecimalNumberTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDecimalNumberTransform.swift; sourceTree = "<group>"; };
 		84D4F8561CC3B71B008B0FB6 /* NSDecimalNumberTransformTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDecimalNumberTransformTests.swift; sourceTree = "<group>"; };
 		891804CC1C122AF000E5C3EE /* MappableTypesWithTransformsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MappableTypesWithTransformsTests.swift; sourceTree = "<group>"; };
@@ -358,18 +386,20 @@
 				6A51372E1AADE12C00B82516 /* CustomTransformTests.swift */,
 				C135CAB61D76303E00BA9338 /* DataTransformTests.swift */,
 				6AECC9E51D79E29100222E7A /* DictionaryTransformTests.swift */,
-				6A412A231BB0DA26001C3F67 /* PerformanceTests.swift */,
+				6AF148831D999E31002BEA2C /* GenericObjectsTests.swift */,
+				6A715C491D05B1FA0054AD62 /* IgnoreNilTests.swift */,
+				030114AA1D95197100FBFD4F /* ImmutableTests.swift */,
+				6A442CA01CE251F100AB4F1F /* MapContextTests.swift */,
+				3BAD2C0F1BDDC0B000E6B203 /* MappableExtensionsTests.swift */,
+				891804CC1C122AF000E5C3EE /* MappableTypesWithTransformsTests.swift */,
 				CD44374C1AAE9C1100A271BA /* NestedKeysTests.swift */,
 				6100B1BF1BD76A020011114A /* NestedArrayTests.swift */,
+				84D4F8561CC3B71B008B0FB6 /* NSDecimalNumberTransformTests.swift */,
 				DC99C8CB1CA261A8005C788C /* NullableKeysFromJSONTests.swift */,
 				6AAC8F8519F03C2900E7A677 /* ObjectMapperTests.swift */,
-				3BAD2C0F1BDDC0B000E6B203 /* MappableExtensionsTests.swift */,
+				6A412A231BB0DA26001C3F67 /* PerformanceTests.swift */,
 				6A0BF1FE1C0B53470083D1AF /* ToObjectTests.swift */,
-				891804CC1C122AF000E5C3EE /* MappableTypesWithTransformsTests.swift */,
-				6A442CA01CE251F100AB4F1F /* MapContextTests.swift */,
-				84D4F8561CC3B71B008B0FB6 /* NSDecimalNumberTransformTests.swift */,
 				6AAC8F8319F03C2900E7A677 /* Supporting Files */,
-				6A715C491D05B1FA0054AD62 /* IgnoreNilTests.swift */,
 			);
 			path = ObjectMapperTests;
 			sourceTree = "<group>";
@@ -386,9 +416,11 @@
 			isa = PBXGroup;
 			children = (
 				6ACB15D11BC7F1D0006C029C /* Map.swift */,
+				6AF148871D99A25B002BEA2C /* MapError.swift */,
 				3BAD2C0B1BDDB10D00E6B203 /* Mappable.swift */,
+				030114A81D95187600FBFD4F /* ImmutableMappble.swift */,
 				6AAC8FC419F048FE00E7A677 /* Mapper.swift */,
-				6AAC8FC519F048FE00E7A677 /* Operators.swift */,
+				6AF148961D99A912002BEA2C /* Operators */,
 				6AAC8FC319F048FE00E7A677 /* FromJSON.swift */,
 				6AAC8FC719F048FE00E7A677 /* ToJSON.swift */,
 			);
@@ -408,6 +440,16 @@
 				C135CAB31D762F6900BA9338 /* DataTransform.swift */,
 			);
 			path = Transforms;
+			sourceTree = "<group>";
+		};
+		6AF148961D99A912002BEA2C /* Operators */ = {
+			isa = PBXGroup;
+			children = (
+				6AAC8FC519F048FE00E7A677 /* Operators.swift */,
+				6AF148911D99A7CA002BEA2C /* EnumOperators.swift */,
+				6AF1488C1D99A7A6002BEA2C /* TransformOperators.swift */,
+			);
+			name = Operators;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -695,10 +737,12 @@
 			files = (
 				6AA1F66E1BE991FF006EF513 /* Mappable.swift in Sources */,
 				6AC692341BE3FD3A004C119A /* Map.swift in Sources */,
+				6AF148901D99A7A6002BEA2C /* TransformOperators.swift in Sources */,
 				6AC692351BE3FD3A004C119A /* Mapper.swift in Sources */,
 				6AC692361BE3FD3A004C119A /* Operators.swift in Sources */,
 				84D4F8551CC3B643008B0FB6 /* NSDecimalNumberTransform.swift in Sources */,
 				6AC692371BE3FD3A004C119A /* FromJSON.swift in Sources */,
+				6AF148951D99A7CA002BEA2C /* EnumOperators.swift in Sources */,
 				997B4A4A1D3FA20D005E3F31 /* DictionaryTransform.swift in Sources */,
 				6AC692381BE3FD3A004C119A /* ToJSON.swift in Sources */,
 				6AC692391BE3FD3A004C119A /* DateTransform.swift in Sources */,
@@ -709,7 +753,9 @@
 				6AC6923E1BE3FD3A004C119A /* TransformType.swift in Sources */,
 				6AC6923F1BE3FD3A004C119A /* URLTransform.swift in Sources */,
 				6AC692401BE3FD3A004C119A /* EnumTransform.swift in Sources */,
+				6AF1488B1D99A25B002BEA2C /* MapError.swift in Sources */,
 				C135CABC1D7631DC00BA9338 /* DataTransform.swift in Sources */,
+				030114B11D951A7500FBFD4F /* ImmutableMappble.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -719,6 +765,7 @@
 			files = (
 				6AA1F66F1BE9921C006EF513 /* MappableExtensionsTests.swift in Sources */,
 				891804CF1C122AF000E5C3EE /* MappableTypesWithTransformsTests.swift in Sources */,
+				6AF148861D999E31002BEA2C /* GenericObjectsTests.swift in Sources */,
 				C135CAB91D76303E00BA9338 /* DataTransformTests.swift in Sources */,
 				6A442CA31CE251F100AB4F1F /* MapContextTests.swift in Sources */,
 				6AA1F66B1BE94687006EF513 /* ClassClusterTests.swift in Sources */,
@@ -735,6 +782,7 @@
 				6AC692461BE3FD45004C119A /* NestedArrayTests.swift in Sources */,
 				DC99C8CE1CA261AE005C788C /* NullableKeysFromJSONTests.swift in Sources */,
 				6AC692471BE3FD45004C119A /* ObjectMapperTests.swift in Sources */,
+				030114AE1D951A5600FBFD4F /* ImmutableTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -744,10 +792,12 @@
 			files = (
 				6A2AD0451B2C786C0097E150 /* Mapper.swift in Sources */,
 				3BAD2C0E1BDDB10D00E6B203 /* Mappable.swift in Sources */,
+				6AF1488F1D99A7A6002BEA2C /* TransformOperators.swift in Sources */,
 				6A2AD0461B2C786C0097E150 /* Operators.swift in Sources */,
 				6ACB15D41BC7F1D0006C029C /* Map.swift in Sources */,
 				84D4F8541CC3B643008B0FB6 /* NSDecimalNumberTransform.swift in Sources */,
 				6A2AD0471B2C786C0097E150 /* FromJSON.swift in Sources */,
+				6AF148941D99A7CA002BEA2C /* EnumOperators.swift in Sources */,
 				997B4A491D3FA20D005E3F31 /* DictionaryTransform.swift in Sources */,
 				6A2AD0481B2C786C0097E150 /* ToJSON.swift in Sources */,
 				6A2AD0491B2C786C0097E150 /* DateTransform.swift in Sources */,
@@ -758,7 +808,9 @@
 				6A2AD04E1B2C786C0097E150 /* TransformType.swift in Sources */,
 				6A2AD04F1B2C786C0097E150 /* URLTransform.swift in Sources */,
 				6A2AD0501B2C786C0097E150 /* EnumTransform.swift in Sources */,
+				6AF1488A1D99A25B002BEA2C /* MapError.swift in Sources */,
 				C135CABB1D7631DB00BA9338 /* DataTransform.swift in Sources */,
+				030114B01D951A7100FBFD4F /* ImmutableMappble.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -768,19 +820,23 @@
 			files = (
 				37AFD9B91AAD191C00AB59B5 /* CustomDateFormatTransform.swift in Sources */,
 				3BAD2C0C1BDDB10D00E6B203 /* Mappable.swift in Sources */,
+				6AF1488D1D99A7A6002BEA2C /* TransformOperators.swift in Sources */,
 				CD50B6FD1A82518300744312 /* TransformType.swift in Sources */,
 				6ACB15D21BC7F1D0006C029C /* Map.swift in Sources */,
 				84D4F8521CC3B643008B0FB6 /* NSDecimalNumberTransform.swift in Sources */,
 				6AAC8FD319F048FE00E7A677 /* DateTransform.swift in Sources */,
+				6AF148921D99A7CA002BEA2C /* EnumOperators.swift in Sources */,
 				997B4A471D3FA20D005E3F31 /* DictionaryTransform.swift in Sources */,
 				BC1E7F371ABC44C000F9B1CF /* EnumTransform.swift in Sources */,
 				D86BDEA41A51E5AD00120819 /* ISO8601DateTransform.swift in Sources */,
 				CD71C8C11A7218AD009D4161 /* TransformOf.swift in Sources */,
+				030114A91D95187600FBFD4F /* ImmutableMappble.swift in Sources */,
 				6A6C54D019FE8DB600239454 /* URLTransform.swift in Sources */,
 				6A51372C1AADDE2700B82516 /* DateFormatterTransform.swift in Sources */,
 				6AAC8FCE19F048FE00E7A677 /* Mapper.swift in Sources */,
 				6AAC8FCD19F048FE00E7A677 /* FromJSON.swift in Sources */,
 				6AAC8FD119F048FE00E7A677 /* ToJSON.swift in Sources */,
+				6AF148881D99A25B002BEA2C /* MapError.swift in Sources */,
 				C135CAB41D762F6900BA9338 /* DataTransform.swift in Sources */,
 				6AAC8FCF19F048FE00E7A677 /* Operators.swift in Sources */,
 			);
@@ -792,6 +848,7 @@
 			files = (
 				3BAD2C101BDDC0B000E6B203 /* MappableExtensionsTests.swift in Sources */,
 				891804CD1C122AF000E5C3EE /* MappableTypesWithTransformsTests.swift in Sources */,
+				6AF148841D999E31002BEA2C /* GenericObjectsTests.swift in Sources */,
 				C135CAB71D76303E00BA9338 /* DataTransformTests.swift in Sources */,
 				6A442CA11CE251F100AB4F1F /* MapContextTests.swift in Sources */,
 				6A6AEB961A93874F002573D3 /* BasicTypesTestsFromJSON.swift in Sources */,
@@ -808,6 +865,7 @@
 				6AAC8F8619F03C2900E7A677 /* ObjectMapperTests.swift in Sources */,
 				DC99C8CC1CA261A8005C788C /* NullableKeysFromJSONTests.swift in Sources */,
 				6100B1C01BD76A030011114A /* NestedArrayTests.swift in Sources */,
+				030114AC1D951A4F00FBFD4F /* ImmutableTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -817,9 +875,12 @@
 			files = (
 				CD1603221AC02472000CD69A /* TransformType.swift in Sources */,
 				3BAD2C0D1BDDB10D00E6B203 /* Mappable.swift in Sources */,
+				6AF1488E1D99A7A6002BEA2C /* TransformOperators.swift in Sources */,
+				030114AF1D951A6C00FBFD4F /* ImmutableMappble.swift in Sources */,
 				CD1603201AC02461000CD69A /* CustomDateFormatTransform.swift in Sources */,
 				CD16031E1AC02461000CD69A /* DateFormatterTransform.swift in Sources */,
 				84D4F8531CC3B643008B0FB6 /* NSDecimalNumberTransform.swift in Sources */,
+				6AF148931D99A7CA002BEA2C /* EnumOperators.swift in Sources */,
 				6ACB15D31BC7F1D0006C029C /* Map.swift in Sources */,
 				997B4A481D3FA20D005E3F31 /* DictionaryTransform.swift in Sources */,
 				CD1603241AC02472000CD69A /* EnumTransform.swift in Sources */,
@@ -830,6 +891,7 @@
 				CD16031D1AC02461000CD69A /* DateTransform.swift in Sources */,
 				CD1603191AC02451000CD69A /* Mapper.swift in Sources */,
 				CD16031A1AC02451000CD69A /* Operators.swift in Sources */,
+				6AF148891D99A25B002BEA2C /* MapError.swift in Sources */,
 				CD16031B1AC02451000CD69A /* FromJSON.swift in Sources */,
 				C135CABA1D7631DB00BA9338 /* DataTransform.swift in Sources */,
 			);
@@ -841,6 +903,7 @@
 			files = (
 				3BAD2C111BDDC0B000E6B203 /* MappableExtensionsTests.swift in Sources */,
 				891804CE1C122AF000E5C3EE /* MappableTypesWithTransformsTests.swift in Sources */,
+				6AF148851D999E31002BEA2C /* GenericObjectsTests.swift in Sources */,
 				C135CAB81D76303E00BA9338 /* DataTransformTests.swift in Sources */,
 				6A442CA21CE251F100AB4F1F /* MapContextTests.swift in Sources */,
 				6AA1F66D1BE9468D006EF513 /* NestedArrayTests.swift in Sources */,
@@ -857,6 +920,7 @@
 				6A412A251BB0DA26001C3F67 /* PerformanceTests.swift in Sources */,
 				DC99C8CD1CA261AD005C788C /* NullableKeysFromJSONTests.swift in Sources */,
 				CD1603281AC02480000CD69A /* CustomTransformTests.swift in Sources */,
+				030114AD1D951A5300FBFD4F /* ImmutableTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

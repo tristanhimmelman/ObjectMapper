@@ -6,7 +6,7 @@
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2014-2015 Hearst
+//  Copyright (c) 2014-2016 Hearst
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -40,15 +40,12 @@ public final class Map {
 	
 	public internal(set) var JSON: [String: Any] = [:]
 	public internal(set) var isKeyPresent = false
-	public var currentValue: Any?
-	public var context: MapContext?
+	public internal(set) var currentValue: Any?
 	public internal(set) var currentKey: String?
 	var keyIsNested = false
+	public var context: MapContext?
 	
 	let toObject: Bool // indicates whether the mapping is being applied to an existing object
-	
-	/// Counter for failing cases of deserializing values to `let` properties.
-	private var failedCount: Int = 0
 	
 	public init(mappingType: MappingType, JSON: [String: Any], toObject: Bool = false, context: MapContext? = nil) {
 		self.mappingType = mappingType
@@ -99,36 +96,10 @@ public final class Map {
 		return self
 	}
 	
-	// MARK: Immutable Mapping
-	
 	public func value<T>() -> T? {
 		return currentValue as? T
 	}
-	
-	public func valueOr<T>( _ defaultValue: @autoclosure() -> T) -> T {
-		return value() ?? defaultValue()
-	}
-	
-	/// Returns current JSON value of type `T` if it is existing, or returns a
-	/// unusable proxy value for `T` and collects failed count.
-	public func valueOrFail<T>() -> T {
-		if let value: T = value() {
-			return value
-		} else {
-			// Collects failed count
-			failedCount += 1
-			
-			// Returns dummy memory as a proxy for type `T`
-			let pointer = UnsafeMutablePointer<T>.allocate(capacity: 0)
-			pointer.deallocate(capacity: 0)
-			return pointer.pointee
-		}
-	}
-	
-	/// Returns whether the receiver is success or failure.
-	public var isValid: Bool {
-		return failedCount == 0
-	}
+
 }
 
 /// Fetch value from JSON dictionary, loop through keyPathComponents until we reach the desired object
