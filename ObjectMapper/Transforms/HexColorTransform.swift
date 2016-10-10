@@ -1,5 +1,5 @@
 //
-//  HEXColorTransform.swift
+//  HexColorTransform.swift
 //  ObjectMapper
 //
 //  Created by Vitaliy Kuzmenko on 10/10/16.
@@ -12,7 +12,7 @@ import UIKit
 import Cocoa
 #endif
 
-open class HEXColorTransform: TransformType {
+open class HexColorTransform: TransformType {
 	
 	#if os(iOS) || os(tvOS) || os(watchOS)
 	public typealias Object = UIColor
@@ -22,7 +22,14 @@ open class HEXColorTransform: TransformType {
 	
 	public typealias JSON = String
 	
-	public init() {}
+	var prefix: Bool = false
+	
+	var alpha: Bool = false
+	
+	public init(prefixToJSON: Bool = false, alphaToJSON: Bool = false) {
+		alpha = alphaToJSON
+		prefix = prefixToJSON
+	}
 	
 	open func transformFromJSON(_ value: Any?) -> Object? {
 		if let rgba = value as? String {
@@ -37,19 +44,28 @@ open class HEXColorTransform: TransformType {
 		return nil
 	}
 	
-	open func transformToJSON(_ value: Object?) -> String? {
+	open func transformToJSON(_ value: Object?) -> JSON? {
 		if let value = value {
 			return hexString(color: value)
 		}
 		return nil
 	}
 	
-	fileprivate func hexString(color: Object, prefix: Bool = false) -> String {
-		let components = color.cgColor.components!
-		let r = components[0]
-		let g = components[1]
-		let b = components[2]
-		let hexString = String(format: "%02X%02X%02X", Int(r * 255), Int(g * 255), Int(b * 255))
+	fileprivate func hexString(color: Object) -> String {
+		let comps = color.cgColor.components!
+		let r = Int(comps[0] * 255)
+		let g = Int(comps[1] * 255)
+		let b = Int(comps[2] * 255)
+		let a = Int(comps[3] * 255)
+		var hexString: String = ""
+		if prefix {
+			hexString = "#"
+		}
+		hexString += String(format: "%02X%02X%02X", r, g, b)
+		
+		if alpha {
+			hexString += String(format: "%02X", a)
+		}
 		return hexString
 	}
 	
