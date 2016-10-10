@@ -31,53 +31,54 @@ import XCTest
 import ObjectMapper
 
 class ImmutableObjectTests: XCTestCase {
+	let JSON: [String: Any] = [
+
+		// Basic types
+		"prop1": "Immutable!",
+		"prop2": 255,
+		"prop3": true,
+		// prop4 has a default value
+
+		// String
+		"prop5": "prop5",
+		"prop6": "prop6",
+		"prop7": "prop7",
+
+		// [String]
+		"prop8": ["prop8"],
+		"prop9": ["prop9"],
+		"prop10": ["prop10"],
+
+		// [String: String]
+		"prop11": ["key": "prop11"],
+		"prop12": ["key": "prop12"],
+		"prop13": ["key": "prop13"],
+
+		// Base
+		"prop14": ["base": "prop14"],
+		"prop15": ["base": "prop15"],
+		"prop16": ["base": "prop16"],
+
+		// [Base]
+		"prop17": [["base": "prop17"]],
+		"prop18": [["base": "prop18"]],
+		"prop19": [["base": "prop19"]],
+
+		// [String: Base]
+		"prop20": ["key": ["base": "prop20"]],
+		"prop21": ["key": ["base": "prop21"]],
+		"prop22": ["key": ["base": "prop22"]],
+
+		// Optional with immutables
+		"prop23": "Optional",
+		"prop24": 255,
+		"prop25": true,
+		"prop26": 255.0,
+		]
 
 	func testImmutableMappable() {
 		let mapper = Mapper<Struct>()
-		let JSON: [String: Any] = [
-			
-			// Basic types
-			"prop1": "Immutable!",
-			"prop2": 255,
-			"prop3": true,
-			// prop4 has a default value
-			
-			// String
-			"prop5": "prop5",
-			"prop6": "prop6",
-			"prop7": "prop7",
-			
-			// [String]
-			"prop8": ["prop8"],
-			"prop9": ["prop9"],
-			"prop10": ["prop10"],
-			
-			// [String: String]
-			"prop11": ["key": "prop11"],
-			"prop12": ["key": "prop12"],
-			"prop13": ["key": "prop13"],
-			
-			// Base
-			"prop14": ["base": "prop14"],
-			"prop15": ["base": "prop15"],
-			"prop16": ["base": "prop16"],
-			
-			// [Base]
-			"prop17": [["base": "prop17"]],
-			"prop18": [["base": "prop18"]],
-			"prop19": [["base": "prop19"]],
-			
-			// [String: Base]
-			"prop20": ["key": ["base": "prop20"]],
-			"prop21": ["key": ["base": "prop21"]],
-			"prop22": ["key": ["base": "prop22"]],
-			
-			// Optional with immutables
-			"prop23": "Optional",
-			"prop24": 255,
-			"prop25": true,
-			"prop26": 255.0,
-		]
+
 		
 		let immutable: Struct = try! mapper.map(JSON: JSON)
 		XCTAssertNotNil(immutable)
@@ -124,6 +125,14 @@ class ImmutableObjectTests: XCTestCase {
 		let objectFromJSON = try? mapper.map(JSON: JSONFromObject)
 		XCTAssertNotNil(objectFromJSON)
 		assertImmutableObjectsEqual(objectFromJSON!, immutable)
+	}
+
+	func testMappingFromArray() {
+		let mapper = Mapper<Struct>()
+		let JSONArray: [[String: Any]] = [JSON]
+
+		let array: [Struct] = mapper.mapArray(JSONArray: JSONArray) ?? []
+		XCTAssertNotNil(array.first)
 	}
 
 }
