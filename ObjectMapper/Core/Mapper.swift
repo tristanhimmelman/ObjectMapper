@@ -170,7 +170,7 @@ public final class Mapper<N: BaseMappable> {
 		return nil
 	}
 
-	/// Maps a JSON dictionary of dictionaries to a dictionary of Mappable objects
+	/// Maps a JSON dictionary of dictionaries to a dictionary of Mappble objects
 	public func mapDictionary(JSON: [String: [String: Any]]) -> [String: N]? {
 		// map every value in dictionary to type N
 		let result = JSON.filterMap(map)
@@ -190,7 +190,7 @@ public final class Mapper<N: BaseMappable> {
 		return dictionary
 	}
 	
-    /// Maps a JSON dictionary of dictionaries to an existing dictionary of Mappable objects
+    /// Maps a JSON dictionary of dictionaries to an existing dictionary of Mappble objects
     public func mapDictionary(JSON: [String: [String: Any]], toDictionary dictionary: [String: N]) -> [String: N] {
 		var mutableDictionary = dictionary
         for (key, value) in JSON {
