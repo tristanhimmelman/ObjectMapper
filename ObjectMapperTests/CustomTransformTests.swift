@@ -30,6 +30,12 @@ import Foundation
 import XCTest
 import ObjectMapper
 
+#if os(iOS) || os(tvOS) || os(watchOS)
+	typealias TestHexColor = UIColor
+#else
+	typealias TestHexColor = NSColor
+#endif
+
 class CustomTransformTests: XCTestCase {
 
 	let mapper = Mapper<Transforms>()
@@ -143,6 +149,15 @@ class CustomTransformTests: XCTestCase {
 		XCTAssertEqual(transforms?.firstImageType, imageType.Cover)
 		XCTAssertEqual(transforms?.secondImageType, imageType.Thumbnail)
 	}
+	
+	func testHEXColorTransform() {
+		let JSON: [String: Any] = ["colorRed": "#FF0000", "colorGreen": "#00FF00", "colorBlueWithoutHash": "0000FF"]
+		let transforms = mapper.map(JSON: JSON)
+		
+		XCTAssertEqual(transforms?.colorRed, TestHexColor.red)
+		XCTAssertEqual(transforms?.colorGreen, TestHexColor.green)
+		XCTAssertEqual(transforms?.colorBlueWithoutHash, TestHexColor.blue)
+	}
 }
 
 class Transforms: Mappable {
@@ -151,7 +166,7 @@ class Transforms: Mappable {
 		case Cover = "cover"
 		case Thumbnail = "thumbnail"
 	}
-
+	
 	var date = Date()
 	var dateOpt: Date?
 	
@@ -171,6 +186,10 @@ class Transforms: Mappable {
 	
 	var firstImageType: ImageType?
 	var secondImageType: ImageType?
+	
+	var colorRed: TestHexColor?
+	var colorGreen: TestHexColor?
+	var colorBlueWithoutHash: TestHexColor?
 
 	init(){
 		
@@ -199,6 +218,10 @@ class Transforms: Mappable {
 		
 		firstImageType		<- (map["firstImageType"], EnumTransform<ImageType>())
 		secondImageType		<- (map["secondImageType"], EnumTransform<ImageType>())
+		
+		colorRed			<- (map["colorRed"], HEXColorTransform())
+		colorGreen			<- (map["colorGreen"], HEXColorTransform())
+		colorBlueWithoutHash <- (map["colorBlueWithoutHash"], HEXColorTransform())
 	}
 }
 
