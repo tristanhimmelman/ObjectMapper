@@ -1,5 +1,5 @@
 //
-//  ImmutableMappble.swift
+//  ImmutableMappable.swift
 //  ObjectMapper
 //
 //  Created by Suyeol Jeon on 23/09/2016.
