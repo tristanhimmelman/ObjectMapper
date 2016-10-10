@@ -119,7 +119,7 @@ class ImmutableObjectTests: XCTestCase {
 		let immutable2 = try? mapper.map(JSON: JSON2)
 		XCTAssertNil(immutable2)
 
-		// TODO: ImmutableMappble to JSON
+		// TODO: ImmutableMappable to JSON
 		let JSONFromObject = mapper.toJSON(immutable)
 		let objectFromJSON = try? mapper.map(JSON: JSONFromObject)
 		XCTAssertNotNil(objectFromJSON)
