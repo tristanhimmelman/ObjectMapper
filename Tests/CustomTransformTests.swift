@@ -30,6 +30,12 @@ import Foundation
 import XCTest
 import ObjectMapper
 
+#if os(iOS) || os(tvOS) || os(watchOS)
+	typealias TestHexColor = UIColor
+#else
+	typealias TestHexColor = NSColor
+#endif
+
 class CustomTransformTests: XCTestCase {
 
 	let mapper = Mapper<Transforms>()
@@ -143,6 +149,35 @@ class CustomTransformTests: XCTestCase {
 		XCTAssertEqual(transforms?.firstImageType, imageType.Cover)
 		XCTAssertEqual(transforms?.secondImageType, imageType.Thumbnail)
 	}
+	
+	func testHexColorTransform() {
+		let JSON: [String: Any] = [
+			"colorRed": "#FF0000",
+			"colorGreenLowercase": "#00FF00",
+			"colorBlueWithoutHash": "0000FF",
+			"color3lenght": "F00",
+			"color4lenght": "F00f",
+			"color8lenght": "ff0000ff"
+		]
+		
+		let transform = mapper.map(JSON: JSON)
+		
+		XCTAssertEqual(transform?.colorRed, TestHexColor.red)
+		XCTAssertEqual(transform?.colorGreenLowercase, TestHexColor.green)
+		XCTAssertEqual(transform?.colorBlueWithoutHash, TestHexColor.blue)
+		XCTAssertEqual(transform?.color3lenght, TestHexColor.red)
+		XCTAssertEqual(transform?.color4lenght, TestHexColor.red)
+		XCTAssertEqual(transform?.color8lenght, TestHexColor.red)
+		
+		let JSONOutput = mapper.toJSON(transform!)
+		
+		XCTAssertEqual(JSONOutput["colorRed"] as? String, "FF0000")
+		XCTAssertEqual(JSONOutput["colorGreenLowercase"] as? String, "00FF00")
+		XCTAssertEqual(JSONOutput["colorBlueWithoutHash"] as? String, "#0000FF") // prefixToJSON = true
+		XCTAssertEqual(JSONOutput["color3lenght"] as? String, "FF0000")
+		XCTAssertEqual(JSONOutput["color4lenght"] as? String, "FF0000")
+		XCTAssertEqual(JSONOutput["color8lenght"] as? String, "FF0000FF") // alphaToJSON = true
+	}
 }
 
 class Transforms: Mappable {
@@ -171,6 +206,13 @@ class Transforms: Mappable {
 	
 	var firstImageType: ImageType?
 	var secondImageType: ImageType?
+	
+	var colorRed: TestHexColor?
+	var colorGreenLowercase: TestHexColor?
+	var colorBlueWithoutHash: TestHexColor?
+	var color3lenght: TestHexColor?
+	var color4lenght: TestHexColor?
+	var color8lenght: TestHexColor?
 
 	init(){
 		
@@ -199,6 +241,13 @@ class Transforms: Mappable {
 		
 		firstImageType		<- (map["firstImageType"], EnumTransform<ImageType>())
 		secondImageType		<- (map["secondImageType"], EnumTransform<ImageType>())
+		
+		colorRed			<- (map["colorRed"], HexColorTransform())
+		colorGreenLowercase <- (map["colorGreenLowercase"], HexColorTransform())
+		colorBlueWithoutHash <- (map["colorBlueWithoutHash"], HexColorTransform(prefixToJSON: true))
+		color3lenght			<- (map["color3lenght"], HexColorTransform())
+		color4lenght			<- (map["color4lenght"], HexColorTransform())
+		color8lenght			<- (map["color8lenght"], HexColorTransform(alphaToJSON: true))
 	}
 }
 
