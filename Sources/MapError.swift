@@ -36,7 +36,7 @@ public struct MapError: Error {
 	public var function: StaticString?
 	public var line: UInt?
 	
-	init(key: String?, currentValue: Any?, reason: String?, file: StaticString? = nil, function: StaticString? = nil, line: UInt? = nil) {
+	public init(key: String?, currentValue: Any?, reason: String?, file: StaticString? = nil, function: StaticString? = nil, line: UInt? = nil) {
 		self.key = key
 		self.currentValue = currentValue
 		self.reason = reason
