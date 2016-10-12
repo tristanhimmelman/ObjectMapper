@@ -45,6 +45,11 @@ public extension ImmutableMappable {
 		self = try Mapper(context: context).map(JSON: JSON)
 	}
 	
+	/// Initializes object from a JSONObject
+	public init(JSONObject: Any, context: MapContext? = nil) throws {
+		self = try Mapper(context: context).map(JSONObject: JSONObject)
+	}
+	
 }
 
 public extension Map {
@@ -151,10 +156,31 @@ public extension Mapper where N: ImmutableMappable {
 		return try mapOrFail(JSONString: JSONString)
 	}
 
-	public func map(JSONObject: Any?) throws -> N {
+	public func map(JSONObject: Any) throws -> N {
 		return try mapOrFail(JSONObject: JSONObject)
 	}
 
+	// MARK: Array mapping functions
+	
+	public func mapArray(JSONArray: [[String: Any]]) throws -> [N] {
+		return try JSONArray.flatMap(mapOrFail)
+	}
+	
+	public func mapArray(JSONString: String) throws -> [N] {
+		guard let JSONObject = Mapper.parseJSONString(JSONString: JSONString) else {
+			throw MapError(key: nil, currentValue: JSONString, reason: "Cannot convert string into Any'")
+		}
+		
+		return try mapArray(JSONObject: JSONObject)
+	}
+	
+	public func mapArray(JSONObject: Any) throws -> [N] {
+		guard let JSONArray = JSONObject as? [[String: Any]] else {
+			throw MapError(key: nil, currentValue: JSONObject, reason: "Cannot cast to '[[String: Any]]'")
+		}
+		
+		return try mapArray(JSONArray: JSONArray)
+	}
 }
 
 internal extension Mapper where N: BaseMappable {
@@ -183,7 +209,7 @@ internal extension Mapper where N: BaseMappable {
 		return try mapOrFail(JSON: JSON)
 	}
 
-	internal func mapOrFail(JSONObject: Any?) throws -> N {
+	internal func mapOrFail(JSONObject: Any) throws -> N {
 		guard let JSON = JSONObject as? [String: Any] else {
 			throw MapError(key: nil, currentValue: JSONObject, reason: "Cannot cast to '[String: Any]'")
 		}

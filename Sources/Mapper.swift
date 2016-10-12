@@ -102,13 +102,6 @@ public final class Mapper<N: BaseMappable> {
 			}
 		}
 
-		if let klass = N.self as? ImmutableMappable.Type {
-			if let maybeObject = try? klass.init(map: map) as? N, var object = maybeObject {
-				object.mapping(map: map)
-				return object
-			}
-		}
-
 		// fall back to using init? to create N
 		if let klass = N.self as? Mappable.Type {
 			if var object = klass.init(map: map) as? N {

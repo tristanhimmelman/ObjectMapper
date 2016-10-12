@@ -128,10 +128,9 @@ class ImmutableObjectTests: XCTestCase {
 	}
 
 	func testMappingFromArray() {
-		let mapper = Mapper<Struct>()
 		let JSONArray: [[String: Any]] = [JSON]
 
-		let array: [Struct] = mapper.mapArray(JSONArray: JSONArray) ?? []
+		let array: [Struct] = try! Mapper<Struct>().mapArray(JSONArray: JSONArray)
 		XCTAssertNotNil(array.first)
 	}
 
