@@ -453,6 +453,15 @@ class ObjectMapperTests: XCTestCase {
 		XCTAssertEqual(model.name, "Entry 1")
 		XCTAssertEqual(model.bigList?.count, 3)
 	}
+	
+	func testMappingProtocol(){
+		let JSON: [String: Any] = [
+			"pet": ["name": "Joey"]
+		]
+		
+		let owner = Owner(JSON: JSON)
+		print(owner)
+	}
 }
 
 class Status: Mappable {
@@ -652,6 +661,36 @@ struct CachedItem: Mappable {
 
 	init?(map: Map){}
 
+	mutating func mapping(map: Map) {
+		name <- map["name"]
+	}
+}
+
+struct Owner: Mappable {
+	var pet: Pet?
+	
+	init?(map: Map) {
+		
+	}
+	
+	mutating func mapping(map: Map) {
+		pet <- map["pet"]
+	}
+}
+
+protocol Pet: StaticMappable {
+	var name: String? { get set }
+}
+
+struct Dog: Pet {
+	var name: String?
+	
+	init(){}
+	
+	static func objectForMapping(map: Map) -> BaseMappable? {
+		return Dog()
+	}
+	
 	mutating func mapping(map: Map) {
 		name <- map["name"]
 	}
