@@ -393,22 +393,22 @@ extension Mapper where N: Hashable {
 }
 
 extension Dictionary {
-	internal func map<K: Hashable, V>(_ f: (Element) -> (K, V)) -> [K: V] {
+	internal func map<K: Hashable, V>(_ f: (Element) throws -> (K, V)) rethrows -> [K: V] {
 		var mapped = [K: V]()
 
 		for element in self {
-			let newElement = f(element)
+			let newElement = try f(element)
 			mapped[newElement.0] = newElement.1
 		}
 
 		return mapped
 	}
 
-	internal func map<K: Hashable, V>(_ f: (Element) -> (K, [V])) -> [K: [V]] {
+	internal func map<K: Hashable, V>(_ f: (Element) throws -> (K, [V])) rethrows -> [K: [V]] {
 		var mapped = [K: [V]]()
 		
 		for element in self {
-			let newElement = f(element)
+			let newElement = try f(element)
 			mapped[newElement.0] = newElement.1
 		}
 		
@@ -416,11 +416,11 @@ extension Dictionary {
 	}
 
 	
-	internal func filterMap<U>(_ f: (Value) -> U?) -> [Key: U] {
+	internal func filterMap<U>(_ f: (Value) throws -> U?) rethrows -> [Key: U] {
 		var mapped = [Key: U]()
 
 		for (key, value) in self {
-			if let newValue = f(value) {
+			if let newValue = try f(value) {
 				mapped[key] = newValue
 			}
 		}
