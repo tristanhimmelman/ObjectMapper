@@ -74,6 +74,20 @@ class ImmutableObjectTests: XCTestCase {
 		"prop24": 255,
 		"prop25": true,
 		"prop26": 255.0,
+
+		"non.nested->key": "string",
+		"nested": [
+			"int": 123,
+			"string": "hello",
+			"array": ["a", "b", "c"],
+			"dictionary": ["a": 10, "b": 20, "c": 30],
+		],
+		"com.hearst.ObjectMapper.nested": [
+			"com.hearst.ObjectMapper.int": 123,
+			"com.hearst.ObjectMapper.string": "hello",
+			"array": ["a", "b", "c"],
+			"dictionary": ["a": 10, "b": 20, "c": 30],
+		]
 		]
 
 	func testImmutableMappable() {
@@ -115,6 +129,18 @@ class ImmutableObjectTests: XCTestCase {
 		XCTAssertEqual(immutable.prop24!, 255)
 		XCTAssertEqual(immutable.prop25!, true)
 		XCTAssertEqual(immutable.prop26!, 255.0)
+
+		XCTAssertEqual(immutable.nonnestedString, "string")
+
+		XCTAssertEqual(immutable.nestedInt, 123)
+		XCTAssertEqual(immutable.nestedString, "hello")
+		XCTAssertEqual(immutable.nestedArray, ["a", "b", "c"])
+		XCTAssertEqual(immutable.nestedDictionary, ["a": 10, "b": 20, "c": 30])
+
+		XCTAssertEqual(immutable.delimiterNestedInt, 123)
+		XCTAssertEqual(immutable.delimiterNestedString, "hello")
+		XCTAssertEqual(immutable.delimiterNestedArray, ["a", "b", "c"])
+		XCTAssertEqual(immutable.delimiterNestedDictionary, ["a": 10, "b": 20, "c": 30])
 		
 		let JSON2: [String: Any] = [ "prop1": "prop1", "prop2": NSNull() ]
 		let immutable2 = try? mapper.map(JSON: JSON2)
@@ -171,6 +197,17 @@ struct Struct {
 	var prop24: Int?
 	var prop25: Bool?
 	var prop26: Double?
+
+	var nonnestedString: String
+	var nestedInt: Int
+	var nestedString: String
+	var nestedArray: [String]
+	var nestedDictionary: [String: Int]
+
+	var delimiterNestedInt: Int
+	var delimiterNestedString: String
+	var delimiterNestedArray: [String]
+	var delimiterNestedDictionary: [String: Int]
 }
 
 extension Struct: ImmutableMappable {
@@ -203,6 +240,18 @@ extension Struct: ImmutableMappable {
 		prop20 = try map.value("prop20")
 		prop21 = try? map.value("prop21")
 		prop22 = try? map.value("prop22")
+
+		nonnestedString = try map.value("non.nested->key", nested: false)
+
+		nestedInt = try map.value("nested.int")
+		nestedString = try map.value("nested.string")
+		nestedArray = try map.value("nested.array")
+		nestedDictionary = try map.value("nested.dictionary")
+
+		delimiterNestedInt = try map.value("com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.int", delimiter: "->")
+		delimiterNestedString = try map.value("com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.string", delimiter: "->")
+		delimiterNestedArray = try map.value("com.hearst.ObjectMapper.nested->array", delimiter: "->")
+		delimiterNestedDictionary = try map.value("com.hearst.ObjectMapper.nested->dictionary", delimiter: "->")
 	}
 
 	mutating func mapping(map: Map) {
@@ -239,6 +288,18 @@ extension Struct: ImmutableMappable {
 		prop20 >>> map["prop20"]
 		prop21 >>> map["prop21"]
 		prop22 >>> map["prop22"]
+
+		nonnestedString >>> map["non.nested->key", nested: false]
+
+		nestedInt >>> map["nested.int"]
+		nestedString >>> map["nested.string"]
+		nestedArray >>> map["nested.array"]
+		nestedDictionary >>> map["nested.dictionary"]
+
+		delimiterNestedInt >>> map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.int", delimiter: "->"]
+		delimiterNestedString >>> map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.string", delimiter: "->"]
+		delimiterNestedArray >>> map["com.hearst.ObjectMapper.nested->array", delimiter: "->"]
+		delimiterNestedDictionary >>> map["com.hearst.ObjectMapper.nested->dictionary", delimiter: "->"]
 	}
 }
 
