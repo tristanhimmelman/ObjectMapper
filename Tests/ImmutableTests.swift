@@ -162,6 +162,38 @@ class ImmutableObjectTests: XCTestCase {
 		XCTAssertThrowsError(try Mapper<Struct>().mapDictionary(JSON: JSONDictionary))
 	}
 
+	func testMappingFromDictionaryOfArrays() {
+		let JSONDictionary: [String: [[String: Any]]] = [
+			"key1": [JSON, JSON],
+			"key2": [JSON],
+			"key3": [],
+		]
+
+		let dictionary: [String: [Struct]] = try! Mapper<Struct>().mapDictionaryOfArrays(JSON: JSONDictionary)
+		XCTAssertNotNil(dictionary.first)
+		XCTAssertEqual(dictionary.count, 3)
+		XCTAssertEqual(Set(dictionary.keys), Set(["key1", "key2", "key3"]))
+		XCTAssertEqual(dictionary["key1"]?.count, 2)
+		XCTAssertEqual(dictionary["key2"]?.count, 1)
+		XCTAssertEqual(dictionary["key3"]?.count, 0)
+	}
+
+	func testMappingFromDictionaryOfArrays_empty() {
+		let JSONDictionary: [String: [[String: Any]]] = [:]
+
+		let dictionary: [String: [Struct]] = try! Mapper<Struct>().mapDictionaryOfArrays(JSON: JSONDictionary)
+		XCTAssertTrue(dictionary.isEmpty)
+	}
+
+	func testMappingFromDictionaryOfArrays_throws() {
+		let JSONDictionary: [String: [[String: Any]]] = [
+			"key1": [JSON],
+			"key2": [["invalid": "dictionary"]],
+		]
+
+		XCTAssertThrowsError(try Mapper<Struct>().mapDictionaryOfArrays(JSON: JSONDictionary))
+	}
+
 }
 
 struct Struct {
