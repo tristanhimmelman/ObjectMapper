@@ -219,6 +219,15 @@ public extension Mapper where N: ImmutableMappable {
 		}
 	}
 
+	// MARK: 2 dimentional array mapping functions
+
+	public func mapArrayOfArrays(JSONObject: Any?) throws -> [[N]] {
+		guard let JSONArray = JSONObject as? [[[String: Any]]] else {
+			throw MapError(key: nil, currentValue: JSONObject, reason: "Cannot cast to '[[[String: Any]]]''")
+		}
+		return try JSONArray.map(mapArray)
+	}
+
 }
 
 internal extension Mapper where N: BaseMappable {
