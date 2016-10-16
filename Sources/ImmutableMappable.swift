@@ -181,6 +181,53 @@ public extension Mapper where N: ImmutableMappable {
 		
 		return try mapArray(JSONArray: JSONArray)
 	}
+
+	// MARK: Dictionary mapping functions
+
+	public func mapDictionary(JSONString: String) throws -> [String: N] {
+		guard let JSONObject = Mapper.parseJSONString(JSONString: JSONString) else {
+			throw MapError(key: nil, currentValue: JSONString, reason: "Cannot convert string into Any'")
+		}
+
+		return try mapDictionary(JSONObject: JSONObject)
+	}
+
+	public func mapDictionary(JSONObject: Any?) throws -> [String: N] {
+		guard let JSON = JSONObject as? [String: [String: Any]] else {
+			throw MapError(key: nil, currentValue: JSONObject, reason: "Cannot cast to '[String: [String: Any]]''")
+		}
+
+		return try mapDictionary(JSON: JSON)
+	}
+
+	public func mapDictionary(JSON: [String: [String: Any]]) throws -> [String: N] {
+		return try JSON.filterMap(mapOrFail)
+	}
+
+	// MARK: Dictinoary of arrays mapping functions
+
+	public func mapDictionaryOfArrays(JSONObject: Any?) throws -> [String: [N]] {
+		guard let JSON = JSONObject as? [String: [[String: Any]]] else {
+			throw MapError(key: nil, currentValue: JSONObject, reason: "Cannot cast to '[String: [String: Any]]''")
+		}
+		return try mapDictionaryOfArrays(JSON: JSON)
+	}
+
+	public func mapDictionaryOfArrays(JSON: [String: [[String: Any]]]) throws -> [String: [N]] {
+		return try JSON.filterMap { array -> [N] in
+			try mapArray(JSONArray: array)
+		}
+	}
+
+	// MARK: 2 dimentional array mapping functions
+
+	public func mapArrayOfArrays(JSONObject: Any?) throws -> [[N]] {
+		guard let JSONArray = JSONObject as? [[[String: Any]]] else {
+			throw MapError(key: nil, currentValue: JSONObject, reason: "Cannot cast to '[[[String: Any]]]''")
+		}
+		return try JSONArray.map(mapArray)
+	}
+
 }
 
 internal extension Mapper where N: BaseMappable {
