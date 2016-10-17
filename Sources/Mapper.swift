@@ -94,13 +94,12 @@ public final class Mapper<N: BaseMappable> {
 	public func map(JSON: [String: Any]) -> N? {
 		let map = Map(mappingType: .fromJSON, JSON: JSON, context: context)
 		
-		// check if object is StaticMappable
-		if let klass = N.self as? StaticMappable.Type {
+		if let klass = N.self as? StaticMappable.Type { // Check if object is StaticMappable
 			if var object = klass.objectForMapping(map: map) as? N {
 				object.mapping(map: map)
 				return object
 			}
-		} else if let klass = N.self as? Mappable.Type { // fall back to using init? to create N
+		} else if let klass = N.self as? Mappable.Type { // Check if object is Mappable
 			if var object = klass.init(map: map) as? N {
 				object.mapping(map: map)
 				return object
