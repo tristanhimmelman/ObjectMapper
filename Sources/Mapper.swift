@@ -100,16 +100,16 @@ public final class Mapper<N: BaseMappable> {
 				object.mapping(map: map)
 				return object
 			}
-		}
-
-		// fall back to using init? to create N
-		if let klass = N.self as? Mappable.Type {
+		} else if let klass = N.self as? Mappable.Type { // fall back to using init? to create N
 			if var object = klass.init(map: map) as? N {
 				object.mapping(map: map)
 				return object
 			}
+		} else {
+			// Ensure BaseMappable is not implemented directly
+			assert(false, "BaseMappable should not be implemented directly. Please implement Mappable, StaticMappable or ImmutableMappable")
 		}
-
+		
 		return nil
 	}
 
