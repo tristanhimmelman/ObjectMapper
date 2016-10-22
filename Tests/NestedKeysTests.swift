@@ -126,6 +126,125 @@ class NestedKeysTests: XCTestCase {
 		XCTAssertEqual(value.objectDict, valueFromParsedJSON.objectDict)
 	}
 
+	func testNestedKeysWithDelimiter() {
+		let JSON: [String: Any] = [
+			"non.nested->key": "string",
+			"com.hearst.ObjectMapper.nested": [
+				"com.hearst.ObjectMapper.int64": NSNumber(value: INT64_MAX),
+				"com.hearst.ObjectMapper.bool": true,
+				"com.hearst.ObjectMapper.int": 255,
+				"com.hearst.ObjectMapper.double": 100.0 as Double,
+				"com.hearst.ObjectMapper.float": 50.0 as Float,
+				"com.hearst.ObjectMapper.string": "String!",
+
+				"com.hearst.ObjectMapper.nested": [
+					"int64Array": [NSNumber(value: INT64_MAX), NSNumber(value: INT64_MAX - 1), NSNumber(value: INT64_MAX - 10)],
+					"boolArray": [false, true, false],
+					"intArray": [1, 2, 3],
+					"doubleArray": [1.0, 2.0, 3.0],
+					"floatArray": [1.0 as Float, 2.0 as Float, 3.0 as Float],
+					"stringArray": ["123", "ABC"],
+
+					"int64Dict": ["1": NSNumber(value: INT64_MAX)],
+					"boolDict": ["2": true],
+					"intDict": ["3": 999],
+					"doubleDict": ["4": 999.999],
+					"floatDict": ["5": 123.456 as Float],
+					"stringDict": ["6": "InDict"],
+
+					"int64Enum": 1000,
+					"intEnum": 255,
+					"doubleEnum": 100.0,
+					"floatEnum": 100.0,
+					"stringEnum": "String B",
+
+					"com.hearst.ObjectMapper.nested": [
+						"object": ["value": 987],
+						"objectArray": [ ["value": 123], ["value": 456] ],
+						"objectDict": ["key": ["value": 999]]
+					]
+				]
+			]
+		]
+
+		let mapper = Mapper<DelimiterNestedKeys>()
+
+		let value: DelimiterNestedKeys! = mapper.map(JSONObject: JSON)
+		XCTAssertNotNil(value)
+
+		XCTAssertEqual(value.nonNestedString, "string")
+		
+		XCTAssertEqual(value.int64, NSNumber(value: INT64_MAX))
+		XCTAssertEqual(value.bool, true)
+		XCTAssertEqual(value.int, 255)
+		XCTAssertEqual(value.double, 100.0 as Double)
+		XCTAssertEqual(value.float, 50.0 as Float)
+		XCTAssertEqual(value.string, "String!")
+
+		let int64Array = [NSNumber(value: INT64_MAX), NSNumber(value: INT64_MAX - 1), NSNumber(value: INT64_MAX - 10)]
+		XCTAssertEqual(value.int64Array, int64Array)
+		XCTAssertEqual(value.boolArray, [false, true, false])
+		XCTAssertEqual(value.intArray, [1, 2, 3])
+		XCTAssertEqual(value.doubleArray, [1.0, 2.0, 3.0])
+		XCTAssertEqual(value.floatArray, [1.0 as Float, 2.0 as Float, 3.0 as Float])
+		XCTAssertEqual(value.stringArray, ["123", "ABC"])
+
+		XCTAssertEqual(value.int64Dict, ["1": NSNumber(value: INT64_MAX)])
+		XCTAssertEqual(value.boolDict, ["2": true])
+		XCTAssertEqual(value.intDict, ["3": 999])
+		XCTAssertEqual(value.doubleDict, ["4": 999.999])
+		XCTAssertEqual(value.floatDict, ["5": 123.456 as Float])
+		XCTAssertEqual(value.stringDict, ["6": "InDict"])
+
+		XCTAssertEqual(value.int64Enum, Int64Enum.b)
+		XCTAssertEqual(value.intEnum, IntEnum.b)
+//		 Skip tests due to float issue - #591
+//		XCTAssertEqual(value.doubleEnum, DoubleEnum.b)
+//		XCTAssertEqual(value.floatEnum, FloatEnum.b)
+		XCTAssertEqual(value.stringEnum, StringEnum.B)
+
+		XCTAssertEqual(value.object?.value, 987)
+		XCTAssertEqual(value.objectArray.map { $0.value }, [123, 456])
+		XCTAssertEqual(value.objectDict["key"]?.value, 999)
+		
+		let JSONFromValue = mapper.toJSON(value)
+		let valueFromParsedJSON: DelimiterNestedKeys! = mapper.map(JSON: JSONFromValue)
+		XCTAssertNotNil(valueFromParsedJSON)
+
+		XCTAssertEqual(value.nonNestedString, valueFromParsedJSON.nonNestedString)
+		
+		XCTAssertEqual(value.int64, valueFromParsedJSON.int64)
+		XCTAssertEqual(value.bool, valueFromParsedJSON.bool)
+		XCTAssertEqual(value.int, valueFromParsedJSON.int)
+		XCTAssertEqual(value.double, valueFromParsedJSON.double)
+		XCTAssertEqual(value.float, valueFromParsedJSON.float)
+		XCTAssertEqual(value.string, valueFromParsedJSON.string)
+
+		XCTAssertEqual(value.int64Array, valueFromParsedJSON.int64Array)
+		XCTAssertEqual(value.boolArray, valueFromParsedJSON.boolArray)
+		XCTAssertEqual(value.intArray, valueFromParsedJSON.intArray)
+		XCTAssertEqual(value.doubleArray, valueFromParsedJSON.doubleArray)
+		XCTAssertEqual(value.floatArray, valueFromParsedJSON.floatArray)
+		XCTAssertEqual(value.stringArray, valueFromParsedJSON.stringArray)
+
+		XCTAssertEqual(value.int64Dict, valueFromParsedJSON.int64Dict)
+		XCTAssertEqual(value.boolDict, valueFromParsedJSON.boolDict)
+		XCTAssertEqual(value.intDict, valueFromParsedJSON.intDict)
+		XCTAssertEqual(value.doubleDict, valueFromParsedJSON.doubleDict)
+		XCTAssertEqual(value.floatDict, valueFromParsedJSON.floatDict)
+		XCTAssertEqual(value.stringDict, valueFromParsedJSON.stringDict)
+
+		XCTAssertEqual(value.int64Enum, valueFromParsedJSON.int64Enum)
+		XCTAssertEqual(value.intEnum, valueFromParsedJSON.intEnum)
+		XCTAssertEqual(value.doubleEnum, valueFromParsedJSON.doubleEnum)
+		XCTAssertEqual(value.floatEnum, valueFromParsedJSON.floatEnum)
+		XCTAssertEqual(value.stringEnum, valueFromParsedJSON.stringEnum)
+
+		XCTAssertEqual(value.object, valueFromParsedJSON.object)
+		XCTAssertEqual(value.objectArray, valueFromParsedJSON.objectArray)
+		XCTAssertEqual(value.objectDict, valueFromParsedJSON.objectDict)
+	}
+
 }
 
 class NestedKeys: Mappable {
@@ -200,6 +319,43 @@ class NestedKeys: Mappable {
 		object		<- map["nested.nested.nested.object"]
 		objectArray	<- map["nested.nested.nested.objectArray"]
 		objectDict	<- map["nested.nested.nested.objectDict"]
+	}
+}
+
+class DelimiterNestedKeys: NestedKeys {
+	override func mapping(map: Map) {
+		nonNestedString <- map["non.nested->key", nested: false, delimiter: "->"]
+
+		int64   <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.int64", delimiter: "->"]
+		bool    <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.bool", delimiter: "->"]
+		int     <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.int", delimiter: "->"]
+		double  <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.double", delimiter: "->"]
+		float   <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.float", delimiter: "->"]
+		string  <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.string", delimiter: "->"]
+
+		int64Array  <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->int64Array", delimiter: "->"]
+		boolArray   <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->boolArray", delimiter: "->"]
+		intArray    <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->intArray", delimiter: "->"]
+		doubleArray <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->doubleArray", delimiter: "->"]
+		floatArray  <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->floatArray", delimiter: "->"]
+		stringArray <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->stringArray", delimiter: "->"]
+
+		int64Dict   <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->int64Dict", delimiter: "->"]
+		boolDict    <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->boolDict", delimiter: "->"]
+		intDict     <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->intDict", delimiter: "->"]
+		doubleDict  <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->doubleDict", delimiter: "->"]
+		floatDict   <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->floatDict", delimiter: "->"]
+		stringDict  <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->stringDict", delimiter: "->"]
+
+		int64Enum   <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->int64Enum", delimiter: "->"]
+		intEnum     <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->intEnum", delimiter: "->"]
+		doubleEnum  <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->doubleEnum", delimiter: "->"]
+		floatEnum   <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->floatEnum", delimiter: "->"]
+		stringEnum  <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->stringEnum", delimiter: "->"]
+
+		object      <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->object", delimiter: "->"]
+		objectArray <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->objectArray", delimiter: "->"]
+		objectDict  <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->objectDict", delimiter: "->"]
 	}
 }
 
