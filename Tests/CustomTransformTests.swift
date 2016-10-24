@@ -82,8 +82,7 @@ class CustomTransformTests: XCTestCase {
 		XCTAssertEqual(parsedTransforms?.ISO8601DateOpt, transforms.ISO8601DateOpt)
 	}
 	
-	
-	func testMoreISO8601FormatsDateTransform() {
+	func testMoreFormatsISO8601DateTransform() {
 		
 		let formatter = DateFormatter()
 		formatter.locale = Locale(identifier: "en_US_POSIX")
@@ -91,14 +90,11 @@ class CustomTransformTests: XCTestCase {
 		let transforms = Transforms()
 		formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
 		transforms.ISO8601Date = formatter.date(from: "2016-10-24T10:20:30.349-0500")!
-		
 		formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
 		transforms.ISO8601DateOpt = formatter.date(from: "2016-10-24T10:20:30Z")
 		
-		
 		let JSON = ["ISO8601Date" : "2016-10-24T10:20:30.349-0500",
 		            "ISO8601DateOpt" : "2016-10-24T10:20:30Z"]
-		
 		let parsedTransforms = mapper.map(JSON: JSON)
 		XCTAssertNotNil(parsedTransforms)
 		XCTAssertEqual(parsedTransforms?.ISO8601Date, transforms.ISO8601Date)
