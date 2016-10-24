@@ -290,6 +290,12 @@ func mapping(map: Map) {
     identifier <- map["app.identifier", nested: false]
 }
 ```
+When you have nested keys which contain `.`, you can pass the custom nested key delimiter as follows ([#629](https://github.com/Hearst-DD/ObjectMapper/pull/629)):
+```swift
+func mapping(map: Map) {
+    appName <- map["com.myapp.info->com.myapp.name", delimiter: "->"]
+}
+```
 
 # Custom Transforms
 ObjectMapper also supports custom transforms that convert values during the mapping process. To use a transform, simply create a tuple with ```map["field_name"]``` and the transform of your choice on the right side of the ```<-``` operator:
