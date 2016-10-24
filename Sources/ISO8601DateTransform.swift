@@ -33,29 +33,24 @@ open class ISO8601DateTransform: DateFormatterTransform {
 	public init() {
 		let formatter = DateFormatter()
 		formatter.locale = Locale(identifier: "en_US_POSIX")
-		formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+		formatter.dateFormat = "year-MM-dd'T'HH:mm:ssZZZZZ"
 		
 		super.init(dateFormatter: formatter)
 	}
     
-    
     override open func transformFromJSON(_ value: Any?) -> Date? {
-        
         guard let value = value as? String else {
             return nil
         }
- 
         let actualFormat = formatFrom(value)        
         dateFormatter.dateFormat = actualFormat.dateFormat
         return super.transformFromJSON(value)
     }
-    
-    
-  
+	
     /// get the current date string and try to find a valid format string for that string and returns the a valid format and a valid date to set them into a DateFormatter  
     func formatFrom(_ value:String) -> (dateString:String?, dateFormat:String?) {
         
-        var regexString = "\\A(\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2})" // Mandatory - YYYY-MM-DDTHH:mm
+        var regexString = "\\A(\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2})" // Mandatory - year-MM-DDTHH:mm
         regexString = regexString + ":?(\\d{2})?"                             // Optional - :ss
         regexString = regexString + "[.]?(\\d{1,6})?"                         // Optional - .nnnnnn
         regexString = regexString + "([+-])?(\\d{2})?:?(\\d{2})?|Z"           // Optional -[+-]hh:mm or Z
@@ -74,11 +69,7 @@ open class ISO8601DateTransform: DateFormatterTransform {
         guard let matches = matchesResult, matches.count > 0 else {
             return (nil, nil)
         }
-        
-        var YYYY: String?, MM: String?, DD: String?, hh: String?, mm: String?, ss: String?, nn: String?, sign: String?, Zhh: String?, Zmm: String?
-        var tempRange: NSRange!
-        
-        
+		
         //this function is to convert a NSRange to Range<String.Index>
         let convertRange:(_ nsRange: NSRange, _ text:String) -> Range<String.Index>? = { nsRange, text in
             guard
@@ -89,12 +80,13 @@ open class ISO8601DateTransform: DateFormatterTransform {
                 else { return nil }
             return from ..< to
         }
-        
-        
+		
+		var year, month, day, hour, minutes, seconds, secondFraction, sign, timeZoneHour, timeZoneMinutes: String?
+		var tempRange: NSRange!
+		
         for match in matches {
             let matchCount = match.numberOfRanges - 1
             var idx = 0 //components start from 1, 0 is the complete string
-            
             let checkAndAssign:()->(String?) = {
                 if idx < matchCount {
                     idx = idx + 1
@@ -105,73 +97,68 @@ open class ISO8601DateTransform: DateFormatterTransform {
                 return nil
             }
             
-            YYYY = checkAndAssign()
-            MM = checkAndAssign()
-            DD = checkAndAssign()
-            hh = checkAndAssign()
-            mm = checkAndAssign()
-            ss = checkAndAssign()
-            nn = checkAndAssign()
+            year = checkAndAssign()
+            month = checkAndAssign()
+            day = checkAndAssign()
+            hour = checkAndAssign()
+            minutes = checkAndAssign()
+            seconds = checkAndAssign()
+            secondFraction = checkAndAssign()
             sign = checkAndAssign()
-            Zhh = checkAndAssign()
-            Zmm = checkAndAssign()
+            timeZoneHour = checkAndAssign()
+            timeZoneMinutes = checkAndAssign()
         }
         
         var dateString:String = ""
         var formatString:String = ""
         
-        if let YYYY = YYYY {
-            dateString = dateString + YYYY + "-"
+        if let year = year {
+            dateString = dateString + year + "-"
             formatString = formatString + "yyyy" + "-"
         }
         
-        if let MM = MM {
-            dateString = dateString + MM + "-"
+        if let month = month {
+            dateString = dateString + month + "-"
             formatString = formatString + "MM" + "-"
         }
         
-        if let DD = DD {
-            dateString = dateString + DD
+        if let day = day {
+            dateString = dateString + day
             formatString = formatString + "dd"
         }
         
-        if let hh = hh {
-            dateString = dateString + "T" + hh
+        if let hour = hour {
+            dateString = dateString + "T" + hour
             formatString = formatString + "'T'" + "HH"
         }
         
-        if let mm = mm {
-            dateString = dateString + ":" + mm
+        if let minutes = minutes {
+            dateString = dateString + ":" + minutes
             formatString = formatString + ":" + "mm"
         }
         
-        if let ss = ss {
-            dateString = dateString + ":" + ss
+        if let seconds = seconds {
+            dateString = dateString + ":" + seconds
             formatString = formatString + ":" + "ss"
         }
-        if let nn = nn {
-            dateString = dateString + "." + nn
-            formatString = formatString + "." + String(repeating: "S", count: nn.characters.count)
+        if let secondFraction = secondFraction {
+            dateString = dateString + "." + secondFraction
+            formatString = formatString + "." + String(repeating: "S", count: secondFraction.characters.count)
         }
         if let sign = sign {
             dateString = dateString  + sign
             formatString = formatString + "Z"
         }
-        if let Zhh = Zhh {
-            dateString = dateString + Zhh
+        if let timeZoneHour = timeZoneHour {
+            dateString = dateString + timeZoneHour
             formatString = formatString + "ZZ"
         }
         
-        if let Zmm = Zmm {
-            dateString = dateString + Zmm
+        if let timeZoneMinutes = timeZoneMinutes {
+            dateString = dateString + timeZoneMinutes
             formatString = formatString + "ZZ"
         }
         
         return (dateString, formatString)
     }
-    
-    
-    
 }
-
-
