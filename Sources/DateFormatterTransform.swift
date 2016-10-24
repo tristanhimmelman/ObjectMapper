@@ -32,7 +32,7 @@ open class DateFormatterTransform: TransformType {
 	public typealias Object = Date
 	public typealias JSON = String
 	
-	let dateFormatter: DateFormatter
+	public let dateFormatter: DateFormatter
 	
 	public init(dateFormatter: DateFormatter) {
 		self.dateFormatter = dateFormatter
