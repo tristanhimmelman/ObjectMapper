@@ -32,6 +32,7 @@ open class URLTransform: TransformType {
 	public typealias Object = URL
 	public typealias JSON = String
 	private let shouldEncodeURLString: Bool
+    	private let allowedCharacters: CharacterSet
 
 	/**
 	Initializes the URLTransform with an option to encode URL strings before converting them to an NSURL
@@ -39,8 +40,9 @@ open class URLTransform: TransformType {
 	to `NSURL(string:)`
 	- returns: an initialized transformer
 	*/
-	public init(shouldEncodeURLString: Bool = true) {
+	public init(shouldEncodeURLString: Bool = true, allowedCharacters: CharacterSet = .urlQueryAllowed) {
 		self.shouldEncodeURLString = shouldEncodeURLString
+		self.allowedCharacters = allowedCharacters
 	}
 
 	open func transformFromJSON(_ value: Any?) -> URL? {
@@ -50,7 +52,7 @@ open class URLTransform: TransformType {
 			return URL(string: URLString)
 		}
 		
-		guard let escapedURLString = URLString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) else {
+		guard let escapedURLString = URLString.addingPercentEncoding(withAllowedCharacters: allowedCharacters) else {
 			return nil
 		}
 		return URL(string: escapedURLString)
