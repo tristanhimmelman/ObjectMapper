@@ -82,9 +82,12 @@ public extension Map {
 	// MARK: BaseMappable
 
 	/// Returns a `BaseMappable` object or throws an error.
-	public func value<T: BaseMappable>(_ key: String, nested: Bool? = nil, delimiter: String = ".") throws -> T {
+	public func value<T: BaseMappable>(_ key: String, nested: Bool? = nil, delimiter: String = ".", file: StaticString = #file, function: StaticString = #function, line: UInt = #line) throws -> T {
 		let currentValue = self.currentValue(for: key, nested: nested, delimiter: delimiter)
-		return try Mapper<T>().mapOrFail(JSONObject: currentValue)
+		guard let JSONObject = currentValue else {
+			throw MapError(key: key, currentValue: currentValue, reason: "Found unexpected nil value", file: file, function: function, line: line)
+		}
+		return try Mapper<T>().mapOrFail(JSONObject: JSONObject)
 	}
 
 	// MARK: [BaseMappable]
