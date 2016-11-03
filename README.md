@@ -235,7 +235,7 @@ User(JSONString: JSONString)
 
 #### `init(map: Map) throws`
 
-This throwable initializer is used to map immutable properties from the given `Map`. Every immutable propertie should be initialized in this initializer.
+This throwable initializer is used to map immutable properties from the given `Map`. Every immutable property should be initialized in this initializer.
 
 This initializer throws an error when:
 - `Map` fails to get a value for the given key
@@ -395,7 +395,7 @@ let result = Mapper<Result<User>>().map(JSON)
 
 The `Map` object which is passed around during mapping, has an optional `MapContext` object that is available for developers to use if they need to pass information around during mapping. 
 
-To take advantage of this feature, simple create an object that implements `MapContext` (which is an empty protocol) and pass it into `Mapper` during initialization. 
+To take advantage of this feature, simply create an object that implements `MapContext` (which is an empty protocol) and pass it into `Mapper` during initialization. 
 ```swift
 struct Context: MapContext {
 	var importantMappingInfo = "Info that I need during mapping"
