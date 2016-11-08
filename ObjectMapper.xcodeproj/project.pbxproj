@@ -386,8 +386,8 @@
 			isa = PBXGroup;
 			children = (
 				6A6AEB971A9387D0002573D3 /* BasicTypes.swift */,
-				6A6AEB951A93874F002573D3 /* BasicTypesTestsFromJSON.swift */,
 				6A3774331A31427F00CC0AB5 /* BasicTypesTestsToJSON.swift */,
+				6A6AEB951A93874F002573D3 /* BasicTypesTestsFromJSON.swift */,
 				6A412A161BAC770C001C3F67 /* ClassClusterTests.swift */,
 				6A51372E1AADE12C00B82516 /* CustomTransformTests.swift */,
 				C135CAB61D76303E00BA9338 /* DataTransformTests.swift */,
