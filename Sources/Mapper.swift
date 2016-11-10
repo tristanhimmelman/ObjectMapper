@@ -104,6 +104,8 @@ public final class Mapper<N: BaseMappable> {
 				object.mapping(map: map)
 				return object
 			}
+		} else if N.self is ImmutableMappable.Type { // Check if object is ImmutableMappable
+			assert(false, "'ImmutableMappable' type requires throwing version of function \(#function)  - use 'try' before \(#function)")
 		} else {
 			// Ensure BaseMappable is not implemented directly
 			assert(false, "BaseMappable should not be implemented directly. Please implement Mappable, StaticMappable or ImmutableMappable")
