@@ -45,7 +45,7 @@ class User: Mappable {
     var dictionary: [String : AnyObject] = [:]
     var bestFriend: User?                       // Nested User object
     var friends: [User]?                        // Array of Users
-    var birthday: NSDate?
+    var birthday: Date?
 
     required init?(map: Map) {
 
@@ -302,7 +302,7 @@ ObjectMapper also supports custom transforms that convert values during the mapp
 ```swift
 birthday <- (map["birthday"], DateTransform())
 ```
-The above transform will convert the JSON Int value to an NSDate when reading JSON and will convert the NSDate to an Int when converting objects to JSON.
+The above transform will convert the JSON Int value to an Date when reading JSON and will convert the Date to an Int when converting objects to JSON.
 
 You can easily create your own custom transforms by adopting and implementing the methods in the ```TransformType``` protocol:
 ```swift
