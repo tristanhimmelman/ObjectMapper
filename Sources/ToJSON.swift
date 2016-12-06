@@ -45,9 +45,9 @@ private func setValue(_ value: Any, forKeyPathComponents components: ArraySlice<
 	if components.isEmpty {
 		return
 	}
-	
+
 	let head = components.first!
-	
+
 	if components.count == 1 {
 		dictionary[String(head)] = value
 	} else {
@@ -55,10 +55,10 @@ private func setValue(_ value: Any, forKeyPathComponents components: ArraySlice<
 		if child == nil {
 			child = [:]
 		}
-		
+
 		let tail = components.dropFirst()
 		setValue(value, forKeyPathComponents: tail, dictionary: &child!)
-		
+
 		dictionary[String(head)] = child
 	}
 }
@@ -101,7 +101,7 @@ internal final class ToJSON {
 			basicType(NSNull(), map: map)  //If BasicType is nil, emil NSNull into the JSON output
 		}
 	}
-	
+
 	class func object<N: BaseMappable>(_ field: N, map: Map) {
 		if let result = Mapper(context: map.context).toJSON(field) as Any? {
 			setValue(result, map: map)
@@ -113,7 +113,7 @@ internal final class ToJSON {
 			object(field, map: map)
 		}
 	}
-	
+
 	class func objectArray<N: BaseMappable>(_ field: Array<N>, map: Map) {
 		let JSONObjects = Mapper(context: map.context).toJSONArray(field)
 		
@@ -158,16 +158,16 @@ internal final class ToJSON {
 		
 		setValue(JSONObjects, map: map)
 	}
-	
+
 	class func optionalObjectDictionary<N: BaseMappable>(_ field: Dictionary<String, N>?, map: Map) {
 		if let field = field {
 			objectDictionary(field, map: map)
 		}
 	}
-	
+
 	class func objectDictionaryOfArrays<N: BaseMappable>(_ field: Dictionary<String, [N]>, map: Map) {
 		let JSONObjects = Mapper(context: map.context).toJSONDictionaryOfArrays(field)
-		
+
 		setValue(JSONObjects, map: map)
 	}
 	
