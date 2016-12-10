@@ -41,7 +41,9 @@ class MapContextTests: XCTestCase {
         super.tearDown()
     }
     
-    func testMappingWithContext() {
+	// MARK: - BaseMappable
+	// MARK: Single
+	func testMappingWithContext() {
 		let JSON = ["name": "Tristan"]
 		let context = Context(shouldMap: true)
 		
@@ -49,7 +51,7 @@ class MapContextTests: XCTestCase {
 		
 		XCTAssertNotNil(person)
 		XCTAssertNotNil(person?.name)
-    }
+	}
 	
 	func testMappingWithContextViaMappableExtension() {
 		let JSON = ["name": "Tristan"]
@@ -70,6 +72,111 @@ class MapContextTests: XCTestCase {
 		XCTAssertNil(person?.name)
 	}
 	
+	// MARK: Array
+	func testArrayMappingWithContext() {
+		let JSON = ["persons": [["name": "Tristan"], ["name": "Anton"]]]
+		let context = Context(shouldMap: true)
+		
+		let person = Mapper<PersonList>(context: context).map(JSON: JSON)
+		
+		XCTAssertNotNil(person)
+		XCTAssertNotNil(person?.persons)
+	}
+	
+	func testArrayMappingWithContextViaMappableExtension() {
+		let JSON = ["persons": [["name": "Tristan"], ["name": "Anton"]]]
+		let context = Context(shouldMap: true)
+		
+		let person = PersonList(JSON: JSON, context: context)
+		
+		XCTAssertNotNil(person)
+		XCTAssertNotNil(person?.persons)
+	}
+	
+	func testArrayMappingWithoutContext() {
+		let JSON = ["persons": [["name": "Tristan"], ["name": "Anton"]]]
+		
+		let person = Mapper<PersonList>().map(JSON: JSON)
+		
+		XCTAssertNotNil(person)
+		XCTAssertNil(person?.persons)
+	}
+	
+	// MARK: ImmutableMappable
+	// MARK: Single
+	func testImmatableMappingWithContext() {
+		let JSON = ["name": "Anton"]
+		let context = ImmutableContext(isDeveloper: true)
+		
+		let person = try? Mapper<ImmutablePerson>(context: context).map(JSON: JSON)
+		
+		XCTAssertNotNil(person)
+		XCTAssertTrue(person!.isDeveloper)
+	}
+	
+	func testImmatableMappingWithContextViaMappableExtension() {
+		let JSON = ["name": "Anton"]
+		let context = ImmutableContext(isDeveloper: true)
+		
+		let person = try? ImmutablePerson(JSON: JSON, context: context)
+		
+		XCTAssertNotNil(person)
+		XCTAssertTrue(person!.isDeveloper)
+	}
+	
+	func testImmatableMappingWithoutContext() {
+		let JSON = ["name": "Anton"]
+		
+		do {
+			let _ = try Mapper<ImmutablePerson>().map(JSON: JSON)
+		} catch ImmutablePersonMappingError.contextAbsense {
+			// Empty
+		} catch {
+			XCTFail()
+		}
+	}
+	
+	// MARK: Array
+	func testArrayImmutableMappingWithContext() {
+		let JSON = ["persons": [["name": "Tristan"], ["name": "Anton"]]]
+		let context = ImmutableContext(isDeveloper: true)
+		
+		let personList = try? Mapper<ImmutablePersonList>(context: context).map(JSON: JSON)
+		
+		XCTAssertNotNil(personList)
+		
+		personList?.persons.forEach { person in
+			XCTAssertTrue(person.isDeveloper)
+		}
+	}
+	
+	func testArrayImmutableMappingWithContextViaMappableExtension() {
+		let JSON = ["persons": [["name": "Tristan"], ["name": "Anton"]]]
+		let context = ImmutableContext(isDeveloper: true)
+		
+		let personList = try? ImmutablePersonList(JSON: JSON, context: context)
+		
+		XCTAssertNotNil(personList)
+		
+		personList?.persons.forEach { person in
+			XCTAssertTrue(person.isDeveloper)
+		}
+	}
+	
+	func testArrayImmutableMappingWithoutContext() {
+		let JSON = ["persons": [["name": "Tristan"], ["name": "Anton"]]]
+		
+		do {
+			let _ = try Mapper<ImmutablePersonList>().map(JSON: JSON)
+		} catch ImmutablePersonMappingError.contextAbsense {
+			// Empty
+		} catch {
+			XCTFail()
+		}
+	}
+	
+	// MARK: - Nested Types
+	// MARK: BaseMappable
 	struct Context: MapContext {
 		var shouldMap = false
 		
@@ -89,6 +196,51 @@ class MapContextTests: XCTestCase {
 			if (map.context as? Context)?.shouldMap == true {
 				name <- map["name"]
 			}
+		}
+	}
+	
+	class PersonList: Mappable {
+		var persons: [Person]?
+		
+		required init?(map: Map){
+			
+		}
+		
+		func mapping(map: Map) {
+			if (map.context as? Context)?.shouldMap == true {
+				persons <- map["persons"]
+			}
+		}
+	}
+	
+	// MARK: ImmutableMappable
+	struct ImmutableContext: MapContext {
+		let isDeveloper: Bool
+	}
+	
+	enum ImmutablePersonMappingError: Error {
+		case contextAbsense
+	}
+	
+	struct ImmutablePerson: ImmutableMappable {
+		let name: String
+		let isDeveloper: Bool
+		
+		init(map: Map) throws {
+			guard let context = map.context as? ImmutableContext else {
+				throw ImmutablePersonMappingError.contextAbsense
+			}
+			
+			name = try map.value("name")
+			isDeveloper = context.isDeveloper
+		}
+	}
+	
+	struct ImmutablePersonList: ImmutableMappable {
+		let persons: [ImmutablePerson]
+		
+		init(map: Map) throws {
+			persons = try map.value("persons")
 		}
 	}
 }
