@@ -72,6 +72,36 @@ class MapContextTests: XCTestCase {
 		XCTAssertNil(person?.name)
 	}
 	
+	// MARK: Nested
+	func testNestedMappingWithContext() {
+		let JSON = ["person": ["name": "Tristan"]]
+		let context = Context(shouldMap: true)
+		
+		let nestedPerson = Mapper<NestedPerson>(context: context).map(JSON: JSON)
+		
+		XCTAssertNotNil(nestedPerson)
+		XCTAssertNotNil(nestedPerson?.person?.name)
+	}
+	
+	func testNestedMappingWithContextViaMappableExtension() {
+		let JSON = ["person": ["name": "Tristan"]]
+		let context = Context(shouldMap: true)
+		
+		let nestedPerson = NestedPerson(JSON: JSON, context: context)
+		
+		XCTAssertNotNil(nestedPerson)
+		XCTAssertNotNil(nestedPerson?.person?.name)
+	}
+
+	func testNestedMappingWithoutContext() {
+		let JSON = ["person": ["name": "Tristan"]]
+		
+		let nestedPerson = Mapper<NestedPerson>().map(JSON: JSON)
+		
+		XCTAssertNotNil(nestedPerson)
+		XCTAssertNil(nestedPerson?.person?.name)
+	}
+	
 	// MARK: Array
 	func testArrayMappingWithContext() {
 		let JSON = ["persons": [["name": "Tristan"], ["name": "Anton"]]]
@@ -111,7 +141,8 @@ class MapContextTests: XCTestCase {
 		let person = try? Mapper<ImmutablePerson>(context: context).map(JSON: JSON)
 		
 		XCTAssertNotNil(person)
-		XCTAssertTrue(person!.isDeveloper)
+		
+		XCTAssertEqual(person?.isDeveloper ?? !context.isDeveloper, context.isDeveloper)
 	}
 	
 	func testImmatableMappingWithContextViaMappableExtension() {
@@ -121,7 +152,7 @@ class MapContextTests: XCTestCase {
 		let person = try? ImmutablePerson(JSON: JSON, context: context)
 		
 		XCTAssertNotNil(person)
-		XCTAssertTrue(person!.isDeveloper)
+		XCTAssertEqual(person?.isDeveloper ?? !context.isDeveloper, context.isDeveloper)
 	}
 	
 	func testImmatableMappingWithoutContext() {
@@ -136,6 +167,41 @@ class MapContextTests: XCTestCase {
 		}
 	}
 	
+	// MARK: Nested
+	func testNestedImmutableMappingWithContext() {
+		let JSON = ["person": ["name": "Anton"]]
+		let context = ImmutableContext(isDeveloper: true)
+		
+		let nestedPerson = try? Mapper<ImmutableNestedPerson>(context: context).map(JSON: JSON)
+		
+		XCTAssertNotNil(nestedPerson)
+		XCTAssertEqual(nestedPerson?.person.isDeveloper ?? !context.isDeveloper, context.isDeveloper)
+	}
+	
+	func testNestedImmutableMappingWithContextViaMappableExtension() {
+		let JSON = ["person": ["name": "Anton"]]
+		let context = ImmutableContext(isDeveloper: true)
+		
+		let nestedPerson = try? ImmutableNestedPerson(JSON: JSON, context: context)
+		
+		XCTAssertNotNil(nestedPerson)
+		XCTAssertEqual(nestedPerson?.person.isDeveloper ?? !context.isDeveloper, context.isDeveloper)
+	}
+	
+	func testNestedImmutableMappingWithoutContext() {
+		let JSON = ["person": ["name": "Anton"]]
+		
+		do {
+			let _ = try Mapper<ImmutableNestedPerson>().map(JSON: JSON)
+		} catch ImmutablePersonMappingError.contextAbsense {
+			return
+		} catch {
+			XCTFail()
+		}
+		
+		XCTFail()
+	}
+	
 	// MARK: Array
 	func testArrayImmutableMappingWithContext() {
 		let JSON = ["persons": [["name": "Tristan"], ["name": "Anton"]]]
@@ -146,7 +212,7 @@ class MapContextTests: XCTestCase {
 		XCTAssertNotNil(personList)
 		
 		personList?.persons.forEach { person in
-			XCTAssertTrue(person.isDeveloper)
+			XCTAssertEqual(person.isDeveloper, context.isDeveloper)
 		}
 	}
 	
@@ -159,7 +225,7 @@ class MapContextTests: XCTestCase {
 		XCTAssertNotNil(personList)
 		
 		personList?.persons.forEach { person in
-			XCTAssertTrue(person.isDeveloper)
+			XCTAssertEqual(person.isDeveloper, context.isDeveloper)
 		}
 	}
 	
@@ -169,10 +235,12 @@ class MapContextTests: XCTestCase {
 		do {
 			let _ = try Mapper<ImmutablePersonList>().map(JSON: JSON)
 		} catch ImmutablePersonMappingError.contextAbsense {
-			// Empty
+			return
 		} catch {
 			XCTFail()
 		}
+		
+		XCTFail()
 	}
 	
 	// MARK: - Nested Types
@@ -195,6 +263,20 @@ class MapContextTests: XCTestCase {
 		func mapping(map: Map) {
 			if (map.context as? Context)?.shouldMap == true {
 				name <- map["name"]
+			}
+		}
+	}
+	
+	class NestedPerson: Mappable {
+		var person: Person?
+		
+		required init?(map: Map){
+			
+		}
+		
+		func mapping(map: Map) {
+			if (map.context as? Context)?.shouldMap == true {
+				person <- map["person"]
 			}
 		}
 	}
@@ -233,6 +315,14 @@ class MapContextTests: XCTestCase {
 			
 			name = try map.value("name")
 			isDeveloper = context.isDeveloper
+		}
+	}
+	
+	struct ImmutableNestedPerson: ImmutableMappable {
+		let person: ImmutablePerson
+		
+		init(map: Map) throws {
+			person = try map.value("person")
 		}
 	}
 	
