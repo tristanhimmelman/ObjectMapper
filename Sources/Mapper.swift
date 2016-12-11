@@ -37,9 +37,11 @@ public enum MappingType {
 public final class Mapper<N: BaseMappable> {
 	
 	public var context: MapContext?
+	public var shouldIncludeNilValues = false
 	
-	public init(context: MapContext? = nil){
+	public init(context: MapContext? = nil, shouldIncludeNilValues: Bool = false){
 		self.context = context
+		self.shouldIncludeNilValues = shouldIncludeNilValues
 	}
 	
 	// MARK: Mapping functions that map to an existing object toObject
@@ -65,7 +67,7 @@ public final class Mapper<N: BaseMappable> {
 	/// Usefull for those pesky objects that have crappy designated initializers like NSManagedObject
 	public func map(JSON: [String: Any], toObject object: N) -> N {
 		var mutableObject = object
-		let map = Map(mappingType: .fromJSON, JSON: JSON, toObject: true, context: context)
+		let map = Map(mappingType: .fromJSON, JSON: JSON, toObject: true, context: context, shouldIncludeNilValues: shouldIncludeNilValues)
 		mutableObject.mapping(map: map)
 		return mutableObject
 	}
@@ -92,7 +94,7 @@ public final class Mapper<N: BaseMappable> {
 
 	/// Maps a JSON dictionary to an object that conforms to Mappable
 	public func map(JSON: [String: Any]) -> N? {
-		let map = Map(mappingType: .fromJSON, JSON: JSON, context: context)
+		let map = Map(mappingType: .fromJSON, JSON: JSON, context: context, shouldIncludeNilValues: shouldIncludeNilValues)
 		
 		if let klass = N.self as? StaticMappable.Type { // Check if object is StaticMappable
 			if var object = klass.objectForMapping(map: map) as? N {
@@ -272,7 +274,7 @@ extension Mapper {
 	///Maps an object that conforms to Mappable to a JSON dictionary <String, Any>
 	public func toJSON(_ object: N) -> [String: Any] {
 		var mutableObject = object
-		let map = Map(mappingType: .toJSON, JSON: [:], context: context)
+		let map = Map(mappingType: .toJSON, JSON: [:], context: context, shouldIncludeNilValues: shouldIncludeNilValues)
 		mutableObject.mapping(map: map)
 		return map.JSON
 	}

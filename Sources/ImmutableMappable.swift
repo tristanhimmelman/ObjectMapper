@@ -242,7 +242,7 @@ public extension Mapper where N: ImmutableMappable {
 internal extension Mapper where N: BaseMappable {
 
 	internal func mapOrFail(JSON: [String: Any]) throws -> N {
-		let map = Map(mappingType: .fromJSON, JSON: JSON, context: context)
+		let map = Map(mappingType: .fromJSON, JSON: JSON, context: context, shouldIncludeNilValues: shouldIncludeNilValues)
 		
 		// Check if object is ImmutableMappable, if so use ImmutableMappable protocol for mapping
 		if let klass = N.self as? ImmutableMappable.Type,

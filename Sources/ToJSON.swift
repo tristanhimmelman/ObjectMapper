@@ -97,7 +97,7 @@ internal final class ToJSON {
 	class func optionalBasicType<N>(_ field: N?, map: Map) {
 		if let field = field {
 			basicType(field, map: map)
-		} else {
+		} else if map.shouldIncludeNilValues {
 			basicType(NSNull(), map: map)  //If BasicType is nil, emil NSNull into the JSON output
 		}
 	}
