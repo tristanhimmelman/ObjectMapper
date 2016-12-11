@@ -92,7 +92,7 @@ public extension Map {
 		guard let JSONObject = currentValue else {
 			throw MapError(key: key, currentValue: currentValue, reason: "Found unexpected nil value", file: file, function: function, line: line)
 		}
-		return try Mapper<T>().mapOrFail(JSONObject: JSONObject)
+		return try Mapper<T>(context: context).mapOrFail(JSONObject: JSONObject)
 	}
 
 	// MARK: [BaseMappable]
@@ -104,7 +104,7 @@ public extension Map {
 			throw MapError(key: key, currentValue: currentValue, reason: "Cannot cast to '[Any]'", file: file, function: function, line: line)
 		}
 		return try jsonArray.enumerated().map { i, JSONObject -> T in
-			return try Mapper<T>().mapOrFail(JSONObject: JSONObject)
+			return try Mapper<T>(context: context).mapOrFail(JSONObject: JSONObject)
 		}
 	}
 
@@ -132,7 +132,7 @@ public extension Map {
 		}
 		var value: [String: T] = [:]
 		for (key, json) in jsonDictionary {
-			value[key] = try Mapper<T>().mapOrFail(JSONObject: json)
+			value[key] = try Mapper<T>(context: context).mapOrFail(JSONObject: json)
 		}
 		return value
 	}
