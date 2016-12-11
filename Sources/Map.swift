@@ -45,7 +45,7 @@ public final class Map {
 	var keyIsNested = false
 	public internal(set) var nestedKeyDelimiter: String = "."
 	public var context: MapContext?
-	public var shouldIncludeNilValues = false
+	public var shouldIncludeNilValues = false  /// If this is set to true, toJSON output will include null values for any variables that are not set.
 	
 	let toObject: Bool // indicates whether the mapping is being applied to an existing object
 	
