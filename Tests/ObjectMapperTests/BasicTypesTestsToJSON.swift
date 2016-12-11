@@ -46,6 +46,18 @@ class BasicTypesTestsToJSON: XCTestCase {
 
 	// MARK: Test mapping to JSON and back (basic types: Bool, Int, Double, Float, String)
 	
+	func testShouldIncludeNilValues(){
+		let object = BasicTypes()
+		
+		let JSONWithNil = Mapper<BasicTypes>(shouldIncludeNilValues: true).toJSONString(object, prettyPrint: true)
+		let JSONWithoutNil = Mapper<BasicTypes>(shouldIncludeNilValues: false).toJSONString(object, prettyPrint: true)
+		
+		//TODO This test could be improved
+		XCTAssertNotNil(JSONWithNil)
+		XCTAssertTrue((JSONWithNil!.characters.count) > 5)
+		XCTAssertTrue((JSONWithNil!.characters.count) != (JSONWithoutNil!.characters.count))
+	}
+	
 	func testMappingBoolToJSON(){
 		let value: Bool = true
 		let object = BasicTypes()

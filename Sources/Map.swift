@@ -45,14 +45,17 @@ public final class Map {
 	var keyIsNested = false
 	public internal(set) var nestedKeyDelimiter: String = "."
 	public var context: MapContext?
+	public var shouldIncludeNilValues = false  /// If this is set to true, toJSON output will include null values for any variables that are not set.
 	
 	let toObject: Bool // indicates whether the mapping is being applied to an existing object
 	
-	public init(mappingType: MappingType, JSON: [String: Any], toObject: Bool = false, context: MapContext? = nil) {
+	public init(mappingType: MappingType, JSON: [String: Any], toObject: Bool = false, context: MapContext? = nil, shouldIncludeNilValues: Bool = false) {
+				
 		self.mappingType = mappingType
 		self.JSON = JSON
 		self.toObject = toObject
 		self.context = context
+		self.shouldIncludeNilValues = shouldIncludeNilValues
 	}
 	
 	/// Sets the current mapper value and key.
@@ -133,10 +136,10 @@ private func valueFor(_ keyPathComponents: ArraySlice<String>, dictionary: [Stri
 		let object = dictionary[keyPath]
 		if object is NSNull {
 			return (true, nil)
-		} else if let dict = object as? [String: Any] , keyPathComponents.count > 1 {
+		} else if keyPathComponents.count > 1, let dict = object as? [String: Any] {
 			let tail = keyPathComponents.dropFirst()
 			return valueFor(tail, dictionary: dict)
-		} else if let array = object as? [Any] , keyPathComponents.count > 1 {
+		} else if keyPathComponents.count > 1, let array = object as? [Any] {
 			let tail = keyPathComponents.dropFirst()
 			return valueFor(tail, array: array)
 		} else {
@@ -159,19 +162,19 @@ private func valueFor(_ keyPathComponents: ArraySlice<String>, array: [Any]) -> 
 	if let keyPath = keyPathComponents.first,
 		let index = Int(keyPath) , index >= 0 && index < array.count {
 			
-			let object = array[index]
-			
-			if object is NSNull {
-				return (true, nil)
-			} else if let array = object as? [Any] , keyPathComponents.count > 1 {
-				let tail = keyPathComponents.dropFirst()
-				return valueFor(tail, array: array)
-			} else if let dict = object as? [String: Any] , keyPathComponents.count > 1 {
-				let tail = keyPathComponents.dropFirst()
-				return valueFor(tail, dictionary: dict)
-			} else {
-				return (true, object)
-			}
+		let object = array[index]
+		
+		if object is NSNull {
+			return (true, nil)
+		} else if keyPathComponents.count > 1, let array = object as? [Any]  {
+			let tail = keyPathComponents.dropFirst()
+			return valueFor(tail, array: array)
+		} else if  keyPathComponents.count > 1, let dict = object as? [String: Any] {
+			let tail = keyPathComponents.dropFirst()
+			return valueFor(tail, dictionary: dict)
+		} else {
+			return (true, object)
+		}
 	}
 	
 	return (false, nil)

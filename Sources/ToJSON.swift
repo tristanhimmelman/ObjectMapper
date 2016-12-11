@@ -73,6 +73,7 @@ internal final class ToJSON {
 			|| x is Double
 			|| x is Float
 			|| x is String
+			|| x is NSNull
 			|| x is Array<NSNumber> // Arrays
 			|| x is Array<Bool>
 			|| x is Array<Int>
@@ -92,10 +93,12 @@ internal final class ToJSON {
 			setValue(x, map: map)
 		}
 	}
-
+	
 	class func optionalBasicType<N>(_ field: N?, map: Map) {
 		if let field = field {
 			basicType(field, map: map)
+		} else if map.shouldIncludeNilValues {
+			basicType(NSNull(), map: map)  //If BasicType is nil, emil NSNull into the JSON output
 		}
 	}
 
@@ -155,13 +158,13 @@ internal final class ToJSON {
 		
 		setValue(JSONObjects, map: map)
 	}
-	
+
 	class func optionalObjectDictionary<N: BaseMappable>(_ field: Dictionary<String, N>?, map: Map) {
-        if let field = field {
+		if let field = field {
 			objectDictionary(field, map: map)
-        }
-    }
-	
+		}
+	}
+
 	class func objectDictionaryOfArrays<N: BaseMappable>(_ field: Dictionary<String, [N]>, map: Map) {
 		let JSONObjects = Mapper(context: map.context).toJSONDictionaryOfArrays(field)
 
