@@ -14,30 +14,16 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6AAC8F7519F03C2900E7A677"
+               BlueprintIdentifier = "6A05B7A51BE274BE00F19B53"
                BuildableName = "ObjectMapper.framework"
-               BlueprintName = "ObjectMapper-iOS"
-               ReferencedContainer = "container:ObjectMapper.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6AAC8F8019F03C2900E7A677"
-               BuildableName = "ObjectMapper-iOSTests.xctest"
-               BlueprintName = "ObjectMapper-iOSTests"
+               BlueprintName = "ObjectMapper-tvOS"
                ReferencedContainer = "container:ObjectMapper.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
@@ -46,9 +32,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6AAC8F8019F03C2900E7A677"
-               BuildableName = "ObjectMapper-iOSTests.xctest"
-               BlueprintName = "ObjectMapper-iOSTests"
+               BlueprintIdentifier = "6A05B7AE1BE274BE00F19B53"
+               BuildableName = "ObjectMapper-tvOSTests.xctest"
+               BlueprintName = "ObjectMapper-tvOSTests"
                ReferencedContainer = "container:ObjectMapper.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -56,9 +42,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6AAC8F7519F03C2900E7A677"
+            BlueprintIdentifier = "6A05B7A51BE274BE00F19B53"
             BuildableName = "ObjectMapper.framework"
-            BlueprintName = "ObjectMapper-iOS"
+            BlueprintName = "ObjectMapper-tvOS"
             ReferencedContainer = "container:ObjectMapper.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -78,9 +64,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6AAC8F7519F03C2900E7A677"
+            BlueprintIdentifier = "6A05B7A51BE274BE00F19B53"
             BuildableName = "ObjectMapper.framework"
-            BlueprintName = "ObjectMapper-iOS"
+            BlueprintName = "ObjectMapper-tvOS"
             ReferencedContainer = "container:ObjectMapper.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -96,9 +82,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6AAC8F7519F03C2900E7A677"
+            BlueprintIdentifier = "6A05B7A51BE274BE00F19B53"
             BuildableName = "ObjectMapper.framework"
-            BlueprintName = "ObjectMapper-iOS"
+            BlueprintName = "ObjectMapper-tvOS"
             ReferencedContainer = "container:ObjectMapper.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
