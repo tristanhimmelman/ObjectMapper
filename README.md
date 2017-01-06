@@ -16,6 +16,7 @@ ObjectMapper is a framework written in Swift that makes it easy for you to conve
 - [Mapping Context](#mapping-context)
 - [ObjectMapper + Alamofire](#objectmapper--alamofire) 
 - [ObjectMapper + Realm](#objectmapper--realm)
+- [Projects using ObjectMapper](#projects-using-objectmapper)
 - [To Do](#to-do)
 - [Contributing](#contributing)
 - [Installation](#installation)
@@ -445,6 +446,11 @@ class Model: Object, Mappable {
 If you want to serialize associated RealmObjects, you can use [ObjectMapper+Realm](https://github.com/jakenberg/ObjectMapper-Realm). It is a simple Realm extension that serializes arbitrary JSON into Realm's List class.
 
 Note: Generating a JSON string of a Realm Object using ObjectMappers' `toJSON` function only works within a Realm write transaction. This is caused because ObjectMapper uses the `inout` flag in its mapping functions (`<-`) which are used both for serializing and deserializing. Realm detects the flag and forces the `toJSON` function to be called within a write block even though the objects are not being modified.
+
+# Projects Using ObjectMapper
+- [Xcode Plugin for generating `Mappable` and `ImmutableMappable` code](https://github.com/liyanhuadev/ObjectMapper-Plugin)
+
+If you have a project that utilizes, extends or provides tooling for ObjectMapper, please submit a PR with a link to your project in this section of the README.
 
 # To Do
 - Improve error handling. Perhaps using `throws`
