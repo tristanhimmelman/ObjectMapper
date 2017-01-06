@@ -8,10 +8,11 @@
 
 #if os(iOS) || os(tvOS) || os(watchOS)
 import UIKit
-#else
+#elseif os(macOS)
 import Cocoa
 #endif
 
+#if os(iOS) || os(tvOS) || os(watchOS) || os(macOS)
 open class HexColorTransform: TransformType {
 	
 	#if os(iOS) || os(tvOS) || os(watchOS)
@@ -112,4 +113,4 @@ open class HexColorTransform: TransformType {
 		#endif
 	}
 }
-
+#endif
