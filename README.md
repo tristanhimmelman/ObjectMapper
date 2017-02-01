@@ -143,7 +143,8 @@ Note: `StaticMappable`, like `Mappable`, is a sub protocol of `BaseMappable` whi
 ObjectMapper uses this function to get objects to use for mapping. Developers should return an instance of an object that conforms to `BaseMappable` in this function. This function can also be used to:
 - validate JSON prior to object serialization
 - provide an existing cached object to be used for mapping
-- return an object of another type (which also conforms to BaseMappable) to be used for mapping. For instance, you may inspect the JSON to infer the type of object that should be used for mapping ([see example](https://github.com/Hearst-DD/ObjectMapper/blob/master/ObjectMapperTests/ClassClusterTests.swift#L62))
+- return an object of another type (which also conforms to BaseMappable) to be used for mapping. For instance, you may inspect the JSON to infer the type of object that should be used for mapping ([see examples in ClassClusterTests.swift](https://github.com/Hearst-DD/ObjectMapper/blob/master/Tests/ObjectMapperTests/ClassClusterTests.swift#L67))
+
 
 If you need to implemented ObjectMapper in an extension, you will need to select this protocol instead of `Mappable`. 
 
