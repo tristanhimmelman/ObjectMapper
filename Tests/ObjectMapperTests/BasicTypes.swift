@@ -172,7 +172,7 @@ class BasicTypes: Mappable {
 		arrayStringImplicityUnwrapped		<- map["arrayStringImp"]
 		arrayAnyObject						<- map["arrayAnyObject"]
 		arrayAnyObjectOptional				<- map["arrayAnyObjectOpt"]
-		arrayAnyObjectImplicitlyUnwrapped	<- map["arratAnyObjectImp"]
+		arrayAnyObjectImplicitlyUnwrapped	<- map["arrayAnyObjectImp"]
 		
 		dictBool							<- map["dictBool"]
 		dictBoolOptional					<- map["dictBoolOpt"]
