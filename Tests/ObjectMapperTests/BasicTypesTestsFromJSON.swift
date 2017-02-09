@@ -198,7 +198,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		let value1 = "STRING"
 		let value2: Int = 1234
 		let value3: Double = 11.11
-		let JSONString = "{\"arrayAnyObject\" : [\"\(value1)\"], \"arrayAnyObjectOpt\" : [\(value2)], \"arratAnyObjectImp\" : [\(value3)] }"
+		let JSONString = "{\"arrayAnyObject\" : [\"\(value1)\"], \"arrayAnyObjectOpt\" : [\(value2)], \"arrayAnyObjectImp\" : [\(value3)] }"
 		
 		let mappedObject = mapper.map(JSONString: JSONString)
 
