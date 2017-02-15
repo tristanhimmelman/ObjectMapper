@@ -128,7 +128,7 @@ This failable initializer is used by ObjectMapper for object creation. It can be
 ```swift
 required init?(map: Map){
 	// check if a required "name" property exists within the JSON.
-	if map.JSONDictionary["name"] == nil {
+	if map.JSON["name"] == nil {
 		return nil
 	}
 }
