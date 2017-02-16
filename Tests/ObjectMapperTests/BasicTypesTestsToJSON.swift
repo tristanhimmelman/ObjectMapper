@@ -80,6 +80,9 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.int = value
 		object.intOptional = value
 		object.intImplicityUnwrapped = value
+		object.int64 = Int64(value)
+		object.int64Optional = Int64(value)
+		object.int64ImplicityUnwrapped = Int64(value)
 		
 		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
 		let mappedObject = mapper.map(JSONString: JSONString!)
@@ -88,6 +91,31 @@ class BasicTypesTestsToJSON: XCTestCase {
 		XCTAssertEqual(mappedObject?.int, value)
 		XCTAssertEqual(mappedObject?.intOptional, value)
 		XCTAssertEqual(mappedObject?.intImplicityUnwrapped, value)
+		XCTAssertEqual(mappedObject?.int64, Int64(value))
+		XCTAssertEqual(mappedObject?.int64Optional, Int64(value))
+		XCTAssertEqual(mappedObject?.int64ImplicityUnwrapped, Int64(value))
+	}
+
+	func testMappingUIntToJSON(){
+		let value: UInt = 11
+		let object = BasicTypes()
+		object.uint = value
+		object.uintOptional = value
+		object.uintImplicityUnwrapped = value
+		object.uint64 = UInt64(value)
+		object.uint64Optional = UInt64(value)
+		object.uint64ImplicityUnwrapped = UInt64(value)
+		
+		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+		let mappedObject = mapper.map(JSONString: JSONString!)
+
+		XCTAssertNotNil(mappedObject)
+		XCTAssertEqual(mappedObject?.uint, value)
+		XCTAssertEqual(mappedObject?.uintOptional, value)
+		XCTAssertEqual(mappedObject?.uintImplicityUnwrapped, value)
+		XCTAssertEqual(mappedObject?.uint64, UInt64(value))
+		XCTAssertEqual(mappedObject?.uint64Optional, UInt64(value))
+		XCTAssertEqual(mappedObject?.uint64ImplicityUnwrapped, UInt64(value))
 	}
 
 	func testMappingDoubleToJSON(){
