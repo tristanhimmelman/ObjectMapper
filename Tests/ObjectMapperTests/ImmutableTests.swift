@@ -1,4 +1,4 @@
-///
+//
 //  ImmutableTests.swift
 //  ObjectMapper
 //
@@ -548,7 +548,6 @@ private func assertImmutableObjectsEqual(_ lhs: Struct, _ rhs: Struct) {
 	XCTAssertEqual("\(lhs.prop20)", "\(rhs.prop20)")
 	XCTAssertEqual("\(lhs.prop21)", "\(rhs.prop21)")
 	XCTAssertEqual("\(lhs.prop22)", "\(rhs.prop22)")
-	
 	XCTAssertEqual("\(lhs.prop32)", "\(rhs.prop32)")
 	XCTAssertEqual("\(lhs.prop33)", "\(rhs.prop33)")
 	XCTAssertEqual("\(lhs.prop34)", "\(rhs.prop34)")
