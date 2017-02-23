@@ -39,7 +39,7 @@ open class NSDecimalNumberTransform: TransformType {
             return NSDecimalNumber(string: string)
         }
         if let double = value as? Double {
-            return NSDecimalNumber(value: double)
+            return NSDecimalNumber(floatLiteral: double)
         }
         return nil
     }
