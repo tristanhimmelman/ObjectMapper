@@ -36,6 +36,15 @@ class BasicTypes: Mappable {
 	var int: Int = 0
 	var intOptional: Int?
 	var intImplicityUnwrapped: Int!
+	var int64: Int64 = 0
+	var int64Optional: Int64?
+	var int64ImplicityUnwrapped: Int64!
+	var uint: UInt = 0
+	var uintOptional: UInt?
+	var uintImplicityUnwrapped: UInt!
+	var uint64: UInt64 = 0
+	var uint64Optional: UInt64?
+	var uint64ImplicityUnwrapped: UInt64!
 	var double: Double = 1.1
 	var doubleOptional: Double?
 	var doubleImplicityUnwrapped: Double!
@@ -142,6 +151,15 @@ class BasicTypes: Mappable {
 		int									<- map["int"]
 		intOptional							<- map["intOpt"]
 		intImplicityUnwrapped				<- map["intImp"]
+		int64											<- map["int64"]
+    int64Optional							<- map["int64Opt"]
+		int64ImplicityUnwrapped		<- map["int64Imp"]
+    uint											<- map["uint"]
+    uintOptional							<- map["uintOpt"]
+		uintImplicityUnwrapped		<- map["uintImp"]
+    uint64										<- map["uint64"]
+    uint64Optional						<- map["uint64Opt"]
+		uint64ImplicityUnwrapped	<- map["uint64Imp"]
 		double								<- map["double"]
 		doubleOptional						<- map["doubleOpt"]
 		doubleImplicityUnwrapped			<- map["doubleImp"]
