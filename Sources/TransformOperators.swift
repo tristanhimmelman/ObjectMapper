@@ -474,7 +474,7 @@ public func >>> <Transform: TransformType>(left: [[Transform.Object]], right: (M
 	}
 }
 
-/// Optional array of objects with transform
+/// Optional array of array of objects with transform
 public func <- <Transform: TransformType>(left: inout [[Transform.Object]]?, right: (Map, Transform)) {
 	let (map, transform) = right
 	switch map.mappingType {
@@ -502,7 +502,7 @@ public func >>> <Transform: TransformType>(left: [[Transform.Object]]?, right: (
 }
 
 
-/// Implicitly unwrapped Optional array of objects with transform
+/// Implicitly unwrapped Optional array of array of objects with transform
 public func <- <Transform: TransformType>(left: inout [[Transform.Object]]!, right: (Map, Transform)) {
 	let (map, transform) = right
 	switch map.mappingType {
