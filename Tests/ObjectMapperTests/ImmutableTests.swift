@@ -90,6 +90,16 @@ class ImmutableObjectTests: XCTestCase {
 		
 		"prop31a": "String A",
 		"prop31b": "String B",
+		
+		// [[String]]
+		"prop32": [["prop32"]],
+		"prop33": [["prop33"]],
+		"prop34": [["prop34"]],
+		
+		// [[Base]]
+		"prop35": [[["base": "prop35"]]],
+		"prop36": [[["base": "prop36"]]],
+		"prop37": [[["base": "prop37"]]],
 
 		"non.nested->key": "string",
 		"nested": [
@@ -160,6 +170,14 @@ class ImmutableObjectTests: XCTestCase {
 		
 		XCTAssertEqual(immutable.prop31a.rawValue, StringEnum.A.rawValue)
 		XCTAssertEqual(immutable.prop31b.rawValue, StringEnum.B.rawValue)
+		
+		XCTAssertEqual(immutable.prop32[0][0], "prop32_TRANSFORMED")
+		XCTAssertEqual(immutable.prop33![0][0], "prop33_TRANSFORMED")
+		XCTAssertEqual(immutable.prop34[0][0], "prop34_TRANSFORMED")
+		
+		XCTAssertEqual(immutable.prop35[0][0].base, "prop35")
+		XCTAssertEqual(immutable.prop36![0][0].base, "prop36")
+		XCTAssertEqual(immutable.prop37[0][0].base, "prop37")
 		
 		XCTAssertEqual(immutable.nonnestedString, "string")
 
@@ -333,6 +351,14 @@ struct Struct {
 	let prop31a: StringEnum
 	let prop31b: StringEnum
 	
+	let prop32: [[String]]
+	let prop33: [[String]]?
+	let prop34: [[String]]!
+	
+	let prop35: [[Base]]
+	let prop36: [[Base]]?
+	let prop37: [[Base]]!
+	
 	var nonnestedString: String
 	var nestedInt: Int
 	var nestedString: String
@@ -390,6 +416,14 @@ extension Struct: ImmutableMappable {
 		
 		prop31a = try map.value("prop31a")
 		prop31b = try map.value("prop31b")
+		
+		prop32 = try map.value("prop32", using: stringTransform)
+		prop33 = try? map.value("prop33", using: stringTransform)
+		prop34 = try? map.value("prop34", using: stringTransform)
+		
+		prop35 = try map.value("prop35")
+		prop36 = try? map.value("prop36")
+		prop37 = try? map.value("prop37")
 
 		nonnestedString = try map.value("non.nested->key", nested: false)
 
@@ -454,6 +488,14 @@ extension Struct: ImmutableMappable {
 		prop31a >>> map["prop31a"]
 		prop31b >>> map["prop31b"]
 
+		prop32 >>> (map["prop32"], stringTransform)
+		prop33 >>> (map["prop33"], stringTransform)
+		prop34 >>> (map["prop34"], stringTransform)
+		
+		prop35 >>> map["prop35"]
+		prop36 >>> map["prop36"]
+		prop37 >>> map["prop37"]
+
 		nonnestedString >>> map["non.nested->key", nested: false]
 
 		nestedInt >>> map["nested.int"]
@@ -476,7 +518,7 @@ let stringTransform = TransformOf<String, String>(
 		return "\(str)_TRANSFORMED"
 	},
 	toJSON: { (str: String?) -> String? in
-		return str?.replacingOccurrences(of: "_TRANSFORMED", with: "", options: [], range: nil)
+		return str?.replacingOccurrences(of: "_TRANSFORMED", with: "")
 	}
 )
 
@@ -506,4 +548,10 @@ private func assertImmutableObjectsEqual(_ lhs: Struct, _ rhs: Struct) {
 	XCTAssertEqual("\(lhs.prop20)", "\(rhs.prop20)")
 	XCTAssertEqual("\(lhs.prop21)", "\(rhs.prop21)")
 	XCTAssertEqual("\(lhs.prop22)", "\(rhs.prop22)")
+	XCTAssertEqual("\(lhs.prop32)", "\(rhs.prop32)")
+	XCTAssertEqual("\(lhs.prop33)", "\(rhs.prop33)")
+	XCTAssertEqual("\(lhs.prop34)", "\(rhs.prop34)")
+	XCTAssertEqual("\(lhs.prop35)", "\(rhs.prop35)")
+	XCTAssertEqual("\(lhs.prop36)", "\(rhs.prop36)")
+	XCTAssertEqual("\(lhs.prop37)", "\(rhs.prop37)")
 }
