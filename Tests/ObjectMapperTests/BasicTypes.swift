@@ -33,18 +33,47 @@ class BasicTypes: Mappable {
 	var bool: Bool = true
 	var boolOptional: Bool?
 	var boolImplicityUnwrapped: Bool!
+
 	var int: Int = 0
 	var intOptional: Int?
 	var intImplicityUnwrapped: Int!
+
+	var int8: Int8 = 0
+	var int8Optional: Int8?
+	var int8ImplicityUnwrapped: Int8!
+
+	var int16: Int16 = 0
+	var int16Optional: Int16?
+	var int16ImplicityUnwrapped: Int16!
+
+	var int32: Int32 = 0
+	var int32Optional: Int32?
+	var int32ImplicityUnwrapped: Int32!
+
 	var int64: Int64 = 0
 	var int64Optional: Int64?
 	var int64ImplicityUnwrapped: Int64!
+
 	var uint: UInt = 0
 	var uintOptional: UInt?
 	var uintImplicityUnwrapped: UInt!
+
+	var uint8: UInt8 = 0
+	var uint8Optional: UInt8?
+	var uint8ImplicityUnwrapped: UInt8!
+
+	var uint16: UInt16 = 0
+	var uint16Optional: UInt16?
+	var uint16ImplicityUnwrapped: UInt16!
+
+	var uint32: UInt32 = 0
+	var uint32Optional: UInt32?
+	var uint32ImplicityUnwrapped: UInt32!
+
 	var uint64: UInt64 = 0
 	var uint64Optional: UInt64?
 	var uint64ImplicityUnwrapped: UInt64!
+
 	var double: Double = 1.1
 	var doubleOptional: Double?
 	var doubleImplicityUnwrapped: Double!
@@ -148,18 +177,47 @@ class BasicTypes: Mappable {
 		bool								<- map["bool"]
 		boolOptional						<- map["boolOpt"]
 		boolImplicityUnwrapped				<- map["boolImp"]
+
 		int									<- map["int"]
 		intOptional							<- map["intOpt"]
 		intImplicityUnwrapped				<- map["intImp"]
+
+		int8                    <- map["int8"]
+		int8Optional            <- map["int8Opt"]
+		int8ImplicityUnwrapped  <- map["int8Imp"]
+
+		int16                   <- map["int16"]
+		int16Optional           <- map["int16Opt"]
+		int16ImplicityUnwrapped <- map["int16Imp"]
+
+		int32                   <- map["int32"]
+		int32Optional           <- map["int32Opt"]
+		int32ImplicityUnwrapped <- map["int32Imp"]
+
 		int64											<- map["int64"]
     int64Optional							<- map["int64Opt"]
 		int64ImplicityUnwrapped		<- map["int64Imp"]
+
     uint											<- map["uint"]
     uintOptional							<- map["uintOpt"]
 		uintImplicityUnwrapped		<- map["uintImp"]
+
+		uint8                    <- map["uint8"]
+		uint8Optional            <- map["uint8Opt"]
+		uint8ImplicityUnwrapped  <- map["uint8Imp"]
+
+		uint16                   <- map["uint16"]
+		uint16Optional           <- map["uint16Opt"]
+		uint16ImplicityUnwrapped <- map["uint16Imp"]
+
+		uint32                   <- map["uint32"]
+		uint32Optional           <- map["uint32Opt"]
+		uint32ImplicityUnwrapped <- map["uint32Imp"]
+
     uint64										<- map["uint64"]
     uint64Optional						<- map["uint64Opt"]
 		uint64ImplicityUnwrapped	<- map["uint64Imp"]
+
 		double								<- map["double"]
 		doubleOptional						<- map["doubleOpt"]
 		doubleImplicityUnwrapped			<- map["doubleImp"]
