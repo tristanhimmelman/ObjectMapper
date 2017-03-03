@@ -283,6 +283,7 @@ internal extension Mapper where N: BaseMappable {
 		if let klass = N.self as? ImmutableMappable.Type,
 			var object = try klass.init(map: map) as? N {
 			object.mapping(map: map)
+			object.doAfterMappingCompleted()
 			return object
 		}
 		

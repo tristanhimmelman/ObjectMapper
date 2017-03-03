@@ -69,6 +69,7 @@ public final class Mapper<N: BaseMappable> {
 		var mutableObject = object
 		let map = Map(mappingType: .fromJSON, JSON: JSON, toObject: true, context: context, shouldIncludeNilValues: shouldIncludeNilValues)
 		mutableObject.mapping(map: map)
+		object.doAfterMappingCompleted()
 		return mutableObject
 	}
 
