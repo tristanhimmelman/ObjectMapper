@@ -46,6 +46,12 @@ public protocol StaticMappable: BaseMappable {
 	static func objectForMapping(map: Map) -> BaseMappable?
 }
 
+/// This Extension provides a function, that is called after mapping is completed.
+/// This can be used to perform after Mapping operations/manipulations of data, if required.
+public extension BaseMappable {
+	func doAfterMappingCompleted () {}
+}
+
 public extension BaseMappable {
 	
 	/// Initializes object from a JSON String
