@@ -434,12 +434,12 @@ let context = Context()
 let user = Mapper<User>(context: context).map(JSONString)
 ```
 
-#ObjectMapper + Alamofire
+# ObjectMapper + Alamofire
 
 如果网络层你使用的是  [Alamofire](https://github.com/Alamofire/Alamofire) ，并且你希望把返回的结果转换成 Swift 对象，你可以使用 [AlamofireObjectMapper](https://github.com/tristanhimmelman/AlamofireObjectMapper) 。这是一个使用 ObjectMapper 实现的把返回的 JSON 自动转成 Swift 对象的 Alamofire 的扩展。 
 
 
-#ObjectMapper + Realm
+# ObjectMapper + Realm
 
 ObjectMapper 可以和 Realm 一起配合使用。使用下面的声明结构就可以使用 ObjectMapper 生成 Realm 对象：
 
