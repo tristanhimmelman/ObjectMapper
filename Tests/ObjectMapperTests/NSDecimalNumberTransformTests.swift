@@ -36,17 +36,25 @@ class NSDecimalNumberTransformTests: XCTestCase {
     func testNSDecimalNumberTransform() {
         let int: Int = 11
         let double: Double = 11.11
-        let intString = "\(int)"
-        let doubleString = "\(double)"
-        let JSONString = "{\"double\" : \(double), \"int\" : \(int), \"intString\" : \"\(intString)\", \"doubleString\" : \"\(doubleString)\"}"
+        /* Cannot use a float literal (eg: `let decimal: Decimal = 1.66`) as this transforms the value from 1.66 to 1.6599999999999995904 */
+        let decimal = Decimal(string: "1.66")!
+        let intString = "11"
+        let doubleString = "11.11"
+        let decimalString = "1.66"
+        let JSONString = "{\"double\" : \(doubleString), \"int\" : \(intString), \"decimal\" : \(decimalString), \"intString\" : \"\(intString)\", \"doubleString\" : \"\(doubleString)\", \"decimalString\" : \"\(decimalString)\"}"
 
         let mappedObject = mapper.map(JSONString: JSONString)
 
         XCTAssertNotNil(mappedObject)
         XCTAssertEqual(mappedObject?.int, NSDecimalNumber(value: int))
         XCTAssertEqual(mappedObject?.double, NSDecimalNumber(value: double))
+        XCTAssertEqual(mappedObject?.decimal, NSDecimalNumber(decimal: decimal))
         XCTAssertEqual(mappedObject?.intString, NSDecimalNumber(string: intString))
         XCTAssertEqual(mappedObject?.doubleString, NSDecimalNumber(string: doubleString))
+        XCTAssertEqual(mappedObject?.decimalString, NSDecimalNumber(string: decimalString))
+        XCTAssertEqual(mappedObject?.int?.stringValue, intString)
+        XCTAssertEqual(mappedObject?.double?.stringValue, doubleString)
+        XCTAssertEqual(mappedObject?.decimal?.stringValue, decimalString)
     }
 }
 
@@ -54,8 +62,10 @@ class NSDecimalNumberType: Mappable {
 
     var int: NSDecimalNumber?
     var double: NSDecimalNumber?
+    var decimal: NSDecimalNumber?
     var intString: NSDecimalNumber?
     var doubleString: NSDecimalNumber?
+    var decimalString: NSDecimalNumber?
 
     init(){
 
@@ -68,7 +78,9 @@ class NSDecimalNumberType: Mappable {
     func mapping(map: Map) {
         int <- (map["int"], NSDecimalNumberTransform())
         double <- (map["double"], NSDecimalNumberTransform())
+        decimal <- (map["decimal"], NSDecimalNumberTransform())
         intString <- (map["intString"], NSDecimalNumberTransform())
         doubleString <- (map["doubleString"], NSDecimalNumberTransform())
+        decimalString <- (map["decimalString"], NSDecimalNumberTransform())
     }
 }

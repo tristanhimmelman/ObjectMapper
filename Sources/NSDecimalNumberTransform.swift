@@ -37,8 +37,9 @@ open class NSDecimalNumberTransform: TransformType {
     open func transformFromJSON(_ value: Any?) -> NSDecimalNumber? {
         if let string = value as? String {
             return NSDecimalNumber(string: string)
-        }
-        if let double = value as? Double {
+        } else if let number = value as? NSNumber {
+            return NSDecimalNumber(decimal: number.decimalValue)
+        } else if let double = value as? Double {
             return NSDecimalNumber(floatLiteral: double)
         }
         return nil
