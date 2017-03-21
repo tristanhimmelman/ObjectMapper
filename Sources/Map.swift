@@ -50,7 +50,7 @@ public final class Map {
 	let toObject: Bool // indicates whether the mapping is being applied to an existing object
 	
 	public init(mappingType: MappingType, JSON: [String: Any], toObject: Bool = false, context: MapContext? = nil, shouldIncludeNilValues: Bool = false) {
-				
+		
 		self.mappingType = mappingType
 		self.JSON = JSON
 		self.toObject = toObject
@@ -69,36 +69,36 @@ public final class Map {
 		let nested = key.contains(delimiter)
 		return self[key, nested: nested, delimiter: delimiter, ignoreNil: false]
 	}
-
+	
 	public subscript(key: String, nested nested: Bool) -> Map {
-	    return self[key, nested: nested, delimiter: ".", ignoreNil: false]
+		return self[key, nested: nested, delimiter: ".", ignoreNil: false]
 	}
 	
 	public subscript(key: String, nested nested: Bool, delimiter delimiter: String) -> Map {
-	    return self[key, nested: nested, delimiter: delimiter, ignoreNil: false]
+		return self[key, nested: nested, delimiter: delimiter, ignoreNil: false]
 	}
-
+	
 	public subscript(key: String, ignoreNil ignoreNil: Bool) -> Map {
 		return self[key, delimiter: ".", ignoreNil: ignoreNil]
 	}
 	
-    public subscript(key: String, delimiter delimiter: String, ignoreNil ignoreNil: Bool) -> Map {
-        let nested = key.contains(delimiter)
-        return self[key, nested: nested, delimiter: delimiter, ignoreNil: ignoreNil]
-    }
-
+	public subscript(key: String, delimiter delimiter: String, ignoreNil ignoreNil: Bool) -> Map {
+		let nested = key.contains(delimiter)
+		return self[key, nested: nested, delimiter: delimiter, ignoreNil: ignoreNil]
+	}
+	
 	public subscript(key: String, nested nested: Bool, ignoreNil ignoreNil: Bool) -> Map {
 		return self[key, nested: nested, delimiter: ".", ignoreNil: ignoreNil]
 	}
 	
-    public subscript(key: String, nested nested: Bool, delimiter delimiter: String, ignoreNil ignoreNil: Bool) -> Map {
+	public subscript(key: String, nested nested: Bool, delimiter delimiter: String, ignoreNil ignoreNil: Bool) -> Map {
 		// save key and value associated to it
 		currentKey = key
 		keyIsNested = nested
 		nestedKeyDelimiter = delimiter
-
+		
 		if mappingType == .fromJSON {
-			// check if a value exists for the current key 
+			// check if a value exists for the current key
 			// do this pre-check for performance reasons
 			if nested == false {
 				let object = JSON[key]
@@ -122,7 +122,7 @@ public final class Map {
 	public func value<T>() -> T? {
 		return currentValue as? T
 	}
-
+	
 }
 
 /// Fetch value from JSON dictionary, loop through keyPathComponents until we reach the desired object
@@ -161,7 +161,7 @@ private func valueFor(_ keyPathComponents: ArraySlice<String>, array: [Any]) -> 
 	//Try to convert keypath to Int as index
 	if let keyPath = keyPathComponents.first,
 		let index = Int(keyPath) , index >= 0 && index < array.count {
-			
+		
 		let object = array[index]
 		
 		if object is NSNull {
