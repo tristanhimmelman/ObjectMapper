@@ -99,11 +99,13 @@ public final class Mapper<N: BaseMappable> {
 		if let klass = N.self as? StaticMappable.Type { // Check if object is StaticMappable
 			if var object = klass.objectForMapping(map: map) as? N {
 				object.mapping(map: map)
+				guard object.validateMapping(map: map) else { return nil }
 				return object
 			}
 		} else if let klass = N.self as? Mappable.Type { // Check if object is Mappable
 			if var object = klass.init(map: map) as? N {
 				object.mapping(map: map)
+				guard object.validateMapping(map: map) else { return nil }
 				return object
 			}
 		} else if let klass = N.self as? ImmutableMappable.Type { // Check if object is ImmutableMappable

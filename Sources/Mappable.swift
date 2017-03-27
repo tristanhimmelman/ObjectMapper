@@ -32,6 +32,10 @@ import Foundation
 public protocol BaseMappable {
 	/// This function is where all variable mappings should occur. It is executed by Mapper during the mapping (serialization and deserialization) process.
 	mutating func mapping(map: Map)
+	
+	/// This function is called after the mapping function when performing deserialization from JSON. Use it to implement post mapping validation. 
+	/// - returns: `true` if mapping is valid, otherwise return `false`. Default implementation returns `true`.
+	func validateMapping(map: Map) -> Bool
 }
 
 public protocol Mappable: BaseMappable {
@@ -44,6 +48,14 @@ public protocol StaticMappable: BaseMappable {
 	///		1) provide an existing cached object to be used for mapping
 	///		2) return an object of another class (which conforms to BaseMappable) to be used for mapping. For instance, you may inspect the JSON to infer the type of object that should be used for any given mapping
 	static func objectForMapping(map: Map) -> BaseMappable?
+}
+
+extension BaseMappable {
+	
+	public func validateMapping(map: Map) -> Bool {
+		
+		return true
+	}
 }
 
 public extension BaseMappable {
