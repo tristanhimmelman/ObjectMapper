@@ -297,6 +297,31 @@ class ImmutableObjectTests: XCTestCase {
 		XCTAssertThrowsError(try Mapper<Struct>().mapArrayOfArrays(JSONObject: JSONArray))
 	}
 
+	func testAsPropertyOfMappable() {
+		struct ImmutableObject: ImmutableMappable {
+			let value: String
+			init(map: Map) throws {
+				self.value = try map.value("value")
+			}
+		}
+
+		struct Object: Mappable {
+			var immutable: ImmutableObject!
+			init?(map: Map) {}
+			mutating func mapping(map: Map) {
+				self.immutable <- map["immutable"]
+			}
+		}
+
+		let json: [String: Any] = [
+			"immutable": [
+				"value": "Hello"
+			]
+		]
+		let object = Mapper<Object>().map(JSON: json)
+		XCTAssertEqual(object?.immutable?.value, "Hello")
+	}
+
 }
 
 struct Struct {
