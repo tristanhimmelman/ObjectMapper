@@ -120,7 +120,9 @@ public final class Map {
 	}
 	
 	public func value<T>() -> T? {
-		return currentValue as? T
+		let value = currentValue as? T
+		assert(!(currentValue != nil && value == nil), "Generic Type is not the same type, 'as? T' fail. please check your parameters type")
+		return value
 	}
 	
 }
