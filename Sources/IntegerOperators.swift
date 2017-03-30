@@ -103,7 +103,9 @@ private func toSignedInteger<T: SignedInteger>(_ value: Any?) -> T? {
 	case let x as UInt16: max = .init(x)
 	case let x as UInt32: max = .init(x)
 	case let x as UInt64: max = .init(x)
-	default: return nil
+	default:
+		assert(false, "Generic Type is not the same type, return 'T?' fail, please check your parameter type")
+		return nil
 	}
 	return T.init(max)
 }
@@ -123,7 +125,9 @@ private func toUnsignedInteger<T: UnsignedInteger>(_ value: Any?) -> T? {
 	case let x as UInt16: max = .init(x)
 	case let x as UInt32: max = .init(x)
 	case let x as UInt64: max = .init(x)
-	default: return nil
+	default:
+		assert(false, "Generic Type is not the same type, return 'T?' fail, please check your parameter type")
+		return nil
 	}
 	return T.init(max)
 }
