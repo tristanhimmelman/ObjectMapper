@@ -29,14 +29,14 @@
 import Foundation
 
 public struct MapError: Error {
-	public var key: String?
+	public var key: MapKeyConvertible?
 	public var currentValue: Any?
 	public var reason: String?
 	public var file: StaticString?
 	public var function: StaticString?
 	public var line: UInt?
 	
-	public init(key: String?, currentValue: Any?, reason: String?, file: StaticString? = nil, function: StaticString? = nil, line: UInt? = nil) {
+	public init(key: MapKeyConvertible?, currentValue: Any?, reason: String?, file: StaticString? = nil, function: StaticString? = nil, line: UInt? = nil) {
 		self.key = key
 		self.currentValue = currentValue
 		self.reason = reason
@@ -58,7 +58,7 @@ extension MapError: CustomStringConvertible {
 		let info: [(String, Any?)] = [
 			("- reason", reason),
 			("- location", location),
-			("- key", key),
+			("- key", key?.asMapKey()),
 			("- currentValue", currentValue),
 			]
 		let infoString = info.map { "\($0): \($1 ?? "nil")" }.joined(separator: "\n")

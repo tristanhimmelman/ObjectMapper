@@ -32,12 +32,12 @@ private func setValue(_ value: Any, map: Map) {
 	setValue(value, key: map.currentKey!, checkForNestedKeys: map.keyIsNested, delimiter: map.nestedKeyDelimiter, dictionary: &map.JSON)
 }
 
-private func setValue(_ value: Any, key: String, checkForNestedKeys: Bool, delimiter: String, dictionary: inout [String : Any]) {
+private func setValue(_ value: Any, key: MapKeyConvertible, checkForNestedKeys: Bool, delimiter: String, dictionary: inout [String : Any]) {
 	if checkForNestedKeys {
-		let keyComponents = ArraySlice(key.components(separatedBy: delimiter).filter { !$0.isEmpty }.map { $0.characters })
+		let keyComponents = ArraySlice(key.asMapKey().components(separatedBy: delimiter).filter { !$0.isEmpty }.map { $0.characters })
 		setValue(value, forKeyPathComponents: keyComponents, dictionary: &dictionary)
 	} else {
-		dictionary[key] = value
+		dictionary[key.asMapKey()] = value
 	}
 }
 
