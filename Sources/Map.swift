@@ -41,7 +41,7 @@ public final class Map {
 	public internal(set) var JSON: [String: Any] = [:]
 	public internal(set) var isKeyPresent = false
 	public internal(set) var currentValue: Any?
-	public internal(set) var currentKey: String?
+	public internal(set) var currentKey: MapKeyConvertible?
 	var keyIsNested = false
 	public internal(set) var nestedKeyDelimiter: String = "."
 	public var context: MapContext?
@@ -60,38 +60,38 @@ public final class Map {
 	
 	/// Sets the current mapper value and key.
 	/// The Key paramater can be a period separated string (ex. "distance.value") to access sub objects.
-	public subscript(key: String) -> Map {
+	public subscript(key: MapKeyConvertible) -> Map {
 		// save key and value associated to it
 		return self[key, delimiter: ".", ignoreNil: false]
 	}
 	
-	public subscript(key: String, delimiter delimiter: String) -> Map {
-		let nested = key.contains(delimiter)
+	public subscript(key: MapKeyConvertible, delimiter delimiter: String) -> Map {
+		let nested = key.asMapKey().contains(delimiter)
 		return self[key, nested: nested, delimiter: delimiter, ignoreNil: false]
 	}
 	
-	public subscript(key: String, nested nested: Bool) -> Map {
+	public subscript(key: MapKeyConvertible, nested nested: Bool) -> Map {
 		return self[key, nested: nested, delimiter: ".", ignoreNil: false]
 	}
 	
-	public subscript(key: String, nested nested: Bool, delimiter delimiter: String) -> Map {
+	public subscript(key: MapKeyConvertible, nested nested: Bool, delimiter delimiter: String) -> Map {
 		return self[key, nested: nested, delimiter: delimiter, ignoreNil: false]
 	}
 	
-	public subscript(key: String, ignoreNil ignoreNil: Bool) -> Map {
+	public subscript(key: MapKeyConvertible, ignoreNil ignoreNil: Bool) -> Map {
 		return self[key, delimiter: ".", ignoreNil: ignoreNil]
 	}
 	
-	public subscript(key: String, delimiter delimiter: String, ignoreNil ignoreNil: Bool) -> Map {
-		let nested = key.contains(delimiter)
+	public subscript(key: MapKeyConvertible, delimiter delimiter: String, ignoreNil ignoreNil: Bool) -> Map {
+		let nested = key.asMapKey().contains(delimiter)
 		return self[key, nested: nested, delimiter: delimiter, ignoreNil: ignoreNil]
 	}
 	
-	public subscript(key: String, nested nested: Bool, ignoreNil ignoreNil: Bool) -> Map {
+	public subscript(key: MapKeyConvertible, nested nested: Bool, ignoreNil ignoreNil: Bool) -> Map {
 		return self[key, nested: nested, delimiter: ".", ignoreNil: ignoreNil]
 	}
 	
-	public subscript(key: String, nested nested: Bool, delimiter delimiter: String, ignoreNil ignoreNil: Bool) -> Map {
+	public subscript(key: MapKeyConvertible, nested nested: Bool, delimiter delimiter: String, ignoreNil ignoreNil: Bool) -> Map {
 		// save key and value associated to it
 		currentKey = key
 		keyIsNested = nested
@@ -101,13 +101,13 @@ public final class Map {
 			// check if a value exists for the current key
 			// do this pre-check for performance reasons
 			if nested == false {
-				let object = JSON[key]
+				let object = JSON[key.asMapKey()]
 				let isNSNull = object is NSNull
 				isKeyPresent = isNSNull ? true : object != nil
 				currentValue = isNSNull ? nil : object
 			} else {
 				// break down the components of the key that are separated by .
-				(isKeyPresent, currentValue) = valueFor(ArraySlice(key.components(separatedBy: delimiter)), dictionary: JSON)
+				(isKeyPresent, currentValue) = valueFor(ArraySlice(key.asMapKey().components(separatedBy: delimiter)), dictionary: JSON)
 			}
 			
 			// update isKeyPresent if ignoreNil is true
