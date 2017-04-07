@@ -18,6 +18,7 @@
 		030E75F61E588BF80027D94A /* IntegerOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038F0A021E55FE2400613148 /* IntegerOperators.swift */; };
 		030E75F71E588BFC0027D94A /* IntegerOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038F0A021E55FE2400613148 /* IntegerOperators.swift */; };
 		038F0A031E55FE2400613148 /* IntegerOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038F0A021E55FE2400613148 /* IntegerOperators.swift */; };
+		1865416F1E972FA800F95A19 /* URLTransformTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1865416E1E972FA800F95A19 /* URLTransformTests.swift */; };
 		37AFD9B91AAD191C00AB59B5 /* CustomDateFormatTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AFD9B81AAD191C00AB59B5 /* CustomDateFormatTransform.swift */; };
 		3BAD2C0C1BDDB10D00E6B203 /* Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAD2C0B1BDDB10D00E6B203 /* Mappable.swift */; };
 		3BAD2C0D1BDDB10D00E6B203 /* Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAD2C0B1BDDB10D00E6B203 /* Mappable.swift */; };
@@ -222,6 +223,7 @@
 		030114A81D95187600FBFD4F /* ImmutableMappable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImmutableMappable.swift; sourceTree = "<group>"; };
 		030114AA1D95197100FBFD4F /* ImmutableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImmutableTests.swift; path = ObjectMapperTests/ImmutableTests.swift; sourceTree = "<group>"; };
 		038F0A021E55FE2400613148 /* IntegerOperators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntegerOperators.swift; sourceTree = "<group>"; };
+		1865416E1E972FA800F95A19 /* URLTransformTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URLTransformTests.swift; path = ObjectMapperTests/URLTransformTests.swift; sourceTree = "<group>"; };
 		37AFD9B81AAD191C00AB59B5 /* CustomDateFormatTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDateFormatTransform.swift; sourceTree = "<group>"; };
 		3BAD2C0B1BDDB10D00E6B203 /* Mappable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Mappable.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		3BAD2C0F1BDDC0B000E6B203 /* MappableExtensionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MappableExtensionsTests.swift; path = ObjectMapperTests/MappableExtensionsTests.swift; sourceTree = "<group>"; };
@@ -348,7 +350,6 @@
 				6A9EEBD41AC5BFA30011F22C /* README.md */,
 				6AAC8F7819F03C2900E7A677 /* ObjectMapper */,
 				6AAC8F8219F03C2900E7A677 /* ObjectMapperTests */,
-				6AAC8F7719F03C2900E7A677 /* Products */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 1;
@@ -365,6 +366,7 @@
 				6A05B7AF1BE274BE00F19B53 /* ObjectMapper-tvOSTests.xctest */,
 			);
 			name = Products;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		6AAC8F7819F03C2900E7A677 /* ObjectMapper */ = {
@@ -410,6 +412,8 @@
 				6AAC8F8519F03C2900E7A677 /* ObjectMapperTests.swift */,
 				6A412A231BB0DA26001C3F67 /* PerformanceTests.swift */,
 				6A0BF1FE1C0B53470083D1AF /* ToObjectTests.swift */,
+				1865416E1E972FA800F95A19 /* URLTransformTests.swift */,
+				6AAC8F7719F03C2900E7A677 /* Products */,
 				6AAC8F8319F03C2900E7A677 /* Supporting Files */,
 			);
 			name = ObjectMapperTests;
@@ -873,6 +877,7 @@
 				C135CAB71D76303E00BA9338 /* DataTransformTests.swift in Sources */,
 				6A442CA11CE251F100AB4F1F /* MapContextTests.swift in Sources */,
 				6A6AEB961A93874F002573D3 /* BasicTypesTestsFromJSON.swift in Sources */,
+				1865416F1E972FA800F95A19 /* URLTransformTests.swift in Sources */,
 				6AECC9E61D79E29100222E7A /* DictionaryTransformTests.swift in Sources */,
 				6A0BF1FF1C0B53470083D1AF /* ToObjectTests.swift in Sources */,
 				CD44374D1AAE9C1100A271BA /* NestedKeysTests.swift in Sources */,
