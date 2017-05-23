@@ -68,14 +68,13 @@ class ClassClusterTests: XCTestCase {
 		let carName = "Honda"
 		let JSON = [["name": carName, "type": "car"], ["type": "bus"], ["type": "vehicle"]]
 		
-		if let vehicles = Mapper<Vehicle>().mapArray(JSONArray: JSON){
-			XCTAssertNotNil(vehicles)
-			XCTAssertTrue(vehicles.count == 3)
-			XCTAssertNotNil(vehicles[0] as? Car)
-			XCTAssertNotNil(vehicles[1] as? Bus)
-			XCTAssertNotNil(vehicles[2])
-			XCTAssertEqual((vehicles[0] as? Car)?.name, carName)
-		}
+		let vehicles = Mapper<Vehicle>().mapArray(JSONArray: JSON)
+		XCTAssertNotNil(vehicles)
+		XCTAssertTrue(vehicles.count == 3)
+		XCTAssertNotNil(vehicles[0] as? Car)
+		XCTAssertNotNil(vehicles[1] as? Bus)
+		XCTAssertNotNil(vehicles[2])
+		XCTAssertEqual((vehicles[0] as? Car)?.name, carName)
 	}
 }
 

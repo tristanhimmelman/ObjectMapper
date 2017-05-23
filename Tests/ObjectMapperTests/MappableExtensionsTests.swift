@@ -86,7 +86,7 @@ class MappableExtensionsTests: XCTestCase {
 	
 	func testArrayToJSONAndBack() {
 		let mapped = [TestMappable](JSONArray: [testMappable].toJSON())
-		XCTAssertEqual(mapped!, [testMappable])
+		XCTAssertEqual(mapped, [testMappable])
 	}
 	
 	func testSetInitFailsWithEmptyString() {

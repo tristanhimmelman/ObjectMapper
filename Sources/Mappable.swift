@@ -89,12 +89,9 @@ public extension Array where Element: BaseMappable {
 	}
 	
 	/// Initialize Array from a JSON Array
-	public init?(JSONArray: [[String: Any]], context: MapContext? = nil) {
-		if let obj: [Element] = Mapper(context: context).mapArray(JSONArray: JSONArray) {
-			self = obj
-		} else {
-			return nil
-		}
+	public init(JSONArray: [[String: Any]], context: MapContext? = nil) {
+		let obj: [Element] = Mapper(context: context).mapArray(JSONArray: JSONArray)
+		self = obj
 	}
 	
 	/// Returns the JSON Array
