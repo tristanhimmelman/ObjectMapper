@@ -159,7 +159,7 @@ public final class Mapper<N: BaseMappable> {
 	}
 	
 	/// Maps an array of JSON dictionary to an array of Mappable objects
-	public func mapArray(JSONArray: [[String: Any]]) -> [N]? {
+	public func mapArray(JSONArray: [[String: Any]]) -> [N] {
 		// map every element in JSON array to type N
 		let result = JSONArray.flatMap(map)
 		return result
@@ -242,9 +242,8 @@ public final class Mapper<N: BaseMappable> {
 		if let JSONArray = JSONObject as? [[[String: Any]]] {
 			var objectArray = [[N]]()
 			for innerJSONArray in JSONArray {
-				if let array = mapArray(JSONArray: innerJSONArray){
-					objectArray.append(array)
-				}
+				let array = mapArray(JSONArray: innerJSONArray)
+				objectArray.append(array)
 			}
 			
 			if objectArray.isEmpty == false {
