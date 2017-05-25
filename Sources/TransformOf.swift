@@ -39,6 +39,7 @@ open class TransformOf<ObjectType, JSONType>: TransformType {
 	}
 
 	open func transformFromJSON(_ value: Any?) -> ObjectType? {
+		assert(!(value != nil && value as? JSONType == nil), "JSONType error, please check your definition")
 		return fromJSON(value as? JSONType)
 	}
 
