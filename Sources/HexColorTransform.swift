@@ -54,10 +54,15 @@ open class HexColorTransform: TransformType {
 	
 	fileprivate func hexString(color: Object) -> String {
 		let comps = color.cgColor.components!
+		let compsCount = color.cgColor.numberOfComponents
 		let r = Int(comps[0] * 255)
-		let g = Int(comps[1] * 255)
-		let b = Int(comps[2] * 255)
-		let a = Int(comps[3] * 255)
+		var g = Int(comps[0] * 255)
+		var b = Int(comps[0] * 255)
+		let a = Int(comps[compsCount - 1] * 255)
+		if compsCount == 4 {
+			g = Int(comps[1] * 255)
+			b = Int(comps[2] * 255)
+		}
 		var hexString: String = ""
 		if prefix {
 			hexString = "#"
