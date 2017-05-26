@@ -125,7 +125,7 @@ class ImmutableObjectTests: XCTestCase {
 		XCTAssertEqual(immutable.prop1, "Immutable!")
 		XCTAssertEqual(immutable.prop2, 255)
 		XCTAssertEqual(immutable.prop3, true)
-		XCTAssertEqual(immutable.prop4, DBL_MAX)
+		XCTAssertEqual(immutable.prop4, .greatestFiniteMagnitude)
 		
 		XCTAssertEqual(immutable.prop5, "prop5_TRANSFORMED")
 		XCTAssertEqual(immutable.prop6, "prop6_TRANSFORMED")
@@ -401,7 +401,7 @@ extension Struct: ImmutableMappable {
 		prop1 = try map.value("prop1")
 		prop2 = try map.value("prop2")
 		prop3 = try map.value("prop3")
-		prop4 = (try? map.value("prop4")) ?? DBL_MAX
+		prop4 = (try? map.value("prop4")) ?? .greatestFiniteMagnitude
 		
 		prop5 = try map.value("prop5", using: stringTransform)
 		prop6 = try? map.value("prop6", using: stringTransform)
@@ -559,24 +559,24 @@ private func assertImmutableObjectsEqual(_ lhs: Struct, _ rhs: Struct) {
 	XCTAssertEqual(lhs.prop23, rhs.prop23)
 	
 	// @hack: compare arrays and objects with their string representation.
-	XCTAssertEqual("\(lhs.prop9)", "\(rhs.prop9)")
+	XCTAssertEqual("\(lhs.prop9 as Optional)", "\(rhs.prop9 as Optional)")
 	XCTAssertEqual("\(lhs.prop10)", "\(rhs.prop10)")
 	XCTAssertEqual("\(lhs.prop11)", "\(rhs.prop11)")
-	XCTAssertEqual("\(lhs.prop12)", "\(rhs.prop12)")
+	XCTAssertEqual("\(lhs.prop12 as Optional)", "\(rhs.prop12 as Optional)")
 	XCTAssertEqual("\(lhs.prop13)", "\(rhs.prop13)")
 	XCTAssertEqual("\(lhs.prop14)", "\(rhs.prop14)")
-	XCTAssertEqual("\(lhs.prop15)", "\(rhs.prop15)")
+	XCTAssertEqual("\(lhs.prop15 as Optional)", "\(rhs.prop15 as Optional)")
 	XCTAssertEqual("\(lhs.prop16)", "\(rhs.prop16)")
 	XCTAssertEqual("\(lhs.prop17)", "\(rhs.prop17)")
-	XCTAssertEqual("\(lhs.prop18)", "\(rhs.prop18)")
+	XCTAssertEqual("\(lhs.prop18 as Optional)", "\(rhs.prop18 as Optional)")
 	XCTAssertEqual("\(lhs.prop19)", "\(rhs.prop19)")
 	XCTAssertEqual("\(lhs.prop20)", "\(rhs.prop20)")
-	XCTAssertEqual("\(lhs.prop21)", "\(rhs.prop21)")
+	XCTAssertEqual("\(lhs.prop21 as Optional)", "\(rhs.prop21 as Optional)")
 	XCTAssertEqual("\(lhs.prop22)", "\(rhs.prop22)")
 	XCTAssertEqual("\(lhs.prop32)", "\(rhs.prop32)")
-	XCTAssertEqual("\(lhs.prop33)", "\(rhs.prop33)")
+	XCTAssertEqual("\(lhs.prop33 as Optional)", "\(rhs.prop33 as Optional)")
 	XCTAssertEqual("\(lhs.prop34)", "\(rhs.prop34)")
 	XCTAssertEqual("\(lhs.prop35)", "\(rhs.prop35)")
-	XCTAssertEqual("\(lhs.prop36)", "\(rhs.prop36)")
+	XCTAssertEqual("\(lhs.prop36 as Optional)", "\(rhs.prop36 as Optional)")
 	XCTAssertEqual("\(lhs.prop37)", "\(rhs.prop37)")
 }
