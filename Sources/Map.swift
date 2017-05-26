@@ -53,6 +53,7 @@ public final class Map {
 		
 		self.mappingType = mappingType
 		self.JSON = JSON
+		self.currentValue = JSON
 		self.toObject = toObject
 		self.context = context
 		self.shouldIncludeNilValues = shouldIncludeNilValues

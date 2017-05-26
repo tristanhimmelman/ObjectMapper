@@ -53,6 +53,28 @@ class DictionaryTransformTests: XCTestCase {
 		XCTAssertEqual(result.dictionary[.Foo]?.foo, "bar")
 		XCTAssertEqual(result.dictionary[.Foo]?.bar, 777)
 	}
+
+	func testNonSubscriptedDictionaryTransform() {
+
+		let JSON = "{\"1\":{\"foo\":\"uno\",\"bar\":1},\"two\":{\"foo\":\"dve\",\"bar\":2},\"bar\":{\"foo\":\"bar\",\"bar\":777}}"
+
+		guard let result = NonSubscriptedDictionaryTransformTestsObject(JSONString: JSON) else {
+
+			XCTFail("Unable to parse the JSON")
+			return
+		}
+
+		XCTAssertEqual(result.dictionary.count, 3)
+
+		XCTAssertEqual(result.dictionary[.One]?.foo, "uno")
+		XCTAssertEqual(result.dictionary[.One]?.bar, 1)
+
+		XCTAssertEqual(result.dictionary[.Two]?.foo, "dve")
+		XCTAssertEqual(result.dictionary[.Two]?.bar, 2)
+
+		XCTAssertEqual(result.dictionary[.Foo]?.foo, "bar")
+		XCTAssertEqual(result.dictionary[.Foo]?.bar, 777)
+	}
 }
 
 class DictionaryTransformTestsObject: Mappable {
@@ -67,6 +89,14 @@ class DictionaryTransformTestsObject: Mappable {
 	func mapping(map: Map) {
 		
 		self.dictionary <- (map["dictionary"], DictionaryTransform<MyKey, MyValue>())
+	}
+}
+
+class NonSubscriptedDictionaryTransformTestsObject: DictionaryTransformTestsObject {
+
+	override func mapping(map: Map) {
+
+		self.dictionary <- (map, DictionaryTransform<MyKey, MyValue>())
 	}
 }
 
