@@ -130,6 +130,20 @@ public final class Mapper<N: BaseMappable> {
 		return nil
 	}
 
+	/// Maps a JSON dictionary to an object that conforms to Mappable
+	public func map(JSON: [String: Any?]) -> N? {
+		
+		var json = [String: Any]()
+		
+		for key in JSON.keys {
+			if let value = JSON[key] {
+				json[key] = value
+			}
+		}
+		
+		return map(JSON: json)
+	}
+	
 	// MARK: Mapping functions for Arrays and Dictionaries
 	
 	/// Maps a JSON array to an object that conforms to Mappable
