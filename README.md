@@ -444,9 +444,23 @@ class Model: Object, Mappable {
 }
 ```
 
-If you want to serialize associated RealmObjects, you can use [ObjectMapper+Realm](https://github.com/jakenberg/ObjectMapper-Realm). It is a simple Realm extension that serializes arbitrary JSON into Realm's List class.
+## Notes
+- [Here](https://github.com/realm/realm-cocoa/issues/1120#issuecomment-205812241) is some example code showing how to store string arrays from ObjectMapper into Realm.
+- Generating a JSON string of a Realm Object using ObjectMappers' `toJSON` function only works within a Realm write transaction. This is caused because ObjectMapper uses the `inout` flag in its mapping functions (`<-`) which are used both for serializing and deserializing. Realm detects the flag and forces the `toJSON` function to be called within a write block even though the objects are not being modified.
+- If you want to serialize associated RealmObjects, you can use [ObjectMapper+Realm](https://github.com/jakenberg/ObjectMapper-Realm). It is a simple Realm extension that serializes arbitrary JSON into Realm's List class.
 
-Note: Generating a JSON string of a Realm Object using ObjectMappers' `toJSON` function only works within a Realm write transaction. This is caused because ObjectMapper uses the `inout` flag in its mapping functions (`<-`) which are used both for serializing and deserializing. Realm detects the flag and forces the `toJSON` function to be called within a write block even though the objects are not being modified.
+## ObjectMapper + Realm + Subclasses
+If you want to use Realm with ObjectMapper's `Mappable`/`StaticMappable` subclasses you need to add the following to every subclass:
+
+```swift
+// MARK: - Requireds
+required init() { super.init() }
+required init?(_ map: Map) { super.init() }
+required init(value: AnyObject, schema: RLMSchema) { super.init(value: value, schema: schema) }
+required init(realm: RLMRealm, schema: RLMObjectSchema) { super.init(realm: realm, schema: schema) }
+```
+
+For more info, please see [this](https://github.com/Hearst-DD/ObjectMapper/issues/462) issue.
 
 # Projects Using ObjectMapper
 - [Xcode Plugin for generating `Mappable` and `ImmutableMappable` code](https://github.com/liyanhuadev/ObjectMapper-Plugin)
