@@ -32,22 +32,69 @@ open class DateFormatterTransform: TransformType {
 	public typealias Object = Date
 	public typealias JSON = String
 	
-	public let dateFormatter: DateFormatter
+	let dateFormatter: DateFormatter
+	let dateFormatter2: DateFormatter
 	
 	public init(dateFormatter: DateFormatter) {
 		self.dateFormatter = dateFormatter
+		self.dateFormatter2 = dateFormatter
 	}
 	
-	open func transformFromJSON(_ value: Any?) -> Date? {
+	public init(dateFormatter: DateFormatter, dateFormatter2: DateFormatter) {
+		self.dateFormatter = dateFormatter
+		self.dateFormatter2 = dateFormatter2
+	}
+	
+	public func transformFromJSON(_ value: Any?) -> Date? {
 		if let dateString = value as? String {
-			return dateFormatter.date(from: dateString)
+			if let date = dateFormatter.date(from: dateString) {
+				return date
+			} else {
+				return dateFormatter2.date(from: dateString)
+			}
 		}
 		return nil
 	}
 	
-	open func transformToJSON(_ value: Date?) -> String? {
+	public func transformToJSON(_ value: Date?) -> String? {
 		if let date = value {
 			return dateFormatter.string(from: date)
+		}
+		return nil
+	}
+}
+
+open class NSDateFormatterTransform: TransformType {
+	public typealias Object = NSDate
+	public typealias JSON = String
+	
+	let dateFormatter: DateFormatter
+	let dateFormatter2: DateFormatter
+	
+	public init(dateFormatter: DateFormatter) {
+		self.dateFormatter = dateFormatter
+		self.dateFormatter2 = dateFormatter
+	}
+	
+	public init(dateFormatter: DateFormatter, dateFormatter2: DateFormatter) {
+		self.dateFormatter = dateFormatter
+		self.dateFormatter2 = dateFormatter2
+	}
+	
+	public func transformFromJSON(_ value: Any?) -> NSDate? {
+		if let dateString = value as? String {
+			if let date = dateFormatter.date(from: dateString) {
+				return date as NSDate?
+			} else {
+				return dateFormatter2.date(from: dateString) as NSDate?
+			}
+		}
+		return nil
+	}
+	
+	public func transformToJSON(_ value: NSDate?) -> String? {
+		if let date = value {
+			return dateFormatter.string(from: date as Date)
 		}
 		return nil
 	}
