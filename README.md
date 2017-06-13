@@ -42,8 +42,8 @@ class User: Mappable {
     var username: String?
     var age: Int?
     var weight: Double!
-    var array: [AnyObject]?
-    var dictionary: [String : AnyObject] = [:]
+    var array: [Any]?
+    var dictionary: [String : Any] = [:]
     var bestFriend: User?                       // Nested User object
     var friends: [User]?                        // Array of Users
     var birthday: Date?
@@ -107,8 +107,8 @@ ObjectMapper can map classes composed of the following types:
 - `Float`
 - `String`
 - `RawRepresentable` (Enums)
-- `Array<AnyObject>`
-- `Dictionary<String, AnyObject>`
+- `Array<Any>`
+- `Dictionary<String, Any>`
 - `Object<T: Mappable>`
 - `Array<T: Mappable>`
 - `Array<Array<T: Mappable>>`
