@@ -58,101 +58,101 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		XCTAssertEqual(mappedObject?.boolImplicityUnwrapped, value)
 	}
 
-	/// - warning: This test doens't consider about integer overflow/underflow.
+	/// - warning: This test doens't consider integer overflow/underflow.
 	func testMappingIntegerFromJSON(){
-		func parameterize<T: Integer>(_ type: T.Type) {
+		func parameterize<T: FixedWidthInteger>(_ type: T.Type) {
 			let value: T = 123
 			let json: [String: Any] = [
 				"int": value,
 				"intOpt": value,
 				"intImp": value,
-
+				
 				"int8": value,
 				"int8Opt": value,
 				"int8Imp": value,
-
+				
 				"int16": value,
 				"int16Opt": value,
 				"int16Imp": value,
-
+				
 				"int32": value,
 				"int32Opt": value,
 				"int32Imp": value,
-
+				
 				"int64": value,
 				"int64Opt": value,
 				"int64Imp": value,
-
+				
 				"uint": value,
 				"uintOpt": value,
 				"uintImp": value,
-
+				
 				"uint8": value,
 				"uint8Opt": value,
 				"uint8Imp": value,
-
+				
 				"uint16": value,
 				"uint16Opt": value,
 				"uint16Imp": value,
-
+				
 				"uint32": value,
 				"uint32Opt": value,
 				"uint32Imp": value,
-
+				
 				"uint64": value,
 				"uint64Opt": value,
 				"uint64Imp": value,
 			]
 			let mappedObject = mapper.map(JSON: json)
 			XCTAssertNotNil(mappedObject)
-
+			
 			XCTAssertEqual(mappedObject?.int, 123)
 			XCTAssertEqual(mappedObject?.intOptional, 123)
 			XCTAssertEqual(mappedObject?.intImplicityUnwrapped, 123)
-
+			
 			XCTAssertEqual(mappedObject?.int8, 123)
 			XCTAssertEqual(mappedObject?.int8Optional, 123)
 			XCTAssertEqual(mappedObject?.int8ImplicityUnwrapped, 123)
-
+			
 			XCTAssertEqual(mappedObject?.int16, 123)
 			XCTAssertEqual(mappedObject?.int16Optional, 123)
 			XCTAssertEqual(mappedObject?.int16ImplicityUnwrapped, 123)
-
+			
 			XCTAssertEqual(mappedObject?.int32, 123)
 			XCTAssertEqual(mappedObject?.int32Optional, 123)
 			XCTAssertEqual(mappedObject?.int32ImplicityUnwrapped, 123)
-
+			
 			XCTAssertEqual(mappedObject?.int64, 123)
 			XCTAssertEqual(mappedObject?.int64Optional, 123)
 			XCTAssertEqual(mappedObject?.int64ImplicityUnwrapped, 123)
-
+			
 			XCTAssertEqual(mappedObject?.uint, 123)
 			XCTAssertEqual(mappedObject?.uintOptional, 123)
 			XCTAssertEqual(mappedObject?.uintImplicityUnwrapped, 123)
-
+			
 			XCTAssertEqual(mappedObject?.uint8, 123)
 			XCTAssertEqual(mappedObject?.uint8Optional, 123)
 			XCTAssertEqual(mappedObject?.uint8ImplicityUnwrapped, 123)
-
+			
 			XCTAssertEqual(mappedObject?.uint16, 123)
 			XCTAssertEqual(mappedObject?.uint16Optional, 123)
 			XCTAssertEqual(mappedObject?.uint16ImplicityUnwrapped, 123)
-
+			
 			XCTAssertEqual(mappedObject?.uint32, 123)
 			XCTAssertEqual(mappedObject?.uint32Optional, 123)
 			XCTAssertEqual(mappedObject?.uint32ImplicityUnwrapped, 123)
-
+			
 			XCTAssertEqual(mappedObject?.uint64, 123)
 			XCTAssertEqual(mappedObject?.uint64Optional, 123)
 			XCTAssertEqual(mappedObject?.uint64ImplicityUnwrapped, 123)
 		}
-
+		
 		parameterize(Int.self)
 		parameterize(Int8.self)
 		parameterize(Int16.self)
 		parameterize(Int32.self)
 		parameterize(Int64.self)
-
+		
 		parameterize(UInt.self)
 		parameterize(UInt8.self)
 		parameterize(UInt16.self)
@@ -378,7 +378,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.arrayFloat.first, value)
 		XCTAssertEqual(mappedObject?.arrayFloatOptional?.first, value)
-		XCTAssertEqual(mappedObject?.arrayFloatImplicityUnwrapped.first, value)
+		XCTAssertEqual(mappedObject?.arrayFloatImplicityUnwrapped?.first, value)
 	}
 	
 	func testMappingStringArrayFromJSON(){
@@ -458,7 +458,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.dictFloat[key], value)
 		XCTAssertEqual(mappedObject?.dictFloatOptional?[key], value)
-		XCTAssertEqual(mappedObject?.dictFloatImplicityUnwrapped[key], value)
+		XCTAssertEqual(mappedObject?.dictFloatImplicityUnwrapped?[key], value)
 	}
 	
 	func testMappingStringDictionaryFromJSON(){
@@ -471,7 +471,7 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		XCTAssertNotNil(mappedObject)
 		XCTAssertEqual(mappedObject?.dictString[key], value)
 		XCTAssertEqual(mappedObject?.dictStringOptional?[key], value)
-		XCTAssertEqual(mappedObject?.dictStringImplicityUnwrapped[key], value)
+		XCTAssertEqual(mappedObject?.dictStringImplicityUnwrapped?[key], value)
 	}
 	
 	func testMappingAnyObjectDictionaryFromJSON(){

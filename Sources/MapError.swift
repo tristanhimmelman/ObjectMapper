@@ -61,7 +61,7 @@ extension MapError: CustomStringConvertible {
 			("- key", key),
 			("- currentValue", currentValue),
 			]
-		let infoString = info.map { "\($0): \($1 ?? "nil")" }.joined(separator: "\n")
+		let infoString = info.map { "\($0.0): \($0.1 ?? "nil")" }.joined(separator: "\n")
 		return "Got an error while mapping.\n\(infoString)"
 	}
 	
