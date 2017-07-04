@@ -103,7 +103,7 @@ internal final class ToJSON {
 	}
 
 	class func object<N: BaseMappable>(_ field: N, map: Map) {
-		if let result = Mapper(context: map.context).toJSON(field) as Any? {
+		if let result = Mapper(context: map.context, shouldIncludeNilValues: map.shouldIncludeNilValues).toJSON(field) as Any? {
 			setValue(result, map: map)
 		}
 	}
@@ -115,7 +115,7 @@ internal final class ToJSON {
 	}
 
 	class func objectArray<N: BaseMappable>(_ field: Array<N>, map: Map) {
-		let JSONObjects = Mapper(context: map.context).toJSONArray(field)
+		let JSONObjects = Mapper(context: map.context, shouldIncludeNilValues: map.shouldIncludeNilValues).toJSONArray(field)
 		
 		setValue(JSONObjects, map: map)
 	}
@@ -129,7 +129,7 @@ internal final class ToJSON {
 	class func twoDimensionalObjectArray<N: BaseMappable>(_ field: Array<Array<N>>, map: Map) {
 		var array = [[[String: Any]]]()
 		for innerArray in field {
-			let JSONObjects = Mapper(context: map.context).toJSONArray(innerArray)
+			let JSONObjects = Mapper(context: map.context, shouldIncludeNilValues: map.shouldIncludeNilValues).toJSONArray(innerArray)
 			array.append(JSONObjects)
 		}
 		setValue(array, map: map)
@@ -142,7 +142,7 @@ internal final class ToJSON {
 	}
 	
 	class func objectSet<N: BaseMappable>(_ field: Set<N>, map: Map) where N: Hashable {
-		let JSONObjects = Mapper(context: map.context).toJSONSet(field)
+		let JSONObjects = Mapper(context: map.context, shouldIncludeNilValues: map.shouldIncludeNilValues).toJSONSet(field)
 		
 		setValue(JSONObjects, map: map)
 	}
@@ -154,7 +154,7 @@ internal final class ToJSON {
 	}
 	
 	class func objectDictionary<N: BaseMappable>(_ field: Dictionary<String, N>, map: Map) {
-		let JSONObjects = Mapper(context: map.context).toJSONDictionary(field)
+		let JSONObjects = Mapper(context: map.context, shouldIncludeNilValues: map.shouldIncludeNilValues).toJSONDictionary(field)
 		
 		setValue(JSONObjects, map: map)
 	}
@@ -166,7 +166,7 @@ internal final class ToJSON {
 	}
 
 	class func objectDictionaryOfArrays<N: BaseMappable>(_ field: Dictionary<String, [N]>, map: Map) {
-		let JSONObjects = Mapper(context: map.context).toJSONDictionaryOfArrays(field)
+		let JSONObjects = Mapper(context: map.context, shouldIncludeNilValues: map.shouldIncludeNilValues).toJSONDictionaryOfArrays(field)
 
 		setValue(JSONObjects, map: map)
 	}
