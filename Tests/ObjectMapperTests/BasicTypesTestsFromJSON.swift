@@ -60,8 +60,8 @@ class BasicTypesTestsFromJSON: XCTestCase {
 
 	/// - warning: This test doens't consider about integer overflow/underflow.
 	func testMappingIntegerFromJSON(){
-		func parameterize<T: Integer>(_ type: T.Type) {
-			let value: T = 123
+		func parameterize<T: BinaryInteger>(_ type: T.Type) {
+			let value: T = 123 as! T
 			let json: [String: Any] = [
 				"int": value,
 				"intOpt": value,
