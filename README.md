@@ -27,7 +27,7 @@ ObjectMapper is a framework written in Swift that makes it easy for you to conve
 - Nested Objects (stand alone, in arrays or in dictionaries)
 - Custom transformations during mapping
 - Struct support
-- [Immutable support](#immutablemappable-protocol-beta) (currently in beta)
+- [Immutable support](#immutablemappable-protocol-beta)
 
 # The Basics
 To support mapping, a class or struct just needs to implement the ```Mappable``` protocol which includes the following functions:
