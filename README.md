@@ -148,9 +148,7 @@ ObjectMapper uses this function to get objects to use for mapping. Developers sh
 
 If you need to implemented ObjectMapper in an extension, you will need to select this protocol instead of `Mappable`. 
 
-## `ImmutableMappable` Protocol (Beta)
-
-> ⚠️ This feature is currently in Beta. There might be breaking API changes in the future.
+## `ImmutableMappable` Protocol
 
 `ImmutableMappable` provides the ability to map immutable properties. This is how `ImmutableMappable` differs from `Mappable`:
 
