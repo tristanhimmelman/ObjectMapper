@@ -93,7 +93,7 @@ let JSONString = user.toJSONString(prettyPrint: true)
 ```
 
 Alternatively, the `Mapper.swift` class can also be used to accomplish the above (it also provides extra functionality for other situations):
-```
+```swift
 // Convert JSON String to Model
 let user = Mapper<User>().map(JSONString: JSONString)
 // Create JSON String from Model
