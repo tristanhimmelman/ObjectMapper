@@ -615,3 +615,42 @@ class BasicTypesTestsFromJSON: XCTestCase {
 		XCTAssertTrue(testSet.dictStringFloat.count > 0)
 	}
 }
+
+#if os(Linux)
+extension BasicTypesTestsFromJSON {
+  static var allTests : [(String, (BasicTypesTestsFromJSON) -> () throws -> Void)] {
+    return [
+      ("testMappingBoolFromJSON", testMappingBoolFromJSON),
+      ("testMappingIntegerFromJSON", testMappingIntegerFromJSON),
+      ("testMappingIntegerWithOverflowFromJSON", testMappingIntegerWithOverflowFromJSON),
+      ("testMappingDoubleFromJSON", testMappingDoubleFromJSON),
+      ("testMappingFloatFromJSON", testMappingFloatFromJSON),
+      ("testMappingStringFromJSON", testMappingStringFromJSON),
+      ("testMappingAnyObjectFromJSON", testMappingAnyObjectFromJSON),
+      ("testMappingStringFromNSStringJSON", testMappingStringFromNSStringJSON),
+      ("testMappingBoolArrayFromJSON", testMappingBoolArrayFromJSON),
+      ("testMappingIntArrayFromJSON", testMappingIntArrayFromJSON),
+      ("testMappingDoubleArrayFromJSON", testMappingDoubleArrayFromJSON),
+      // ("testMappingFloatArrayFromJSON", testMappingFloatArrayFromJSON),
+      ("testMappingStringArrayFromJSON", testMappingStringArrayFromJSON),
+      ("testMappingAnyObjectArrayFromJSON", testMappingAnyObjectArrayFromJSON),
+      // ("testMappingBoolDictionaryFromJSON", testMappingBoolDictionaryFromJSON),
+      ("testMappingIntDictionaryFromJSON", testMappingIntDictionaryFromJSON),
+      ("testMappingDoubleDictionaryFromJSON", testMappingDoubleDictionaryFromJSON),
+      // ("testMappingFloatDictionaryFromJSON", testMappingFloatDictionaryFromJSON),
+      ("testMappingStringDictionaryFromJSON", testMappingStringDictionaryFromJSON),
+      ("testMappingAnyObjectDictionaryFromJSON", testMappingAnyObjectDictionaryFromJSON),
+      ("testMappingIntEnumFromJSON", testMappingIntEnumFromJSON),
+      ("testMappingIntEnumFromJSONShouldNotCrashWithNonDefinedvalue", testMappingIntEnumFromJSONShouldNotCrashWithNonDefinedvalue),
+      ("testMappingDoubleEnumFromJSON", testMappingDoubleEnumFromJSON),
+      ("testMappingFloatEnumFromJSON", testMappingFloatEnumFromJSON),
+      ("testMappingStringEnumFromJSON", testMappingStringEnumFromJSON),
+      ("testMappingEnumIntArrayFromJSON", testMappingEnumIntArrayFromJSON),
+      ("testMappingEnumIntArrayFromJSONShouldNotCrashWithNonDefinedvalue", testMappingEnumIntArrayFromJSONShouldNotCrashWithNonDefinedvalue),
+      ("testMappingEnumIntDictionaryFromJSON", testMappingEnumIntDictionaryFromJSON),
+      ("testMappingEnumIntDictionaryFromJSONShouldNotCrashWithNonDefinedvalue", testMappingEnumIntDictionaryFromJSONShouldNotCrashWithNonDefinedvalue),
+      ("testObjectModelOptionalDictionnaryOfPrimitives", testObjectModelOptionalDictionnaryOfPrimitives)
+    ]
+  }
+}
+#endif
