@@ -28,14 +28,20 @@
 
 import Foundation
 
+public extension DateFormatter {
+	public convenience init(withFormat format : String, locale : String) {
+		self.init()
+		self.locale = Locale(identifier: locale)
+		dateFormat = format
+	}
+}
+
 open class ISO8601DateTransform: DateFormatterTransform {
+	
+	static let reusableISODateFormatter = DateFormatter(withFormat: "yyyy-MM-dd'T'HH:mm:ssZZZZZ", locale: "en_US_POSIX")
 
 	public init() {
-		let formatter = DateFormatter()
-		formatter.locale = Locale(identifier: "en_US_POSIX")
-		formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
-		
-		super.init(dateFormatter: formatter)
+		super.init(dateFormatter: ISO8601DateTransform.reusableISODateFormatter)
 	}
-	
 }
+
