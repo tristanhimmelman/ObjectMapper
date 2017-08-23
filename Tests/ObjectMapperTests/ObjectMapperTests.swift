@@ -656,3 +656,33 @@ struct CachedItem: Mappable {
 		name <- map["name"]
 	}
 }
+
+#if os(Linux)
+extension ObjectMapperTests {
+  static var allTests : [(String, (ObjectMapperTests) -> () throws -> Void)] {
+    return [
+      ("testBasicParsing",testBasicParsing),
+      ("testOptionalStringParsing",testOptionalStringParsing),
+      ("testInstanceParsing",testInstanceParsing),
+      ("testDictionaryParsing",testDictionaryParsing),
+      ("testNullObject",testNullObject),
+      ("testToJSONAndBack",testToJSONAndBack),
+      ("testToJSONArrayAndBack",testToJSONArrayAndBack),
+      ("testUnknownPropertiesIgnored",testUnknownPropertiesIgnored),
+      ("testInvalidJsonResultsInNilObject",testInvalidJsonResultsInNilObject),
+      ("testMapArrayJSON",testMapArrayJSON),
+      ("testMapArrayJSONWithNoArray",testMapArrayJSONWithNoArray),
+      ("testMapArrayJSONWithEmptyArray",testMapArrayJSONWithEmptyArray),
+      ("testArrayOfCustomObjects",testArrayOfCustomObjects),
+      ("testDictionaryOfArrayOfCustomObjects",testDictionaryOfArrayOfCustomObjects),
+      ("testArrayOfEnumObjects",testArrayOfEnumObjects),
+      ("testDictionaryOfCustomObjects",testDictionaryOfCustomObjects),
+      ("testDictionryOfEnumObjects",testDictionryOfEnumObjects),
+      ("testDoubleParsing",testDoubleParsing),
+      ("testToJSONArray",testToJSONArray),
+      ("testArrayOfArrayOfMappable",testArrayOfArrayOfMappable),
+      ("testShouldPreventOverwritingMappableProperty",testShouldPreventOverwritingMappableProperty)
+    ]
+  }
+}
+#endif

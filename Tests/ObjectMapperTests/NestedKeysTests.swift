@@ -399,3 +399,14 @@ enum StringEnum: String {
 	case A = "String A"
 	case B = "String B"
 }
+
+#if os(Linux)
+extension NestedKeysTests {
+  static var allTests : [(String, (NestedKeysTests) -> () throws -> Void)] {
+    return [
+     	("testNestedKeys",testNestedKeys),
+			("testNestedKeysWithDelimiter",testNestedKeysWithDelimiter)
+    ]
+  }
+}
+#endif

@@ -205,3 +205,18 @@ class ToObjectTests: XCTestCase {
 	}
 }
 
+#if os(Linux)
+extension ToObjectTests {
+  static var allTests : [(String, (ToObjectTests) -> () throws -> Void)] {
+    return [
+      ("testMappingPersonFromJSON",testMappingPersonFromJSON),
+      ("testUpdatingChildObject",testUpdatingChildObject),
+      ("testUpdatingChildDictionary",testUpdatingChildDictionary),
+      ("testToObjectFromString",testToObjectFromString),
+      ("testToObjectFromJSON",testToObjectFromJSON),
+      ("testToObjectFromAny",testToObjectFromAny),
+      ("testConsume",testConsume)
+    ]
+  }
+}
+#endif

@@ -29,3 +29,14 @@ class URLTransformTests: XCTestCase {
         XCTAssertEqual(output, URL(string: "https://example.com/%25"))
     }
 }
+
+#if os(Linux)
+extension URLTransformTests {
+  static var allTests : [(String, (URLTransformTests) -> () throws -> Void)] {
+    return [
+      ("testUrlQueryAllowed",testUrlQueryAllowed),
+      ("testCanPassInAllowedCharacterSet",testCanPassInAllowedCharacterSet)
+    ]
+  }
+}
+#endif
