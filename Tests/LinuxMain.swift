@@ -13,4 +13,6 @@ XCTMain([
     testCase(IgnoreNilTests.allTests),
     testCase(ImmutableObjectTests.allTests),
     testCase(MapContextTests.allTests),
+    testCase(MappableExtensionsTests.allTests),
+    
 ])
