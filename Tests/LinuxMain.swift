@@ -6,5 +6,8 @@ XCTMain([
     testCase(BasicTypesTestsToJSON.allTests),
     testCase(NSDecimalNumberTransformTests.allTests),
     testCase(CustomTransformTests.allTests),
-    testCase(ClassClusterTests.allTests)
+    testCase(ClassClusterTests.allTests),
+    testCase(DataTransformTests.allTests),
+    testCase(DictionaryTransformTests.allTests),
+    testCase(GenericObjectsTests.allTests),
 ])

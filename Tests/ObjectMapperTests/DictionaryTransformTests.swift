@@ -108,3 +108,13 @@ extension DictionaryTransformTestsObject {
 	}
 }
 
+#if os(Linux)
+extension DictionaryTransformTests {
+  static var allTests : [(String, (DictionaryTransformTests) -> () throws -> Void)] {
+    return [
+      ("testDictionaryTransform", testDictionaryTransform)
+    ]
+  }
+}
+#endif
+
