@@ -39,6 +39,8 @@ open class NSDecimalNumberTransform: TransformType {
             return NSDecimalNumber(string: string)
         } else if let number = value as? NSNumber {
             return NSDecimalNumber(decimal: number.decimalValue)
+        } else if let number = value as? Int {
+            return NSDecimalNumber(decimal: Decimal(number))
         } else if let double = value as? Double {
             return NSDecimalNumber(floatLiteral: double)
         }
