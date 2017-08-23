@@ -12,4 +12,5 @@ XCTMain([
     testCase(GenericObjectsTests.allTests),
     testCase(IgnoreNilTests.allTests),
     testCase(ImmutableObjectTests.allTests),
+    testCase(MapContextTests.allTests),
 ])

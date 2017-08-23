@@ -334,3 +334,30 @@ class MapContextTests: XCTestCase {
 		}
 	}
 }
+
+#if os(Linux)
+extension MapContextTests {
+  static var allTests : [(String, (MapContextTests) -> () throws -> Void)] {
+    return [
+      ("testMappingWithContext",testMappingWithContext),
+			("testMappingWithContextViaMappableExtension",testMappingWithContextViaMappableExtension),
+			("testMappingWithoutContext",testMappingWithoutContext),
+			("testNestedMappingWithContext",testNestedMappingWithContext),
+			("testNestedMappingWithContextViaMappableExtension",testNestedMappingWithContextViaMappableExtension),
+			("testNestedMappingWithoutContext",testNestedMappingWithoutContext),
+			("testArrayMappingWithContext",testArrayMappingWithContext),
+			("testArrayMappingWithContextViaMappableExtension",testArrayMappingWithContextViaMappableExtension),
+			("testArrayMappingWithoutContext",testArrayMappingWithoutContext),
+			("testImmatableMappingWithContext",testImmatableMappingWithContext),
+			("testImmatableMappingWithContextViaMappableExtension",testImmatableMappingWithContextViaMappableExtension),
+			("testImmatableMappingWithoutContext",testImmatableMappingWithoutContext),
+			("testNestedImmutableMappingWithContext",testNestedImmutableMappingWithContext),
+			("testNestedImmutableMappingWithContextViaMappableExtension",testNestedImmutableMappingWithContextViaMappableExtension),
+			("testNestedImmutableMappingWithoutContext",testNestedImmutableMappingWithoutContext),
+			("testArrayImmutableMappingWithContext",testArrayImmutableMappingWithContext),
+			("testArrayImmutableMappingWithContextViaMappableExtension",testArrayImmutableMappingWithContextViaMappableExtension),
+			("testArrayImmutableMappingWithoutContext",testArrayImmutableMappingWithoutContext)
+    ]
+  }
+}
+#endif
