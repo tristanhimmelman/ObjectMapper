@@ -10,4 +10,6 @@ XCTMain([
     testCase(DataTransformTests.allTests),
     testCase(DictionaryTransformTests.allTests),
     testCase(GenericObjectsTests.allTests),
+    testCase(IgnoreNilTests.allTests),
+    testCase(ImmutableObjectTests.allTests),
 ])

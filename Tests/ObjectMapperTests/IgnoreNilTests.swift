@@ -77,3 +77,14 @@ class IgnoreNilTests: XCTestCase {
 		}
 	}
 }
+
+#if os(Linux)
+extension IgnoreNilTests {
+  static var allTests : [(String, (IgnoreNilTests) -> () throws -> Void)] {
+    return [
+      ("testIgnoreNullField", testIgnoreNullField),
+      ("testIgnoreNilField", testIgnoreNilField)
+    ]
+  }
+}
+#endif
