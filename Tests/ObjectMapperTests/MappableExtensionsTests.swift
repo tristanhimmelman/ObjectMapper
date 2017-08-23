@@ -49,7 +49,7 @@ struct TestMappable: Mappable, Equatable, Hashable {
 		if let value = value {
 			return value.hashValue
 		}
-		return NSIntegerMax
+		return Int.max
 	}
 }
 

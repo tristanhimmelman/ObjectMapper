@@ -32,6 +32,7 @@ import ObjectMapper
 
 #if os(iOS) || os(tvOS) || os(watchOS)
 	typealias TestHexColor = UIColor
+#elseif os(Linux)
 #else
 	typealias TestHexColor = NSColor
 #endif
@@ -116,7 +117,7 @@ class CustomTransformTests: XCTestCase {
 	
 	func testInt64MaxValue() {
 		let transforms = Transforms()
-		transforms.int64Value = INT64_MAX
+		transforms.int64Value = Int64.max
 		
 		let JSON = mapper.toJSON(transforms)
 
