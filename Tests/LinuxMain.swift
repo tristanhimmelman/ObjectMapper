@@ -3,5 +3,6 @@ import XCTest
 
 XCTMain([
     testCase(NSDecimalNumberTransformTests.allTests),
-    testCase(CustomTransformTests.allTests)
+    testCase(CustomTransformTests.allTests),
+    testCase(ClassClusterTests.allTests)
 ])
