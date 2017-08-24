@@ -90,30 +90,35 @@ public func <- <T: UnsignedInteger>(left: inout T!, right: Map) {
 
 /// Convert any value to `SignedInteger`.
 private func toSignedInteger<T: SignedInteger>(_ value: Any?) -> T? {
-	guard
-		let value = value,
-		case let number as NSNumber = value
-	else {
-		return nil
-	}
-
-	if T.self ==   Int.self, let x = Int(exactly: number.int64Value)?.toIntMax() {
-		return T.init(x)
-	}
-	if T.self ==  Int8.self, let x = Int8(exactly: number.int64Value)?.toIntMax() {
-		return T.init(x)
-	}
-	if T.self == Int16.self, let x = Int16(exactly: number.int64Value)?.toIntMax() {
-		return T.init(x)
-	}
-	if T.self == Int32.self, let x = Int32(exactly: number.int64Value)?.toIntMax() {
-		return T.init(x)
-	}
-	if T.self == Int64.self, let x = Int64(exactly: number.int64Value)?.toIntMax() {
-		return T.init(x)
-	}
-
-	return nil
+  guard let value = value else {
+    return nil
+  }
+  switch value{
+    case is Int:
+      let x = value as! Int
+      if T.self == Int.self { return T.init(x.toIntMax())}
+    case is NSNumber: 
+      let number = value as! NSNumber
+      if T.self == Int.self, let x = Int(exactly: number.int64Value)?.toIntMax() {
+        return T.init(x)
+      }
+      if T.self == Int8.self, let x = Int8(exactly: number.int64Value)?.toIntMax() {
+        return T.init(x)
+      }
+      if T.self == Int16.self, let x = Int16(exactly: number.int64Value)?.toIntMax() {
+        return T.init(x)
+      }
+      if T.self == Int32.self, let x = Int32(exactly: number.int64Value)?.toIntMax() {
+        return T.init(x)
+      }
+      if T.self == Int64.self, let x = Int64(exactly: number.int64Value)?.toIntMax() {
+        return T.init(x)
+      }
+    default:
+      print("NOTE: toSignedInteger: did not match \(type(of:value)) returning nil")
+      return nil
+  }
+  return nil
 }
 
 /// Convert any value to `UnsignedInteger`.
