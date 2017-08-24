@@ -94,9 +94,6 @@ private func toSignedInteger<T: SignedInteger>(_ value: Any?) -> T? {
     return nil
   }
   switch value{
-    case is Int:
-      let x = value as! Int
-      if T.self == Int.self { return T.init(x.toIntMax())}
     case is NSNumber: 
       let number = value as! NSNumber
       if T.self == Int.self, let x = Int(exactly: number.int64Value)?.toIntMax() {
@@ -114,6 +111,9 @@ private func toSignedInteger<T: SignedInteger>(_ value: Any?) -> T? {
       if T.self == Int64.self, let x = Int64(exactly: number.int64Value)?.toIntMax() {
         return T.init(x)
       }
+    case is Int:
+      let x = value as! Int
+      if T.self == Int.self { return T.init(x.toIntMax())}
     default:
       print("NOTE: toSignedInteger: did not match \(type(of:value)) returning nil")
       return nil
