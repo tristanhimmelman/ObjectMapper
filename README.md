@@ -201,7 +201,7 @@ mutating func mapping(map: Map) {
   <tr>
     <td>
 <pre>
-mutating func mapping(map: Map) {
+func mapping(map: Map) {
   id   <strong>>>></strong> map["id"]
   name <strong>>>></strong> map["name"]
 }
