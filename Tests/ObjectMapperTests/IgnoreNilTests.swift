@@ -62,7 +62,7 @@ class IgnoreNilTests: XCTestCase {
 		user.firstName = firstName
 		user.lastName = lastName
 		
-		let JSON = "{\"first_name\" : null, \"last_name\" : null}"
+		let JSON = "{\"first_name\" : nil, \"last_name\" : nil}"
 		user = Mapper<User>(ignoreNil: true).map(JSONString: JSON, toObject: user)
 		
 		XCTAssertNil(user.firstName)
