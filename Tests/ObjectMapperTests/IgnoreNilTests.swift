@@ -42,29 +42,35 @@ class IgnoreNilTests: XCTestCase {
     }
 	
 	func testIgnoreNullField(){
-		let name = "Tristan"
+		let firstName = "Tristan"
+		let lastName = "Himmelman"
 		var user = User()
-		user.name = name
+		user.firstName = firstName
+		user.lastName = lastName
 		
-		let JSON = "{\"name\" : null}"
-		user = Mapper<User>().map(JSONString: JSON, toObject: user)
+		let JSON = "{\"first_name\" : null, \"last_name\" : null}"
+		user = Mapper<User>(ignoreNil: true).map(JSONString: JSON, toObject: user)
 		
-		XCTAssertEqual(user.name, name)
+		XCTAssertNil(user.firstName)
+		XCTAssertEqual(user.lastName, lastName)
 	}
 	
 	func testIgnoreNilField(){
-		let name = "Tristan"
+		let firstName = "Tristan"
+		let lastName = "Himmelman"
 		var user = User()
-		user.name = name
+		user.firstName = firstName
+		user.lastName = lastName
 		
-		let JSON = "{\"name\" : nil}"
-		user = Mapper<User>().map(JSONString: JSON, toObject: user)
+		let JSON = "{\"first_name\" : null, \"last_name\" : null}"
+		user = Mapper<User>(ignoreNil: true).map(JSONString: JSON, toObject: user)
 		
-		XCTAssertEqual(user.name, name)
-	}
+		XCTAssertNil(user.firstName)
+		XCTAssertEqual(user.lastName, lastName)	}
 
 	private class User: Mappable {
-		var name: String?
+		var firstName: String?
+		var lastName: String?
 		
 		init(){}
 		
@@ -73,7 +79,8 @@ class IgnoreNilTests: XCTestCase {
 		}
 		
 		func mapping(map: Map){
-			name <- map["name", ignoreNil: true]
+			firstName <- map["first_name", ignoreNil: false]
+			lastName <- map["last_name"]
 		}
 	}
 }

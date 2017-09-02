@@ -46,36 +46,38 @@ public final class Map {
 	public internal(set) var nestedKeyDelimiter: String = "."
 	public var context: MapContext?
 	public var shouldIncludeNilValues = false  /// If this is set to true, toJSON output will include null values for any variables that are not set.
+	public var ignoreNil = false /// If this is set to true, fromJSON will ignore null values
 	
 	public let toObject: Bool // indicates whether the mapping is being applied to an existing object
 	
-	public init(mappingType: MappingType, JSON: [String: Any], toObject: Bool = false, context: MapContext? = nil, shouldIncludeNilValues: Bool = false) {
+	public init(mappingType: MappingType, JSON: [String: Any], toObject: Bool = false, context: MapContext? = nil, shouldIncludeNilValues: Bool = false, ignoreNil: Bool = false) {
 		
 		self.mappingType = mappingType
 		self.JSON = JSON
 		self.toObject = toObject
 		self.context = context
 		self.shouldIncludeNilValues = shouldIncludeNilValues
+		self.ignoreNil = ignoreNil
 	}
 	
 	/// Sets the current mapper value and key.
 	/// The Key paramater can be a period separated string (ex. "distance.value") to access sub objects.
 	public subscript(key: String) -> Map {
 		// save key and value associated to it
-		return self[key, delimiter: ".", ignoreNil: false]
+		return self[key, delimiter: ".", ignoreNil: ignoreNil]
 	}
 	
 	public subscript(key: String, delimiter delimiter: String) -> Map {
 		let nested = key.contains(delimiter)
-		return self[key, nested: nested, delimiter: delimiter, ignoreNil: false]
+		return self[key, nested: nested, delimiter: delimiter, ignoreNil: ignoreNil]
 	}
 	
 	public subscript(key: String, nested nested: Bool) -> Map {
-		return self[key, nested: nested, delimiter: ".", ignoreNil: false]
+		return self[key, nested: nested, delimiter: ".", ignoreNil: ignoreNil]
 	}
 	
 	public subscript(key: String, nested nested: Bool, delimiter delimiter: String) -> Map {
-		return self[key, nested: nested, delimiter: delimiter, ignoreNil: false]
+		return self[key, nested: nested, delimiter: delimiter, ignoreNil: ignoreNil]
 	}
 	
 	public subscript(key: String, ignoreNil ignoreNil: Bool) -> Map {
