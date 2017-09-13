@@ -279,7 +279,7 @@ public extension Mapper where N: ImmutableMappable {
 
 }
 
-internal extension Mapper where N: BaseMappable {
+internal extension Mapper {
 
 	internal func mapOrFail(JSON: [String: Any]) throws -> N {
 		let map = Map(mappingType: .fromJSON, JSON: JSON, context: context, shouldIncludeNilValues: shouldIncludeNilValues)
