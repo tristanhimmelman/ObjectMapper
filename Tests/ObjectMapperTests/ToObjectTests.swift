@@ -163,5 +163,45 @@ class ToObjectTests: XCTestCase {
 			username	<- map["username"]
 		}
 	}
+	
+	struct HumanInfo: Mappable {
+		var name: String?
+		
+		init(name: String) {
+			self.name = name
+		}
+		
+		init?(map: Map) {
+			
+		}
+		
+		mutating func mapping(map: Map) {
+			name <- map["name"]
+		}
+	}
+	
+	struct Human: Mappable {
+		var info: HumanInfo?
+		
+		init(name: String) {
+			info = HumanInfo(name: name)
+		}
+		
+		init?(map: Map) {
+			
+		}
+		
+		mutating func mapping(map: Map) {
+			info <- map["info"]
+		}
+	}
+	
+	func testConsume() {
+		var human1 = Human(name: "QW") //has a with name "QW"
+		let human2 = Human(name: "ER") //has a with name "ER"
+		human1 = Mapper().map(JSON: human2.toJSON(), toObject: human1)
+		
+		XCTAssertEqual(human1.info?.name, human2.info?.name)
+	}
 }
 

@@ -327,7 +327,7 @@ public func <- <T: BaseMappable>(left: inout Array<Array<T>>!, right: Map) {
 	}
 }
 
-// MARK:- Set of Mappable objects - Set<T: BaseMappable where T: Hashable>
+// MARK:- Set of Mappable objects - Set<T: BaseMappable>
 
 /// Set of Mappable objects
 public func <- <T: BaseMappable>(left: inout Set<T>, right: Map) {

@@ -47,7 +47,7 @@ public final class Map {
 	public var context: MapContext?
 	public var shouldIncludeNilValues = false  /// If this is set to true, toJSON output will include null values for any variables that are not set.
 	
-	let toObject: Bool // indicates whether the mapping is being applied to an existing object
+	public let toObject: Bool // indicates whether the mapping is being applied to an existing object
 	
 	public init(mappingType: MappingType, JSON: [String: Any], toObject: Bool = false, context: MapContext? = nil, shouldIncludeNilValues: Bool = false) {
 		

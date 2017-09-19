@@ -522,7 +522,7 @@ public func <- <Transform: TransformType>(left: inout [[Transform.Object]]!, rig
 	}
 }
 
-// MARK:- Set of Mappable objects with a transform - Set<T: BaseMappable where T: Hashable>
+// MARK:- Set of Mappable objects with a transform - Set<T: BaseMappable>
 
 /// Set of Mappable objects with transform
 public func <- <Transform: TransformType>(left: inout Set<Transform.Object>, right: (Map, Transform)) where Transform.Object: BaseMappable {

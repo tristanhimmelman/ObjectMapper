@@ -15,12 +15,12 @@ env:
     - TVOS_SDK=appletvsimulator10.2
     - WATCHOS_SDK=watchsimulator3.2
   matrix:
-    - DESTINATION="OS=10.3,name=iPhone 5"            SCHEME="$IOS_FRAMEWORK_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES"
-    - DESTINATION="OS=10.3,name=iPhone 5s"           SCHEME="$IOS_FRAMEWORK_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES"
-    - DESTINATION="OS=10.3,name=iPhone 6"            SCHEME="$IOS_FRAMEWORK_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES"
-    - DESTINATION="OS=10.3,name=iPhone 6 Plus"       SCHEME="$IOS_FRAMEWORK_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES"
-    - DESTINATION="OS=10.3,name=iPhone 6s"           SCHEME="$IOS_FRAMEWORK_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES"
-    - DESTINATION="OS=10.3,name=iPhone 6s Plus"      SCHEME="$IOS_FRAMEWORK_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES"
+    - DESTINATION="OS=10.3.1,name=iPhone 5s"           SCHEME="$IOS_FRAMEWORK_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES"
+    - DESTINATION="OS=10.3.1,name=iPhone 6"            SCHEME="$IOS_FRAMEWORK_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES"
+    - DESTINATION="OS=10.3.1,name=iPhone 6 Plus"       SCHEME="$IOS_FRAMEWORK_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES"
+    - DESTINATION="OS=10.3.1,name=iPhone 6s"           SCHEME="$IOS_FRAMEWORK_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES"
+    - DESTINATION="OS=10.3.1,name=iPhone 6s Plus"      SCHEME="$IOS_FRAMEWORK_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES"
+    - DESTINATION="OS=10.3.1,name=iPhone 7"            SCHEME="$IOS_FRAMEWORK_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES"
     - DESTINATION="arch=x86_64"                      SCHEME="$OSX_FRAMEWORK_SCHEME"     SDK="$OSX_SDK"     RUN_TESTS="YES"
     - DESTINATION="OS=10.2,name=Apple TV 1080p"      SCHEME="$TVOS_FRAMEWORK_SCHEME"    SDK="$TVOS_SDK"    RUN_TESTS="YES"
     - DESTINATION="OS=3.2,name=Apple Watch - 38mm"   SCHEME="$WATCHOS_FRAMEWORK_SCHEME" SDK="$WATCHOS_SDK" RUN_TESTS="NO"

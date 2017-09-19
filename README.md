@@ -27,7 +27,7 @@ ObjectMapper is a framework written in Swift that makes it easy for you to conve
 - Nested Objects (stand alone, in arrays or in dictionaries)
 - Custom transformations during mapping
 - Struct support
-- [Immutable support](#immutablemappable-protocol-beta) (currently in beta)
+- [Immutable support](#immutablemappable-protocol)
 
 # The Basics
 To support mapping, a class or struct just needs to implement the ```Mappable``` protocol which includes the following functions:
@@ -93,7 +93,7 @@ let JSONString = user.toJSONString(prettyPrint: true)
 ```
 
 Alternatively, the `Mapper.swift` class can also be used to accomplish the above (it also provides extra functionality for other situations):
-```
+```swift
 // Convert JSON String to Model
 let user = Mapper<User>().map(JSONString: JSONString)
 // Create JSON String from Model
@@ -148,9 +148,7 @@ ObjectMapper uses this function to get objects to use for mapping. Developers sh
 
 If you need to implemented ObjectMapper in an extension, you will need to select this protocol instead of `Mappable`. 
 
-## `ImmutableMappable` Protocol (Beta)
-
-> ⚠️ This feature is currently in Beta. There might be breaking API changes in the future.
+## `ImmutableMappable` Protocol
 
 `ImmutableMappable` provides the ability to map immutable properties. This is how `ImmutableMappable` differs from `Mappable`:
 
@@ -203,7 +201,7 @@ mutating func mapping(map: Map) {
   <tr>
     <td>
 <pre>
-mutating func mapping(map: Map) {
+func mapping(map: Map) {
   id   <strong>>>></strong> map["id"]
   name <strong>>>></strong> map["name"]
 }
@@ -445,6 +443,8 @@ class Model: Object, Mappable {
 ```
 
 If you want to serialize associated RealmObjects, you can use [ObjectMapper+Realm](https://github.com/jakenberg/ObjectMapper-Realm). It is a simple Realm extension that serializes arbitrary JSON into Realm's List class.
+
+To serialize Swift String, Int, Double and Bool arrays you can use [ObjectMapperAdditions/Realm](https://github.com/APUtils/ObjectMapperAdditions#realm-features). It'll wrap Swift types into RealmValues that can be stored in Realm's List class.
 
 Note: Generating a JSON string of a Realm Object using ObjectMappers' `toJSON` function only works within a Realm write transaction. This is caused because ObjectMapper uses the `inout` flag in its mapping functions (`<-`) which are used both for serializing and deserializing. Realm detects the flag and forces the `toJSON` function to be called within a write block even though the objects are not being modified.
 
