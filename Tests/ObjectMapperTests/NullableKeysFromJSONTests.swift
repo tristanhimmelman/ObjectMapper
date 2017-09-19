@@ -38,12 +38,12 @@ class NullableKeysFromJSONTests: XCTestCase {
 
 	let mapper = Mapper<Player>()
 
-    override func setUp() {
-        super.setUp()
+  override func setUp() {
+      super.setUp()
 		// Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    func testMapperNullifiesValues() {
+  }
+  
+  func testMapperNullifiesValues() {
 		guard let player = mapper.map(JSONString: fullJSONString) else {
 			XCTFail("Mapping failed")
 			return
@@ -59,7 +59,7 @@ class NullableKeysFromJSONTests: XCTestCase {
 		XCTAssertNil(player.lastName)
 		XCTAssertNil(player.age)
 		XCTAssertNil(player.address?.city)
-    }
+  }
 
 	func testMapperAbsentValues() {
 		guard let player = mapper.map(JSONString: fullJSONString) else {
@@ -116,3 +116,15 @@ class Address: Mappable {
 		city <- map["city"]
 	}
 }
+
+#if os(Linux)
+extension NullableKeysFromJSONTests {
+  static var allTests : [(String, (NullableKeysFromJSONTests) -> () throws -> Void)] {
+    return [
+     	("testMapperNullifiesValues",testMapperNullifiesValues),
+			("testMapperAbsentValues",testMapperAbsentValues)
+    ]
+  }
+}
+#endif
+

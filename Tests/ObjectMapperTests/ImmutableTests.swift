@@ -605,3 +605,26 @@ private func assertImmutableObjectsEqual(_ lhs: Struct, _ rhs: Struct) {
 	XCTAssertEqual("\(lhs.prop36 as Optional)", "\(rhs.prop36 as Optional)")
 	XCTAssertEqual("\(lhs.prop37)", "\(rhs.prop37)")
 }
+
+
+
+#if os(Linux)
+extension ImmutableObjectTests {
+  static var allTests : [(String, (ImmutableObjectTests) -> () throws -> Void)] {
+    return [
+      // ("testImmutableMappable", testImmutableMappable),
+      ("testMappingFromArray", testMappingFromArray),
+      ("testMappingFromDictionary", testMappingFromDictionary),
+      ("testMappingFromDictionary_empty", testMappingFromDictionary_empty),
+      ("testMappingFromDictionary_throws", testMappingFromDictionary_throws),
+      ("testMappingFromDictionaryOfArrays", testMappingFromDictionaryOfArrays),
+      ("testMappingFromDictionaryOfArrays_empty", testMappingFromDictionaryOfArrays_empty),
+      ("testMappingFromDictionaryOfArrays_throws", testMappingFromDictionaryOfArrays_throws),
+      ("testMappingArrayOfArrays", testMappingArrayOfArrays),
+      ("testMappingArrayOfArrays_empty", testMappingArrayOfArrays_empty),
+      ("testMappingArrayOfArrays_throws", testMappingArrayOfArrays_throws),
+      ("testAsPropertyOfMappable", testAsPropertyOfMappable)
+    ]
+  }
+}
+#endif

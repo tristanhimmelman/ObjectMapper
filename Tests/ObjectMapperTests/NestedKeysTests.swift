@@ -46,7 +46,7 @@ class NestedKeysTests: XCTestCase {
 		let JSON: [String: Any] = [
 			"non.nested.key": "string",
 			"nested": [
-				"int64": NSNumber(value: INT64_MAX),
+				"int64": NSNumber(value: Int64.max),
 				"bool": true,
 				"int": 255,
 				"double": 100.0 as Double,
@@ -54,14 +54,14 @@ class NestedKeysTests: XCTestCase {
 				"string": "String!",
 
 				"nested": [
-					"int64Array": [NSNumber(value: INT64_MAX), NSNumber(value: INT64_MAX - 1), NSNumber(value: INT64_MAX - 10)],
+					"int64Array": [NSNumber(value: Int64.max), NSNumber(value: Int64.max - 1), NSNumber(value: Int64.max - 10)],
 					"boolArray": [false, true, false],
 					"intArray": [1, 2, 3],
 					"doubleArray": [1.0, 2.0, 3.0],
 					"floatArray": [1.0 as Float, 2.0 as Float, 3.0 as Float],
 					"stringArray": ["123", "ABC"],
 
-					"int64Dict": ["1": NSNumber(value: INT64_MAX)],
+					"int64Dict": ["1": NSNumber(value: Int64.max)],
 					"boolDict": ["2": true],
 					"intDict": ["3": 999],
 					"doubleDict": ["4": 999.999],
@@ -130,7 +130,7 @@ class NestedKeysTests: XCTestCase {
 		let JSON: [String: Any] = [
 			"non.nested->key": "string",
 			"com.hearst.ObjectMapper.nested": [
-				"com.hearst.ObjectMapper.int64": NSNumber(value: INT64_MAX),
+				"com.hearst.ObjectMapper.int64": NSNumber(value: Int64.max),
 				"com.hearst.ObjectMapper.bool": true,
 				"com.hearst.ObjectMapper.int": 255,
 				"com.hearst.ObjectMapper.double": 100.0 as Double,
@@ -138,14 +138,14 @@ class NestedKeysTests: XCTestCase {
 				"com.hearst.ObjectMapper.string": "String!",
 
 				"com.hearst.ObjectMapper.nested": [
-					"int64Array": [NSNumber(value: INT64_MAX), NSNumber(value: INT64_MAX - 1), NSNumber(value: INT64_MAX - 10)],
+					"int64Array": [NSNumber(value: Int64.max), NSNumber(value: Int64.max - 1), NSNumber(value: Int64.max - 10)],
 					"boolArray": [false, true, false],
 					"intArray": [1, 2, 3],
 					"doubleArray": [1.0, 2.0, 3.0],
 					"floatArray": [1.0 as Float, 2.0 as Float, 3.0 as Float],
 					"stringArray": ["123", "ABC"],
 
-					"int64Dict": ["1": NSNumber(value: INT64_MAX)],
+					"int64Dict": ["1": NSNumber(value: Int64.max)],
 					"boolDict": ["2": true],
 					"intDict": ["3": 999],
 					"doubleDict": ["4": 999.999],
@@ -174,14 +174,14 @@ class NestedKeysTests: XCTestCase {
 
 		XCTAssertEqual(value.nonNestedString, "string")
 		
-		XCTAssertEqual(value.int64, NSNumber(value: INT64_MAX))
+		XCTAssertEqual(value.int64, NSNumber(value: Int64.max))
 		XCTAssertEqual(value.bool, true)
 		XCTAssertEqual(value.int, 255)
 		XCTAssertEqual(value.double, 100.0 as Double)
 		XCTAssertEqual(value.float, 50.0 as Float)
 		XCTAssertEqual(value.string, "String!")
 
-		let int64Array = [NSNumber(value: INT64_MAX), NSNumber(value: INT64_MAX - 1), NSNumber(value: INT64_MAX - 10)]
+		let int64Array = [NSNumber(value: Int64.max), NSNumber(value: Int64.max - 1), NSNumber(value: Int64.max - 10)]
 		XCTAssertEqual(value.int64Array, int64Array)
 		XCTAssertEqual(value.boolArray, [false, true, false])
 		XCTAssertEqual(value.intArray, [1, 2, 3])
@@ -189,7 +189,7 @@ class NestedKeysTests: XCTestCase {
 		XCTAssertEqual(value.floatArray, [1.0 as Float, 2.0 as Float, 3.0 as Float])
 		XCTAssertEqual(value.stringArray, ["123", "ABC"])
 
-		XCTAssertEqual(value.int64Dict, ["1": NSNumber(value: INT64_MAX)])
+		XCTAssertEqual(value.int64Dict, ["1": NSNumber(value: Int64.max)])
 		XCTAssertEqual(value.boolDict, ["2": true])
 		XCTAssertEqual(value.intDict, ["3": 999])
 		XCTAssertEqual(value.doubleDict, ["4": 999.999])
@@ -399,3 +399,14 @@ enum StringEnum: String {
 	case A = "String A"
 	case B = "String B"
 }
+
+#if os(Linux)
+extension NestedKeysTests {
+  static var allTests : [(String, (NestedKeysTests) -> () throws -> Void)] {
+    return [
+     	("testNestedKeys",testNestedKeys),
+			("testNestedKeysWithDelimiter",testNestedKeysWithDelimiter)
+    ]
+  }
+}
+#endif

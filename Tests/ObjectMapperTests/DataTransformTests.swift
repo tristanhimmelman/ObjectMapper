@@ -69,3 +69,13 @@ class DataType: Mappable {
 		data <- (map["data"], DataTransform())
 	}
 }
+
+#if os(Linux)
+extension DataTransformTests {
+  static var allTests : [(String, (DataTransformTests) -> () throws -> Void)] {
+    return [
+      ("testDataTransform", testDataTransform)
+    ]
+  }
+}
+#endif

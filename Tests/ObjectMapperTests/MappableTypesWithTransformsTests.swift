@@ -341,3 +341,30 @@ class RelationshipTransform<ObjectType>: TransformType where ObjectType: Mappabl
 		return nil
 	}
 }
+
+#if os(Linux)
+extension MappableTypesWithTransformsTests {
+  static var allTests : [(String, (MappableTypesWithTransformsTests) -> () throws -> Void)] {
+    return [
+      ("testParsingSingleInstanceWithTransform",testParsingSingleInstanceWithTransform),
+      ("testParsingArrayOfObjectsWithTransform",testParsingArrayOfObjectsWithTransform),
+      ("testParsing2DimensionalArrayOfObjectsWithTransform",testParsing2DimensionalArrayOfObjectsWithTransform),
+      ("testParsingDictionaryOfObjectsWithTransform",testParsingDictionaryOfObjectsWithTransform),
+      ("testParsingDictionaryOfArrayOfObjectsWithTransform",testParsingDictionaryOfArrayOfObjectsWithTransform),
+      ("testParsingSetOfObjectsWithTransform",testParsingSetOfObjectsWithTransform),
+      ("testParsingOptionalSingleInstanceWithTransform",testParsingOptionalSingleInstanceWithTransform),
+      ("testParsingOptionalArrayOfObjectsWithTransform",testParsingOptionalArrayOfObjectsWithTransform),
+      ("testParsingOptional2DimensionalArrayOfObjectsWithTransform",testParsingOptional2DimensionalArrayOfObjectsWithTransform),
+      ("testParsingOptionalDictionaryOfObjectsWithTransform",testParsingOptionalDictionaryOfObjectsWithTransform),
+      ("testParsingOptionalDictionaryOfArrayOfObjectsWithTransform",testParsingOptionalDictionaryOfArrayOfObjectsWithTransform),
+      ("testParsingOptionalSetOfObjectsWithTransform",testParsingOptionalSetOfObjectsWithTransform),
+      ("testParsingImplicitlyUnwrappedSingleInstanceWithTransform",testParsingImplicitlyUnwrappedSingleInstanceWithTransform),
+      ("testParsingImplicitlyUnwrappedArrayOfObjectsWithTransform",testParsingImplicitlyUnwrappedArrayOfObjectsWithTransform),
+      ("testParsingImplicitlyUnwrapped2DimensionalArrayOfObjectsWithTransform",testParsingImplicitlyUnwrapped2DimensionalArrayOfObjectsWithTransform),
+      ("testParsingImplicitlyUnwrappedDictionaryOfObjectsWithTransform",testParsingImplicitlyUnwrappedDictionaryOfObjectsWithTransform),
+      ("testParsingImplicitlyUnwrappedDictionaryOfArrayOfObjectsWithTransform",testParsingImplicitlyUnwrappedDictionaryOfArrayOfObjectsWithTransform),
+      ("testParsingImplicitlyUnwrappedSetOfObjectsWithTransform",testParsingImplicitlyUnwrappedSetOfObjectsWithTransform)
+    ]
+  }
+}
+#endif

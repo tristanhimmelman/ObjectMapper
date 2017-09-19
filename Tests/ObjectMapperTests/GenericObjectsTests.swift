@@ -202,3 +202,17 @@ class Response<T: Mappable>: Mappable {
 		result <- map["result"]
 	}
 }
+
+#if os(Linux)
+extension GenericObjectsTests {
+  static var allTests : [(String, (GenericObjectsTests) -> () throws -> Void)] {
+    return [
+      ("testSubclass", testSubclass),
+      ("testGenericSubclass", testGenericSubclass),
+      ("testSubclassWithGenericArrayInSuperclass", testSubclassWithGenericArrayInSuperclass),
+      ("testMappingAGenericObject", testMappingAGenericObject),
+      ("testMappingAGenericObjectViaMappableExtension", testMappingAGenericObjectViaMappableExtension)
+    ]
+  }
+}
+#endif

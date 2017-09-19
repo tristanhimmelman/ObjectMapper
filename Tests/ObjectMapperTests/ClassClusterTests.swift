@@ -42,7 +42,7 @@ class ClassClusterTests: XCTestCase {
         super.tearDown()
     }
 	
-    func testClassClusters() {
+  func testClassClusters() {
 		let carName = "Honda"
 		let JSON = ["name": carName, "type": "car"]
 		
@@ -51,7 +51,7 @@ class ClassClusterTests: XCTestCase {
 			XCTAssertNotNil(vehicle as? Car)
 			XCTAssertEqual((vehicle as? Car)?.name, carName)
 		}
-    }
+  }
 	
 	func testClassClustersFromJSONString() {
 		let carName = "Honda"
@@ -126,3 +126,15 @@ class Bus: Vehicle {
 		super.mapping(map: map)
 	}
 }
+
+#if os(Linux)
+extension ClassClusterTests {
+  static var allTests : [(String, (ClassClusterTests) -> () throws -> Void)] {
+    return [
+      ("testClassClusters", testClassClusters),
+      ("testClassClustersFromJSONString", testClassClustersFromJSONString),
+      ("testClassClusterArray", testClassClusterArray)
+    ]
+  }
+}
+#endif

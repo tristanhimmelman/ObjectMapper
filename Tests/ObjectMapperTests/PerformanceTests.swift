@@ -171,4 +171,14 @@ class PerformanceImmutableMappableObject: ImmutableMappable {
 	}
 }
 
-
+#if os(Linux)
+extension PerformanceTests {
+  static var allTests : [(String, (PerformanceTests) -> () throws -> Void)] {
+    return [
+      ("testPerformance",testPerformance),
+      ("testPerformanceCluster",testPerformanceCluster),
+      ("testPerformanceImmutable",testPerformanceImmutable)
+    ]
+  }
+}
+#endif

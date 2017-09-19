@@ -103,3 +103,14 @@ class NestedObject: Mappable {
 		value	<- map["value"]
 	}
 }
+
+#if os(Linux)
+extension NestedArrayTests {
+  static var allTests : [(String, (NestedArrayTests) -> () throws -> Void)] {
+    return [
+     	("testNestedArray",testNestedArray),
+			("testNestedObjectArray",testNestedObjectArray)
+    ]
+  }
+}
+#endif

@@ -574,3 +574,40 @@ class BasicTypesTestsToJSON: XCTestCase {
 		XCTAssertEqual((json["dictStringString"] as? [String:String])?["string"], "string")
 	}
 }
+
+#if os(Linux)
+extension BasicTypesTestsToJSON {
+  static var allTests : [(String, (BasicTypesTestsToJSON) -> () throws -> Void)] {
+    return [
+      ("testShouldIncludeNilValues", testShouldIncludeNilValues),
+      ("testMappingBoolToJSON", testMappingBoolToJSON),
+      ("testMappingIntegerToJSON", testMappingIntegerToJSON),
+      ("testMappingDoubleToJSON", testMappingDoubleToJSON),
+      ("testMappingFloatToJSON", testMappingFloatToJSON),
+      ("testMappingStringToJSON", testMappingStringToJSON),
+      ("testMappingAnyObjectToJSON", testMappingAnyObjectToJSON),
+      ("testMappingEmptyArrayToJSON", testMappingEmptyArrayToJSON),
+      ("testMappingBoolArrayToJSON", testMappingBoolArrayToJSON),
+      ("testMappingIntArrayToJSON", testMappingIntArrayToJSON),
+      // ("testMappingDoubleArrayToJSON", testMappingDoubleArrayToJSON),
+      // ("testMappingFloatArrayToJSON", testMappingFloatArrayToJSON),
+      ("testMappingStringArrayToJSON", testMappingStringArrayToJSON),
+      ("testMappingAnyObjectArrayToJSON", testMappingAnyObjectArrayToJSON),
+      ("testMappingEmptyDictionaryToJSON", testMappingEmptyDictionaryToJSON),
+      ("testMappingBoolDictionaryToJSON", testMappingBoolDictionaryToJSON),
+      ("testMappingIntDictionaryToJSON", testMappingIntDictionaryToJSON),
+      // ("testMappingDoubleDictionaryToJSON", testMappingDoubleDictionaryToJSON),
+      // ("testMappingFloatDictionaryToJSON", testMappingFloatDictionaryToJSON),
+      ("testMappingStringDictionaryToJSON", testMappingStringDictionaryToJSON),
+      ("testMappingAnyObjectDictionaryToJSON", testMappingAnyObjectDictionaryToJSON),
+      ("testMappingIntEnumToJSON", testMappingIntEnumToJSON),
+      ("testMappingDoubleEnumToJSON", testMappingDoubleEnumToJSON),
+      ("testMappingFloatEnumToJSON", testMappingFloatEnumToJSON),
+      ("testMappingStringEnumToJSON", testMappingStringEnumToJSON),
+      ("testMappingEnumIntArrayToJSON", testMappingEnumIntArrayToJSON),
+      ("testMappingEnumIntDictionaryToJSON", testMappingEnumIntDictionaryToJSON),
+      ("testObjectToModelDictionnaryOfPrimitives", testObjectToModelDictionnaryOfPrimitives)
+    ]
+  }
+}
+#endif
