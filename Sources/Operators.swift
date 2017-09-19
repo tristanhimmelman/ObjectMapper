@@ -327,10 +327,10 @@ public func <- <T: BaseMappable>(left: inout Array<Array<T>>!, right: Map) {
 	}
 }
 
-// MARK:- Set of Mappable objects - Set<T: BaseMappable where T: Hashable>
+// MARK:- Set of Mappable objects - Set<T: BaseMappable>
 
 /// Set of Mappable objects
-public func <- <T: BaseMappable>(left: inout Set<T>, right: Map) where T: Hashable {
+public func <- <T: BaseMappable>(left: inout Set<T>, right: Map) {
 	switch right.mappingType {
 	case .fromJSON where right.isKeyPresent:
 		FromJSON.objectSet(&left, map: right)
@@ -340,7 +340,7 @@ public func <- <T: BaseMappable>(left: inout Set<T>, right: Map) where T: Hashab
 	}
 }
 
-public func >>> <T: BaseMappable>(left: Set<T>, right: Map) where T: Hashable {
+public func >>> <T: BaseMappable>(left: Set<T>, right: Map) {
 	if right.mappingType == .toJSON {
 		ToJSON.objectSet(left, map: right)
 	}
@@ -348,7 +348,7 @@ public func >>> <T: BaseMappable>(left: Set<T>, right: Map) where T: Hashable {
 
 
 /// Optional Set of Mappable objects
-public func <- <T: BaseMappable>(left: inout Set<T>?, right: Map) where T: Hashable, T: Hashable {
+public func <- <T: BaseMappable>(left: inout Set<T>?, right: Map) {
 	switch right.mappingType {
 	case .fromJSON where right.isKeyPresent:
 		FromJSON.optionalObjectSet(&left, map: right)
@@ -358,7 +358,7 @@ public func <- <T: BaseMappable>(left: inout Set<T>?, right: Map) where T: Hasha
 	}
 }
 
-public func >>> <T: BaseMappable>(left: Set<T>?, right: Map) where T: Hashable, T: Hashable {
+public func >>> <T: BaseMappable>(left: Set<T>?, right: Map) {
 	if right.mappingType == .toJSON {
 		ToJSON.optionalObjectSet(left, map: right)
 	}
@@ -366,7 +366,7 @@ public func >>> <T: BaseMappable>(left: Set<T>?, right: Map) where T: Hashable, 
 
 
 /// Implicitly unwrapped Optional Set of Mappable objects
-public func <- <T: BaseMappable>(left: inout Set<T>!, right: Map) where T: Hashable {
+public func <- <T: BaseMappable>(left: inout Set<T>!, right: Map) {
 	switch right.mappingType {
 	case .fromJSON where right.isKeyPresent:
 		FromJSON.optionalObjectSet(&left, map: right)
