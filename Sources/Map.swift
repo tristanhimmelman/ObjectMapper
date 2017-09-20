@@ -120,29 +120,6 @@ public final class Map {
 	}
 	
 	public func value<T>() -> T? {
-		// Special case for handling Float values.
-		// In Swift 4 casting Any to Float returns nil
-		if let _ = T.self as? Float.Type {
-			if let doubleVal = currentValue as? Double {
-				return Float(doubleVal) as? T
-			}
-		} else if let _ = T.self as? [Float].Type {
-			print("FLOAT ARRAY")
-			if let doubleArray = currentValue as? [Double] {
-				return doubleArray.map { value in
-					return Float(value)
-				} as? T
-			}
-		} else if let _ = T.self as? [String: Float].Type {
-			if let doubleDict = currentValue as? [String: Double] {
-				var floatDict = [String: Float]()
-				for (key, value) in doubleDict {
-					floatDict[key] = Float(value)
-				}
-				return floatDict as? T
-			}
-		}
-		
 		return currentValue as? T
 	}
 	
