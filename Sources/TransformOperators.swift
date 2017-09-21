@@ -300,7 +300,8 @@ public func <- <Transform: TransformType>(left: inout Dictionary<String, [Transf
 	let (map, transform) = right
 	
 	if let dictionary = map.currentValue as? [String : [Any]], map.mappingType == .fromJSON && map.isKeyPresent {
-		let transformedDictionary = dictionary.map { (key: String, values: [Any]) -> (String, [Transform.Object]) in
+		let transformedDictionary = dictionary.map { (arg: (key: String, values: [Any])) -> (String, [Transform.Object]) in
+			let (key, values) = arg
 			if let jsonArray = fromJSONArrayWithTransform(values, transform: transform) {
 				return (key, jsonArray)
 			}
@@ -320,8 +321,9 @@ public func >>> <Transform: TransformType>(left: Dictionary<String, [Transform.O
 	let (map, transform) = right
 	
 	if map.mappingType == .toJSON {
-		let transformedDictionary = left.map { (key, values) in
-			return (key, toJSONArrayWithTransform(values, transform: transform) ?? [])
+		
+		let transformedDictionary = left.map { (arg: (key: String, value: [Transform.Object])) in
+			return (arg.key, toJSONArrayWithTransform(arg.value, transform: transform) ?? [])
 		}
 		
 		ToJSON.basicType(transformedDictionary, map: map)
@@ -335,7 +337,8 @@ public func <- <Transform: TransformType>(left: inout Dictionary<String, [Transf
 	
 	if let dictionary = map.currentValue as? [String : [Any]], map.mappingType == .fromJSON && map.isKeyPresent {
 		
-		let transformedDictionary = dictionary.map { (key: String, values: [Any]) -> (String, [Transform.Object]) in
+		let transformedDictionary = dictionary.map { (arg: (key: String, values: [Any])) -> (String, [Transform.Object]) in
+			let (key, values) = arg
 			if let jsonArray = fromJSONArrayWithTransform(values, transform: transform) {
 				return (key, jsonArray)
 			}
@@ -343,7 +346,6 @@ public func <- <Transform: TransformType>(left: inout Dictionary<String, [Transf
 				return (key, leftValue)
 			}
 			return (key, [])
-			
 		}
 		
 		FromJSON.optionalBasicType(&left, object: transformedDictionary)
@@ -356,8 +358,8 @@ public func >>> <Transform: TransformType>(left: Dictionary<String, [Transform.O
 	let (map, transform) = right
 	
 	if map.mappingType == .toJSON {
-		let transformedDictionary = left?.map { (key, values) in
-			return (key, toJSONArrayWithTransform(values, transform: transform) ?? [])
+		let transformedDictionary = left?.map { (arg: (key: String, values: [Transform.Object])) in
+			return (arg.key, toJSONArrayWithTransform(arg.values, transform: transform) ?? [])
 		}
 		
 		ToJSON.optionalBasicType(transformedDictionary, map: map)
@@ -370,7 +372,8 @@ public func <- <Transform: TransformType>(left: inout Dictionary<String, [Transf
 	let (map, transform) = right
 	
 	if let dictionary = map.currentValue as? [String : [Any]], map.mappingType == .fromJSON && map.isKeyPresent {
-		let transformedDictionary = dictionary.map { (key: String, values: [Any]) -> (String, [Transform.Object]) in
+		let transformedDictionary = dictionary.map { (arg: (key: String, values: [Any])) -> (String, [Transform.Object]) in
+			let (key, values) = arg
 			if let jsonArray = fromJSONArrayWithTransform(values, transform: transform) {
 				return (key, jsonArray)
 			}

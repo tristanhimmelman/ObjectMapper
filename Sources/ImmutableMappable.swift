@@ -108,7 +108,8 @@ public extension Map {
 		guard let jsonArray = currentValue as? [Any] else {
 			throw MapError(key: key, currentValue: currentValue, reason: "Cannot cast to '[Any]'", file: file, function: function, line: line)
 		}
-		return try jsonArray.enumerated().map { i, JSONObject -> T in
+		
+		return try jsonArray.map { JSONObject -> T in
 			return try Mapper<T>(context: context).mapOrFail(JSONObject: JSONObject)
 		}
 	}
@@ -119,9 +120,10 @@ public extension Map {
 		guard let jsonArray = currentValue as? [Any] else {
 			throw MapError(key: key, currentValue: currentValue, reason: "Cannot cast to '[Any]'", file: file, function: function, line: line)
 		}
-		return try jsonArray.enumerated().map { i, json -> Transform.Object in
+		
+		return try jsonArray.map { json -> Transform.Object in
 			guard let object = transform.transformFromJSON(json) else {
-				throw MapError(key: "\(key)[\(i)]", currentValue: json, reason: "Cannot transform to '\(Transform.Object.self)' using \(transform)", file: file, function: function, line: line)
+				throw MapError(key: "\(key)", currentValue: json, reason: "Cannot transform to '\(Transform.Object.self)' using \(transform)", file: file, function: function, line: line)
 			}
 			return object
 		}
@@ -183,16 +185,16 @@ public extension Map {
 			throw MapError(key: key, currentValue: currentValue, reason: "Cannot cast to '[[Any]]'",
 			               file: file, function: function, line: line)
 		}
-		return try json2DArray.enumerated().map { i, jsonArray in
-			try jsonArray.enumerated().map { j, json -> Transform.Object in
+		
+		return try json2DArray.map { jsonArray in
+			try jsonArray.map { json -> Transform.Object in
 				guard let object = transform.transformFromJSON(json) else {
-					throw MapError(key: "\(key)[\(i)][\(j)]", currentValue: json, reason: "Cannot transform to '\(Transform.Object.self)' using \(transform)", file: file, function: function, line: line)
+					throw MapError(key: "\(key)", currentValue: json, reason: "Cannot transform to '\(Transform.Object.self)' using \(transform)", file: file, function: function, line: line)
 				}
 				return object
 			}
 		}
 	}
-	
 }
 
 public extension Mapper where N: ImmutableMappable {

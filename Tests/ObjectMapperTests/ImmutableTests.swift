@@ -32,43 +32,43 @@ import ObjectMapper
 
 class ImmutableObjectTests: XCTestCase {
 	let JSON: [String: Any] = [
-
+		
 		// Basic types
 		"prop1": "Immutable!",
 		"prop2": 255,
 		"prop3": true,
 		// prop4 has a default value
-
+		
 		// String
 		"prop5": "prop5",
 		"prop6": "prop6",
 		"prop7": "prop7",
-
+		
 		// [String]
 		"prop8": ["prop8"],
 		"prop9": ["prop9"],
 		"prop10": ["prop10"],
-
+		
 		// [String: String]
 		"prop11": ["key": "prop11"],
 		"prop12": ["key": "prop12"],
 		"prop13": ["key": "prop13"],
-
+		
 		// Base
 		"prop14": ["base": "prop14"],
 		"prop15": ["base": "prop15"],
 		"prop16": ["base": "prop16"],
-
+		
 		// [Base]
 		"prop17": [["base": "prop17"]],
 		"prop18": [["base": "prop18"]],
 		"prop19": [["base": "prop19"]],
-
+		
 		// [String: Base]
 		"prop20": ["key": ["base": "prop20"]],
 		"prop21": ["key": ["base": "prop21"]],
 		"prop22": ["key": ["base": "prop22"]],
-
+		
 		// Optional with immutables
 		"prop23": "Optional",
 		"prop24": 255,
@@ -105,7 +105,7 @@ class ImmutableObjectTests: XCTestCase {
 		"prop35": [[["base": "prop35"]]],
 		"prop36": [[["base": "prop36"]]],
 		"prop37": [[["base": "prop37"]]],
-
+		
 		"non.nested->key": "string",
 		"nested": [
 			"int": 123,
@@ -120,10 +120,9 @@ class ImmutableObjectTests: XCTestCase {
 			"dictionary": ["a": 10, "b": 20, "c": 30],
 		]
 		]
-
+	
 	func testImmutableMappable() {
 		let mapper = Mapper<Struct>()
-
 		
 		let immutable: Struct = try! mapper.map(JSON: JSON)
 		XCTAssertNotNil(immutable)
@@ -190,12 +189,12 @@ class ImmutableObjectTests: XCTestCase {
 		XCTAssertEqual(immutable.prop37[0][0].base, "prop37")
 		
 		XCTAssertEqual(immutable.nonnestedString, "string")
-
+		
 		XCTAssertEqual(immutable.nestedInt, 123)
 		XCTAssertEqual(immutable.nestedString, "hello")
 		XCTAssertEqual(immutable.nestedArray, ["a", "b", "c"])
 		XCTAssertEqual(immutable.nestedDictionary, ["a": 10, "b": 20, "c": 30])
-
+		
 		XCTAssertEqual(immutable.delimiterNestedInt, 123)
 		XCTAssertEqual(immutable.delimiterNestedString, "hello")
 		XCTAssertEqual(immutable.delimiterNestedArray, ["a", "b", "c"])
@@ -204,56 +203,56 @@ class ImmutableObjectTests: XCTestCase {
 		let JSON2: [String: Any] = [ "prop1": "prop1", "prop2": NSNull() ]
 		let immutable2 = try? mapper.map(JSON: JSON2)
 		XCTAssertNil(immutable2)
-
+		
 		// TODO: ImmutableMappable to JSON
 		let JSONFromObject = mapper.toJSON(immutable)
 		let objectFromJSON = try? mapper.map(JSON: JSONFromObject)
 		XCTAssertNotNil(objectFromJSON)
 		assertImmutableObjectsEqual(objectFromJSON!, immutable)
 	}
-
+	
 	func testMappingFromArray() {
 		let JSONArray: [[String: Any]] = [JSON]
-
+		
 		let array: [Struct] = try! Mapper<Struct>().mapArray(JSONArray: JSONArray)
 		XCTAssertNotNil(array.first)
 	}
-
+	
 	func testMappingFromDictionary() {
 		let JSONDictionary: [String: [String: Any]] = [
 			"key1": JSON,
 			"key2": JSON,
 		]
-
+		
 		let dictionary: [String: Struct] = try! Mapper<Struct>().mapDictionary(JSON: JSONDictionary)
 		XCTAssertNotNil(dictionary.first)
 		XCTAssertEqual(dictionary.count, 2)
 		XCTAssertEqual(Set(dictionary.keys), Set(["key1", "key2"]))
 	}
-
+	
 	func testMappingFromDictionary_empty() {
 		let JSONDictionary: [String: [String: Any]] = [:]
-
+		
 		let dictionary: [String: Struct] = try! Mapper<Struct>().mapDictionary(JSON: JSONDictionary)
 		XCTAssertTrue(dictionary.isEmpty)
 	}
-
+	
 	func testMappingFromDictionary_throws() {
 		let JSONDictionary: [String: [String: Any]] = [
 			"key1": JSON,
 			"key2": ["invalid": "dictionary"],
 		]
-
+		
 		XCTAssertThrowsError(try Mapper<Struct>().mapDictionary(JSON: JSONDictionary))
 	}
-
+	
 	func testMappingFromDictionaryOfArrays() {
 		let JSONDictionary: [String: [[String: Any]]] = [
 			"key1": [JSON, JSON],
 			"key2": [JSON],
 			"key3": [],
 		]
-
+		
 		let dictionary: [String: [Struct]] = try! Mapper<Struct>().mapDictionaryOfArrays(JSON: JSONDictionary)
 		XCTAssertNotNil(dictionary.first)
 		XCTAssertEqual(dictionary.count, 3)
@@ -262,23 +261,23 @@ class ImmutableObjectTests: XCTestCase {
 		XCTAssertEqual(dictionary["key2"]?.count, 1)
 		XCTAssertEqual(dictionary["key3"]?.count, 0)
 	}
-
+	
 	func testMappingFromDictionaryOfArrays_empty() {
 		let JSONDictionary: [String: [[String: Any]]] = [:]
-
+		
 		let dictionary: [String: [Struct]] = try! Mapper<Struct>().mapDictionaryOfArrays(JSON: JSONDictionary)
 		XCTAssertTrue(dictionary.isEmpty)
 	}
-
+	
 	func testMappingFromDictionaryOfArrays_throws() {
 		let JSONDictionary: [String: [[String: Any]]] = [
 			"key1": [JSON],
 			"key2": [["invalid": "dictionary"]],
 		]
-
+		
 		XCTAssertThrowsError(try Mapper<Struct>().mapDictionaryOfArrays(JSON: JSONDictionary))
 	}
-
+	
 	func testMappingArrayOfArrays() {
 		let JSONArray: [[[String: Any]]] = [
 			[JSON, JSON],
@@ -292,13 +291,13 @@ class ImmutableObjectTests: XCTestCase {
 		XCTAssertEqual(array[1].count, 1)
 		XCTAssertEqual(array[2].count, 0)
 	}
-
+	
 	func testMappingArrayOfArrays_empty() {
 		let JSONArray: [[[String: Any]]] = []
 		let array: [[Struct]] = try! Mapper<Struct>().mapArrayOfArrays(JSONObject: JSONArray)
 		XCTAssertTrue(array.isEmpty)
 	}
-
+	
 	func testMappingArrayOfArrays_throws() {
 		let JSONArray: [[[String: Any]]] = [
 			[JSON],
@@ -306,7 +305,7 @@ class ImmutableObjectTests: XCTestCase {
 		]
 		XCTAssertThrowsError(try Mapper<Struct>().mapArrayOfArrays(JSONObject: JSONArray))
 	}
-
+	
 	func testAsPropertyOfMappable() {
 		struct ImmutableObject: ImmutableMappable {
 			let value: String
@@ -314,7 +313,7 @@ class ImmutableObjectTests: XCTestCase {
 				self.value = try map.value("value")
 			}
 		}
-
+		
 		struct Object: Mappable {
 			var immutable: ImmutableObject!
 			init?(map: Map) {}
@@ -322,7 +321,7 @@ class ImmutableObjectTests: XCTestCase {
 				self.immutable <- map["immutable"]
 			}
 		}
-
+		
 		let json: [String: Any] = [
 			"immutable": [
 				"value": "Hello"
@@ -331,7 +330,7 @@ class ImmutableObjectTests: XCTestCase {
 		let object = Mapper<Object>().map(JSON: json)
 		XCTAssertEqual(object?.immutable?.value, "Hello")
 	}
-
+	
 }
 
 struct Struct {
@@ -369,7 +368,7 @@ struct Struct {
 	var prop24: Int?
 	var prop25: Bool?
 	var prop26: Double?
-
+	
 	// RawRepresentable
 	let prop27a: Int64Enum
 	let prop27b: Int64Enum
@@ -404,7 +403,7 @@ struct Struct {
 	var nestedString: String
 	var nestedArray: [String]
 	var nestedDictionary: [String: Int]
-
+	
 	var delimiterNestedInt: Int
 	var delimiterNestedString: String
 	var delimiterNestedArray: [String]
@@ -425,11 +424,11 @@ extension Struct: ImmutableMappable {
 		prop8 = try map.value("prop8", using: stringTransform)
 		prop9 = try? map.value("prop9", using: stringTransform)
 		prop10 = try? map.value("prop10", using: stringTransform)
-
+		
 		prop11 = try map.value("prop11", using: stringTransform)
 		prop12 = try? map.value("prop12", using: stringTransform)
 		prop13 = try? map.value("prop13", using: stringTransform)
-
+		
 		prop14 = try map.value("prop14")
 		prop15 = try? map.value("prop15")
 		prop16 = try? map.value("prop16")
@@ -469,14 +468,14 @@ extension Struct: ImmutableMappable {
 		prop35 = try map.value("prop35")
 		prop36 = try? map.value("prop36")
 		prop37 = try? map.value("prop37")
-
+		
 		nonnestedString = try map.value("non.nested->key", nested: false)
-
+		
 		nestedInt = try map.value("nested.int")
 		nestedString = try map.value("nested.string")
 		nestedArray = try map.value("nested.array")
 		nestedDictionary = try map.value("nested.dictionary")
-
+		
 		delimiterNestedInt = try map.value("com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.int", delimiter: "->")
 		delimiterNestedString = try map.value("com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.string", delimiter: "->")
 		delimiterNestedArray = try map.value("com.hearst.ObjectMapper.nested->array", delimiter: "->")
@@ -484,11 +483,6 @@ extension Struct: ImmutableMappable {
 	}
 
 	mutating func mapping(map: Map) {
-		prop23 <- map["prop23"]
-		prop24 <- map["prop24"]
-		prop25 <- map["prop25"]
-		prop26 <- map["prop26"]
-		
 		prop1 >>> map["prop1"]
 		prop2 >>> map["prop2"]
 		prop3 >>> map["prop3"]
@@ -501,11 +495,11 @@ extension Struct: ImmutableMappable {
 		prop8 >>> (map["prop8"], stringTransform)
 		prop9 >>> (map["prop9"], stringTransform)
 		prop10 >>> (map["prop10"], stringTransform)
-
+		
 		prop11 >>> (map["prop11"], stringTransform)
 		prop12 >>> (map["prop12"], stringTransform)
 		prop13 >>> (map["prop13"], stringTransform)
-
+		
 		prop14 >>> map["prop14"]
 		prop15 >>> map["prop15"]
 		prop16 >>> map["prop16"]
@@ -517,6 +511,11 @@ extension Struct: ImmutableMappable {
 		prop20 >>> map["prop20"]
 		prop21 >>> map["prop21"]
 		prop22 >>> map["prop22"]
+		
+		prop23 <- map["prop23"]
+		prop24 <- map["prop24"]
+		prop25 <- map["prop25"]
+		prop26 <- map["prop26"]
 		
 		prop27a >>> map["prop27a"]
 		prop27b >>> map["prop27b"]
@@ -545,14 +544,14 @@ extension Struct: ImmutableMappable {
 		prop35 >>> map["prop35"]
 		prop36 >>> map["prop36"]
 		prop37 >>> map["prop37"]
-
+		
 		nonnestedString >>> map["non.nested->key", nested: false]
-
+		
 		nestedInt >>> map["nested.int"]
 		nestedString >>> map["nested.string"]
 		nestedArray >>> map["nested.array"]
 		nestedDictionary >>> map["nested.dictionary"]
-
+		
 		delimiterNestedInt >>> map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.int", delimiter: "->"]
 		delimiterNestedString >>> map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.string", delimiter: "->"]
 		delimiterNestedArray >>> map["com.hearst.ObjectMapper.nested->array", delimiter: "->"]
@@ -605,3 +604,4 @@ private func assertImmutableObjectsEqual(_ lhs: Struct, _ rhs: Struct) {
 	XCTAssertEqual("\(lhs.prop36 as Optional)", "\(rhs.prop36 as Optional)")
 	XCTAssertEqual("\(lhs.prop37)", "\(rhs.prop37)")
 }
+

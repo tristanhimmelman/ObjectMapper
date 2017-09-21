@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		030114A91D95187600FBFD4F /* ImmutableMappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030114A81D95187600FBFD4F /* ImmutableMappable.swift */; };
-		030114AC1D951A4F00FBFD4F /* ImmutableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030114AA1D95197100FBFD4F /* ImmutableTests.swift */; };
 		030114AD1D951A5300FBFD4F /* ImmutableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030114AA1D95197100FBFD4F /* ImmutableTests.swift */; };
 		030114AE1D951A5600FBFD4F /* ImmutableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030114AA1D95197100FBFD4F /* ImmutableTests.swift */; };
 		030114AF1D951A6C00FBFD4F /* ImmutableMappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030114A81D95187600FBFD4F /* ImmutableMappable.swift */; };
@@ -73,6 +71,8 @@
 		6AAC8FD319F048FE00E7A677 /* DateTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FCB19F048FE00E7A677 /* DateTransform.swift */; };
 		6AAE6A431ACED93500FBC899 /* ObjectMapper.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = CD1602FF1AC023D5000CD69A /* ObjectMapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6AC458191BA350CF00054758 /* ObjectMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AAC8F7B19F03C2900E7A677 /* ObjectMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6AC53CAB1F031B85008BDDCD /* ImmutableMappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030114A81D95187600FBFD4F /* ImmutableMappable.swift */; };
+		6AC53CAC1F03FA1B008BDDCD /* ImmutableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030114AA1D95197100FBFD4F /* ImmutableTests.swift */; };
 		6AC692341BE3FD3A004C119A /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACB15D11BC7F1D0006C029C /* Map.swift */; };
 		6AC692351BE3FD3A004C119A /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC419F048FE00E7A677 /* Mapper.swift */; };
 		6AC692361BE3FD3A004C119A /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC519F048FE00E7A677 /* Operators.swift */; };
@@ -643,7 +643,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = hearst;
 				TargetAttributes = {
 					6A05B7A51BE274BE00F19B53 = {
@@ -660,11 +660,11 @@
 					};
 					6AAC8F7519F03C2900E7A677 = {
 						CreatedOnToolsVersion = 6.0.1;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0900;
 					};
 					6AAC8F8019F03C2900E7A677 = {
 						CreatedOnToolsVersion = 6.0.1;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0900;
 					};
 					CD1602FE1AC023D5000CD69A = {
 						CreatedOnToolsVersion = 6.2;
@@ -841,6 +841,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6AC53CAB1F031B85008BDDCD /* ImmutableMappable.swift in Sources */,
 				37AFD9B91AAD191C00AB59B5 /* CustomDateFormatTransform.swift in Sources */,
 				3BAD2C0C1BDDB10D00E6B203 /* Mappable.swift in Sources */,
 				6AF1488D1D99A7A6002BEA2C /* TransformOperators.swift in Sources */,
@@ -853,7 +854,6 @@
 				BC1E7F371ABC44C000F9B1CF /* EnumTransform.swift in Sources */,
 				D86BDEA41A51E5AD00120819 /* ISO8601DateTransform.swift in Sources */,
 				CD71C8C11A7218AD009D4161 /* TransformOf.swift in Sources */,
-				030114A91D95187600FBFD4F /* ImmutableMappable.swift in Sources */,
 				6A6C54D019FE8DB600239454 /* URLTransform.swift in Sources */,
 				038F0A031E55FE2400613148 /* IntegerOperators.swift in Sources */,
 				6A51372C1AADDE2700B82516 /* DateFormatterTransform.swift in Sources */,
@@ -891,7 +891,7 @@
 				6AAC8F8619F03C2900E7A677 /* ObjectMapperTests.swift in Sources */,
 				DC99C8CC1CA261A8005C788C /* NullableKeysFromJSONTests.swift in Sources */,
 				6100B1C01BD76A030011114A /* NestedArrayTests.swift in Sources */,
-				030114AC1D951A4F00FBFD4F /* ImmutableTests.swift in Sources */,
+				6AC53CAC1F03FA1B008BDDCD /* ImmutableTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1129,14 +1129,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1180,14 +1186,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1231,7 +1243,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hearst.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.1;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
@@ -1252,7 +1265,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hearst.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.1;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
@@ -1270,7 +1284,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.heart.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.1;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -1282,7 +1297,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.heart.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.1;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
