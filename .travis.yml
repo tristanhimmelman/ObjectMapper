@@ -10,9 +10,9 @@ env:
     - OSX_FRAMEWORK_SCHEME="ObjectMapper-Mac"
     - TVOS_FRAMEWORK_SCHEME="ObjectMapper-tvOS"
     - WATCHOS_FRAMEWORK_SCHEME="ObjectMapper-watchOS"
-    - IOS_SDK=iphonesimulator11
+    - IOS_SDK=iphonesimulator11.0
     - OSX_SDK=macosx10.13
-    - TVOS_SDK=appletvsimulator11
+    - TVOS_SDK=appletvsimulator11.0
     - WATCHOS_SDK=watchsimulator4.0
   matrix:
     - DESTINATION="OS=11.0,name=iPhone 5s"           SCHEME="$IOS_FRAMEWORK_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES"
