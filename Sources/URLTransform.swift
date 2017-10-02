@@ -40,7 +40,7 @@ open class URLTransform: TransformType {
 	to `NSURL(string:)`
 	- returns: an initialized transformer
 	*/
-	public init(shouldEncodeURLString: Bool = true, allowedCharacterSet: CharacterSet = .urlQueryAllowed) {
+	public init(shouldEncodeURLString: Bool = false, allowedCharacterSet: CharacterSet = .urlQueryAllowed) {
 		self.shouldEncodeURLString = shouldEncodeURLString
 		self.allowedCharacterSet = allowedCharacterSet
 	}
