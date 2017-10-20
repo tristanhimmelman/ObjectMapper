@@ -110,7 +110,7 @@ public final class Mapper<N: BaseMappable> {
 			do {
 				return try klass.init(map: map) as? N
 			} catch let error {
-				#if DEBUG
+				#if MAPPABLE_DEBUG
 				let exception: NSException
 				if let mapError = error as? MapError {
 					exception = NSException(name: .init(rawValue: "MapError"), reason: mapError.description, userInfo: nil)
