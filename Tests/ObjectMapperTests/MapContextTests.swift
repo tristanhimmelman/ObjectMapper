@@ -229,20 +229,6 @@ class MapContextTests: XCTestCase {
 		}
 	}
 	
-	func testArrayImmutableMappingWithoutContext() {
-		let JSON = ["persons": [["name": "Tristan"], ["name": "Anton"]]]
-		
-		do {
-			let _ = try Mapper<ImmutablePersonList>().map(JSON: JSON)
-		} catch ImmutablePersonMappingError.contextAbsense {
-			return
-		} catch {
-			XCTFail()
-		}
-		
-		XCTFail()
-	}
-	
 	// MARK: - Nested Types
 	// MARK: BaseMappable
 	struct Context: MapContext {

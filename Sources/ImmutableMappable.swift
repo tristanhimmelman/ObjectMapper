@@ -109,8 +109,8 @@ public extension Map {
 			throw MapError(key: key, currentValue: currentValue, reason: "Cannot cast to '[Any]'", file: file, function: function, line: line)
 		}
 		
-		return try jsonArray.map { JSONObject -> T in
-			return try Mapper<T>(context: context).mapOrFail(JSONObject: JSONObject)
+		return jsonArray.flatMap { JSONObject -> T? in
+			return try? Mapper<T>(context: context).mapOrFail(JSONObject: JSONObject)
 		}
 	}
 
@@ -121,11 +121,8 @@ public extension Map {
 			throw MapError(key: key, currentValue: currentValue, reason: "Cannot cast to '[Any]'", file: file, function: function, line: line)
 		}
 		
-		return try jsonArray.map { json -> Transform.Object in
-			guard let object = transform.transformFromJSON(json) else {
-				throw MapError(key: "\(key)", currentValue: json, reason: "Cannot transform to '\(Transform.Object.self)' using \(transform)", file: file, function: function, line: line)
-			}
-			return object
+		return jsonArray.flatMap { json -> Transform.Object? in
+			return transform.transformFromJSON(json)
 		}
 	}
 
