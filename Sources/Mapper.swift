@@ -118,7 +118,7 @@ public final class Mapper<N: BaseMappable> {
 					exception = NSException(name: .init(rawValue: "ImmutableMappableError"), reason: error.localizedDescription, userInfo: nil)
 				}
 				exception.raise()
-				#else
+				#elseif DEBUG
 				NSLog("\(error)")
 				#endif
 			}
