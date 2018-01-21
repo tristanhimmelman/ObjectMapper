@@ -133,9 +133,10 @@ private func valueFor(_ keyPathComponents: ArraySlice<String>, dictionary: [Stri
 	}
 	
 	if let keyPath = keyPathComponents.first {
+		let isTail = keyPathComponents.count == 1
 		let object = dictionary[keyPath]
 		if object is NSNull {
-			return (true, nil)
+			return (isTail, nil)
 		} else if keyPathComponents.count > 1, let dict = object as? [String: Any] {
 			let tail = keyPathComponents.dropFirst()
 			return valueFor(tail, dictionary: dict)
@@ -143,7 +144,7 @@ private func valueFor(_ keyPathComponents: ArraySlice<String>, dictionary: [Stri
 			let tail = keyPathComponents.dropFirst()
 			return valueFor(tail, array: array)
 		} else {
-			return (object != nil, object)
+			return (isTail && object != nil, object)
 		}
 	}
 	
@@ -162,10 +163,11 @@ private func valueFor(_ keyPathComponents: ArraySlice<String>, array: [Any]) -> 
 	if let keyPath = keyPathComponents.first,
 		let index = Int(keyPath) , index >= 0 && index < array.count {
 		
+		let isTail = keyPathComponents.count == 1
 		let object = array[index]
 		
 		if object is NSNull {
-			return (true, nil)
+			return (isTail, nil)
 		} else if keyPathComponents.count > 1, let array = object as? [Any]  {
 			let tail = keyPathComponents.dropFirst()
 			return valueFor(tail, array: array)
@@ -173,7 +175,7 @@ private func valueFor(_ keyPathComponents: ArraySlice<String>, array: [Any]) -> 
 			let tail = keyPathComponents.dropFirst()
 			return valueFor(tail, dictionary: dict)
 		} else {
-			return (true, object)
+			return (isTail, object)
 		}
 	}
 	
