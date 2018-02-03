@@ -281,6 +281,44 @@ public final class Mapper<N: BaseMappable> {
 }
 
 extension Mapper {
+	// MARK: Functions that create model from JSON file
+
+	/// JSON file to Mappable object
+	/// - parameter JSONfile: Filename
+	/// - Returns: Mappable object
+	public func map(JSONfile: String) -> N? {
+		if let path = Bundle.main.path(forResource: JSONfile, ofType: nil) {
+			do {
+				let JSONString = try String(contentsOfFile: path)
+				do {
+					return self.map(JSONString: JSONString)
+				}
+			} catch {
+				return nil
+			}
+		}
+		return nil
+	}
+
+	/// JSON file to Mappable object array
+	/// - parameter JSONfile: Filename
+	/// - Returns: Mappable object array
+	public func mapArray(JSONfile: String) -> [N]? {
+		if let path = Bundle.main.path(forResource: JSONfile, ofType: nil) {
+			do {
+				let JSONString = try String(contentsOfFile: path)
+				do {
+					return self.mapArray(JSONString: JSONString)
+				}
+			} catch {
+				return nil
+			}
+		}
+		return nil
+	}
+}
+
+extension Mapper {
     
 	// MARK: Functions that create JSON from objects	
 	
