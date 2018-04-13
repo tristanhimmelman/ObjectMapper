@@ -129,7 +129,7 @@ public final class Map {
 			}
 		} else if value == nil && T.self == [Float].self {
 			if let v = currentValue as? [Double] {
-				return v.compactMap{ Float($0) } as? T
+				return v.flatMap{ Float($0) } as? T
 			}
 		} else if value == nil && T.self == [String:Float].self {
 			if let v = currentValue as? [String:Double] {
