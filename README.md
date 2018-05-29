@@ -468,21 +468,21 @@ Before submitting any pull request, please ensure you have run the included test
 ObjectMapper can be added to your project using [CocoaPods 0.36 or later](http://blog.cocoapods.org/Pod-Authors-Guide-to-CocoaPods-Frameworks/) by adding the following line to your `Podfile`:
 
 ```ruby
-pod 'ObjectMapper', '~> 3.1'
+pod 'ObjectMapper', '~> 3.2'
 ```
 
 ### Carthage
 If you're using [Carthage](https://github.com/Carthage/Carthage) you can add a dependency on ObjectMapper by adding it to your `Cartfile`:
 
 ```
-github "Hearst-DD/ObjectMapper" ~> 3.1
+github "Hearst-DD/ObjectMapper" ~> 3.2
 ```
 
 ### Swift Package Manager
 To add ObjectMapper to a [Swift Package Manager](https://swift.org/package-manager/) based project, add:
 
 ```swift
-.Package(url: "https://github.com/Hearst-DD/ObjectMapper.git", majorVersion: 2, minor: 2),
+.Package(url: "https://github.com/Hearst-DD/ObjectMapper.git", majorVersion: 3, minor: 2),
 ```
 to your `Package.swift` files `dependencies` array.
 
