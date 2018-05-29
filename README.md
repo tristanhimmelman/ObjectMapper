@@ -482,7 +482,7 @@ github "Hearst-DD/ObjectMapper" ~> 3.1
 To add ObjectMapper to a [Swift Package Manager](https://swift.org/package-manager/) based project, add:
 
 ```swift
-.Package(url: "https://github.com/Hearst-DD/ObjectMapper.git", majorVersion: 2, minor: 2),
+.Package(url: "https://github.com/Hearst-DD/ObjectMapper.git", majorVersion: 3, minor: 1),
 ```
 to your `Package.swift` files `dependencies` array.
 
