@@ -120,9 +120,24 @@ public final class Map {
 	}
 	
 	public func value<T>() -> T? {
-		return currentValue as? T
+		let value = currentValue as? T
+		
+		// Swift 4.1 breaks Float casting from `NSNumber`. So Added extra checks for `Flaot` `[Float]` and `[String:Float]`
+		if value == nil && T.self == Float.self {
+			if let v = currentValue as? NSNumber {
+				return v.floatValue as? T
+			}
+		} else if value == nil && T.self == [Float].self {
+			if let v = currentValue as? [Double] {
+				return v.flatMap{ Float($0) } as? T
+			}
+		} else if value == nil && T.self == [String:Float].self {
+			if let v = currentValue as? [String:Double] {
+				return v.mapValues{ Float($0) } as? T
+			}
+		}
+		return value
 	}
-	
 }
 
 /// Fetch value from JSON dictionary, loop through keyPathComponents until we reach the desired object
