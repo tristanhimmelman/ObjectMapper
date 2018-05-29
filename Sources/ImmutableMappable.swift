@@ -214,7 +214,7 @@ public extension Mapper where N: ImmutableMappable {
 	// MARK: Array mapping functions
 	
 	public func mapArray(JSONArray: [[String: Any]]) throws -> [N] {
-		return try JSONArray.flatMap(mapOrFail)
+		return try JSONArray.compactMap(mapOrFail)
 	}
 	
 	public func mapArray(JSONString: String) throws -> [N] {

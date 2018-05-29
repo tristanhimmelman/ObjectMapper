@@ -54,8 +54,8 @@ class BasicTypesTestsToJSON: XCTestCase {
 		
 		//TODO This test could be improved
 		XCTAssertNotNil(JSONWithNil)
-		XCTAssertTrue((JSONWithNil!.characters.count) > 5)
-		XCTAssertTrue((JSONWithNil!.characters.count) != (JSONWithoutNil!.characters.count))
+		XCTAssertTrue((JSONWithNil!.count) > 5)
+		XCTAssertTrue((JSONWithNil!.count) != (JSONWithoutNil!.count))
 	}
 	
 	func testMappingBoolToJSON(){
