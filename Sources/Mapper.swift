@@ -427,7 +427,7 @@ extension Mapper where N: Hashable {
 	/// Maps an Set of JSON dictionary to an array of Mappable objects
 	public func mapSet(JSONArray: [[String: Any]]) -> Set<N> {
 		// map every element in JSON array to type N
-		return Set(JSONArray.flatMap(map))
+		return Set(JSONArray.compactMap(map))
 	}
 
 	///Maps a Set of Objects to a Set of JSON dictionaries [[String : Any]]

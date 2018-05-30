@@ -458,7 +458,7 @@ public func <- <Transform: TransformType>(left: inout [[Transform.Object]], righ
 		left >>> right
 	case .fromJSON where map.isKeyPresent:
 		guard let original2DArray = map.currentValue as? [[Any]] else { break }
-		let transformed2DArray = original2DArray.flatMap { values in
+		let transformed2DArray = original2DArray.compactMap { values in
 			fromJSONArrayWithTransform(values as Any?, transform: transform)
 		}
 		FromJSON.basicType(&left, object: transformed2DArray)
@@ -470,7 +470,7 @@ public func <- <Transform: TransformType>(left: inout [[Transform.Object]], righ
 public func >>> <Transform: TransformType>(left: [[Transform.Object]], right: (Map, Transform)) {
 	let (map, transform) = right
 	if map.mappingType == .toJSON{
-		let transformed2DArray = left.flatMap { values in
+		let transformed2DArray = left.compactMap { values in
 			toJSONArrayWithTransform(values, transform: transform)
 		}
 		ToJSON.basicType(transformed2DArray, map: map)
@@ -485,7 +485,7 @@ public func <- <Transform: TransformType>(left: inout [[Transform.Object]]?, rig
 		left >>> right
 	case .fromJSON where map.isKeyPresent:
 		guard let original2DArray = map.currentValue as? [[Any]] else { break }
-		let transformed2DArray = original2DArray.flatMap { values in
+		let transformed2DArray = original2DArray.compactMap { values in
 			fromJSONArrayWithTransform(values as Any?, transform: transform)
 		}
 		FromJSON.optionalBasicType(&left, object: transformed2DArray)
@@ -497,7 +497,7 @@ public func <- <Transform: TransformType>(left: inout [[Transform.Object]]?, rig
 public func >>> <Transform: TransformType>(left: [[Transform.Object]]?, right: (Map, Transform)) {
 	let (map, transform) = right
 	if map.mappingType == .toJSON {
-		let transformed2DArray = left?.flatMap { values in
+		let transformed2DArray = left?.compactMap { values in
 			toJSONArrayWithTransform(values, transform: transform)
 		}
 		ToJSON.optionalBasicType(transformed2DArray, map: map)
@@ -513,7 +513,7 @@ public func <- <Transform: TransformType>(left: inout [[Transform.Object]]!, rig
 		left >>> right
 	case .fromJSON where map.isKeyPresent:
 		guard let original2DArray = map.currentValue as? [[Any]] else { break }
-		let transformed2DArray = original2DArray.flatMap { values in
+		let transformed2DArray = original2DArray.compactMap { values in
 			fromJSONArrayWithTransform(values as Any?, transform: transform)
 		}
 		FromJSON.optionalBasicType(&left, object: transformed2DArray)

@@ -62,52 +62,54 @@ public final class Map {
 	/// The Key paramater can be a period separated string (ex. "distance.value") to access sub objects.
 	public subscript(key: String) -> Map {
 		// save key and value associated to it
-		return self[key, delimiter: ".", ignoreNil: false]
+		return self.subscript(key: key)
 	}
 	
 	public subscript(key: String, delimiter delimiter: String) -> Map {
-		let nested = key.contains(delimiter)
-		return self[key, nested: nested, delimiter: delimiter, ignoreNil: false]
+		return self.subscript(key: key, delimiter: delimiter)
 	}
 	
 	public subscript(key: String, nested nested: Bool) -> Map {
-		return self[key, nested: nested, delimiter: ".", ignoreNil: false]
+		return self.subscript(key: key, nested: nested)
 	}
 	
 	public subscript(key: String, nested nested: Bool, delimiter delimiter: String) -> Map {
-		return self[key, nested: nested, delimiter: delimiter, ignoreNil: false]
+		return self.subscript(key: key, nested: nested, delimiter: delimiter)
 	}
 	
 	public subscript(key: String, ignoreNil ignoreNil: Bool) -> Map {
-		return self[key, delimiter: ".", ignoreNil: ignoreNil]
+		return self.subscript(key: key, ignoreNil: ignoreNil)
 	}
 	
 	public subscript(key: String, delimiter delimiter: String, ignoreNil ignoreNil: Bool) -> Map {
-		let nested = key.contains(delimiter)
-		return self[key, nested: nested, delimiter: delimiter, ignoreNil: ignoreNil]
+		return self.subscript(key: key, delimiter: delimiter, ignoreNil: ignoreNil)
 	}
 	
 	public subscript(key: String, nested nested: Bool, ignoreNil ignoreNil: Bool) -> Map {
-		return self[key, nested: nested, delimiter: ".", ignoreNil: ignoreNil]
+		return self.subscript(key: key, nested: nested, ignoreNil: ignoreNil)
 	}
 	
-	public subscript(key: String, nested nested: Bool, delimiter delimiter: String, ignoreNil ignoreNil: Bool) -> Map {
+	public subscript(key: String, nested nested: Bool?, delimiter delimiter: String, ignoreNil ignoreNil: Bool) -> Map {
+		return self.subscript(key: key, nested: nested, delimiter: delimiter, ignoreNil: ignoreNil)
+	}
+	
+	private func `subscript`(key: String, nested: Bool? = nil, delimiter: String = ".", ignoreNil: Bool = false) -> Map {
 		// save key and value associated to it
 		currentKey = key
-		keyIsNested = nested
+		keyIsNested = nested ?? key.contains(delimiter)
 		nestedKeyDelimiter = delimiter
 		
 		if mappingType == .fromJSON {
 			// check if a value exists for the current key
 			// do this pre-check for performance reasons
-			if nested == false {
+			if keyIsNested {
+				// break down the components of the key that are separated by delimiter
+				(isKeyPresent, currentValue) = valueFor(ArraySlice(key.components(separatedBy: delimiter)), dictionary: JSON)
+			} else {
 				let object = JSON[key]
 				let isNSNull = object is NSNull
 				isKeyPresent = isNSNull ? true : object != nil
 				currentValue = isNSNull ? nil : object
-			} else {
-				// break down the components of the key that are separated by .
-				(isKeyPresent, currentValue) = valueFor(ArraySlice(key.components(separatedBy: delimiter)), dictionary: JSON)
 			}
 			
 			// update isKeyPresent if ignoreNil is true
@@ -120,9 +122,24 @@ public final class Map {
 	}
 	
 	public func value<T>() -> T? {
-		return currentValue as? T
+		let value = currentValue as? T
+		
+		// Swift 4.1 breaks Float casting from `NSNumber`. So Added extra checks for `Float` `[Float]` and `[String:Float]`
+		if value == nil && T.self == Float.self {
+			if let v = currentValue as? NSNumber {
+				return v.floatValue as? T
+			}
+		} else if value == nil && T.self == [Float].self {
+			if let v = currentValue as? [Double] {
+				return v.compactMap{ Float($0) } as? T
+			}
+		} else if value == nil && T.self == [String:Float].self {
+			if let v = currentValue as? [String:Double] {
+				return v.mapValues{ Float($0) } as? T
+			}
+		}
+		return value
 	}
-	
 }
 
 /// Fetch value from JSON dictionary, loop through keyPathComponents until we reach the desired object
@@ -133,9 +150,10 @@ private func valueFor(_ keyPathComponents: ArraySlice<String>, dictionary: [Stri
 	}
 	
 	if let keyPath = keyPathComponents.first {
+		let isTail = keyPathComponents.count == 1
 		let object = dictionary[keyPath]
 		if object is NSNull {
-			return (true, nil)
+			return (isTail, nil)
 		} else if keyPathComponents.count > 1, let dict = object as? [String: Any] {
 			let tail = keyPathComponents.dropFirst()
 			return valueFor(tail, dictionary: dict)
@@ -143,7 +161,7 @@ private func valueFor(_ keyPathComponents: ArraySlice<String>, dictionary: [Stri
 			let tail = keyPathComponents.dropFirst()
 			return valueFor(tail, array: array)
 		} else {
-			return (object != nil, object)
+			return (isTail && object != nil, object)
 		}
 	}
 	
@@ -162,10 +180,11 @@ private func valueFor(_ keyPathComponents: ArraySlice<String>, array: [Any]) -> 
 	if let keyPath = keyPathComponents.first,
 		let index = Int(keyPath) , index >= 0 && index < array.count {
 		
+		let isTail = keyPathComponents.count == 1
 		let object = array[index]
 		
 		if object is NSNull {
-			return (true, nil)
+			return (isTail, nil)
 		} else if keyPathComponents.count > 1, let array = object as? [Any]  {
 			let tail = keyPathComponents.dropFirst()
 			return valueFor(tail, array: array)
@@ -173,7 +192,7 @@ private func valueFor(_ keyPathComponents: ArraySlice<String>, array: [Any]) -> 
 			let tail = keyPathComponents.dropFirst()
 			return valueFor(tail, dictionary: dict)
 		} else {
-			return (true, object)
+			return (isTail, object)
 		}
 	}
 	
