@@ -75,18 +75,6 @@ public func >>> <T>(left: T?, right: Map) {
 	}
 }
 
-
-/// Implicitly unwrapped optional object of basic type
-//public func <- <T>(left: inout T!, right: Map) {
-//	switch right.mappingType {
-//	case .fromJSON where right.isKeyPresent:
-//		FromJSON.optionalBasicType(&left, object: right.value())
-//	case .toJSON:
-//		left >>> right
-//	default: ()
-//	}
-//}
-
 // MARK:- Mappable Objects - <T: BaseMappable>
 
 /// Object conforming to Mappable
@@ -122,18 +110,6 @@ public func >>> <T: BaseMappable>(left: T?, right: Map) {
 		ToJSON.optionalObject(left, map: right)
 	}
 }
-
-
-/// Implicitly unwrapped optional Mappable objects
-//public func <- <T: BaseMappable>(left: inout T!, right: Map) {
-//	switch right.mappingType {
-//	case .fromJSON where right.isKeyPresent:
-//		FromJSON.optionalObject(&left, map: right)
-//	case .toJSON:
-//		left >>> right
-//	default: ()
-//	}
-//}
 
 // MARK:- Dictionary of Mappable objects - Dictionary<String, T: BaseMappable>
 
@@ -172,18 +148,6 @@ public func >>> <T: BaseMappable>(left: Dictionary<String, T>?, right: Map) {
 	}
 }
 
-
-/// Implicitly unwrapped Optional Dictionary of Mappable object <String, T: Mappable>
-//public func <- <T: BaseMappable>(left: inout Dictionary<String, T>!, right: Map) {
-//	switch right.mappingType {
-//	case .fromJSON where right.isKeyPresent:
-//		FromJSON.optionalObjectDictionary(&left, map: right)
-//	case .toJSON:
-//		left >>> right
-//	default: ()
-//	}
-//}
-
 /// Dictionary of Mappable objects <String, T: Mappable>
 public func <- <T: BaseMappable>(left: inout Dictionary<String, [T]>, right: Map) {
 	switch right.mappingType {
@@ -217,18 +181,6 @@ public func >>> <T: BaseMappable>(left: Dictionary<String, [T]>?, right: Map) {
 		ToJSON.optionalObjectDictionaryOfArrays(left, map: right)
 	}
 }
-
-
-/// Implicitly unwrapped Optional Dictionary of Mappable object <String, T: Mappable>
-//public func <- <T: BaseMappable>(left: inout Dictionary<String, [T]>!, right: Map) {
-//	switch right.mappingType {
-//	case .fromJSON where right.isKeyPresent:
-//		FromJSON.optionalObjectDictionaryOfArrays(&left, map: right)
-//	case .toJSON:
-//		left >>> right
-//	default: ()
-//	}
-//}
 
 // MARK:- Array of Mappable objects - Array<T: BaseMappable>
 
@@ -265,18 +217,6 @@ public func >>> <T: BaseMappable>(left: Array<T>?, right: Map) {
 		ToJSON.optionalObjectArray(left, map: right)
 	}
 }
-
-
-/// Implicitly unwrapped Optional array of Mappable objects
-//public func <- <T: BaseMappable>(left: inout Array<T>!, right: Map) {
-//	switch right.mappingType {
-//	case .fromJSON where right.isKeyPresent:
-//		FromJSON.optionalObjectArray(&left, map: right)
-//	case .toJSON:
-//		left >>> right
-//	default: ()
-//	}
-//}
 
 // MARK:- Array of Array of Mappable objects - Array<Array<T: BaseMappable>>
 
@@ -315,18 +255,6 @@ public func >>> <T: BaseMappable>(left: Array<Array<T>>?, right: Map) {
 	}
 }
 
-
-/// Implicitly unwrapped Optional array of Mappable objects
-//public func <- <T: BaseMappable>(left: inout Array<Array<T>>!, right: Map) {
-//	switch right.mappingType {
-//	case .fromJSON where right.isKeyPresent:
-//		FromJSON.optionalTwoDimensionalObjectArray(&left, map: right)
-//	case .toJSON:
-//		left >>> right
-//	default: ()
-//	}
-//}
-
 // MARK:- Set of Mappable objects - Set<T: BaseMappable>
 
 /// Set of Mappable objects
@@ -363,15 +291,3 @@ public func >>> <T: BaseMappable>(left: Set<T>?, right: Map) {
 		ToJSON.optionalObjectSet(left, map: right)
 	}
 }
-
-
-/// Implicitly unwrapped Optional Set of Mappable objects
-//public func <- <T: BaseMappable>(left: inout Set<T>!, right: Map) {
-//	switch right.mappingType {
-//	case .fromJSON where right.isKeyPresent:
-//		FromJSON.optionalObjectSet(&left, map: right)
-//	case .toJSON:
-//		left >>> right
-//	default: ()
-//	}
-//}
