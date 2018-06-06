@@ -290,6 +290,7 @@ public func >>> <Transform: TransformType>(left: Dictionary<String, Transform.Ob
 	}
 }
 
+
 #if swift(>=4.1)
 #else
 /// Implicitly unwrapped Optional Dictionary of Mappable object <String, T: Mappable> with a transform
