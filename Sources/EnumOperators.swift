@@ -30,11 +30,13 @@ public func >>> <T: RawRepresentable>(left: T?, right: Map) {
 	left >>> (right, EnumTransform())
 }
 
-
+#if swift(>=4.1)
+#else
 /// Implicitly Unwrapped Optional Object of Raw Representable type
 public func <- <T: RawRepresentable>(left: inout T!, right: Map) {
 	left <- (right, EnumTransform())
 }
+#endif
 
 // MARK:- Arrays of Raw Representable type
 
@@ -57,11 +59,13 @@ public func >>> <T: RawRepresentable>(left: [T]?, right: Map) {
 	left >>> (right, EnumTransform())
 }
 
-
+#if swift(>=4.1)
+#else
 /// Array of Raw Representable object
 public func <- <T: RawRepresentable>(left: inout [T]!, right: Map) {
 	left <- (right, EnumTransform())
 }
+#endif
 
 // MARK:- Dictionaries of Raw Representable type
 
@@ -84,8 +88,10 @@ public func >>> <T: RawRepresentable>(left: [String: T]?, right: Map) {
 	left >>> (right, EnumTransform())
 }
 
-
+#if swift(>=4.1)
+#else
 /// Dictionary of Raw Representable object
 public func <- <T: RawRepresentable>(left: inout [String: T]!, right: Map) {
 	left <- (right, EnumTransform())
 }
+#endif

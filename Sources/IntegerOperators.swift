@@ -34,6 +34,8 @@ public func <- <T: SignedInteger>(left: inout T?, right: Map) {
 	}
 }
 
+#if swift(>=4.1)
+#else
 /// ImplicitlyUnwrappedOptional SignedInteger mapping
 public func <- <T: SignedInteger>(left: inout T!, right: Map) {
 	switch right.mappingType {
@@ -45,7 +47,7 @@ public func <- <T: SignedInteger>(left: inout T!, right: Map) {
 	default: ()
 	}
 }
-
+#endif
 
 // MARK: - Unsigned Integer
 
@@ -74,6 +76,8 @@ public func <- <T: UnsignedInteger>(left: inout T?, right: Map) {
 	}
 }
 
+#if swift(>=4.1)
+#else
 /// ImplicitlyUnwrappedOptional UnsignedInteger mapping
 public func <- <T: UnsignedInteger>(left: inout T!, right: Map) {
 	switch right.mappingType {
@@ -85,6 +89,7 @@ public func <- <T: UnsignedInteger>(left: inout T!, right: Map) {
 	default: ()
 	}
 }
+#endif
 
 // MARK: - Casting Utils
 
