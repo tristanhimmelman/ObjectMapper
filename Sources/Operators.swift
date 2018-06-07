@@ -76,6 +76,7 @@ public func >>> <T>(left: T?, right: Map) {
 }
 
 
+#if !swift(>=4.2)
 /// Implicitly unwrapped optional object of basic type
 public func <- <T>(left: inout T!, right: Map) {
 	switch right.mappingType {
@@ -86,6 +87,7 @@ public func <- <T>(left: inout T!, right: Map) {
 	default: ()
 	}
 }
+#endif
 
 // MARK:- Mappable Objects - <T: BaseMappable>
 
@@ -124,6 +126,7 @@ public func >>> <T: BaseMappable>(left: T?, right: Map) {
 }
 
 
+#if !swift(>=4.2)
 /// Implicitly unwrapped optional Mappable objects
 public func <- <T: BaseMappable>(left: inout T!, right: Map) {
 	switch right.mappingType {
@@ -134,6 +137,7 @@ public func <- <T: BaseMappable>(left: inout T!, right: Map) {
 	default: ()
 	}
 }
+#endif
 
 // MARK:- Dictionary of Mappable objects - Dictionary<String, T: BaseMappable>
 
@@ -173,6 +177,7 @@ public func >>> <T: BaseMappable>(left: Dictionary<String, T>?, right: Map) {
 }
 
 
+#if !swift(>=4.2)
 /// Implicitly unwrapped Optional Dictionary of Mappable object <String, T: Mappable>
 public func <- <T: BaseMappable>(left: inout Dictionary<String, T>!, right: Map) {
 	switch right.mappingType {
@@ -183,6 +188,7 @@ public func <- <T: BaseMappable>(left: inout Dictionary<String, T>!, right: Map)
 	default: ()
 	}
 }
+#endif
 
 /// Dictionary of Mappable objects <String, T: Mappable>
 public func <- <T: BaseMappable>(left: inout Dictionary<String, [T]>, right: Map) {
@@ -219,6 +225,7 @@ public func >>> <T: BaseMappable>(left: Dictionary<String, [T]>?, right: Map) {
 }
 
 
+#if !swift(>=4.2)
 /// Implicitly unwrapped Optional Dictionary of Mappable object <String, T: Mappable>
 public func <- <T: BaseMappable>(left: inout Dictionary<String, [T]>!, right: Map) {
 	switch right.mappingType {
@@ -229,6 +236,7 @@ public func <- <T: BaseMappable>(left: inout Dictionary<String, [T]>!, right: Ma
 	default: ()
 	}
 }
+#endif
 
 // MARK:- Array of Mappable objects - Array<T: BaseMappable>
 
@@ -267,6 +275,7 @@ public func >>> <T: BaseMappable>(left: Array<T>?, right: Map) {
 }
 
 
+#if !swift(>=4.2)
 /// Implicitly unwrapped Optional array of Mappable objects
 public func <- <T: BaseMappable>(left: inout Array<T>!, right: Map) {
 	switch right.mappingType {
@@ -277,6 +286,7 @@ public func <- <T: BaseMappable>(left: inout Array<T>!, right: Map) {
 	default: ()
 	}
 }
+#endif
 
 // MARK:- Array of Array of Mappable objects - Array<Array<T: BaseMappable>>
 
@@ -316,6 +326,7 @@ public func >>> <T: BaseMappable>(left: Array<Array<T>>?, right: Map) {
 }
 
 
+#if !swift(>=4.2)
 /// Implicitly unwrapped Optional array of Mappable objects
 public func <- <T: BaseMappable>(left: inout Array<Array<T>>!, right: Map) {
 	switch right.mappingType {
@@ -326,6 +337,7 @@ public func <- <T: BaseMappable>(left: inout Array<Array<T>>!, right: Map) {
 	default: ()
 	}
 }
+#endif
 
 // MARK:- Set of Mappable objects - Set<T: BaseMappable>
 
@@ -365,6 +377,7 @@ public func >>> <T: BaseMappable>(left: Set<T>?, right: Map) {
 }
 
 
+#if !swift(>=4.2)
 /// Implicitly unwrapped Optional Set of Mappable objects
 public func <- <T: BaseMappable>(left: inout Set<T>!, right: Map) {
 	switch right.mappingType {
@@ -375,3 +388,4 @@ public func <- <T: BaseMappable>(left: inout Set<T>!, right: Map) {
 	default: ()
 	}
 }
+#endif
