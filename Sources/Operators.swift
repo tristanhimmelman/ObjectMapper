@@ -76,7 +76,8 @@ public func >>> <T>(left: T?, right: Map) {
 }
 
 
-#if !swift(>=4.2)
+// Code targeting the Swift 4.1 compiler and below.
+#if !(swift(>=4.1.50) || (swift(>=3.4) && !swift(>=4.0)))
 /// Implicitly unwrapped optional object of basic type
 public func <- <T>(left: inout T!, right: Map) {
 	switch right.mappingType {
@@ -126,7 +127,8 @@ public func >>> <T: BaseMappable>(left: T?, right: Map) {
 }
 
 
-#if !swift(>=4.2)
+// Code targeting the Swift 4.1 compiler and below.
+#if !(swift(>=4.1.50) || (swift(>=3.4) && !swift(>=4.0)))
 /// Implicitly unwrapped optional Mappable objects
 public func <- <T: BaseMappable>(left: inout T!, right: Map) {
 	switch right.mappingType {
@@ -177,7 +179,8 @@ public func >>> <T: BaseMappable>(left: Dictionary<String, T>?, right: Map) {
 }
 
 
-#if !swift(>=4.2)
+// Code targeting the Swift 4.1 compiler and below.
+#if !(swift(>=4.1.50) || (swift(>=3.4) && !swift(>=4.0)))
 /// Implicitly unwrapped Optional Dictionary of Mappable object <String, T: Mappable>
 public func <- <T: BaseMappable>(left: inout Dictionary<String, T>!, right: Map) {
 	switch right.mappingType {
@@ -225,7 +228,8 @@ public func >>> <T: BaseMappable>(left: Dictionary<String, [T]>?, right: Map) {
 }
 
 
-#if !swift(>=4.2)
+// Code targeting the Swift 4.1 compiler and below.
+#if !(swift(>=4.1.50) || (swift(>=3.4) && !swift(>=4.0)))
 /// Implicitly unwrapped Optional Dictionary of Mappable object <String, T: Mappable>
 public func <- <T: BaseMappable>(left: inout Dictionary<String, [T]>!, right: Map) {
 	switch right.mappingType {
@@ -275,7 +279,8 @@ public func >>> <T: BaseMappable>(left: Array<T>?, right: Map) {
 }
 
 
-#if !swift(>=4.2)
+// Code targeting the Swift 4.1 compiler and below.
+#if !(swift(>=4.1.50) || (swift(>=3.4) && !swift(>=4.0)))
 /// Implicitly unwrapped Optional array of Mappable objects
 public func <- <T: BaseMappable>(left: inout Array<T>!, right: Map) {
 	switch right.mappingType {
@@ -326,7 +331,8 @@ public func >>> <T: BaseMappable>(left: Array<Array<T>>?, right: Map) {
 }
 
 
-#if !swift(>=4.2)
+// Code targeting the Swift 4.1 compiler and below.
+#if !(swift(>=4.1.50) || (swift(>=3.4) && !swift(>=4.0)))
 /// Implicitly unwrapped Optional array of Mappable objects
 public func <- <T: BaseMappable>(left: inout Array<Array<T>>!, right: Map) {
 	switch right.mappingType {
@@ -377,7 +383,8 @@ public func >>> <T: BaseMappable>(left: Set<T>?, right: Map) {
 }
 
 
-#if !swift(>=4.2)
+// Code targeting the Swift 4.1 compiler and below.
+#if !(swift(>=4.1.50) || (swift(>=3.4) && !swift(>=4.0)))
 /// Implicitly unwrapped Optional Set of Mappable objects
 public func <- <T: BaseMappable>(left: inout Set<T>!, right: Map) {
 	switch right.mappingType {
