@@ -54,6 +54,8 @@ public func >>> <Transform: TransformType>(left: Transform.Object?, right: (Map,
 }
 
 
+// Code targeting the Swift 4.1 compiler and below.
+#if !(swift(>=4.1.50) || (swift(>=3.4) && !swift(>=4.0)))
 /// Implicitly unwrapped optional object of basic type with Transform
 public func <- <Transform: TransformType>(left: inout Transform.Object!, right: (Map, Transform)) {
 	let (map, transform) = right
@@ -66,6 +68,7 @@ public func <- <Transform: TransformType>(left: inout Transform.Object!, right: 
 	default: ()
 	}
 }
+#endif
 
 /// Array of Basic type with Transform
 public func <- <Transform: TransformType>(left: inout [Transform.Object], right: (Map, Transform)) {
@@ -111,6 +114,8 @@ public func >>> <Transform: TransformType>(left: [Transform.Object]?, right: (Ma
 }
 
 
+// Code targeting the Swift 4.1 compiler and below.
+#if !(swift(>=4.1.50) || (swift(>=3.4) && !swift(>=4.0)))
 /// Implicitly unwrapped optional array of Basic type with Transform
 public func <- <Transform: TransformType>(left: inout [Transform.Object]!, right: (Map, Transform)) {
 	let (map, transform) = right
@@ -123,6 +128,7 @@ public func <- <Transform: TransformType>(left: inout [Transform.Object]!, right
 	default: ()
 	}
 }
+#endif
 
 /// Dictionary of Basic type with Transform
 public func <- <Transform: TransformType>(left: inout [String: Transform.Object], right: (Map, Transform)) {
@@ -168,6 +174,8 @@ public func >>> <Transform: TransformType>(left: [String: Transform.Object]?, ri
 }
 
 
+// Code targeting the Swift 4.1 compiler and below.
+#if !(swift(>=4.1.50) || (swift(>=3.4) && !swift(>=4.0)))
 /// Implicitly unwrapped optional dictionary of Basic type with Transform
 public func <- <Transform: TransformType>(left: inout [String: Transform.Object]!, right: (Map, Transform)) {
 	let (map, transform) = right
@@ -180,6 +188,7 @@ public func <- <Transform: TransformType>(left: inout [String: Transform.Object]
 	default: ()
 	}
 }
+#endif
 
 // MARK:- Transforms of Mappable Objects - <T: BaseMappable>
 
@@ -227,6 +236,8 @@ public func >>> <Transform: TransformType>(left: Transform.Object?, right: (Map,
 }
 
 
+// Code targeting the Swift 4.1 compiler and below.
+#if !(swift(>=4.1.50) || (swift(>=3.4) && !swift(>=4.0)))
 /// Implicitly unwrapped optional Mappable objects that have transforms
 public func <- <Transform: TransformType>(left: inout Transform.Object!, right: (Map, Transform)) where Transform.Object: BaseMappable {
 	let (map, transform) = right
@@ -239,6 +250,7 @@ public func <- <Transform: TransformType>(left: inout Transform.Object!, right: 
 	default: ()
 	}
 }
+#endif
 
 
 // MARK:- Dictionary of Mappable objects with a transform - Dictionary<String, T: BaseMappable>
@@ -284,6 +296,8 @@ public func >>> <Transform: TransformType>(left: Dictionary<String, Transform.Ob
 }
 
 
+// Code targeting the Swift 4.1 compiler and below.
+#if !(swift(>=4.1.50) || (swift(>=3.4) && !swift(>=4.0)))
 /// Implicitly unwrapped Optional Dictionary of Mappable object <String, T: Mappable> with a transform
 public func <- <Transform: TransformType>(left: inout Dictionary<String, Transform.Object>!, right: (Map, Transform)) where Transform.Object: BaseMappable {
 	let (map, transform) = right
@@ -294,6 +308,7 @@ public func <- <Transform: TransformType>(left: inout Dictionary<String, Transfo
 		left >>> right
 	}
 }
+#endif
 
 /// Dictionary of Mappable objects <String, T: Mappable> with a transform
 public func <- <Transform: TransformType>(left: inout Dictionary<String, [Transform.Object]>, right: (Map, Transform)) where Transform.Object: BaseMappable {
@@ -367,6 +382,8 @@ public func >>> <Transform: TransformType>(left: Dictionary<String, [Transform.O
 }
 
 
+// Code targeting the Swift 4.1 compiler and below.
+#if !(swift(>=4.1.50) || (swift(>=3.4) && !swift(>=4.0)))
 /// Implicitly unwrapped Optional Dictionary of Mappable object <String, T: Mappable> with a transform
 public func <- <Transform: TransformType>(left: inout Dictionary<String, [Transform.Object]>!, right: (Map, Transform)) where Transform.Object: BaseMappable {
 	let (map, transform) = right
@@ -387,6 +404,7 @@ public func <- <Transform: TransformType>(left: inout Dictionary<String, [Transf
 		left >>> right
 	}
 }
+#endif
 
 // MARK:- Array of Mappable objects with transforms - Array<T: BaseMappable>
 
@@ -435,6 +453,8 @@ public func >>> <Transform: TransformType>(left: Array<Transform.Object>?, right
 }
 
 
+// Code targeting the Swift 4.1 compiler and below.
+#if !(swift(>=4.1.50) || (swift(>=3.4) && !swift(>=4.0)))
 /// Implicitly unwrapped Optional array of Mappable objects
 public func <- <Transform: TransformType>(left: inout Array<Transform.Object>!, right: (Map, Transform)) where Transform.Object: BaseMappable {
 	let (map, transform) = right
@@ -447,6 +467,7 @@ public func <- <Transform: TransformType>(left: inout Array<Transform.Object>!, 
 	default: ()
 	}
 }
+#endif
 
 // MARK:- Array of Array of objects - Array<Array<T>>> with transforms
 
@@ -458,9 +479,15 @@ public func <- <Transform: TransformType>(left: inout [[Transform.Object]], righ
 		left >>> right
 	case .fromJSON where map.isKeyPresent:
 		guard let original2DArray = map.currentValue as? [[Any]] else { break }
+		#if swift(>=4.1)
 		let transformed2DArray = original2DArray.compactMap { values in
 			fromJSONArrayWithTransform(values as Any?, transform: transform)
 		}
+		#else
+		let transformed2DArray = original2DArray.flatMap { values in
+			fromJSONArrayWithTransform(values as Any?, transform: transform)
+		}
+		#endif
 		FromJSON.basicType(&left, object: transformed2DArray)
 	default:
 		break
@@ -470,9 +497,15 @@ public func <- <Transform: TransformType>(left: inout [[Transform.Object]], righ
 public func >>> <Transform: TransformType>(left: [[Transform.Object]], right: (Map, Transform)) {
 	let (map, transform) = right
 	if map.mappingType == .toJSON{
+		#if swift(>=4.1)
 		let transformed2DArray = left.compactMap { values in
 			toJSONArrayWithTransform(values, transform: transform)
 		}
+		#else
+		let transformed2DArray = left.flatMap { values in
+			toJSONArrayWithTransform(values, transform: transform)
+		}
+		#endif
 		ToJSON.basicType(transformed2DArray, map: map)
 	}
 }
@@ -485,9 +518,15 @@ public func <- <Transform: TransformType>(left: inout [[Transform.Object]]?, rig
 		left >>> right
 	case .fromJSON where map.isKeyPresent:
 		guard let original2DArray = map.currentValue as? [[Any]] else { break }
+		#if swift(>=4.1)
 		let transformed2DArray = original2DArray.compactMap { values in
 			fromJSONArrayWithTransform(values as Any?, transform: transform)
 		}
+		#else
+		let transformed2DArray = original2DArray.flatMap { values in
+			fromJSONArrayWithTransform(values as Any?, transform: transform)
+		}
+		#endif
 		FromJSON.optionalBasicType(&left, object: transformed2DArray)
 	default:
 		break
@@ -497,14 +536,22 @@ public func <- <Transform: TransformType>(left: inout [[Transform.Object]]?, rig
 public func >>> <Transform: TransformType>(left: [[Transform.Object]]?, right: (Map, Transform)) {
 	let (map, transform) = right
 	if map.mappingType == .toJSON {
+		#if swift(>=4.1)
 		let transformed2DArray = left?.compactMap { values in
 			toJSONArrayWithTransform(values, transform: transform)
 		}
+		#else
+		let transformed2DArray = left?.flatMap { values in
+			toJSONArrayWithTransform(values, transform: transform)
+		}
+		#endif
 		ToJSON.optionalBasicType(transformed2DArray, map: map)
 	}
 }
 
 
+// Code targeting the Swift 4.1 compiler and below.
+#if !(swift(>=4.1.50) || (swift(>=3.4) && !swift(>=4.0)))
 /// Implicitly unwrapped Optional array of array of objects with transform
 public func <- <Transform: TransformType>(left: inout [[Transform.Object]]!, right: (Map, Transform)) {
 	let (map, transform) = right
@@ -513,14 +560,21 @@ public func <- <Transform: TransformType>(left: inout [[Transform.Object]]!, rig
 		left >>> right
 	case .fromJSON where map.isKeyPresent:
 		guard let original2DArray = map.currentValue as? [[Any]] else { break }
+		#if swift(>=4.1)
 		let transformed2DArray = original2DArray.compactMap { values in
 			fromJSONArrayWithTransform(values as Any?, transform: transform)
 		}
+		#else
+		let transformed2DArray = original2DArray.flatMap { values in
+			fromJSONArrayWithTransform(values as Any?, transform: transform)
+		}
+		#endif
 		FromJSON.optionalBasicType(&left, object: transformed2DArray)
 	default:
 		break
 	}
 }
+#endif
 
 // MARK:- Set of Mappable objects with a transform - Set<T: BaseMappable>
 
@@ -572,6 +626,8 @@ public func >>> <Transform: TransformType>(left: Set<Transform.Object>?, right: 
 }
 
 
+// Code targeting the Swift 4.1 compiler and below.
+#if !(swift(>=4.1.50) || (swift(>=3.4) && !swift(>=4.0)))
 /// Implicitly unwrapped Optional set of Mappable objects with transform
 public func <- <Transform: TransformType>(left: inout Set<Transform.Object>!, right: (Map, Transform)) where Transform.Object: BaseMappable {
 	let (map, transform) = right
@@ -585,13 +641,20 @@ public func <- <Transform: TransformType>(left: inout Set<Transform.Object>!, ri
 	default: ()
 	}
 }
+#endif
 
 
 private func fromJSONArrayWithTransform<Transform: TransformType>(_ input: Any?, transform: Transform) -> [Transform.Object]? {
 	if let values = input as? [Any] {
+		#if swift(>=4.1)
+		return values.compactMap { value in
+			return transform.transformFromJSON(value)
+		}
+		#else
 		return values.flatMap { value in
 			return transform.transformFromJSON(value)
 		}
+		#endif
 	} else {
 		return nil
 	}
@@ -608,9 +671,15 @@ private func fromJSONDictionaryWithTransform<Transform: TransformType>(_ input: 
 }
 
 private func toJSONArrayWithTransform<Transform: TransformType>(_ input: [Transform.Object]?, transform: Transform) -> [Transform.JSON]? {
+	#if swift(>=4.1)
+	return input?.compactMap { value in
+		return transform.transformToJSON(value)
+	}
+	#else
 	return input?.flatMap { value in
 		return transform.transformToJSON(value)
 	}
+	#endif
 }
 
 private func toJSONDictionaryWithTransform<Transform: TransformType>(_ input: [String: Transform.Object]?, transform: Transform) -> [String: Transform.JSON]? {

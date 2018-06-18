@@ -34,6 +34,8 @@ public func <- <T: SignedInteger>(left: inout T?, right: Map) {
 	}
 }
 
+// Code targeting the Swift 4.1 compiler and below.
+#if !(swift(>=4.1.50) || (swift(>=3.4) && !swift(>=4.0)))
 /// ImplicitlyUnwrappedOptional SignedInteger mapping
 public func <- <T: SignedInteger>(left: inout T!, right: Map) {
 	switch right.mappingType {
@@ -45,6 +47,7 @@ public func <- <T: SignedInteger>(left: inout T!, right: Map) {
 	default: ()
 	}
 }
+#endif
 
 
 // MARK: - Unsigned Integer
@@ -74,6 +77,8 @@ public func <- <T: UnsignedInteger>(left: inout T?, right: Map) {
 	}
 }
 
+// Code targeting the Swift 4.1 compiler and below.
+#if !(swift(>=4.1.50) || (swift(>=3.4) && !swift(>=4.0)))
 /// ImplicitlyUnwrappedOptional UnsignedInteger mapping
 public func <- <T: UnsignedInteger>(left: inout T!, right: Map) {
 	switch right.mappingType {
@@ -85,6 +90,7 @@ public func <- <T: UnsignedInteger>(left: inout T!, right: Map) {
 	default: ()
 	}
 }
+#endif
 
 // MARK: - Casting Utils
 
