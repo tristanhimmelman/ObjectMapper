@@ -451,6 +451,8 @@ Note: Generating a JSON string of a Realm Object using ObjectMappers' `toJSON` f
 # Projects Using ObjectMapper
 - [Xcode Plugin for generating `Mappable` and `ImmutableMappable` code](https://github.com/liyanhuadev/ObjectMapper-Plugin)
 
+- [Json4Swift - Supports generating `ImmutableMappable` structs online (no plugins needed)](http://www.json4swift.com)
+
 If you have a project that utilizes, extends or provides tooling for ObjectMapper, please submit a PR with a link to your project in this section of the README.
 
 # To Do
