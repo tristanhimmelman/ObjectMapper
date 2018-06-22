@@ -21,6 +21,8 @@ DerivedData
 # Carthage
 Carthage/Build
 
-# Swift package manager
-.build/
-Packages/
+# Swift Package Manager
+.DS_Store
+/.build
+/Packages
+/*.xcodeproj
