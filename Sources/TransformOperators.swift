@@ -54,8 +54,10 @@ public func >>> <Transform: TransformType>(left: Transform.Object?, right: (Map,
 }
 
 
-// Code targeting the Swift 4.1 compiler and below.
-#if !(swift(>=4.1.50) || (swift(>=3.4) && !swift(>=4.0)))
+// Code targeting the Swift 4.0 compiler and below.
+
+#if swift(>=4.1)
+#else
 /// Implicitly unwrapped optional object of basic type with Transform
 public func <- <Transform: TransformType>(left: inout Transform.Object!, right: (Map, Transform)) {
 	let (map, transform) = right
@@ -114,8 +116,9 @@ public func >>> <Transform: TransformType>(left: [Transform.Object]?, right: (Ma
 }
 
 
-// Code targeting the Swift 4.1 compiler and below.
-#if !(swift(>=4.1.50) || (swift(>=3.4) && !swift(>=4.0)))
+// Code targeting the Swift 4.0 compiler and below.
+#if swift(>=4.1)
+#else
 /// Implicitly unwrapped optional array of Basic type with Transform
 public func <- <Transform: TransformType>(left: inout [Transform.Object]!, right: (Map, Transform)) {
 	let (map, transform) = right
@@ -174,8 +177,9 @@ public func >>> <Transform: TransformType>(left: [String: Transform.Object]?, ri
 }
 
 
-// Code targeting the Swift 4.1 compiler and below.
-#if !(swift(>=4.1.50) || (swift(>=3.4) && !swift(>=4.0)))
+// Code targeting the Swift 4.0 compiler and below.
+#if swift(>=4.1)
+#else
 /// Implicitly unwrapped optional dictionary of Basic type with Transform
 public func <- <Transform: TransformType>(left: inout [String: Transform.Object]!, right: (Map, Transform)) {
 	let (map, transform) = right
@@ -236,8 +240,9 @@ public func >>> <Transform: TransformType>(left: Transform.Object?, right: (Map,
 }
 
 
-// Code targeting the Swift 4.1 compiler and below.
-#if !(swift(>=4.1.50) || (swift(>=3.4) && !swift(>=4.0)))
+// Code targeting the Swift 4.0 compiler and below.
+#if swift(>=4.1)
+#else
 /// Implicitly unwrapped optional Mappable objects that have transforms
 public func <- <Transform: TransformType>(left: inout Transform.Object!, right: (Map, Transform)) where Transform.Object: BaseMappable {
 	let (map, transform) = right
@@ -296,8 +301,9 @@ public func >>> <Transform: TransformType>(left: Dictionary<String, Transform.Ob
 }
 
 
-// Code targeting the Swift 4.1 compiler and below.
-#if !(swift(>=4.1.50) || (swift(>=3.4) && !swift(>=4.0)))
+// Code targeting the Swift 4.0 compiler and below.
+#if swift(>=4.1)
+#else
 /// Implicitly unwrapped Optional Dictionary of Mappable object <String, T: Mappable> with a transform
 public func <- <Transform: TransformType>(left: inout Dictionary<String, Transform.Object>!, right: (Map, Transform)) where Transform.Object: BaseMappable {
 	let (map, transform) = right
@@ -382,8 +388,9 @@ public func >>> <Transform: TransformType>(left: Dictionary<String, [Transform.O
 }
 
 
-// Code targeting the Swift 4.1 compiler and below.
-#if !(swift(>=4.1.50) || (swift(>=3.4) && !swift(>=4.0)))
+// Code targeting the Swift 4.0 compiler and below.
+#if swift(>=4.1)
+#else
 /// Implicitly unwrapped Optional Dictionary of Mappable object <String, T: Mappable> with a transform
 public func <- <Transform: TransformType>(left: inout Dictionary<String, [Transform.Object]>!, right: (Map, Transform)) where Transform.Object: BaseMappable {
 	let (map, transform) = right
@@ -453,8 +460,9 @@ public func >>> <Transform: TransformType>(left: Array<Transform.Object>?, right
 }
 
 
-// Code targeting the Swift 4.1 compiler and below.
-#if !(swift(>=4.1.50) || (swift(>=3.4) && !swift(>=4.0)))
+// Code targeting the Swift 4.0 compiler and below.
+#if swift(>=4.1)
+#else
 /// Implicitly unwrapped Optional array of Mappable objects
 public func <- <Transform: TransformType>(left: inout Array<Transform.Object>!, right: (Map, Transform)) where Transform.Object: BaseMappable {
 	let (map, transform) = right
@@ -550,8 +558,9 @@ public func >>> <Transform: TransformType>(left: [[Transform.Object]]?, right: (
 }
 
 
-// Code targeting the Swift 4.1 compiler and below.
-#if !(swift(>=4.1.50) || (swift(>=3.4) && !swift(>=4.0)))
+// Code targeting the Swift 4.0 compiler and below.
+#if swift(>=4.1)
+#else
 /// Implicitly unwrapped Optional array of array of objects with transform
 public func <- <Transform: TransformType>(left: inout [[Transform.Object]]!, right: (Map, Transform)) {
 	let (map, transform) = right
@@ -626,8 +635,9 @@ public func >>> <Transform: TransformType>(left: Set<Transform.Object>?, right: 
 }
 
 
-// Code targeting the Swift 4.1 compiler and below.
-#if !(swift(>=4.1.50) || (swift(>=3.4) && !swift(>=4.0)))
+// Code targeting the Swift 4.0 compiler and below.
+#if swift(>=4.1)
+#else
 /// Implicitly unwrapped Optional set of Mappable objects with transform
 public func <- <Transform: TransformType>(left: inout Set<Transform.Object>!, right: (Map, Transform)) where Transform.Object: BaseMappable {
 	let (map, transform) = right

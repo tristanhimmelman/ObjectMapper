@@ -31,8 +31,9 @@ public func >>> <T: RawRepresentable>(left: T?, right: Map) {
 }
 
 
-// Code targeting the Swift 4.1 compiler and below.
-#if !(swift(>=4.1.50) || (swift(>=3.4) && !swift(>=4.0)))
+// Code targeting the Swift 4.0 compiler and below.
+#if swift(>=4.1)
+#else
 /// Implicitly Unwrapped Optional Object of Raw Representable type
 public func <- <T: RawRepresentable>(left: inout T!, right: Map) {
 	left <- (right, EnumTransform())
@@ -61,8 +62,9 @@ public func >>> <T: RawRepresentable>(left: [T]?, right: Map) {
 }
 
 
-// Code targeting the Swift 4.1 compiler and below.
-#if !(swift(>=4.1.50) || (swift(>=3.4) && !swift(>=4.0)))
+// Code targeting the Swift 4.0 compiler and below.
+#if swift(>=4.1)
+#else
 /// Array of Raw Representable object
 public func <- <T: RawRepresentable>(left: inout [T]!, right: Map) {
 	left <- (right, EnumTransform())
@@ -91,8 +93,9 @@ public func >>> <T: RawRepresentable>(left: [String: T]?, right: Map) {
 }
 
 
-// Code targeting the Swift 4.1 compiler and below.
-#if !(swift(>=4.1.50) || (swift(>=3.4) && !swift(>=4.0)))
+// Code targeting the Swift 4.0 compiler and below.
+#if swift(>=4.1)
+#else
 /// Dictionary of Raw Representable object
 public func <- <T: RawRepresentable>(left: inout [String: T]!, right: Map) {
 	left <- (right, EnumTransform())
