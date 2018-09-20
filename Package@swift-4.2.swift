@@ -5,5 +5,14 @@ import PackageDescription
 
 let package = Package(
     name: "ObjectMapper",
-    swiftLanguageVersions = [.v3, .v4, .v4_2]
+    products: [
+        .library(name: "ObjectMapper", targets: ["ObjectMapper"]),
+    ],
+    targets: [
+        .target(
+            name: "ObjectMapper", 
+            dependencies: []
+        )
+    ],
+    swiftLanguageVersions: [.v3, .v4, .v4_2]
 )
