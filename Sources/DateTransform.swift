@@ -62,7 +62,7 @@ open class DateTransform: TransformType {
 		}
 		
 		return timeInterval.flatMap {
-			return Date(timeIntervalSince1970: $0)
+			return Date(timeIntervalSince1970: unit.removeScale(from: $0))
 		}
 	}
 
