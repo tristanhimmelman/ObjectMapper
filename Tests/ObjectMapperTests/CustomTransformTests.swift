@@ -54,19 +54,26 @@ class CustomTransformTests: XCTestCase {
 		let transforms = Transforms()
 		transforms.date = Date(timeIntervalSince1970: 946684800)
 		transforms.dateOpt = Date(timeIntervalSince1970: 946684912)
+		transforms.dateMs = transforms.date
+		transforms.dateOptMs = transforms.dateOpt
 		
 		let JSON = mapper.toJSON(transforms)
 		let parsedTransforms = mapper.map(JSON: JSON)
 		XCTAssertNotNil(parsedTransforms)
 		XCTAssertEqual(parsedTransforms?.date, transforms.date)
 		XCTAssertEqual(parsedTransforms?.dateOpt, transforms.dateOpt)
+		XCTAssertEqual(parsedTransforms?.dateMs, transforms.dateMs)
+		XCTAssertEqual(parsedTransforms?.dateOptMs, transforms.dateOptMs)
 		
-		let JSONDateString: [String: Any] = ["date": "946684800", "dateOpt": "946684912"]
+		let JSONDateString: [String: Any] = ["date": "946684800", "dateOpt": "946684912",
+											 "dateMs": "946684800000", "dateOptMs": "946684912000"]
 		let parsedTransformsDateString = mapper.map(JSON: JSONDateString)
 		
 		XCTAssertNotNil(parsedTransformsDateString)
 		XCTAssertEqual(parsedTransforms?.date, parsedTransformsDateString?.date)
 		XCTAssertEqual(parsedTransforms?.dateOpt, parsedTransformsDateString?.dateOpt)
+		XCTAssertEqual(parsedTransforms?.dateMs, parsedTransformsDateString?.dateMs)
+		XCTAssertEqual(parsedTransforms?.dateOptMs, parsedTransformsDateString?.dateOptMs)
 
 	}
 	
@@ -190,6 +197,9 @@ class Transforms: Mappable {
 	var date = Date()
 	var dateOpt: Date?
 	
+	var dateMs = Date()
+	var dateOptMs: Date?
+	
 	var ISO8601Date: Date = Date()
 	var ISO8601DateOpt: Date?
 	
@@ -225,6 +235,9 @@ class Transforms: Mappable {
 	func mapping(map: Map) {
 		date				<- (map["date"], DateTransform())
 		dateOpt				<- (map["dateOpt"], DateTransform())
+		
+		dateMs				<- (map["dateMs"], DateTransform(unit: .milliseconds))
+		dateOptMs			<- (map["dateOptMs"], DateTransform(unit: .milliseconds))
 		
 		ISO8601Date			<- (map["ISO8601Date"], ISO8601DateTransform())
 		ISO8601DateOpt		<- (map["ISO8601DateOpt"], ISO8601DateTransform())
