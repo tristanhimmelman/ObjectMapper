@@ -166,6 +166,29 @@
 		CD50B6FD1A82518300744312 /* TransformType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD50B6FC1A82518300744312 /* TransformType.swift */; };
 		CD71C8C11A7218AD009D4161 /* TransformOf.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD71C8C01A7218AD009D4161 /* TransformOf.swift */; };
 		D86BDEA41A51E5AD00120819 /* ISO8601DateTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86BDEA31A51E5AC00120819 /* ISO8601DateTransform.swift */; };
+		DBB9B4232142A2D800078E5A /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACB15D11BC7F1D0006C029C /* Map.swift */; };
+		DBB9B4242142A2E100078E5A /* MapError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF148871D99A25B002BEA2C /* MapError.swift */; };
+		DBB9B4252142A2E100078E5A /* Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAD2C0B1BDDB10D00E6B203 /* Mappable.swift */; };
+		DBB9B4262142A2E100078E5A /* ImmutableMappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030114A81D95187600FBFD4F /* ImmutableMappable.swift */; };
+		DBB9B4272142A2E100078E5A /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC419F048FE00E7A677 /* Mapper.swift */; };
+		DBB9B4282142A2E600078E5A /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC519F048FE00E7A677 /* Operators.swift */; };
+		DBB9B4292142A2E600078E5A /* EnumOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF148911D99A7CA002BEA2C /* EnumOperators.swift */; };
+		DBB9B42A2142A2E600078E5A /* TransformOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1488C1D99A7A6002BEA2C /* TransformOperators.swift */; };
+		DBB9B42B2142A2E600078E5A /* IntegerOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038F0A021E55FE2400613148 /* IntegerOperators.swift */; };
+		DBB9B42C2142A2E600078E5A /* FromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC319F048FE00E7A677 /* FromJSON.swift */; };
+		DBB9B42D2142A2E600078E5A /* ToJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC719F048FE00E7A677 /* ToJSON.swift */; };
+		DBB9B42E2142A2ED00078E5A /* TransformOf.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD71C8C01A7218AD009D4161 /* TransformOf.swift */; };
+		DBB9B42F2142A2ED00078E5A /* TransformType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD50B6FC1A82518300744312 /* TransformType.swift */; };
+		DBB9B4302142A2ED00078E5A /* URLTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6C54CF19FE8DB600239454 /* URLTransform.swift */; };
+		DBB9B4312142A2ED00078E5A /* EnumTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1E7F361ABC44C000F9B1CF /* EnumTransform.swift */; };
+		DBB9B4322142A2ED00078E5A /* NSDecimalNumberTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D4F8511CC3B643008B0FB6 /* NSDecimalNumberTransform.swift */; };
+		DBB9B4332142A2ED00078E5A /* DictionaryTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997B4A461D3FA20D005E3F31 /* DictionaryTransform.swift */; };
+		DBB9B4342142A2ED00078E5A /* DataTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = C135CAB31D762F6900BA9338 /* DataTransform.swift */; };
+		DBB9B4352142A2ED00078E5A /* HexColorTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E591C61DAB7FED008E2EEF /* HexColorTransform.swift */; };
+		DBB9B4362142A2F200078E5A /* DateTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FCB19F048FE00E7A677 /* DateTransform.swift */; };
+		DBB9B4372142A2F200078E5A /* DateFormatterTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A51372B1AADDE2700B82516 /* DateFormatterTransform.swift */; };
+		DBB9B4382142A2F200078E5A /* ISO8601DateTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86BDEA31A51E5AC00120819 /* ISO8601DateTransform.swift */; };
+		DBB9B4392142A2F200078E5A /* CustomDateFormatTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AFD9B81AAD191C00AB59B5 /* CustomDateFormatTransform.swift */; };
 		DC99C8CC1CA261A8005C788C /* NullableKeysFromJSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C8CB1CA261A8005C788C /* NullableKeysFromJSONTests.swift */; };
 		DC99C8CD1CA261AD005C788C /* NullableKeysFromJSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C8CB1CA261A8005C788C /* NullableKeysFromJSONTests.swift */; };
 		DC99C8CE1CA261AE005C788C /* NullableKeysFromJSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C8CB1CA261A8005C788C /* NullableKeysFromJSONTests.swift */; };
@@ -274,6 +297,7 @@
 		CD50B6FC1A82518300744312 /* TransformType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformType.swift; sourceTree = "<group>"; };
 		CD71C8C01A7218AD009D4161 /* TransformOf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TransformOf.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		D86BDEA31A51E5AC00120819 /* ISO8601DateTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISO8601DateTransform.swift; sourceTree = "<group>"; };
+		DBB9B41F2142A25100078E5A /* libObjectMapper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libObjectMapper.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC99C8CB1CA261A8005C788C /* NullableKeysFromJSONTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NullableKeysFromJSONTests.swift; path = ObjectMapperTests/NullableKeysFromJSONTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -330,6 +354,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DBB9B41C2142A25100078E5A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -364,6 +395,7 @@
 				6A2AD03D1B2C78540097E150 /* ObjectMapper.framework */,
 				6A05B7A61BE274BE00F19B53 /* ObjectMapper.framework */,
 				6A05B7AF1BE274BE00F19B53 /* ObjectMapper-tvOSTests.xctest */,
+				DBB9B41F2142A25100078E5A /* libObjectMapper.a */,
 			);
 			name = Products;
 			path = ..;
@@ -505,6 +537,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DBB9B41D2142A25100078E5A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -636,6 +675,23 @@
 			productReference = CD1603091AC023D6000CD69A /* ObjectMapper-MacTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		DBB9B41E2142A25100078E5A /* ObjectMapper-Mac-Static */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DBB9B4222142A25100078E5A /* Build configuration list for PBXNativeTarget "ObjectMapper-Mac-Static" */;
+			buildPhases = (
+				DBB9B41B2142A25100078E5A /* Sources */,
+				DBB9B41C2142A25100078E5A /* Frameworks */,
+				DBB9B41D2142A25100078E5A /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ObjectMapper-Mac-Static";
+			productName = ObjectMapper;
+			productReference = DBB9B41F2142A25100078E5A /* libObjectMapper.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -673,6 +729,10 @@
 					CD1603081AC023D6000CD69A = {
 						CreatedOnToolsVersion = 6.2;
 					};
+					DBB9B41E2142A25100078E5A = {
+						CreatedOnToolsVersion = 9.4.1;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 6AAC8F7019F03C2900E7A677 /* Build configuration list for PBXProject "ObjectMapper" */;
@@ -694,6 +754,7 @@
 				6AAC8F8019F03C2900E7A677 /* ObjectMapper-iOSTests */,
 				CD1603081AC023D6000CD69A /* ObjectMapper-MacTests */,
 				6A05B7AE1BE274BE00F19B53 /* ObjectMapper-tvOSTests */,
+				DBB9B41E2142A25100078E5A /* ObjectMapper-Mac-Static */,
 			);
 		};
 /* End PBXProject section */
@@ -950,6 +1011,36 @@
 				DC99C8CD1CA261AD005C788C /* NullableKeysFromJSONTests.swift in Sources */,
 				CD1603281AC02480000CD69A /* CustomTransformTests.swift in Sources */,
 				030114AD1D951A5300FBFD4F /* ImmutableTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DBB9B41B2142A25100078E5A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DBB9B4332142A2ED00078E5A /* DictionaryTransform.swift in Sources */,
+				DBB9B4312142A2ED00078E5A /* EnumTransform.swift in Sources */,
+				DBB9B4292142A2E600078E5A /* EnumOperators.swift in Sources */,
+				DBB9B42B2142A2E600078E5A /* IntegerOperators.swift in Sources */,
+				DBB9B4302142A2ED00078E5A /* URLTransform.swift in Sources */,
+				DBB9B4262142A2E100078E5A /* ImmutableMappable.swift in Sources */,
+				DBB9B42F2142A2ED00078E5A /* TransformType.swift in Sources */,
+				DBB9B42D2142A2E600078E5A /* ToJSON.swift in Sources */,
+				DBB9B4232142A2D800078E5A /* Map.swift in Sources */,
+				DBB9B4252142A2E100078E5A /* Mappable.swift in Sources */,
+				DBB9B42C2142A2E600078E5A /* FromJSON.swift in Sources */,
+				DBB9B4372142A2F200078E5A /* DateFormatterTransform.swift in Sources */,
+				DBB9B4242142A2E100078E5A /* MapError.swift in Sources */,
+				DBB9B4392142A2F200078E5A /* CustomDateFormatTransform.swift in Sources */,
+				DBB9B4272142A2E100078E5A /* Mapper.swift in Sources */,
+				DBB9B42E2142A2ED00078E5A /* TransformOf.swift in Sources */,
+				DBB9B4352142A2ED00078E5A /* HexColorTransform.swift in Sources */,
+				DBB9B42A2142A2E600078E5A /* TransformOperators.swift in Sources */,
+				DBB9B4382142A2F200078E5A /* ISO8601DateTransform.swift in Sources */,
+				DBB9B4362142A2F200078E5A /* DateTransform.swift in Sources */,
+				DBB9B4322142A2ED00078E5A /* NSDecimalNumberTransform.swift in Sources */,
+				DBB9B4342142A2ED00078E5A /* DataTransform.swift in Sources */,
+				DBB9B4282142A2E600078E5A /* Operators.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1395,6 +1486,53 @@
 			};
 			name = Release;
 		};
+		DBB9B4202142A25100078E5A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_NAME = ObjectMapper;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		DBB9B4212142A25100078E5A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_NAME = ObjectMapper;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1466,6 +1604,15 @@
 			buildConfigurations = (
 				CD1603141AC023D6000CD69A /* Debug */,
 				CD1603151AC023D6000CD69A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DBB9B4222142A25100078E5A /* Build configuration list for PBXNativeTarget "ObjectMapper-Mac-Static" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DBB9B4202142A25100078E5A /* Debug */,
+				DBB9B4212142A25100078E5A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
