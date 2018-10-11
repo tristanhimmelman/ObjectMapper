@@ -119,7 +119,7 @@ open class HexColorTransform: TransformType {
 		#if os(iOS) || os(tvOS) || os(watchOS)
 			return UIColor(red: red, green: green, blue: blue, alpha: alpha)
 		#else
-			return NSColor(calibratedRed: red, green: green, blue: blue, alpha: alpha)
+			return NSColor(red: red, green: green, blue: blue, alpha: alpha)
 		#endif
 	}
 }
