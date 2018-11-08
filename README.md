@@ -3,7 +3,7 @@ ObjectMapper
 [![CocoaPods](https://img.shields.io/cocoapods/v/ObjectMapper.svg)](https://github.com/Hearst-DD/ObjectMapper)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Swift Package Manager](https://rawgit.com/jlyonsmith/artwork/master/SwiftPackageManager/swiftpackagemanager-compatible.svg)](https://swift.org/package-manager/)
-[![Build Status](https://travis-ci.org/tristanhimmelman/ObjectMapper.svg?branch=master)](https://travis-ci.org/Hearst-DD/ObjectMapper)
+[![Build Status](https://travis-ci.org/tristanhimmelman/ObjectMapper.svg?branch=master)](https://travis-ci.org/tristanhimmelman/ObjectMapper)
 
 ObjectMapper is a framework written in Swift that makes it easy for you to convert your model objects (classes and structs) to and from JSON. 
 
