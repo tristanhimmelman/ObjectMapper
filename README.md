@@ -477,7 +477,6 @@ pod 'ObjectMapper', '~> 3.4'
 If you're using [Carthage](https://github.com/Carthage/Carthage) you can add a dependency on ObjectMapper by adding it to your `Cartfile`:
 
 ```
-<<<<<<< Updated upstream
 github "Hearst-DD/ObjectMapper" ~> 3.4
 ```
 
