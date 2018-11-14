@@ -6,7 +6,7 @@
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2014-2016 Hearst
+//  Copyright (c) 2014-2018 Tristan Himmelman
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -113,9 +113,9 @@ class ImmutableObjectTests: XCTestCase {
 			"array": ["a", "b", "c"],
 			"dictionary": ["a": 10, "b": 20, "c": 30],
 		],
-		"com.hearst.ObjectMapper.nested": [
-			"com.hearst.ObjectMapper.int": 123,
-			"com.hearst.ObjectMapper.string": "hello",
+		"com.tristanhimmelman.ObjectMapper.nested": [
+			"com.tristanhimmelman.ObjectMapper.int": 123,
+			"com.tristanhimmelman.ObjectMapper.string": "hello",
 			"array": ["a", "b", "c"],
 			"dictionary": ["a": 10, "b": 20, "c": 30],
 		]
@@ -476,10 +476,10 @@ extension Struct: ImmutableMappable {
 		nestedArray = try map.value("nested.array")
 		nestedDictionary = try map.value("nested.dictionary")
 		
-		delimiterNestedInt = try map.value("com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.int", delimiter: "->")
-		delimiterNestedString = try map.value("com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.string", delimiter: "->")
-		delimiterNestedArray = try map.value("com.hearst.ObjectMapper.nested->array", delimiter: "->")
-		delimiterNestedDictionary = try map.value("com.hearst.ObjectMapper.nested->dictionary", delimiter: "->")
+		delimiterNestedInt = try map.value("com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.int", delimiter: "->")
+		delimiterNestedString = try map.value("com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.string", delimiter: "->")
+		delimiterNestedArray = try map.value("com.tristanhimmelman.ObjectMapper.nested->array", delimiter: "->")
+		delimiterNestedDictionary = try map.value("com.tristanhimmelman.ObjectMapper.nested->dictionary", delimiter: "->")
 	}
 
 	mutating func mapping(map: Map) {
@@ -552,10 +552,10 @@ extension Struct: ImmutableMappable {
 		nestedArray >>> map["nested.array"]
 		nestedDictionary >>> map["nested.dictionary"]
 		
-		delimiterNestedInt >>> map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.int", delimiter: "->"]
-		delimiterNestedString >>> map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.string", delimiter: "->"]
-		delimiterNestedArray >>> map["com.hearst.ObjectMapper.nested->array", delimiter: "->"]
-		delimiterNestedDictionary >>> map["com.hearst.ObjectMapper.nested->dictionary", delimiter: "->"]
+		delimiterNestedInt >>> map["com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.int", delimiter: "->"]
+		delimiterNestedString >>> map["com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.string", delimiter: "->"]
+		delimiterNestedArray >>> map["com.tristanhimmelman.ObjectMapper.nested->array", delimiter: "->"]
+		delimiterNestedDictionary >>> map["com.tristanhimmelman.ObjectMapper.nested->dictionary", delimiter: "->"]
 	}
 }
 
@@ -584,24 +584,24 @@ private func assertImmutableObjectsEqual(_ lhs: Struct, _ rhs: Struct) {
 	
 	// @hack: compare arrays and objects with their string representation.
 	XCTAssertEqual("\(lhs.prop9 as Optional)", "\(rhs.prop9 as Optional)")
-	XCTAssertEqual("\(lhs.prop10)", "\(rhs.prop10)")
+	XCTAssertEqual("\(String(describing: lhs.prop10))", "\(String(describing: rhs.prop10))")
 	XCTAssertEqual("\(lhs.prop11)", "\(rhs.prop11)")
 	XCTAssertEqual("\(lhs.prop12 as Optional)", "\(rhs.prop12 as Optional)")
-	XCTAssertEqual("\(lhs.prop13)", "\(rhs.prop13)")
+	XCTAssertEqual("\(String(describing: lhs.prop13))", "\(String(describing: rhs.prop13))")
 	XCTAssertEqual("\(lhs.prop14)", "\(rhs.prop14)")
 	XCTAssertEqual("\(lhs.prop15 as Optional)", "\(rhs.prop15 as Optional)")
-	XCTAssertEqual("\(lhs.prop16)", "\(rhs.prop16)")
+	XCTAssertEqual("\(String(describing: lhs.prop16))", "\(String(describing: rhs.prop16))")
 	XCTAssertEqual("\(lhs.prop17)", "\(rhs.prop17)")
 	XCTAssertEqual("\(lhs.prop18 as Optional)", "\(rhs.prop18 as Optional)")
-	XCTAssertEqual("\(lhs.prop19)", "\(rhs.prop19)")
+	XCTAssertEqual("\(String(describing: lhs.prop19))", "\(String(describing: rhs.prop19))")
 	XCTAssertEqual("\(lhs.prop20)", "\(rhs.prop20)")
 	XCTAssertEqual("\(lhs.prop21 as Optional)", "\(rhs.prop21 as Optional)")
-	XCTAssertEqual("\(lhs.prop22)", "\(rhs.prop22)")
+	XCTAssertEqual("\(String(describing: lhs.prop22))", "\(String(describing: rhs.prop22))")
 	XCTAssertEqual("\(lhs.prop32)", "\(rhs.prop32)")
 	XCTAssertEqual("\(lhs.prop33 as Optional)", "\(rhs.prop33 as Optional)")
-	XCTAssertEqual("\(lhs.prop34)", "\(rhs.prop34)")
+	XCTAssertEqual("\(String(describing: lhs.prop34))", "\(String(describing: rhs.prop34))")
 	XCTAssertEqual("\(lhs.prop35)", "\(rhs.prop35)")
 	XCTAssertEqual("\(lhs.prop36 as Optional)", "\(rhs.prop36 as Optional)")
-	XCTAssertEqual("\(lhs.prop37)", "\(rhs.prop37)")
+	XCTAssertEqual("\(String(describing: lhs.prop37))", "\(String(describing: rhs.prop37))")
 }
 
