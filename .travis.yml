@@ -1,5 +1,5 @@
 language: objective-c
-osx_image: xcode9
+osx_image: xcode9.4
 
 env:
   global:
@@ -10,18 +10,20 @@ env:
     - OSX_FRAMEWORK_SCHEME="ObjectMapper-Mac"
     - TVOS_FRAMEWORK_SCHEME="ObjectMapper-tvOS"
     - WATCHOS_FRAMEWORK_SCHEME="ObjectMapper-watchOS"
-    - IOS_SDK=iphonesimulator11.0
-    - OSX_SDK=macosx10.13
-    - TVOS_SDK=appletvsimulator11.0
-    - WATCHOS_SDK=watchsimulator4.0
   matrix:
-    - DESTINATION="OS=11.0,name=iPhone 5s"           SCHEME="$IOS_FRAMEWORK_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES"
-    - DESTINATION="OS=11.0,name=iPhone 6"            SCHEME="$IOS_FRAMEWORK_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES"
-    - DESTINATION="OS=11.0,name=iPhone 6s"           SCHEME="$IOS_FRAMEWORK_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES"
-    - DESTINATION="OS=11.0,name=iPhone 7"            SCHEME="$IOS_FRAMEWORK_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES"
-    - DESTINATION="arch=x86_64"                      SCHEME="$OSX_FRAMEWORK_SCHEME"     SDK="$OSX_SDK"     RUN_TESTS="YES"
-    - DESTINATION="OS=11.0,name=Apple TV 1080p"      SCHEME="$TVOS_FRAMEWORK_SCHEME"    SDK="$TVOS_SDK"    RUN_TESTS="YES"
-    - DESTINATION="OS=4.0,name=Apple Watch - 38mm"   SCHEME="$WATCHOS_FRAMEWORK_SCHEME" SDK="$WATCHOS_SDK" RUN_TESTS="NO"
+    #iOS
+    - DESTINATION="OS=11.4,name=iPhone X"            SCHEME="$IOS_FRAMEWORK_SCHEME"      RUN_TESTS="YES"
+    - DESTINATION="OS=10.3.1,name=iPhone 7 Plus"     SCHEME="$IOS_FRAMEWORK_SCHEME"      RUN_TESTS="YES"
+    - DESTINATION="OS=9.3,name=iPhone 6"             SCHEME="$IOS_FRAMEWORK_SCHEME"      RUN_TESTS="YES"
+    #macOS
+    - DESTINATION="arch=x86_64"                      SCHEME="$OSX_FRAMEWORK_SCHEME"      RUN_TESTS="YES"
+    #watchOS
+    - DESTINATION="OS=4.3,name=Apple Watch - 42mm"   SCHEME="$WATCHOS_FRAMEWORK_SCHEME"  RUN_TESTS="NO"
+    - DESTINATION="OS=3.2,name=Apple Watch - 42mm"   SCHEME="$WATCHOS_FRAMEWORK_SCHEME"  RUN_TESTS="NO"
+    - DESTINATION="OS=2.2,name=Apple Watch - 42mm"   SCHEME="$WATCHOS_FRAMEWORK_SCHEME"  RUN_TESTS="NO"
+    #tvOS
+    - DESTINATION="OS=11.4,name=Apple TV 4K"         SCHEME="$TVOS_FRAMEWORK_SCHEME"     RUN_TESTS="YES"
+    - DESTINATION="OS=10.2,name=Apple TV 1080p"      SCHEME="$TVOS_FRAMEWORK_SCHEME"     RUN_TESTS="YES"
 
 before_install:
   - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
@@ -33,16 +35,16 @@ script:
 
   # Build Framework in Debug and Run Tests if specified
   - if [ $RUN_TESTS == "YES" ]; then
-      travis_retry xcodebuild -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO test | xcpretty -c;
+      travis_retry xcodebuild -workspace "$WORKSPACE" -scheme "$SCHEME" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO test | xcpretty -c;
     else
-      travis_retry xcodebuild -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO build | xcpretty -c;
+      travis_retry xcodebuild -workspace "$WORKSPACE" -scheme "$SCHEME" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO build | xcpretty -c;
     fi
 
   # Build Framework in Release and Run Tests if specified
   - if [ $RUN_TESTS == "YES" ]; then
-      travis_retry xcodebuild -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Release ONLY_ACTIVE_ARCH=NO test | xcpretty -c;
+      travis_retry xcodebuild -workspace "$WORKSPACE" -scheme "$SCHEME" -destination "$DESTINATION" -configuration Release ONLY_ACTIVE_ARCH=NO test | xcpretty -c;
     else
-      travis_retry xcodebuild -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Release ONLY_ACTIVE_ARCH=NO build | xcpretty -c;
+      travis_retry xcodebuild -workspace "$WORKSPACE" -scheme "$SCHEME" -destination "$DESTINATION" -configuration Release ONLY_ACTIVE_ARCH=NO build | xcpretty -c;
     fi
 
 notifications:

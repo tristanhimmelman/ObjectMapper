@@ -6,7 +6,7 @@
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2014-2016 Hearst
+//  Copyright (c) 2014-2018 Tristan Himmelman
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -129,15 +129,15 @@ class NestedKeysTests: XCTestCase {
 	func testNestedKeysWithDelimiter() {
 		let JSON: [String: Any] = [
 			"non.nested->key": "string",
-			"com.hearst.ObjectMapper.nested": [
-				"com.hearst.ObjectMapper.int64": NSNumber(value: INT64_MAX),
-				"com.hearst.ObjectMapper.bool": true,
-				"com.hearst.ObjectMapper.int": 255,
-				"com.hearst.ObjectMapper.double": 100.0 as Double,
-				"com.hearst.ObjectMapper.float": 50.0 as Float,
-				"com.hearst.ObjectMapper.string": "String!",
+			"com.tristanhimmelman.ObjectMapper.nested": [
+				"com.tristanhimmelman.ObjectMapper.int64": NSNumber(value: INT64_MAX),
+				"com.tristanhimmelman.ObjectMapper.bool": true,
+				"com.tristanhimmelman.ObjectMapper.int": 255,
+				"com.tristanhimmelman.ObjectMapper.double": 100.0 as Double,
+				"com.tristanhimmelman.ObjectMapper.float": 50.0 as Float,
+				"com.tristanhimmelman.ObjectMapper.string": "String!",
 
-				"com.hearst.ObjectMapper.nested": [
+				"com.tristanhimmelman.ObjectMapper.nested": [
 					"int64Array": [NSNumber(value: INT64_MAX), NSNumber(value: INT64_MAX - 1), NSNumber(value: INT64_MAX - 10)],
 					"boolArray": [false, true, false],
 					"intArray": [1, 2, 3],
@@ -158,7 +158,7 @@ class NestedKeysTests: XCTestCase {
 					"floatEnum": 100.0,
 					"stringEnum": "String B",
 
-					"com.hearst.ObjectMapper.nested": [
+					"com.tristanhimmelman.ObjectMapper.nested": [
 						"object": ["value": 987],
 						"objectArray": [ ["value": 123], ["value": 456] ],
 						"objectDict": ["key": ["value": 999]]
@@ -326,36 +326,36 @@ class DelimiterNestedKeys: NestedKeys {
 	override func mapping(map: Map) {
 		nonNestedString <- map["non.nested->key", nested: false, delimiter: "->"]
 
-		int64   <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.int64", delimiter: "->"]
-		bool    <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.bool", delimiter: "->"]
-		int     <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.int", delimiter: "->"]
-		double  <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.double", delimiter: "->"]
-		float   <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.float", delimiter: "->"]
-		string  <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.string", delimiter: "->"]
+		int64   <- map["com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.int64", delimiter: "->"]
+		bool    <- map["com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.bool", delimiter: "->"]
+		int     <- map["com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.int", delimiter: "->"]
+		double  <- map["com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.double", delimiter: "->"]
+		float   <- map["com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.float", delimiter: "->"]
+		string  <- map["com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.string", delimiter: "->"]
 
-		int64Array  <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->int64Array", delimiter: "->"]
-		boolArray   <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->boolArray", delimiter: "->"]
-		intArray    <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->intArray", delimiter: "->"]
-		doubleArray <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->doubleArray", delimiter: "->"]
-		floatArray  <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->floatArray", delimiter: "->"]
-		stringArray <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->stringArray", delimiter: "->"]
+		int64Array  <- map["com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.nested->int64Array", delimiter: "->"]
+		boolArray   <- map["com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.nested->boolArray", delimiter: "->"]
+		intArray    <- map["com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.nested->intArray", delimiter: "->"]
+		doubleArray <- map["com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.nested->doubleArray", delimiter: "->"]
+		floatArray  <- map["com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.nested->floatArray", delimiter: "->"]
+		stringArray <- map["com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.nested->stringArray", delimiter: "->"]
 
-		int64Dict   <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->int64Dict", delimiter: "->"]
-		boolDict    <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->boolDict", delimiter: "->"]
-		intDict     <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->intDict", delimiter: "->"]
-		doubleDict  <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->doubleDict", delimiter: "->"]
-		floatDict   <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->floatDict", delimiter: "->"]
-		stringDict  <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->stringDict", delimiter: "->"]
+		int64Dict   <- map["com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.nested->int64Dict", delimiter: "->"]
+		boolDict    <- map["com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.nested->boolDict", delimiter: "->"]
+		intDict     <- map["com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.nested->intDict", delimiter: "->"]
+		doubleDict  <- map["com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.nested->doubleDict", delimiter: "->"]
+		floatDict   <- map["com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.nested->floatDict", delimiter: "->"]
+		stringDict  <- map["com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.nested->stringDict", delimiter: "->"]
 
-		int64Enum   <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->int64Enum", delimiter: "->"]
-		intEnum     <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->intEnum", delimiter: "->"]
-		doubleEnum  <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->doubleEnum", delimiter: "->"]
-		floatEnum   <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->floatEnum", delimiter: "->"]
-		stringEnum  <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->stringEnum", delimiter: "->"]
+		int64Enum   <- map["com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.nested->int64Enum", delimiter: "->"]
+		intEnum     <- map["com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.nested->intEnum", delimiter: "->"]
+		doubleEnum  <- map["com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.nested->doubleEnum", delimiter: "->"]
+		floatEnum   <- map["com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.nested->floatEnum", delimiter: "->"]
+		stringEnum  <- map["com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.nested->stringEnum", delimiter: "->"]
 
-		object      <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->object", delimiter: "->"]
-		objectArray <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->objectArray", delimiter: "->"]
-		objectDict  <- map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.nested->objectDict", delimiter: "->"]
+		object      <- map["com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.nested->object", delimiter: "->"]
+		objectArray <- map["com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.nested->objectArray", delimiter: "->"]
+		objectDict  <- map["com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.nested->objectDict", delimiter: "->"]
 	}
 }
 
