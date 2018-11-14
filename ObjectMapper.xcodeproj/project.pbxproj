@@ -36,28 +36,6 @@
 		6A0BF1FF1C0B53470083D1AF /* ToObjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0BF1FE1C0B53470083D1AF /* ToObjectTests.swift */; };
 		6A0BF2001C0B53470083D1AF /* ToObjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0BF1FE1C0B53470083D1AF /* ToObjectTests.swift */; };
 		6A0BF2011C0B53470083D1AF /* ToObjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0BF1FE1C0B53470083D1AF /* ToObjectTests.swift */; };
-		6A20980B2193AA00009AB4DF /* MappableExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAD2C0F1BDDC0B000E6B203 /* MappableExtensionsTests.swift */; };
-		6A20980C2193AA00009AB4DF /* MappableTypesWithTransformsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891804CC1C122AF000E5C3EE /* MappableTypesWithTransformsTests.swift */; };
-		6A20980D2193AA00009AB4DF /* GenericObjectsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF148831D999E31002BEA2C /* GenericObjectsTests.swift */; };
-		6A20980E2193AA00009AB4DF /* DataTransformTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C135CAB61D76303E00BA9338 /* DataTransformTests.swift */; };
-		6A20980F2193AA00009AB4DF /* MapContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A442CA01CE251F100AB4F1F /* MapContextTests.swift */; };
-		6A2098102193AA00009AB4DF /* ClassClusterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A412A161BAC770C001C3F67 /* ClassClusterTests.swift */; };
-		6A2098112193AA00009AB4DF /* DictionaryTransformTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AECC9E51D79E29100222E7A /* DictionaryTransformTests.swift */; };
-		6A2098122193AA00009AB4DF /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A412A231BB0DA26001C3F67 /* PerformanceTests.swift */; };
-		6A2098132193AA00009AB4DF /* CodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491D7994216FB8B2006DB931 /* CodableTests.swift */; };
-		6A2098142193AA00009AB4DF /* BasicTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6AEB971A9387D0002573D3 /* BasicTypes.swift */; };
-		6A2098152193AA00009AB4DF /* ToObjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0BF1FE1C0B53470083D1AF /* ToObjectTests.swift */; };
-		6A2098162193AA00009AB4DF /* NSDecimalNumberTransformTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D4F8561CC3B71B008B0FB6 /* NSDecimalNumberTransformTests.swift */; };
-		6A2098172193AA00009AB4DF /* BasicTypesTestsFromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6AEB951A93874F002573D3 /* BasicTypesTestsFromJSON.swift */; };
-		6A2098182193AA00009AB4DF /* IgnoreNilTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A715C491D05B1FA0054AD62 /* IgnoreNilTests.swift */; };
-		6A2098192193AA00009AB4DF /* BasicTypesTestsToJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3774331A31427F00CC0AB5 /* BasicTypesTestsToJSON.swift */; };
-		6A20981A2193AA00009AB4DF /* CustomTransformTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A51372E1AADE12C00B82516 /* CustomTransformTests.swift */; };
-		6A20981B2193AA00009AB4DF /* NestedKeysTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD44374C1AAE9C1100A271BA /* NestedKeysTests.swift */; };
-		6A20981C2193AA00009AB4DF /* NestedArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6100B1BF1BD76A020011114A /* NestedArrayTests.swift */; };
-		6A20981D2193AA00009AB4DF /* NullableKeysFromJSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99C8CB1CA261A8005C788C /* NullableKeysFromJSONTests.swift */; };
-		6A20981E2193AA00009AB4DF /* ObjectMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8F8519F03C2900E7A677 /* ObjectMapperTests.swift */; };
-		6A20981F2193AA00009AB4DF /* ImmutableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030114AA1D95197100FBFD4F /* ImmutableTests.swift */; };
-		6A2098212193AA00009AB4DF /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A05B7A61BE274BE00F19B53 /* ObjectMapper.framework */; };
 		6A2AD0451B2C786C0097E150 /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC419F048FE00E7A677 /* Mapper.swift */; };
 		6A2AD0461B2C786C0097E150 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC519F048FE00E7A677 /* Operators.swift */; };
 		6A2AD0471B2C786C0097E150 /* FromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC8FC319F048FE00E7A677 /* FromJSON.swift */; };
@@ -231,13 +209,6 @@
 			remoteGlobalIDString = 6A05B7A51BE274BE00F19B53;
 			remoteInfo = "ObjectMapper-tvOS";
 		};
-		6A2098092193AA00009AB4DF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6AAC8F6D19F03C2900E7A677 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6A05B7A51BE274BE00F19B53;
-			remoteInfo = "ObjectMapper-tvOS";
-		};
 		6AAC8FD519F04A5600E7A677 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6AAC8F6D19F03C2900E7A677 /* Project object */;
@@ -292,7 +263,6 @@
 		6A05B7A61BE274BE00F19B53 /* ObjectMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ObjectMapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A05B7AF1BE274BE00F19B53 /* ObjectMapper-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ObjectMapper-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A0BF1FE1C0B53470083D1AF /* ToObjectTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ToObjectTests.swift; path = ObjectMapperTests/ToObjectTests.swift; sourceTree = "<group>"; };
-		6A2098262193AA00009AB4DF /* ObjectMapper-watchOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ObjectMapper-watchOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A2AD03D1B2C78540097E150 /* ObjectMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ObjectMapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A3774331A31427F00CC0AB5 /* BasicTypesTestsToJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = BasicTypesTestsToJSON.swift; path = ObjectMapperTests/BasicTypesTestsToJSON.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		6A412A161BAC770C001C3F67 /* ClassClusterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ClassClusterTests.swift; path = ObjectMapperTests/ClassClusterTests.swift; sourceTree = "<group>"; };
@@ -331,7 +301,7 @@
 		C135CAB31D762F6900BA9338 /* DataTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTransform.swift; sourceTree = "<group>"; };
 		C135CAB61D76303E00BA9338 /* DataTransformTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataTransformTests.swift; path = ObjectMapperTests/DataTransformTests.swift; sourceTree = "<group>"; };
 		CD1602FF1AC023D5000CD69A /* ObjectMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ObjectMapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CD1603091AC023D6000CD69A /* ObjectMapper-MacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ObjectMapper-MacTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD1603091AC023D6000CD69A /* ObjectMapper-macOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ObjectMapper-macOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD44374C1AAE9C1100A271BA /* NestedKeysTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = NestedKeysTests.swift; path = ObjectMapperTests/NestedKeysTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		CD50B6FC1A82518300744312 /* TransformType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformType.swift; sourceTree = "<group>"; };
 		CD71C8C01A7218AD009D4161 /* TransformOf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TransformOf.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -353,14 +323,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A05B7B01BE274BE00F19B53 /* ObjectMapper.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6A2098202193AA00009AB4DF /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6A2098212193AA00009AB4DF /* ObjectMapper.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,12 +400,11 @@
 				6AAC8F7619F03C2900E7A677 /* ObjectMapper.framework */,
 				6AAC8F8119F03C2900E7A677 /* ObjectMapper-iOSTests.xctest */,
 				CD1602FF1AC023D5000CD69A /* ObjectMapper.framework */,
-				CD1603091AC023D6000CD69A /* ObjectMapper-MacTests.xctest */,
+				CD1603091AC023D6000CD69A /* ObjectMapper-macOSTests.xctest */,
 				6A2AD03D1B2C78540097E150 /* ObjectMapper.framework */,
 				6A05B7A61BE274BE00F19B53 /* ObjectMapper.framework */,
 				6A05B7AF1BE274BE00F19B53 /* ObjectMapper-tvOSTests.xctest */,
 				DBB9B41F2142A25100078E5A /* libObjectMapper.a */,
-				6A2098262193AA00009AB4DF /* ObjectMapper-watchOSTests.xctest */,
 			);
 			name = Products;
 			path = ..;
@@ -633,24 +594,6 @@
 			productReference = 6A05B7AF1BE274BE00F19B53 /* ObjectMapper-tvOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		6A2098072193AA00009AB4DF /* ObjectMapper-watchOSTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6A2098232193AA00009AB4DF /* Build configuration list for PBXNativeTarget "ObjectMapper-watchOSTests" */;
-			buildPhases = (
-				6A20980A2193AA00009AB4DF /* Sources */,
-				6A2098202193AA00009AB4DF /* Frameworks */,
-				6A2098222193AA00009AB4DF /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				6A2098082193AA00009AB4DF /* PBXTargetDependency */,
-			);
-			name = "ObjectMapper-watchOSTests";
-			productName = "ObjectMapper-tvOSTests";
-			productReference = 6A2098262193AA00009AB4DF /* ObjectMapper-watchOSTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		6A2AD03C1B2C78540097E150 /* ObjectMapper-watchOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6A2AD0441B2C78540097E150 /* Build configuration list for PBXNativeTarget "ObjectMapper-watchOS" */;
@@ -706,9 +649,9 @@
 			productReference = 6AAC8F8119F03C2900E7A677 /* ObjectMapper-iOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		CD1602FE1AC023D5000CD69A /* ObjectMapper-Mac */ = {
+		CD1602FE1AC023D5000CD69A /* ObjectMapper-macOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CD1603161AC023D6000CD69A /* Build configuration list for PBXNativeTarget "ObjectMapper-Mac" */;
+			buildConfigurationList = CD1603161AC023D6000CD69A /* Build configuration list for PBXNativeTarget "ObjectMapper-macOS" */;
 			buildPhases = (
 				CD1602FA1AC023D5000CD69A /* Sources */,
 				CD1602FB1AC023D5000CD69A /* Frameworks */,
@@ -719,14 +662,14 @@
 			);
 			dependencies = (
 			);
-			name = "ObjectMapper-Mac";
+			name = "ObjectMapper-macOS";
 			productName = "ObjectMapper-Mac";
 			productReference = CD1602FF1AC023D5000CD69A /* ObjectMapper.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		CD1603081AC023D6000CD69A /* ObjectMapper-MacTests */ = {
+		CD1603081AC023D6000CD69A /* ObjectMapper-macOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CD1603171AC023D6000CD69A /* Build configuration list for PBXNativeTarget "ObjectMapper-MacTests" */;
+			buildConfigurationList = CD1603171AC023D6000CD69A /* Build configuration list for PBXNativeTarget "ObjectMapper-macOSTests" */;
 			buildPhases = (
 				CD1603051AC023D6000CD69A /* Sources */,
 				CD1603061AC023D6000CD69A /* Frameworks */,
@@ -738,9 +681,9 @@
 			dependencies = (
 				CD16030C1AC023D6000CD69A /* PBXTargetDependency */,
 			);
-			name = "ObjectMapper-MacTests";
+			name = "ObjectMapper-macOSTests";
 			productName = "ObjectMapper-MacTests";
-			productReference = CD1603091AC023D6000CD69A /* ObjectMapper-MacTests.xctest */;
+			productReference = CD1603091AC023D6000CD69A /* ObjectMapper-macOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		DBB9B41E2142A25100078E5A /* ObjectMapper-Mac-Static */ = {
@@ -781,6 +724,7 @@
 					};
 					6A2AD03C1B2C78540097E150 = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 1010;
 					};
 					6AAC8F7519F03C2900E7A677 = {
 						CreatedOnToolsVersion = 6.0.1;
@@ -792,10 +736,11 @@
 					};
 					CD1602FE1AC023D5000CD69A = {
 						CreatedOnToolsVersion = 6.2;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1010;
 					};
 					CD1603081AC023D6000CD69A = {
 						CreatedOnToolsVersion = 6.2;
+						LastSwiftMigration = 1010;
 					};
 					DBB9B41E2142A25100078E5A = {
 						CreatedOnToolsVersion = 9.4.1;
@@ -817,13 +762,12 @@
 			projectRoot = "";
 			targets = (
 				6AAC8F7519F03C2900E7A677 /* ObjectMapper-iOS */,
-				CD1602FE1AC023D5000CD69A /* ObjectMapper-Mac */,
+				CD1602FE1AC023D5000CD69A /* ObjectMapper-macOS */,
 				6A2AD03C1B2C78540097E150 /* ObjectMapper-watchOS */,
 				6A05B7A51BE274BE00F19B53 /* ObjectMapper-tvOS */,
 				6AAC8F8019F03C2900E7A677 /* ObjectMapper-iOSTests */,
-				CD1603081AC023D6000CD69A /* ObjectMapper-MacTests */,
+				CD1603081AC023D6000CD69A /* ObjectMapper-macOSTests */,
 				6A05B7AE1BE274BE00F19B53 /* ObjectMapper-tvOSTests */,
-				6A2098072193AA00009AB4DF /* ObjectMapper-watchOSTests */,
 				DBB9B41E2142A25100078E5A /* ObjectMapper-Mac-Static */,
 			);
 		};
@@ -838,13 +782,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		6A05B7AD1BE274BE00F19B53 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6A2098222193AA00009AB4DF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -945,34 +882,6 @@
 				DC99C8CE1CA261AE005C788C /* NullableKeysFromJSONTests.swift in Sources */,
 				6AC692471BE3FD45004C119A /* ObjectMapperTests.swift in Sources */,
 				030114AE1D951A5600FBFD4F /* ImmutableTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6A20980A2193AA00009AB4DF /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6A20980B2193AA00009AB4DF /* MappableExtensionsTests.swift in Sources */,
-				6A20980C2193AA00009AB4DF /* MappableTypesWithTransformsTests.swift in Sources */,
-				6A20980D2193AA00009AB4DF /* GenericObjectsTests.swift in Sources */,
-				6A20980E2193AA00009AB4DF /* DataTransformTests.swift in Sources */,
-				6A20980F2193AA00009AB4DF /* MapContextTests.swift in Sources */,
-				6A2098102193AA00009AB4DF /* ClassClusterTests.swift in Sources */,
-				6A2098112193AA00009AB4DF /* DictionaryTransformTests.swift in Sources */,
-				6A2098122193AA00009AB4DF /* PerformanceTests.swift in Sources */,
-				6A2098132193AA00009AB4DF /* CodableTests.swift in Sources */,
-				6A2098142193AA00009AB4DF /* BasicTypes.swift in Sources */,
-				6A2098152193AA00009AB4DF /* ToObjectTests.swift in Sources */,
-				6A2098162193AA00009AB4DF /* NSDecimalNumberTransformTests.swift in Sources */,
-				6A2098172193AA00009AB4DF /* BasicTypesTestsFromJSON.swift in Sources */,
-				6A2098182193AA00009AB4DF /* IgnoreNilTests.swift in Sources */,
-				6A2098192193AA00009AB4DF /* BasicTypesTestsToJSON.swift in Sources */,
-				6A20981A2193AA00009AB4DF /* CustomTransformTests.swift in Sources */,
-				6A20981B2193AA00009AB4DF /* NestedKeysTests.swift in Sources */,
-				6A20981C2193AA00009AB4DF /* NestedArrayTests.swift in Sources */,
-				6A20981D2193AA00009AB4DF /* NullableKeysFromJSONTests.swift in Sources */,
-				6A20981E2193AA00009AB4DF /* ObjectMapperTests.swift in Sources */,
-				6A20981F2193AA00009AB4DF /* ImmutableTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1164,11 +1073,6 @@
 			target = 6A05B7A51BE274BE00F19B53 /* ObjectMapper-tvOS */;
 			targetProxy = 6A05B7B11BE274BE00F19B53 /* PBXContainerItemProxy */;
 		};
-		6A2098082193AA00009AB4DF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 6A05B7A51BE274BE00F19B53 /* ObjectMapper-tvOS */;
-			targetProxy = 6A2098092193AA00009AB4DF /* PBXContainerItemProxy */;
-		};
 		6AAC8FD619F04A5600E7A677 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 6AAC8F7519F03C2900E7A677 /* ObjectMapper-iOS */;
@@ -1176,7 +1080,7 @@
 		};
 		CD16030C1AC023D6000CD69A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = CD1602FE1AC023D5000CD69A /* ObjectMapper-Mac */;
+			target = CD1602FE1AC023D5000CD69A /* ObjectMapper-macOS */;
 			targetProxy = CD16030B1AC023D6000CD69A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1274,41 +1178,6 @@
 			};
 			name = Release;
 		};
-		6A2098242193AA00009AB4DF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "";
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tristanhimmelman.ObjectMapper-tvOSTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SWIFT_VERSION = 4.0;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
-			};
-			name = Debug;
-		};
-		6A2098252193AA00009AB4DF /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tristanhimmelman.ObjectMapper-tvOSTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SWIFT_VERSION = 4.0;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
-			};
-			name = Release;
-		};
 		6A2AD0421B2C78540097E150 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1330,7 +1199,7 @@
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 4;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
@@ -1358,7 +1227,7 @@
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 4;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
@@ -1569,11 +1438,12 @@
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tristanhimmelman.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
@@ -1596,11 +1466,12 @@
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tristanhimmelman.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
@@ -1621,7 +1492,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.heart.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -1638,7 +1509,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.heart.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -1712,15 +1583,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6A2098232193AA00009AB4DF /* Build configuration list for PBXNativeTarget "ObjectMapper-watchOSTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6A2098242193AA00009AB4DF /* Debug */,
-				6A2098252193AA00009AB4DF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		6A2AD0441B2C78540097E150 /* Build configuration list for PBXNativeTarget "ObjectMapper-watchOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1757,7 +1619,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CD1603161AC023D6000CD69A /* Build configuration list for PBXNativeTarget "ObjectMapper-Mac" */ = {
+		CD1603161AC023D6000CD69A /* Build configuration list for PBXNativeTarget "ObjectMapper-macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CD1603121AC023D6000CD69A /* Debug */,
@@ -1766,7 +1628,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CD1603171AC023D6000CD69A /* Build configuration list for PBXNativeTarget "ObjectMapper-MacTests" */ = {
+		CD1603171AC023D6000CD69A /* Build configuration list for PBXNativeTarget "ObjectMapper-macOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CD1603141AC023D6000CD69A /* Debug */,
