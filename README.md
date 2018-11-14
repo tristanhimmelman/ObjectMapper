@@ -143,7 +143,7 @@ Note: `StaticMappable`, like `Mappable`, is a sub protocol of `BaseMappable` whi
 ObjectMapper uses this function to get objects to use for mapping. Developers should return an instance of an object that conforms to `BaseMappable` in this function. This function can also be used to:
 - validate JSON prior to object serialization
 - provide an existing cached object to be used for mapping
-- return an object of another type (which also conforms to BaseMappable) to be used for mapping. For instance, you may inspect the JSON to infer the type of object that should be used for mapping ([see examples in ClassClusterTests.swift](https://github.com/Hearst-DD/ObjectMapper/blob/master/Tests/ObjectMapperTests/ClassClusterTests.swift#L67))
+- return an object of another type (which also conforms to BaseMappable) to be used for mapping. For instance, you may inspect the JSON to infer the type of object that should be used for mapping ([see examples in ClassClusterTests.swift](https://github.com/tristanhimmelman/ObjectMapper/blob/master/Tests/ObjectMapperTests/ClassClusterTests.swift#L67))
 
 
 If you need to implemented ObjectMapper in an extension, you will need to select this protocol instead of `Mappable`. 
@@ -290,7 +290,7 @@ func mapping(map: Map) {
     identifier <- map["app.identifier", nested: false]
 }
 ```
-When you have nested keys which contain `.`, you can pass the custom nested key delimiter as follows ([#629](https://github.com/Hearst-DD/ObjectMapper/pull/629)):
+When you have nested keys which contain `.`, you can pass the custom nested key delimiter as follows ([#629](https://github.com/tristanhimmelman/ObjectMapper/pull/629)):
 ```swift
 func mapping(map: Map) {
     appName <- map["com.myapp.info->com.myapp.name", delimiter: "->"]
@@ -478,21 +478,21 @@ If you're using [Carthage](https://github.com/Carthage/Carthage) you can add a d
 
 ```
 <<<<<<< Updated upstream
-github "Hearst-DD/ObjectMapper" ~> 3.4
+github "tristanhimmelman/ObjectMapper" ~> 3.4
 ```
 
 ### Swift Package Manager
 To add ObjectMapper to a [Swift Package Manager](https://swift.org/package-manager/) based project, add:
 
 ```swift
-.Package(url: "https://github.com/Hearst-DD/ObjectMapper.git", majorVersion: 3, minor: 2),
+.Package(url: "https://github.com/tristanhimmelman/ObjectMapper.git", majorVersion: 3, minor: 4),
 ```
 to your `Package.swift` files `dependencies` array.
 
 ### Submodule
 Otherwise, ObjectMapper can be added as a submodule:
 
-1. Add ObjectMapper as a [submodule](http://git-scm.com/docs/git-submodule) by opening the terminal, `cd`-ing into your top-level project directory, and entering the command `git submodule add https://github.com/Hearst-DD/ObjectMapper.git`
+1. Add ObjectMapper as a [submodule](http://git-scm.com/docs/git-submodule) by opening the terminal, `cd`-ing into your top-level project directory, and entering the command `git submodule add https://github.com/tristanhimmelman/ObjectMapper.git`
 2. Open the `ObjectMapper` folder, and drag `ObjectMapper.xcodeproj` into the file navigator of your app project.
 3. In Xcode, navigate to the target configuration window by clicking on the blue project icon, and selecting the application target under the "Targets" heading in the sidebar.
 4. Ensure that the deployment target of `ObjectMapper.framework` matches that of the application target.

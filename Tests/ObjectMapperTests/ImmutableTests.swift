@@ -6,7 +6,7 @@
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2014-2016 Hearst
+//  Copyright (c) 2014-2018 Tristan Himmelman
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -113,9 +113,9 @@ class ImmutableObjectTests: XCTestCase {
 			"array": ["a", "b", "c"],
 			"dictionary": ["a": 10, "b": 20, "c": 30],
 		],
-		"com.hearst.ObjectMapper.nested": [
-			"com.hearst.ObjectMapper.int": 123,
-			"com.hearst.ObjectMapper.string": "hello",
+		"com.tristanhimmelman.ObjectMapper.nested": [
+			"com.tristanhimmelman.ObjectMapper.int": 123,
+			"com.tristanhimmelman.ObjectMapper.string": "hello",
 			"array": ["a", "b", "c"],
 			"dictionary": ["a": 10, "b": 20, "c": 30],
 		]
@@ -476,10 +476,10 @@ extension Struct: ImmutableMappable {
 		nestedArray = try map.value("nested.array")
 		nestedDictionary = try map.value("nested.dictionary")
 		
-		delimiterNestedInt = try map.value("com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.int", delimiter: "->")
-		delimiterNestedString = try map.value("com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.string", delimiter: "->")
-		delimiterNestedArray = try map.value("com.hearst.ObjectMapper.nested->array", delimiter: "->")
-		delimiterNestedDictionary = try map.value("com.hearst.ObjectMapper.nested->dictionary", delimiter: "->")
+		delimiterNestedInt = try map.value("com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.int", delimiter: "->")
+		delimiterNestedString = try map.value("com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.string", delimiter: "->")
+		delimiterNestedArray = try map.value("com.tristanhimmelman.ObjectMapper.nested->array", delimiter: "->")
+		delimiterNestedDictionary = try map.value("com.tristanhimmelman.ObjectMapper.nested->dictionary", delimiter: "->")
 	}
 
 	mutating func mapping(map: Map) {
@@ -552,10 +552,10 @@ extension Struct: ImmutableMappable {
 		nestedArray >>> map["nested.array"]
 		nestedDictionary >>> map["nested.dictionary"]
 		
-		delimiterNestedInt >>> map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.int", delimiter: "->"]
-		delimiterNestedString >>> map["com.hearst.ObjectMapper.nested->com.hearst.ObjectMapper.string", delimiter: "->"]
-		delimiterNestedArray >>> map["com.hearst.ObjectMapper.nested->array", delimiter: "->"]
-		delimiterNestedDictionary >>> map["com.hearst.ObjectMapper.nested->dictionary", delimiter: "->"]
+		delimiterNestedInt >>> map["com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.int", delimiter: "->"]
+		delimiterNestedString >>> map["com.tristanhimmelman.ObjectMapper.nested->com.tristanhimmelman.ObjectMapper.string", delimiter: "->"]
+		delimiterNestedArray >>> map["com.tristanhimmelman.ObjectMapper.nested->array", delimiter: "->"]
+		delimiterNestedDictionary >>> map["com.tristanhimmelman.ObjectMapper.nested->dictionary", delimiter: "->"]
 	}
 }
 
