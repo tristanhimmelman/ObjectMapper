@@ -56,7 +56,7 @@ open class CodableTransform<T: Codable>: TransformType {
         do {
             let encoder = JSONEncoder()
             let data = try encoder.encode(item)
-            let dictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
+            let dictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
             return dictionary
         } catch {
             return nil
