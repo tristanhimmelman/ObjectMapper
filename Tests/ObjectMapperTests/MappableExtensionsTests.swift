@@ -57,6 +57,60 @@ func ==(lhs: TestMappable, rhs: TestMappable) -> Bool {
 	return lhs.value == rhs.value
 }
 
+class CustomDictionary<KeyType: Hashable, ValueType>: Mappable {
+	var _dictionary: [KeyType: ValueType]
+
+	init() {
+		_dictionary = [:]
+	}
+
+	required init?(map: Map) {
+		_dictionary = [:]
+	}
+
+	func mapping(map: Map) {
+		_dictionary <- map["dict"]
+	}
+
+	subscript(key: KeyType) -> ValueType? {
+		get {
+			return _dictionary[key]
+		}
+		set {
+			if newValue == nil {
+				self.removeValueForKey(key: key)
+			} else {
+				self.updateValue(value: newValue!, forKey: key)
+			}
+		}
+	}
+
+	@discardableResult
+	func updateValue(value: ValueType, forKey key: KeyType) -> ValueType? {
+		let oldValue = _dictionary.updateValue(value, forKey: key)
+		return oldValue
+	}
+
+	func removeValueForKey(key: KeyType) {
+		_dictionary.removeValue(forKey: key)
+	}
+}
+
+class CustomDictionaryWrapper: Mappable {
+	private var foo: [String: CustomDictionary<String, TestMappable>] = [:]
+
+	init(_ foo: [String: CustomDictionary<String, TestMappable>]) {
+		self.foo = foo
+	}
+
+	required init?(map: Map) {
+	}
+
+	func mapping(map: Map) {
+		foo <- map["questionSubmissions"]
+	}
+}
+
 class MappableExtensionsTests: XCTestCase {
 	
 	var testMappable: TestMappable!
@@ -101,5 +155,20 @@ class MappableExtensionsTests: XCTestCase {
 	func testSetToJSONAndBack() {
 		let mapped = Set<TestMappable>(JSONArray: Set([testMappable]).toJSON())
 		XCTAssertEqual(mapped, [testMappable])
+	}
+	
+	func testCustomDictionary() {
+		let customDict = CustomDictionary<String, TestMappable>()
+		var firstMappable = TestMappable()
+		firstMappable.value = "taco"
+		customDict["first"] = firstMappable
+		var secondMappable = TestMappable()
+		secondMappable.value = "burrito"
+		customDict["second"] = secondMappable
+		var normalDict = [String: CustomDictionary<String, TestMappable>]()
+		normalDict["foo"] = customDict
+		let foo = CustomDictionaryWrapper(normalDict)
+		let json = Mapper().toJSONString(foo)
+		XCTAssertNotNil(json)
 	}
 }
