@@ -342,33 +342,33 @@ Classes that implement the `Mappable` protocol can easily be subclassed. When su
 
 ```swift
 class Base: Mappable {
-	var base: String?
-	
-	required init?(map: Map) {
+    var base: String?
+    
+    required init?(map: Map) {
 
-	}
+    }
 
-	func mapping(map: Map) {
-		base <- map["base"]
-	}
+    func mapping(map: Map) {
+        base <- map["base"]
+    }
 }
 
 class Subclass: Base {
-	var sub: String?
+    var sub: String?
 
-	required init?(map: Map) {
-		super.init(map)
-	}
+    required init?(map: Map) {
+        super.init(map)
+    }
 
-	override func mapping(map: Map) {
-		super.mapping(map)
-		
-		sub <- map["sub"]
-	}
+    override func mapping(map: Map) {
+        super.mapping(map)
+        
+        sub <- map["sub"]
+    }
 }
 ```
 
-Make sure your subclass implemenation calls the right initializers and mapping functions to also apply the mappings from your superclass.
+Make sure your subclass implementation calls the right initializers and mapping functions to also apply the mappings from your superclass.
 
 # Generic Objects
 
@@ -428,15 +428,15 @@ ObjectMapper and Realm can be used together. Simply follow the class structure b
 
 ```swift
 class Model: Object, Mappable {
-	dynamic var name = ""
+    dynamic var name = ""
 
-	required convenience init?(map: Map) {
-		self.init()
-	}
+    required convenience init?(map: Map) {
+        self.init()
+    }
 
-	func mapping(map: Map) {
-		name <- map["name"]
-	}
+    func mapping(map: Map) {
+        name <- map["name"]
+    }
 }
 ```
 
