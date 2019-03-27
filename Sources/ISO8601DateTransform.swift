@@ -29,7 +29,7 @@
 import Foundation
 
 public extension DateFormatter {
-	public convenience init(withFormat format : String, locale : String) {
+	convenience init(withFormat format : String, locale : String) {
 		self.init()
 		self.locale = Locale(identifier: locale)
 		dateFormat = format
