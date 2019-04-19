@@ -43,7 +43,8 @@ class CodableTests: XCTestCase {
 	}
 	
 	func testCodableTransform() {
-		let JSON: [String: Any] = [ "value": [ "one": "1", "two": 2, "three": true ]]
+		let value: [String: Any] = [ "one": "1", "two": 2, "three": true ]
+		let JSON: [String: Any] = [ "value": value, "array_value": [value, value]]
 		
 		let mapper = Mapper<ImmutableMappableObject>()
 		
@@ -54,23 +55,26 @@ class CodableTests: XCTestCase {
 		XCTAssertNotNil(object.value?.one)
 		XCTAssertNotNil(object.value?.two)
 		XCTAssertNotNil(object.value?.three)
+		XCTAssertNotNil(object.arrayValue)
 	}
-	
 }
 
 class ImmutableMappableObject: ImmutableMappable {
 	
 	var value: CodableModel?
+	var arrayValue: [CodableModel]?
 	var nilValue: CodableModel?
 	
 	required init(map: Map) throws {
 		nilValue = try? map.value("value")
 		value = try? map.value("value", using: CodableTransform<CodableModel>())
+		arrayValue = try? map.value("array_value", using: CodableTransform<[CodableModel]>())
 	}
 
 	func mapping(map: Map) {
 		nilValue <- map["value"]
 		value	<- (map["value"], using: CodableTransform<CodableModel>())
+		arrayValue <- (map["array_value"], using: CodableTransform<[CodableModel]>())
 	}
 }
 
