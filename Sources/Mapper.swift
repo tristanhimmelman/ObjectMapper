@@ -108,7 +108,10 @@ public final class Mapper<N: BaseMappable> {
 			}
 		} else if let klass = N.self as? ImmutableMappable.Type { // Check if object is ImmutableMappable
 			do {
-				return try klass.init(map: map) as? N
+				if var object = try klass.init(map: map) as? N {
+					object.mapping(map: map)
+					return object
+				}
 			} catch let error {
 				#if DEBUG
 				let exception: NSException
