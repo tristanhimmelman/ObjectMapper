@@ -159,11 +159,9 @@ public extension Map {
 		guard let jsonDictionary = currentValue as? [String: Any] else {
 			throw MapError(key: key, currentValue: currentValue, reason: "Cannot cast to '[String: Any]'", file: file, function: function, line: line)
 		}
-		var value: [String: T] = [:]
-		for (key, json) in jsonDictionary {
-			value[key] = try Mapper<T>(context: context).mapOrFail(JSONObject: json)
+		return try jsonDictionary.mapValues { json in
+			return try Mapper<T>(context: context).mapOrFail(JSONObject: json)
 		}
-		return value
 	}
 
 	/// Returns a `[String: BaseMappable]` boxed in `Optional` or throws an error.
@@ -187,14 +185,12 @@ public extension Map {
 		guard let jsonDictionary = currentValue as? [String: Any] else {
 			throw MapError(key: key, currentValue: currentValue, reason: "Cannot cast to '[String: Any]'", file: file, function: function, line: line)
 		}
-		var value: [String: Transform.Object] = [:]
-		for (key, json) in jsonDictionary {
+		return try jsonDictionary.mapValues { json in
 			guard let object = transform.transformFromJSON(json) else {
 				throw MapError(key: key, currentValue: json, reason: "Cannot transform to '\(Transform.Object.self)' using \(transform)", file: file, function: function, line: line)
 			}
-			value[key] = object
+			return object
 		}
-		return value
 	}
 	
 	/// Returns a `[String: BaseMappable]` using transform or throws an error.

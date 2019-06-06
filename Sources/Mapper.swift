@@ -189,7 +189,7 @@ public final class Mapper<N: BaseMappable> {
 	public func mapDictionary(JSON: [String: [String: Any]]) -> [String: N]? {
 		// map every value in dictionary to type N
 		let result = JSON.filterMap(map)
-		if result.isEmpty == false {
+		if !result.isEmpty {
 			return result
 		}
 		
@@ -235,7 +235,7 @@ public final class Mapper<N: BaseMappable> {
 			mapArray(JSONArray: $0)
         }
         
-		if result.isEmpty == false {
+		if !result.isEmpty {
 			return result
 		}
         
@@ -245,13 +245,11 @@ public final class Mapper<N: BaseMappable> {
 	/// Maps an 2 dimentional array of JSON dictionaries to a 2 dimentional array of Mappable objects
 	public func mapArrayOfArrays(JSONObject: Any?) -> [[N]]? {
 		if let JSONArray = JSONObject as? [[[String: Any]]] {
-			var objectArray = [[N]]()
-			for innerJSONArray in JSONArray {
-				let array = mapArray(JSONArray: innerJSONArray)
-				objectArray.append(array)
+			let objectArray = JSONArray.map { innerJSONArray in
+				return mapArray(JSONArray: innerJSONArray)
 			}
 			
-			if objectArray.isEmpty == false {
+			if !objectArray.isEmpty {
 				return objectArray
 			}
 		}
