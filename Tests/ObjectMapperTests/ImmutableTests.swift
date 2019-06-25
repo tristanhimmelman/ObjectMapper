@@ -339,21 +339,28 @@ class ImmutableObjectTests: XCTestCase {
 			}
 		}
 
+		enum RawRepresentableEnum: String {
+			case world
+		}
 		struct Object: ImmutableMappable {
 			let immutable: ImmutableObject?
+			let enumValue: RawRepresentableEnum?
 			init(map: Map) throws {
 				self.immutable = try map.value("immutable")
+				self.enumValue = try map.value("enum")
 			}
 		}
 
 		let json: [String: Any] = [
 			"immutable": [
 				"value": "Hello"
-			]
+			],
+			"enum": "world"
 		]
 		do {
 			let object = try Mapper<Object>().map(JSON: json)
 			XCTAssertEqual(object.immutable?.value, "Hello")
+			XCTAssertEqual(object.enumValue, .world)
 		} catch {
 			XCTFail()
 		}
