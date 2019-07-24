@@ -110,6 +110,14 @@ public extension Map {
 		return try Mapper<T>(context: context).mapOrFail(JSONObject: JSONObject)
 	}
 	
+	func value<T: BaseMappable>(_ key: String, nested: Bool? = nil, delimiter: String = ".", file: StaticString = #file, function: StaticString = #function, line: UInt = #line) -> T? {
+		let currentValue = self.currentValue(for: key, nested: nested, delimiter: delimiter)
+		guard let JSONObject = currentValue as? [String: Any] else {
+			return nil
+		}
+		return Mapper<T>(context: context).map(JSON: JSONObject)
+	}
+	
 	/// Returns a `BaseMappable` object boxed in `Optional` or throws an error.
 	func value<T: BaseMappable>(_ key: String, nested: Bool? = nil, delimiter: String = ".", file: StaticString = #file, function: StaticString = #function, line: UInt = #line) throws -> T? {
 		let currentValue = self.currentValue(for: key, nested: nested, delimiter: delimiter)
