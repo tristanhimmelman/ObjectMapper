@@ -71,7 +71,7 @@ class PerformanceTests: XCTestCase {
 	
 	func testPerformanceImmutable() {
 		self.measure {
-			_ = try? Mapper<PerformanceImmutableMappableObject>().mapArray(JSONString: self.JSONTestString)
+			_ = try? Mapper<PerformanceImmutableMappableObject>().mapArray(JSONString: self.JSONTestString) as [PerformanceImmutableMappableObject]
 		}
 	}
 }
