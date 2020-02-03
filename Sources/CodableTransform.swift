@@ -33,7 +33,7 @@ open class CodableTransform<T: Codable>: TransformType {
 
     public typealias Object = T
     public typealias JSON = Any
-    let encoder: JSONEncoder
+    private let encoder: JSONEncoder
     private let decoder: JSONDecoder
     
     public init(decoder: JSONDecoder = .init(), encoder: JSONEncoder = .init()) {
