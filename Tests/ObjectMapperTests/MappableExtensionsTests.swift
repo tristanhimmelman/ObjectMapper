@@ -49,8 +49,9 @@ struct TestMappable: Mappable, Equatable, Hashable {
 	func hash(into hasher: inout Hasher) {
 		if let value = value {
 			hasher.combine(value)
+		} else {
+			hasher.combine(NSIntegerMax)
 		}
-		hasher.combine(NSIntegerMax)
 	}
 }
 
