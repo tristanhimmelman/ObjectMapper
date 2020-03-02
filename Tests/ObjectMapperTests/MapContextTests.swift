@@ -242,6 +242,32 @@ class MapContextTests: XCTestCase {
 		
 		XCTFail()
 	}
+
+	func testDefaultArgumentWithoutValue() {
+		let JSON: [String: Any] = [:]
+		let dog = try? Mapper<ImmutableDog>().map(JSON: JSON) as ImmutableDog
+
+		XCTAssertNotNil(dog)
+		XCTAssertTrue(dog!.name == "Sasha")
+	}
+
+	func testDefaultArgumentWithValue() {
+		let JSON = ["name": "Sofie"]
+		let dog = try? Mapper<ImmutableDog>().map(JSON: JSON) as ImmutableDog
+
+		XCTAssertNotNil(dog)
+		XCTAssertTrue(dog!.name == "Sofie")
+	}
+
+	// MARK: - Default Argument
+	public struct ImmutableDog: ImmutableMappable {
+		public let name: String
+
+		/// Define `default` value to use if it is nothing to parse in `name`
+		public init(map: Map) throws {
+			name = try map.value("name", default: "Sasha")
+		}
+	}
 	
 	// MARK: - Nested Types
 	// MARK: BaseMappable
