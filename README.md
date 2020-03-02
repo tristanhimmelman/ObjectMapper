@@ -248,6 +248,7 @@ init(map: Map) throws {
     createdAt = try map.value("createdAt", using: DateTransform()) // throws an error when it fails
     updatedAt = try? map.value("updatedAt", using: DateTransform()) // optional
     posts     = (try? map.value("posts")) ?? [] // optional + default value
+    surname    = try? map.value("surname", default: "DefaultSurname") // optional + default value as an argument
 }
 ```
 
