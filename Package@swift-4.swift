@@ -11,7 +11,7 @@ let package = Package(
     targets: [
         .target(
             name: "ObjectMapper", 
-            dependencies: []
+            path: "Sources"
         )
     ],
     swiftLanguageVersions = [3, 4]
