@@ -1,5 +1,5 @@
 language: objective-c
-osx_image: xcode9.4
+osx_image: xcode11.3
 
 env:
   global:
@@ -14,19 +14,13 @@ env:
     #iOS
     - DESTINATION="OS=11.4,name=iPhone X"            SCHEME="$IOS_FRAMEWORK_SCHEME"      RUN_TESTS="YES"
     - DESTINATION="OS=10.3.1,name=iPhone 7 Plus"     SCHEME="$IOS_FRAMEWORK_SCHEME"      RUN_TESTS="YES"
-    - DESTINATION="OS=9.3,name=iPhone 6"             SCHEME="$IOS_FRAMEWORK_SCHEME"      RUN_TESTS="YES"
     #macOS
     - DESTINATION="arch=x86_64"                      SCHEME="$OSX_FRAMEWORK_SCHEME"      RUN_TESTS="YES"
-    #watchOS
-    - DESTINATION="OS=4.3,name=Apple Watch - 42mm"   SCHEME="$WATCHOS_FRAMEWORK_SCHEME"  RUN_TESTS="NO"
-    - DESTINATION="OS=3.2,name=Apple Watch - 42mm"   SCHEME="$WATCHOS_FRAMEWORK_SCHEME"  RUN_TESTS="NO"
-    - DESTINATION="OS=2.2,name=Apple Watch - 42mm"   SCHEME="$WATCHOS_FRAMEWORK_SCHEME"  RUN_TESTS="NO"
     #tvOS
     - DESTINATION="OS=11.4,name=Apple TV 4K"         SCHEME="$TVOS_FRAMEWORK_SCHEME"     RUN_TESTS="YES"
-    - DESTINATION="OS=10.2,name=Apple TV 1080p"      SCHEME="$TVOS_FRAMEWORK_SCHEME"     RUN_TESTS="YES"
 
 before_install:
-  - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
+  - gem install xcpretty --no-document --quiet
 
 script:
   - set -o pipefail
