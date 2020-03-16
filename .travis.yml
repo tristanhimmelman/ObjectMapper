@@ -26,7 +26,7 @@ env:
     - DESTINATION="OS=10.2,name=Apple TV 1080p"      SCHEME="$TVOS_FRAMEWORK_SCHEME"     RUN_TESTS="YES"
 
 before_install:
-  - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
+  - gem install xcpretty --no-document --quiet
 
 script:
   - set -o pipefail
