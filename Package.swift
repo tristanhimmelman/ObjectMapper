@@ -1,5 +1,11 @@
 import PackageDescription
 
 let package = Package(
-    name: "ObjectMapper"
+    name: "ObjectMapper",
+    targets: [
+        .target(
+            name: "ObjectMapper", 
+            path: "Sources"
+        )
+    ],
 )
