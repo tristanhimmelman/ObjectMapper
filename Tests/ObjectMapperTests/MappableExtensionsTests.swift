@@ -44,12 +44,14 @@ struct TestMappable: Mappable, Equatable, Hashable {
 	mutating func mapping(map: Map) {
 		value <- map["value"]
 	}
-	
-	var hashValue: Int {
+
+
+	func hash(into hasher: inout Hasher) {
 		if let value = value {
-			return value.hashValue
+			hasher.combine(value)
+		} else {
+			hasher.combine(NSIntegerMax)
 		}
-		return NSIntegerMax
 	}
 }
 
