@@ -138,7 +138,7 @@ class MapContextTests: XCTestCase {
 		let JSON = ["name": "Anton"]
 		let context = ImmutableContext(isDeveloper: true)
 		
-		let person = try? Mapper<ImmutablePerson>(context: context).map(JSON: JSON) as ImmutablePerson
+		let person = try? Mapper<ImmutablePerson>(context: context).map(JSON: JSON)
 		
 		XCTAssertNotNil(person)
 		
@@ -149,7 +149,7 @@ class MapContextTests: XCTestCase {
 		let JSON = ["name": "Anton"]
 		let context = ImmutableContext(isDeveloper: true)
 		
-		let person = try? ImmutablePerson(JSON: JSON, context: context) as ImmutablePerson
+		let person = try? ImmutablePerson(JSON: JSON, context: context)
 		
 		XCTAssertNotNil(person)
 		XCTAssertEqual(person?.isDeveloper ?? !context.isDeveloper, context.isDeveloper)
@@ -172,7 +172,7 @@ class MapContextTests: XCTestCase {
 		let JSON = ["person": ["name": "Anton"]]
 		let context = ImmutableContext(isDeveloper: true)
 		
-		let nestedPerson = try? Mapper<ImmutableNestedPerson>(context: context).map(JSON: JSON) as ImmutableNestedPerson
+		let nestedPerson = try? Mapper<ImmutableNestedPerson>(context: context).map(JSON: JSON)
 		
 		XCTAssertNotNil(nestedPerson)
 		XCTAssertEqual(nestedPerson?.person.isDeveloper ?? !context.isDeveloper, context.isDeveloper)
@@ -182,7 +182,7 @@ class MapContextTests: XCTestCase {
 		let JSON = ["person": ["name": "Anton"]]
 		let context = ImmutableContext(isDeveloper: true)
 		
-		let nestedPerson = try? ImmutableNestedPerson(JSON: JSON, context: context) as ImmutableNestedPerson
+		let nestedPerson = try? ImmutableNestedPerson(JSON: JSON, context: context)
 		
 		XCTAssertNotNil(nestedPerson)
 		XCTAssertEqual(nestedPerson?.person.isDeveloper ?? !context.isDeveloper, context.isDeveloper)
@@ -207,7 +207,7 @@ class MapContextTests: XCTestCase {
 		let JSON = ["persons": [["name": "Tristan"], ["name": "Anton"]]]
 		let context = ImmutableContext(isDeveloper: true)
 		
-		let personList = try? Mapper<ImmutablePersonList>(context: context).map(JSON: JSON) as ImmutablePersonList
+		let personList = try? Mapper<ImmutablePersonList>(context: context).map(JSON: JSON)
 		
 		XCTAssertNotNil(personList)
 		
@@ -220,7 +220,7 @@ class MapContextTests: XCTestCase {
 		let JSON = ["persons": [["name": "Tristan"], ["name": "Anton"]]]
 		let context = ImmutableContext(isDeveloper: true)
 		
-		let personList = try? ImmutablePersonList(JSON: JSON, context: context) as ImmutablePersonList
+		let personList = try? ImmutablePersonList(JSON: JSON, context: context)
 		
 		XCTAssertNotNil(personList)
 		
@@ -241,6 +241,32 @@ class MapContextTests: XCTestCase {
 		}
 		
 		XCTFail()
+	}
+
+	func testDefaultArgumentWithoutValue() {
+		let JSON: [String: Any] = [:]
+		let dog = try? Mapper<ImmutableDog>().map(JSON: JSON) as ImmutableDog
+
+		XCTAssertNotNil(dog)
+		XCTAssertTrue(dog!.name == "Sasha")
+	}
+
+	func testDefaultArgumentWithValue() {
+		let JSON = ["name": "Sofie"]
+		let dog = try? Mapper<ImmutableDog>().map(JSON: JSON) as ImmutableDog
+
+		XCTAssertNotNil(dog)
+		XCTAssertTrue(dog!.name == "Sofie")
+	}
+
+	// MARK: - Default Argument
+	public struct ImmutableDog: ImmutableMappable {
+		public let name: String
+
+		/// Define `default` value to use if it is nothing to parse in `name`
+		public init(map: Map) throws {
+			name = try map.value("name", default: "Sasha")
+		}
 	}
 	
 	// MARK: - Nested Types

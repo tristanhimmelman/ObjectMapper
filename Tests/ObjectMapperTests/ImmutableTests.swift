@@ -201,12 +201,12 @@ class ImmutableObjectTests: XCTestCase {
 		XCTAssertEqual(immutable.delimiterNestedDictionary, ["a": 10, "b": 20, "c": 30])
 		
 		let JSON2: [String: Any] = [ "prop1": "prop1", "prop2": NSNull() ]
-		let immutable2 = try? mapper.map(JSON: JSON2) as Struct
+		let immutable2 = try? mapper.map(JSON: JSON2)
 		XCTAssertNil(immutable2)
 		
 		// TODO: ImmutableMappable to JSON
 		let JSONFromObject = mapper.toJSON(immutable)
-		let objectFromJSON = try? mapper.map(JSON: JSONFromObject) as Struct
+		let objectFromJSON = try? mapper.map(JSON: JSONFromObject)
 		XCTAssertNotNil(objectFromJSON)
 		assertImmutableObjectsEqual(objectFromJSON!, immutable)
 	}
