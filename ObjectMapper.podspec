@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'ObjectMapper'
-  s.version = '3.5.2'
+  s.version = '3.5.3'
   s.license = 'MIT'
   s.summary = 'JSON Object mapping written in Swift'
   s.homepage = 'https://github.com/tristanhimmelman/ObjectMapper'
