@@ -485,7 +485,7 @@ github "tristanhimmelman/ObjectMapper" ~> 3.5 (check releases to make sure this 
 To add ObjectMapper to a [Swift Package Manager](https://swift.org/package-manager/) based project, add:
 
 ```swift
-.Package(url: "https://github.com/tristanhimmelman/ObjectMapper.git", majorVersion: 3, minor: 4),
+.package(url: "https://github.com/tristanhimmelman/ObjectMapper.git", .upToNextMajor(from: "4.1.0")),
 ```
 to your `Package.swift` files `dependencies` array.
 
