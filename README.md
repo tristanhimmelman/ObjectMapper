@@ -296,6 +296,29 @@ func mapping(map: Map) {
 }
 ```
 
+# Support Multi-Keys
+Different JSON use different keys to identify the values that mean same thing. Likes,
+First JSON:
+```json
+{
+    "code" : 200,
+    "message" : "success"
+}
+```
+Second JSON:
+```json
+{
+    "code" : 200,
+    "msg" : "success"
+}
+```
+For the 'success' value, you can access the multi-keys object as follows:
+```swift
+func mapping(map: Map) {
+    identifier <- map["message|msg", nested: false, delimiter: "|"]
+}
+```
+
 # Custom Transforms
 ObjectMapper also supports custom transforms that convert values during the mapping process. To use a transform, simply create a tuple with `map["field_name"]` and the transform of your choice on the right side of the `<-` operator:
 ```swift
