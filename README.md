@@ -80,6 +80,15 @@ struct Temperature: Mappable {
 }
 ```
 
+If the `username` has alternative value from key `nickname`, you can use `or` like:
+```
+func mapping(map: Map) {
+	//...
+	username	<- map["username"].or["nickname"]
+	//...
+}
+```
+
 Once your class implements `Mappable`, ObjectMapper allows you to easily convert to and from JSON. 
 
 Convert a JSON string to a model object:
