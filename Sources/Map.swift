@@ -244,3 +244,47 @@ public extension Map {
     }
   }
 }
+
+// MARK: - Multi Key Support for Map
+public extension Map {
+	
+	/// If can't get value from primary choice, use this instead
+	/// first json data like:
+	/// ```json
+	/// {
+	/// 	username: "John Doe"
+	/// }
+	/// ```
+	/// second json data like:
+	/// ```json
+	/// {
+	/// 	nickname: "John"
+	/// }
+	/// Usage:
+	/// ```swift
+	/// func mapping(map: Map) {
+	/// 	//...
+	/// 	name	<- map["username"].or["nickname"]
+	/// 	//...
+	/// }
+	/// ```
+	/// You can get valid name either the first or the second json data.
+	var or: MapOr { .init(self) }
+}
+
+public class MapOr {
+	var map: Map
+	init(_ map: Map) {
+		self.map = map
+	}
+	
+	public subscript(key: String, nested nested: Bool? = nil, delimiter delimiter: String = ".", ignoreNil ignoreNil: Bool = false) -> Map {
+		guard map.currentValue == nil else {
+			return map
+		}
+		
+		_ = map[key, nested: nested, delimiter: delimiter, ignoreNil: ignoreNil]
+		
+		return map
+	}
+}
