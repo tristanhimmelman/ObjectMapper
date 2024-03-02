@@ -106,7 +106,16 @@ public final class Map {
 				// break down the components of the key that are separated by delimiter
 				(isKeyPresent, currentValue) = valueFor(ArraySlice(key.components(separatedBy: delimiter)), dictionary: JSON)
 			} else {
-				let object = JSON[key]
+				var object = JSON[key]
+                if object == nil && key.contains(delimiter) {
+                    let components = key.components(separatedBy: delimiter)
+                    for item in components {
+                        object = JSON[item]
+                        if object != nil {
+                            break
+                        }
+                    }
+                }
 				let isNSNull = object is NSNull
 				isKeyPresent = isNSNull ? true : object != nil
 				currentValue = isNSNull ? nil : object

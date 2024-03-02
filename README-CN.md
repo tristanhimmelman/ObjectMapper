@@ -306,6 +306,29 @@ func mapping(map: Map) {
 }
 ```
 
+# 支持多个Key
+有些JSON相同意义的Value对应了多个不同的Key。例如：
+第一个JSON:
+```json
+{
+    "code" : 200,
+    "message" : "success"
+}
+```
+第二个JSON:
+```json
+{
+    "code" : 200,
+    "msg" : "success"
+}
+```
+对于'success'的值, 你可以像这样来访问它:
+```swift
+func mapping(map: Map) {
+    identifier <- map["message|msg", nested: false, delimiter: "|"]
+}
+```
+
 # 自定义转换规则
 ObjectMapper 也支持在映射时自定义转换规则。如果要使用自定义转换，创建一个 tuple（元祖）包含 ```map["field_name"]``` 和你要使用的变换放在 ```<-``` 的右边：
 
