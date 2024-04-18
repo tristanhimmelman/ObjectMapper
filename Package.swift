@@ -1,12 +1,12 @@
-// swift-tools-version:5.0
+// swift-tools-version:5.3
 
 import PackageDescription
 
 let package = Package(name: "ObjectMapper",
-                      platforms: [.macOS(.v10_10),
-                                  .iOS(.v13),
-                                  .tvOS(.v9),
-                                  .watchOS(.v2)],
+                      platforms: [.macOS(.v12),
+                                  .iOS(.v17),
+                                  .tvOS(.v17),
+                                  .watchOS(.v10)],
                       products: [.library(name: "ObjectMapper",
                                           targets: ["ObjectMapper"])],
                       targets: [.target(name: "ObjectMapper",
