@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'ObjectMapper'
-  s.version = '4.4.0'
+  s.version = '4.4.2'
   s.license = 'MIT'
   # Ensure developers won't hit CocoaPods/CocoaPods#11402 with the resource
   # bundle for the privacy manifest.
@@ -12,10 +12,10 @@ Pod::Spec.new do |s|
   s.resource_bundle = {
     "Privacy" => "Sources/Resources/PrivacyInfo.xcprivacy"
   }
-  s.watchos.deployment_target = '10.0'
-  s.ios.deployment_target = '17.0'
+  s.watchos.deployment_target = '2.0'
+  s.ios.deployment_target = '13.0'
   s.osx.deployment_target = '12.0'
-  s.tvos.deployment_target = '17.0'
+  s.tvos.deployment_target = '9.0'
 
   s.swift_version = '5.0'
 
